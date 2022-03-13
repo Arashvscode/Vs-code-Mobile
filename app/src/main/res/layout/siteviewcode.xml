@@ -1,0 +1,71 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/_coordinator"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<com.google.android.material.appbar.AppBarLayout
+		android:id="@+id/_app_bar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:theme="@style/AppTheme.AppBarOverlay">
+		<androidx.appcompat.widget.Toolbar
+			android:id="@+id/_toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="?attr/colorPrimary"
+			app:popupTheme="@style/AppTheme.PopupOverlay" />
+	</com.google.android.material.appbar.AppBarLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
+		<LinearLayout
+			android:id="@+id/linear1"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="#000027"
+			android:orientation="vertical">
+			<LinearLayout
+				android:id="@+id/linear2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:orientation="horizontal">
+				<EditText
+					android:id="@+id/edittext1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:background="@android:color/transparent"
+					android:text="https://www.google.com"
+					android:textSize="16sp"
+					android:textColor="#FFFFFF"
+					android:hint="Edit Text"
+					android:textColorHint="#607D8B" />
+			</LinearLayout>
+			<io.github.rosemoe.sora.widget.CodeEditor
+				android:id="@+id/editor"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:padding="8dp"
+				android:orientation="vertical" />
+		</LinearLayout>
+	</LinearLayout>
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+android:textColor="#FFFFFF"
+android:text="Run in code"
+app:shapeAppearance="@style/cutImage"
+		android:id="@+id/_fab"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="19dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginRight="21dp"
+		android:layout_marginBottom="40dp"
+		android:layout_gravity="right|bottom"
+		app:srcCompat="@drawable/variant" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,114 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/_coordinator"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<com.google.android.material.appbar.AppBarLayout
+		android:id="@+id/_app_bar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:theme="@style/AppTheme.AppBarOverlay">
+		<androidx.appcompat.widget.Toolbar
+			android:id="@+id/_toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="?attr/colorPrimary"
+			app:popupTheme="@style/AppTheme.PopupOverlay" />
+	</com.google.android.material.appbar.AppBarLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
+		<LinearLayout
+			android:id="@+id/linear1"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:padding="8dp"
+			android:background="#000027"
+			android:orientation="vertical">
+			<TextView
+				android:id="@+id/textview2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="ABCDEFGHIJKMLNOPTUYTSZ"
+				android:textSize="14sp"
+				android:textColor="#2196F3" />
+			<TextView
+				android:id="@+id/textview1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="abcdefghijklmnopqrsuyz"
+				android:textSize="14sp"
+				android:textColor="#2196F3" />
+			<TextView
+				android:id="@+id/textview3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="()*&amp;%$#\@!:\?/{}[]|!.:"
+				android:textSize="14sp"
+				android:textColor="#2196F3" />
+			<TextView
+				android:id="@+id/textview10"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="1234567890"
+				android:textSize="14sp"
+				android:textColor="#2196F3" />
+			<TextView
+				android:id="@+id/textview4"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="vs code mobile"
+				android:textSize="14sp"
+				android:textColor="#2196F3" />
+			<TextView
+				android:id="@+id/textview5"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="vs code mobile"
+				android:textSize="18sp"
+				android:textColor="#2196F3" />
+			<TextView
+				android:id="@+id/textview6"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="vs code mobile"
+				android:textSize="20sp"
+				android:textColor="#2196F3" />
+			<TextView
+				android:id="@+id/textview7"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="vs code mobile"
+				android:textSize="30sp"
+				android:textColor="#2196F3" />
+			<TextView
+				android:id="@+id/textview8"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="vs code mobile"
+				android:textSize="40sp"
+				android:textColor="#2196F3" />
+			<TextView
+				android:id="@+id/textview9"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="vs code mobile"
+				android:textSize="50sp"
+				android:textColor="#2196F3" />
+		</LinearLayout>
+	</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

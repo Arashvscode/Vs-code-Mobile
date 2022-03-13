@@ -1,0 +1,173 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<androidx.cardview.widget.CardView
+		android:id="@+id/card"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="#000027"
+		app:cardElevation="1dp"
+		app:cardCornerRadius="15dp">
+		<LinearLayout
+			android:id="@+id/bg"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="8dp"
+			android:orientation="vertical">
+			<LinearLayout
+				android:id="@+id/linear2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
+				<ImageView
+					android:id="@+id/icon"
+					android:focusable="false"
+					android:layout_width="60dp"
+					android:layout_height="60dp"
+					android:src="@drawable/android"
+					android:scaleType="centerInside" />
+				<TextView
+					android:id="@+id/name"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="Name apk"
+					android:textSize="16sp"
+					android:textColor="#2196F3"
+					android:singleLine="true" />
+			</LinearLayout>
+			<LinearLayout
+				android:id="@+id/linear3"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
+				<TextView
+					android:id="@+id/textview3"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="ApkSize : "
+					android:textSize="14sp"
+					android:textColor="#2196F3" />
+				<LinearLayout
+					android:id="@+id/linear6"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:orientation="horizontal">
+					<TextView
+						android:id="@+id/size"
+						android:focusable="false"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="TextView"
+						android:textSize="14sp"
+						android:textColor="#2196F3" />
+				</LinearLayout>
+			</LinearLayout>
+			<LinearLayout
+				android:id="@+id/linear9"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
+				<TextView
+					android:id="@+id/textview4"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="FileDir: "
+					android:textSize="14sp"
+					android:textColor="#2196F3" />
+				<LinearLayout
+					android:id="@+id/linear10"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:orientation="horizontal">
+					<TextView
+						android:id="@+id/dir"
+						android:focusable="false"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="TextView"
+						android:textSize="14sp"
+						android:textColor="#2196F3" />
+				</LinearLayout>
+			</LinearLayout>
+			<LinearLayout
+				android:id="@+id/linear8"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
+				<TextView
+					android:id="@+id/n"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="Cancel"
+					android:textSize="14sp"
+					android:textColor="#F44336"
+					android:layout_weight="1" />
+				<LinearLayout
+					android:id="@+id/linear12"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:padding="8dp"
+					android:orientation="vertical" />
+				<TextView
+					android:id="@+id/apk"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="view"
+					android:textSize="16sp"
+					android:textColor="#2196F3" />
+				<LinearLayout
+					android:id="@+id/linear11"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:padding="8dp"
+					android:orientation="vertical" />
+				<TextView
+					android:id="@+id/si"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="singe Apk"
+					android:textSize="14sp"
+					android:textColor="#2196F3"
+					android:layout_weight="1" />
+				<TextView
+					android:id="@+id/install"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="install apk file"
+					android:textSize="14sp"
+					android:textColor="#2196F3"
+					android:layout_weight="1" />
+			</LinearLayout>
+		</LinearLayout>
+	</androidx.cardview.widget.CardView>
+</LinearLayout>
