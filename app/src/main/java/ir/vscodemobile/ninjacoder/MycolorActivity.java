@@ -52,7 +52,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
 
-public class ColorPickerViewActivity extends AppCompatActivity {
+public class MycolorActivity extends AppCompatActivity {
 	
 	private CardView cardview1;
 	private LinearLayout linear1;
@@ -90,7 +90,7 @@ public class ColorPickerViewActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
-		setContentView(R.layout.color_picker_view);
+		setContentView(R.layout.mycolor);
 		initialize(_savedInstanceState);
 		initializeLogic();
 	}
@@ -131,43 +131,6 @@ public class ColorPickerViewActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
-		fonts(getApplicationContext(),getWindow().getDecorView()); 
-	} 
-	  private void fonts(final android.content.Context context, final View v) {
-		    String fontName = "fonts/myf.ttf";
-		 try {
-						Typeface 
-						typeace = Typeface.createFromAsset(getAssets(), fontName);
-						if ((v instanceof ViewGroup)) {
-								ViewGroup vg = (ViewGroup) v;
-								for (int i = 0;
-								i < vg.getChildCount();
-								i++) {
-										View child = vg.getChildAt(i);
-										fonts(context, child);
-								}
-						}
-						else {
-								if ((v instanceof TextView)) {
-										((TextView) v).setTypeface(typeace);
-								}
-								else {
-										if ((v instanceof EditText )) {
-												((EditText) v).setTypeface(typeace);
-										}
-										else {
-												if ((v instanceof Button)) {
-														((Button) v).setTypeface(typeace);
-												}
-										}
-								}
-						}
-				}
-				catch(Exception e)
-				
-				{
-						e.printStackTrace();
-				};
 	}
 	
 	
