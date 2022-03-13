@@ -1,0 +1,146 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/mynav"
+		android:layout_width="70dp"
+		android:layout_height="650dp"
+		android:layout_marginLeft="6dp"
+		android:layout_marginTop="25dp"
+		android:layout_marginRight="6dp"
+		android:layout_marginBottom="20dp"
+		android:background="#000027"
+		android:orientation="vertical">
+		<LinearLayout
+			android:id="@+id/linear5"
+			android:layout_width="match_parent"
+			android:layout_height="590dp"
+			android:orientation="horizontal">
+			<ScrollView
+				android:id="@+id/vscroll2"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+				<LinearLayout
+					android:id="@+id/linear8"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
+					<LinearLayout
+						android:id="@+id/linear9"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:padding="8dp"
+						android:orientation="vertical">
+						<ImageView
+							android:id="@+id/lego"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:src="@drawable/vscode"
+							android:scaleType="centerInside" />
+						<LinearLayout
+							android:id="@+id/linear10"
+							android:layout_width="100dp"
+							android:layout_height="8dp"
+							android:padding="8dp"
+							android:background="#00003A"
+							android:orientation="horizontal" />
+						<ImageView
+							android:id="@+id/codeviewweb"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="5dp"
+							android:layout_marginBottom="5dp"
+							android:padding="5dp"
+							android:src="@drawable/variant"
+							android:scaleType="centerInside" />
+						<ImageView
+							android:id="@+id/githublibdownloader"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:padding="5dp"
+							android:src="@drawable/github"
+							android:scaleType="centerInside" />
+						<ImageView
+							android:id="@+id/libviewer"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="5dp"
+							android:layout_marginBottom="5dp"
+							android:padding="5dp"
+							android:src="@drawable/library"
+							android:scaleType="centerInside" />
+						<ImageView
+							android:id="@+id/skpro"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="3dp"
+							android:layout_marginBottom="3dp"
+							android:padding="1dp"
+							android:src="@drawable/skproject"
+							android:scaleType="centerInside" />
+						<ImageView
+							android:id="@+id/color"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="3dp"
+							android:layout_marginBottom="3dp"
+							android:padding="5dp"
+							android:src="@drawable/palette"
+							android:scaleType="centerInside" />
+						<ImageView
+							android:id="@+id/keystone"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:padding="5dp"
+							android:src="@drawable/key11"
+							android:scaleType="centerInside" />
+						<ImageView
+							android:id="@+id/skprolib"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="3dp"
+							android:layout_marginBottom="3dp"
+							android:padding="5dp"
+							android:src="@drawable/briefcase"
+							android:scaleType="centerInside" />
+						<ImageView
+							android:id="@+id/About"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:padding="5dp"
+							android:src="@drawable/information"
+							android:scaleType="centerInside" />
+						<ImageView
+							android:id="@+id/sting"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="5dp"
+							android:layout_marginBottom="5dp"
+							android:padding="5dp"
+							android:src="@drawable/cog"
+							android:scaleType="centerInside" />
+					</LinearLayout>
+				</LinearLayout>
+			</ScrollView>
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/gitlib"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:padding="8dp"
+			android:gravity="center_horizontal|center_vertical"
+			android:orientation="horizontal">
+			<ImageView
+				android:id="@+id/imageview7"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:padding="5dp"
+				android:src="@drawable/exit"
+				android:scaleType="centerInside" />
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
