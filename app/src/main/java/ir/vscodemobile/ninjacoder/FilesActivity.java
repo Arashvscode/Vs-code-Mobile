@@ -96,7 +96,8 @@ import org.apache.commons.io.IOUtils;
 import com.caverock.androidsvg.SVGImageView;
 import ua.naiksoftware.jadx.*;
 import java.io.InputStream;
-import java.io.IOException;
+import java.io.IOException;
+
 
 public class FilesActivity extends AppCompatActivity {
 	
@@ -548,7 +549,7 @@ public class FilesActivity extends AppCompatActivity {
 						install.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
 										
 									try {
-									if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+									if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 															Uri uri = androidx.core.content.FileProvider.getUriForFile(getApplicationContext(),
 																	FilesActivity.this.getPackageName() + ".provider", new java.io.File(files.get((int)_position).get("path").toString()));
 															Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -1195,12 +1196,15 @@ public class FilesActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View _view) {
 				if (FileUtil.isExistFile(FileUtil.getExternalStorageDir().concat("/.sketchware"))) {
-						intentskpro.setClass(getApplicationContext(), SkproprojectActivity.class);
+						
+intentskpro.setClass(getApplicationContext(), SkproprojectActivity.class);
 					startActivity(intentskpro);
 				}
 				else {
-						SketchwareUtil.showMessage(getApplicationContext(), "متاسفم شما پوشه اسکچور را ندارید ورود ممکن نیست");
-				}
+						
+SketchwareUtil.showMessage(getApplicationContext(), "متاسفم شما پوشه اسکچور را ندارید ورود ممکن نیست");
+				}
+
 			}
 		});
 		
@@ -4744,7 +4748,8 @@ support me if you like my work
 																while(S4U._is_finish()) {
 																		 FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/swb_restore/"));
 																				break;
-																}
+																}
+
 												}
 												else {
 																SketchwareUtil.showMessage(getApplicationContext(), "INVALID SWB PATH");
@@ -5147,4 +5152,4 @@ support me if you like my work
 	public int getDisplayHeightPixels() {
 		return getResources().getDisplayMetrics().heightPixels;
 	}
-}
+}
