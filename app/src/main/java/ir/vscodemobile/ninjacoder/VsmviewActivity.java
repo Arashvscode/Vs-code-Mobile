@@ -39,13 +39,8 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.widget.AdapterView;
 import android.net.Uri;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.*;
-import com.github.angads25.filepicker.*;
 import androidx.webkit.*;
+import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
 import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
@@ -53,10 +48,18 @@ import com.lwb.piechart.*;
 import net.lingala.zip4j.*;
 import io.github.rosemoe.sora.langs.textmate.*;
 import io.github.rosemoe.sora.langs.base.*;
-import com.example.myapp.*;
-import com.github.underscore.lodash.*;
-import javaxml.*;
+import org.antlr.v4.runtime.*;
+import com.caverock.androidsvg.*;
+import dos.ir.res.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.*;
+import com.github.angads25.filepicker.*;
 import com.google.gson.*;
+import com.suke.widget.*;
+import javaxml.*;
+import com.github.underscore.lodash.*;
+import com.example.myapp.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -221,6 +224,9 @@ public class VsmviewActivity extends AppCompatActivity {
 						}
 		alter = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFFFF8800".replace("0xFF" , "#"))));
+		listview1.setHorizontalScrollBarEnabled(false);
+		listview1.setVerticalScrollBarEnabled(false);
+		listview1.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
 	}
 	
 	public boolean _ispath(final String _dictatory) {

@@ -35,13 +35,8 @@ import com.google.android.material.button.*;
 import android.widget.EditText;
 import android.view.View;
 import android.graphics.Typeface;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.*;
-import com.github.angads25.filepicker.*;
 import androidx.webkit.*;
+import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
 import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
@@ -49,10 +44,18 @@ import com.lwb.piechart.*;
 import net.lingala.zip4j.*;
 import io.github.rosemoe.sora.langs.textmate.*;
 import io.github.rosemoe.sora.langs.base.*;
-import com.example.myapp.*;
-import com.github.underscore.lodash.*;
-import javaxml.*;
+import org.antlr.v4.runtime.*;
+import com.caverock.androidsvg.*;
+import dos.ir.res.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.*;
+import com.github.angads25.filepicker.*;
 import com.google.gson.*;
+import com.suke.widget.*;
+import javaxml.*;
+import com.github.underscore.lodash.*;
+import com.example.myapp.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -250,6 +253,7 @@ public class KeystoneActivity extends AppCompatActivity {
 		vscroll.setHorizontalScrollBarEnabled(false);
 		vscroll.setVerticalScrollBarEnabled(false);
 		vscroll.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
+		edittext_validity.setEnabled(false);
 	}
 	
 	

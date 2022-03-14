@@ -50,13 +50,8 @@ import java.util.TimerTask;
 import android.view.View;
 import android.widget.AdapterView;
 import android.graphics.Typeface;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.*;
-import com.github.angads25.filepicker.*;
 import androidx.webkit.*;
+import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
 import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
@@ -64,10 +59,18 @@ import com.lwb.piechart.*;
 import net.lingala.zip4j.*;
 import io.github.rosemoe.sora.langs.textmate.*;
 import io.github.rosemoe.sora.langs.base.*;
-import com.example.myapp.*;
-import com.github.underscore.lodash.*;
-import javaxml.*;
+import org.antlr.v4.runtime.*;
+import com.caverock.androidsvg.*;
+import dos.ir.res.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.*;
+import com.github.angads25.filepicker.*;
 import com.google.gson.*;
+import com.suke.widget.*;
+import javaxml.*;
+import com.github.underscore.lodash.*;
+import com.example.myapp.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -4801,7 +4804,7 @@ support me if you like my work
 	
 	
 	public void _SkpL(final String _log, final ArrayList<HashMap<String, Object>> _mp, final double _pos) {
-		if (_mp.get((int)_pos).get(_log).toString().endsWith(".SkpL")) {
+		if (_mp.get((int)_pos).get(_log).toString().endsWith(".skpl") || _mp.get((int)_pos).get(_log).toString().endsWith(".SkpL")) {
 			dir = "/storage/emulated/0/.sketchware/libs/local_libs/";
 			SkpLdialog = new ProgressDialog(FilesActivity.this);
 			SkpLdialog.setTitle(Html.fromHtml("<font color=\"#00FFFF\">SkpL</font>"));
@@ -4856,9 +4859,10 @@ support me if you like my work
 										   }
 								} catch (Exception e) {
 									SketchwareUtil.showMessage(getApplicationContext(), "Error");
+									SketchwareUtil.CustomToast(getApplicationContext(), "install library to ".concat(_mp.get((int)_pos).get(_log).toString().concat(" to ".concat(dir))), 0xFFE91E63, 15, 0xFFFFFFFF, 15, SketchwareUtil.BOTTOM);
+									SkpLdialog.dismiss();
+									break;
 								}
-								SkpLdialog.dismiss();
-								break;
 							}
 						}
 					});

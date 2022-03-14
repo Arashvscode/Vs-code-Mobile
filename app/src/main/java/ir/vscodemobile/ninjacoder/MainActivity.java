@@ -44,13 +44,8 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.text.Editable;
 import android.text.TextWatcher;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.*;
-import com.github.angads25.filepicker.*;
 import androidx.webkit.*;
+import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
 import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
@@ -58,10 +53,18 @@ import com.lwb.piechart.*;
 import net.lingala.zip4j.*;
 import io.github.rosemoe.sora.langs.textmate.*;
 import io.github.rosemoe.sora.langs.base.*;
-import com.example.myapp.*;
-import com.github.underscore.lodash.*;
-import javaxml.*;
+import org.antlr.v4.runtime.*;
+import com.caverock.androidsvg.*;
+import dos.ir.res.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.*;
+import com.github.angads25.filepicker.*;
 import com.google.gson.*;
+import com.suke.widget.*;
+import javaxml.*;
+import com.github.underscore.lodash.*;
+import com.example.myapp.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -270,7 +273,11 @@ public class MainActivity extends AppCompatActivity {
 		imageview8.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				fixbar.setVisibility(View.VISIBLE);
+				try {
+					fixbar.setVisibility(View.VISIBLE);
+				} catch (Exception e) {
+					 
+				}
 			}
 		});
 		

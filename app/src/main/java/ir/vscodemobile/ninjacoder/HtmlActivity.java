@@ -32,13 +32,8 @@ import android.webkit.WebView;
 import android.webkit.WebSettings;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.*;
-import com.github.angads25.filepicker.*;
 import androidx.webkit.*;
+import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
 import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
@@ -46,10 +41,18 @@ import com.lwb.piechart.*;
 import net.lingala.zip4j.*;
 import io.github.rosemoe.sora.langs.textmate.*;
 import io.github.rosemoe.sora.langs.base.*;
-import com.example.myapp.*;
-import com.github.underscore.lodash.*;
-import javaxml.*;
+import org.antlr.v4.runtime.*;
+import com.caverock.androidsvg.*;
+import dos.ir.res.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.*;
+import com.github.angads25.filepicker.*;
 import com.google.gson.*;
+import com.suke.widget.*;
+import javaxml.*;
+import com.github.underscore.lodash.*;
+import com.example.myapp.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -174,17 +177,17 @@ public class HtmlActivity extends AppCompatActivity {
 		webview1.loadUrl("file:///".concat(getIntent().getStringExtra("code")));
 		setTitle("vs code mobile ".concat("( ".concat(getIntent().getStringExtra("title").concat(" )"))));
 		if (webjavasce.getString("Qjava", "").equals("true")) {
-			webview1.getSettings().setLoadWithOverviewMode(true);
-			webview1.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-			webview1.getSettings().setDisplayZoomControls(true);
-			webview1.getSettings().setBuiltInZoomControls(false);
+			webview1.getSettings().setLoadWithOverviewMode(false);
+			webview1.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
+			webview1.getSettings().setDisplayZoomControls(false);
+			webview1.getSettings().setBuiltInZoomControls(true);
 		}
 		else {
 			if (webjavasce.getString("Qjava", "").equals("false")) {
-				webview1.getSettings().setLoadWithOverviewMode(false);
-				webview1.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
-				webview1.getSettings().setDisplayZoomControls(false);
-				webview1.getSettings().setBuiltInZoomControls(true);
+				webview1.getSettings().setLoadWithOverviewMode(true);
+				webview1.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+				webview1.getSettings().setDisplayZoomControls(true);
+				webview1.getSettings().setBuiltInZoomControls(false);
 			}
 			else {
 				
