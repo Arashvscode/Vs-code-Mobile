@@ -1,0 +1,109 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/linear1"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="8dp"
+		android:background="@android:color/transparent"
+		android:orientation="vertical">
+		<LinearLayout
+			android:id="@+id/holder"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="10dp"
+			android:padding="8dp"
+			android:background="#000027"
+			android:gravity="center_horizontal|center_vertical"
+			android:orientation="horizontal">
+			<ImageView
+				android:id="@+id/imageview1"
+				android:focusable="false"
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:padding="5dp"
+				android:src="@drawable/vscode"
+				android:scaleType="centerInside" />
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/nub"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_margin="15dp"
+			android:background="#000027"
+			android:orientation="vertical">
+			<ScrollView
+				android:id="@+id/ver"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+				<LinearLayout
+					android:id="@+id/linear4"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:gravity="right"
+					android:orientation="vertical">
+					<TextView
+						android:id="@+id/textview1"
+						android:focusable="false"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+						android:textSize="16sp"
+						android:textColor="#FFFFFF" />
+					<TextView
+						android:id="@+id/textview2"
+						android:focusable="false"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="اضافه شدن گرافیک جدید در بخش درباره برنامه و انتخاب ایکون توسط خود کاربر!"
+						android:textSize="14sp"
+						android:textColor="#FFFFFF" />
+					<TextView
+						android:id="@+id/textview3"
+						android:focusable="false"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+						android:textSize="16sp"
+						android:textColor="#FFFFFF" />
+					<TextView
+						android:id="@+id/textview4"
+						android:focusable="false"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="رابط کابری بهتر شد فایل cp.jar مطابق کاربرد گوگل اضافه شد \nاکنون میتونید پروژه ها را با 2 فرمت skpl  و SkpL اضافه کنید با تشکر از صبحان BlackError جهت باز سازی \nکد های و کلمات shell توسط نینجا رمز گشاد بهبود پیدا کرد کامپایلر زبان سی C اضافه شد خدمات کاربری بهتر بهبود یافت خبر های جدید تو راه است!"
+						android:textSize="16sp"
+						android:textColor="#FFFFFF" />
+					<TextView
+						android:id="@+id/textview5"
+						android:focusable="false"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+						android:textSize="16sp"
+						android:textColor="#FFFFFF" />
+					<TextView
+						android:id="@+id/textview6"
+						android:focusable="false"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="تمامی حقوق برنامه توسط مایکروسافت حفظ شدع و حق امضا برنامه متعلق به نینجا رمز گشا است و تاییده های لازم از مایکروسافت دریافت شده است و برنامه کاملن منبع باز میباشد❤"
+						android:textSize="16sp"
+						android:textColor="#FFFFFF" />
+				</LinearLayout>
+			</ScrollView>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
