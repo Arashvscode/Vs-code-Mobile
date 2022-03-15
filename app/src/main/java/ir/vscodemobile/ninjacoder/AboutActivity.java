@@ -135,16 +135,33 @@ public class AboutActivity extends AppCompatActivity {
 		imageview1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				bot.setTitle("vs code mobile");
-				bot.setIcon(R.drawable.vscode);
-				bot.setMessage("vs code moblie\nv 1.0.0\n\nاضافه شدن ادیتور جاوا اسکریپت\nرفع باگ های برنامه\n\nv 1.0.1\nرفع کراش ران کردن جاوا اسکریپت\n\nv 1.0.2\nاضافه شدن کتابخونه گیت هاب دانلودر\nاضافه شدن زبان css\nرفع بهبود کارای \nاضافه شدن کشو\n\nv 1.0.3\nاضافه شدن jar to dex\nکتابخونه گیت هاب دانلودر بدون فیلتر شکن دانلود کنید\nv 1.06\n\nرفع کراش های برنامه\nclass to jar\njar to class \nاجرا کردن  فایل های لاتی\nحالا مانند اسکوچر کتابخونه ها را بارگیری کنید\nبهبود کارای جاوا اسکریپت\n\n\nv 1.0.8\n\nadd Compressed project and any share\nبهبود گرافیک برنامه\nاستایل برنامه عوض شدن باگ های برنامه رفع شدن\nپروگس بار حذف شد زیرا فقط باعث کندی برنامه میشد\nرفع خطای کامپایل کردن جاوا اسکریپت\nاضافه شدن کامپایلر c & c++\nممکن است پایدار نباشد\nاکنون میتونید پروژع های اسکوچری خودتون مشاهده کنید\nو کلی ویژگی دیگر\n \n v 1.0.9\n \n توسعه دهنگان جدید\n اتتخاب رنگ اضافه شد\n رفع خطا و باگ ها\n کلمات کلیدی جدید اضافه شد به html\n کلمات کلیدی زبان دارت کامل شد\n بهبود عمل کرد shell\n \n v 1.1.1\n \n خدمات shell  اپدیت شد\n هم اکنون میتوانید زبان های که این برنامه باهاش توسعه پیدا کرده است مشاهدیده کنید\n رفع خطای ایجاد کلید");
-				bot.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface _dialog, int _which) {
-						
-					}
-				});
-				bot.create().show();
+				final com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog = new com.google.android.material.bottomsheet.BottomSheetDialog(AboutActivity.this);
+				
+				View bottomSheetView; bottomSheetView = getLayoutInflater().inflate(R.layout.about_btm,null );
+				bottomSheetDialog.setContentView(bottomSheetView);
+				
+				bottomSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
+				
+				ScrollView ver = (ScrollView) bottomSheetView.findViewById(R.id.ver);
+				LinearLayout holder = (LinearLayout) bottomSheetView.findViewById(R.id.holder);
+				LinearLayout nub = (LinearLayout) bottomSheetView.findViewById(R.id.nub);
+				{
+					GradientDrawable SketchUi = new GradientDrawable();
+					SketchUi.setColor(0xFF000027);
+					SketchUi.setCornerRadius(getDip(12));
+					nub.setElevation(getDip(5));
+					RippleDrawable SketchUiRD = new RippleDrawable(new ColorStateList(new int[][]{new int[]{}}, new int[]{0xFFE0E0E0}), SketchUi, null);
+					nub.setBackground(SketchUiRD);
+				}
+				{
+					GradientDrawable SketchUi = new GradientDrawable();
+					SketchUi.setColor(0xFF000027);
+					SketchUi.setCornerRadius(getDip(12));
+					holder.setElevation(getDip(5));
+					RippleDrawable SketchUiRD = new RippleDrawable(new ColorStateList(new int[][]{new int[]{}}, new int[]{0xFFE0E0E0}), SketchUi, null);
+					holder.setBackground(SketchUiRD);
+				}
+				bottomSheetDialog.show();
 			}
 		});
 	}
