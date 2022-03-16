@@ -74,6 +74,14 @@
 							android:src="@drawable/library"
 							android:scaleType="centerInside" />
 						<ImageView
+							android:id="@+id/javacode"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="3dp"
+							android:layout_marginBottom="3dp"
+							android:src="@drawable/languagejava"
+							android:scaleType="centerInside" />
+						<ImageView
 							android:id="@+id/skpro"
 							android:layout_width="50dp"
 							android:layout_height="50dp"
@@ -90,13 +98,6 @@
 							android:layout_marginBottom="3dp"
 							android:padding="5dp"
 							android:src="@drawable/palette"
-							android:scaleType="centerInside" />
-						<ImageView
-							android:id="@+id/keystone"
-							android:layout_width="50dp"
-							android:layout_height="50dp"
-							android:padding="5dp"
-							android:src="@drawable/key11"
 							android:scaleType="centerInside" />
 						<ImageView
 							android:id="@+id/skprolib"
