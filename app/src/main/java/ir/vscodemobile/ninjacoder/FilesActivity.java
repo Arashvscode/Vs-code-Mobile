@@ -59,18 +59,18 @@ import com.lwb.piechart.*;
 import net.lingala.zip4j.*;
 import io.github.rosemoe.sora.langs.textmate.*;
 import io.github.rosemoe.sora.langs.base.*;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
-import dos.ir.res.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.*;
-import com.github.angads25.filepicker.*;
-import com.google.gson.*;
-import com.suke.widget.*;
-import javaxml.*;
 import com.github.underscore.lodash.*;
 import com.example.myapp.*;
+import org.jetbrains.kotlin.*;
+import com.suke.widget.*;
+import com.google.gson.*;
+import com.github.angads25.filepicker.*;
+import io.github.rosemoe.sora.*;
+import com.android.*;
+import com.googlecode.d2j.*;
+import dos.ir.res.*;
+import com.caverock.androidsvg.*;
+import org.antlr.v4.runtime.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -161,9 +161,9 @@ public class FilesActivity extends AppCompatActivity {
 	private ImageView _drawer_codeviewweb;
 	private ImageView _drawer_githublibdownloader;
 	private ImageView _drawer_libviewer;
+	private ImageView _drawer_javacode;
 	private ImageView _drawer_skpro;
 	private ImageView _drawer_color;
-	private ImageView _drawer_keystone;
 	private ImageView _drawer_skprolib;
 	private ImageView _drawer_About;
 	private ImageView _drawer_sting;
@@ -205,6 +205,7 @@ public class FilesActivity extends AppCompatActivity {
 	private AlertDialog.Builder dialogfiled;
 	private Intent getclassview = new Intent();
 	private ProgressDialog SkpLdialog;
+	private Intent javacode = new Intent();
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -263,9 +264,9 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_codeviewweb = _nav_view.findViewById(R.id.codeviewweb);
 		_drawer_githublibdownloader = _nav_view.findViewById(R.id.githublibdownloader);
 		_drawer_libviewer = _nav_view.findViewById(R.id.libviewer);
+		_drawer_javacode = _nav_view.findViewById(R.id.javacode);
 		_drawer_skpro = _nav_view.findViewById(R.id.skpro);
 		_drawer_color = _nav_view.findViewById(R.id.color);
-		_drawer_keystone = _nav_view.findViewById(R.id.keystone);
 		_drawer_skprolib = _nav_view.findViewById(R.id.skprolib);
 		_drawer_About = _nav_view.findViewById(R.id.About);
 		_drawer_sting = _nav_view.findViewById(R.id.sting);
@@ -1191,6 +1192,14 @@ public class FilesActivity extends AppCompatActivity {
 			}
 		});
 		
+		_drawer_javacode.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				javacode.setClass(getApplicationContext(), JavacodeActivity.class);
+				startActivity(javacode);
+			}
+		});
+		
 		_drawer_skpro.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
@@ -1208,14 +1217,6 @@ public class FilesActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View _view) {
 				_colotpiker(HEX);
-			}
-		});
-		
-		_drawer_keystone.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				keystonemain.setClass(getApplicationContext(), KeystoneActivity.class);
-				startActivity(keystonemain);
 			}
 		});
 		
@@ -1257,6 +1258,9 @@ public class FilesActivity extends AppCompatActivity {
 		listview1.setHorizontalScrollBarEnabled(false);
 		listview1.setVerticalScrollBarEnabled(false);
 		listview1.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
+		_drawer_vscroll2.setHorizontalScrollBarEnabled(false);
+		_drawer_vscroll2.setVerticalScrollBarEnabled(false);
+		_drawer_vscroll2.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
