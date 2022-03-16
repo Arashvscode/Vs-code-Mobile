@@ -40,7 +40,9 @@ public class RequestNetwork {
 	public int getRequestType() {
 		return requestType;
 	}
-	
+	public void Path(){
+        
+            }
 	public void startRequestNetwork(String method, String url, String tag, RequestListener requestListener) {
 		RequestNetworkController.getInstance().execute(this, method, url, tag, requestListener);
 	}
