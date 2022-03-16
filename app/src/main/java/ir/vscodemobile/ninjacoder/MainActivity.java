@@ -718,6 +718,8 @@ public class MainActivity extends AppCompatActivity {
 								}
 								editor.setColorScheme(new theme());
 								editor.setEditorLanguage(new UniversalLanguage(new CDescription()));
+								_fab.show();
+								_fab.setImageResource(R.drawable.lc);
 							}
 							else {
 								if (getIntent().getStringExtra("title").contains(".cpp")) {
@@ -736,6 +738,8 @@ public class MainActivity extends AppCompatActivity {
 									} catch (Exception rt) {
 										rt.printStackTrace();
 									}
+									_fab.show();
+									_fab.setImageResource(R.drawable.cpp);
 								}
 								else {
 									if (getIntent().getStringExtra("title").contains(".py")) {
@@ -1587,7 +1591,17 @@ public class MainActivity extends AppCompatActivity {
 							startActivity(in);
 						}
 						else {
-							
+							if (getIntent().getStringExtra("key").contains(".c")) {
+								SketchwareUtil.showMessage(getApplicationContext(), "Error not install Gcc");
+							}
+							else {
+								if (getIntent().getStringExtra("key").contains(".cpp")) {
+									SketchwareUtil.showMessage(getApplicationContext(), "Error not install sdk");
+								}
+								else {
+									
+								}
+							}
 						}
 					}
 				}

@@ -204,16 +204,16 @@ public class AboutActivity extends AppCompatActivity {
 		//com.lwb.piechart.PieChartView
 		PieChartView pieChartView = findViewById(R.id.port);
 		pieChartView.addItemType(new PieChartView.ItemType("shell", 21, 0xFF4CAF50));
-		pieChartView.addItemType(new PieChartView.ItemType("python", 19, 0xFF009688));
-		pieChartView.addItemType(new PieChartView.ItemType("java", 60, 0xFFFF9800));
+		pieChartView.addItemType(new PieChartView.ItemType("python", 44, 0xFF009688));
+		pieChartView.addItemType(new PieChartView.ItemType("java", 80, 0xFFFF9800));
 		pieChartView.addItemType(new PieChartView.ItemType("c", 10, 0xFF9C27B0));
-		pieChartView.addItemType(new PieChartView.ItemType("c++", 62, 0xFFE91E63));
-		pieChartView.addItemType(new PieChartView.ItemType("kotlin", 8, 0xFF673AB7));
+		pieChartView.addItemType(new PieChartView.ItemType("c++", 88, 0xFFE91E63));
+		pieChartView.addItemType(new PieChartView.ItemType("kotlin", 18, 0xFF673AB7));
 		pieChartView.addItemType(new PieChartView.ItemType("ninja", 15, 0xFFFFFFFF));
 		pieChartView.addItemType(new PieChartView.ItemType("js", 22, 0xFFFFEB3B));
-		pieChartView.setPieCell(5);
-		pieChartView.setCell(10);
-		pieChartView.setInnerRadius(0.10f);
+		pieChartView.setPieCell(0);
+		pieChartView.setCell(0);
+		pieChartView.setInnerRadius(0.0f);
 		pieChartView.setBackGroundColor(0xFF000027);
 		pieChartView.setTextPadding(5);
 		pieChartView.setItemTextSize(26);

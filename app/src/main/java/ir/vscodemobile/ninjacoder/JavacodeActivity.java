@@ -128,6 +128,7 @@ public class JavacodeActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		try{
 				java.io.InputStream gIn = this.getAssets().open("co");
 				           int gSi = gIn.available();
