@@ -161,6 +161,7 @@ public class FilesActivity extends AppCompatActivity {
 	private ImageView _drawer_codeviewweb;
 	private ImageView _drawer_githublibdownloader;
 	private ImageView _drawer_libviewer;
+	private ImageView _drawer_bockview;
 	private ImageView _drawer_javacode;
 	private ImageView _drawer_skpro;
 	private ImageView _drawer_color;
@@ -206,6 +207,7 @@ public class FilesActivity extends AppCompatActivity {
 	private Intent getclassview = new Intent();
 	private ProgressDialog SkpLdialog;
 	private Intent javacode = new Intent();
+	private Intent blockview = new Intent();
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -264,6 +266,7 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_codeviewweb = _nav_view.findViewById(R.id.codeviewweb);
 		_drawer_githublibdownloader = _nav_view.findViewById(R.id.githublibdownloader);
 		_drawer_libviewer = _nav_view.findViewById(R.id.libviewer);
+		_drawer_bockview = _nav_view.findViewById(R.id.bockview);
 		_drawer_javacode = _nav_view.findViewById(R.id.javacode);
 		_drawer_skpro = _nav_view.findViewById(R.id.skpro);
 		_drawer_color = _nav_view.findViewById(R.id.color);
@@ -1189,6 +1192,14 @@ public class FilesActivity extends AppCompatActivity {
 			public void onClick(View _view) {
 				lib.setClass(getApplicationContext(), SkprolibviewerActivity.class);
 				startActivity(lib);
+			}
+		});
+		
+		_drawer_bockview.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				blockview.setClass(getApplicationContext(), SkproblockviewActivity.class);
+				startActivity(blockview);
 			}
 		});
 		
@@ -2358,6 +2369,8 @@ support me if you like my work
 		try {
 			Dex2jar.from(new java.io.File(_DexPath)).to(new java.io.File(_JarPath));
 		} catch(java.io.IOException e) {
+				 
+				     //showMessage(e);
 		}
 	}
 	public static abstract class _BackgroundTaskClass {
@@ -4808,7 +4821,73 @@ support me if you like my work
 	
 	
 	public void _SkpL(final String _log, final ArrayList<HashMap<String, Object>> _mp, final double _pos) {
-		if (_mp.get((int)_pos).get(_log).toString().endsWith(".skpl") && _mp.get((int)_pos).get(_log).toString().endsWith(".SkpL")) {
+		if (_mp.get((int)_pos).get(_log).toString().endsWith(".skpl")) {
+			dir = "/storage/emulated/0/.sketchware/libs/local_libs/";
+			SkpLdialog = new ProgressDialog(FilesActivity.this);
+			SkpLdialog.setTitle(Html.fromHtml("<font color=\"#00FFFF\">SkpL</font>"));
+			SkpLdialog.setMessage(Html.fromHtml("<font color=\"#59FF7B\">install local library ....</font>"));
+			SkpLdialog.setCancelable(false);
+			SkpLdialog.setCanceledOnTouchOutside(false);
+			SkpLdialog.show();
+			SkpLdialog.getWindow().setBackgroundDrawable(new ColorDrawable(0xFF130F3B));
+			ask2 = new TimerTask() {
+				@Override
+				public void run() {
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							while(true) {
+								try {
+									String fileZip = _mp.get((int)_pos).get(_log).toString();
+									        java.io.File destDir = new java.io.File(dir);
+									        byte[]  buffer = new byte[1024] ;
+									        try {
+										        java.util.zip.ZipInputStream zis = new java.util.zip.ZipInputStream(new java.io.FileInputStream(fileZip));
+										        java.util.zip.ZipEntry zipEntry = zis.getNextEntry();
+										
+										
+										        while (zipEntry != null) {
+											             java.io.File newFile = newFile(destDir, zipEntry);
+											             if (zipEntry.isDirectory()) {
+												                 if (!newFile.isDirectory() && !newFile.mkdirs()) {
+													                     throw new java.io.IOException("Failed to create directory " + newFile);
+													                 }
+												             } else {
+												                 // fix for Windows-created archives
+												                 java.io.File parent = newFile.getParentFile();
+												                 if (!parent.isDirectory() && !parent.mkdirs()) {
+													                     throw new java.io.IOException("Failed to create directory " + parent);
+													                 }
+												
+												                 // write file content
+												                 java.io.FileOutputStream fos = new java.io.FileOutputStream(newFile);
+												                 int len;
+												                 while ((len = zis.read(buffer)) > 0) {
+													                     fos.write(buffer, 0, len);
+													                 }
+												                 fos.close();
+												             }
+											         zipEntry = zis.getNextEntry();
+											        }
+										        zis.closeEntry();
+										        zis.close();
+									} catch (Exception e) {
+										  showMessage(e.toString());
+										   }
+								} catch (Exception e) {
+									SketchwareUtil.showMessage(getApplicationContext(), "Error");
+									SketchwareUtil.CustomToast(getApplicationContext(), "install library to ".concat(_mp.get((int)_pos).get(_log).toString().concat(" to ".concat(dir))), 0xFFE91E63, 15, 0xFFFFFFFF, 15, SketchwareUtil.BOTTOM);
+									SkpLdialog.dismiss();
+									break;
+								}
+							}
+						}
+					});
+				}
+			};
+			_timer.schedule(ask2, (int)(1000));
+		}
+		if (_mp.get((int)_pos).get(_log).toString().endsWith(".SkpL")) {
 			dir = "/storage/emulated/0/.sketchware/libs/local_libs/";
 			SkpLdialog = new ProgressDialog(FilesActivity.this);
 			SkpLdialog.setTitle(Html.fromHtml("<font color=\"#00FFFF\">SkpL</font>"));
