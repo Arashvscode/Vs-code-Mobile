@@ -35,6 +35,7 @@ import android.content.SharedPreferences;
 import android.widget.AdapterView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import android.graphics.Typeface;
 import androidx.webkit.*;
 import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
@@ -199,6 +200,13 @@ public class SkproblockviewActivity extends AppCompatActivity {
 			((BaseAdapter)bockview.getAdapter()).notifyDataSetChanged();
 		} catch (Exception e) {
 			 
+		}
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) { 
+				   Window code = this.getWindow();
+			 code.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			 code.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+			
+				   code.setStatusBarColor(Color.parseColor("#FF000027")); code.setNavigationBarColor(Color.parseColor("#FF000027"));
 		}
 	}
 	
@@ -455,6 +463,13 @@ public class SkproblockviewActivity extends AppCompatActivity {
 		
 	}
 	
+	
+	public void _ScrollingText(final TextView _view) {
+		_view.setSingleLine(true);
+		_view.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+		_view.setSelected(true);
+	}
+	
 	public class BockviewAdapter extends BaseAdapter {
 		
 		ArrayList<HashMap<String, Object>> _data;
@@ -491,13 +506,20 @@ public class SkproblockviewActivity extends AppCompatActivity {
 			final LinearLayout ci = _view.findViewById(R.id.ci);
 			final LinearLayout linear3 = _view.findViewById(R.id.linear3);
 			final TextView textview1 = _view.findViewById(R.id.textview1);
+			final ImageView imageview1 = _view.findViewById(R.id.imageview1);
 			
 			if (_data.get((int)_position).containsKey("color")) {
 				ci.setBackgroundColor(Color.parseColor(_data.get((int)_position).get("color").toString()));
+				imageview1.setColorFilter(Color.parseColor(_data.get((int)_position).get("color").toString()), PorterDuff.Mode.MULTIPLY);
 			}
 			if (_data.get((int)_position).containsKey("name")) {
 				textview1.setText(_data.get((int)_position).get("name").toString());
 			}
+			_ScrollingText(textview1);
+			textview1.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/myf.ttf"), 1);
+			cardview1.setCardBackgroundColor(0xFF000062);
+			cardview1.setRadius((float)19);
+			cardview1.setCardElevation((float)0);
 			
 			return _view;
 		}
@@ -557,6 +579,11 @@ public class SkproblockviewActivity extends AppCompatActivity {
 			} catch (Exception e) {
 				 
 			}
+			_ScrollingText(textview1);
+			textview1.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/myf.ttf"), 1);
+			cardview1.setCardBackgroundColor(0xFF000062);
+			cardview1.setRadius((float)19);
+			cardview1.setCardElevation((float)0);
 			
 			return _view;
 		}
