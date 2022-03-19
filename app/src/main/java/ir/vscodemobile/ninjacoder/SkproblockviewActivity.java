@@ -32,6 +32,8 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.Intent;
+import android.net.Uri;
 import android.widget.AdapterView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -54,9 +56,8 @@ import com.github.angads25.filepicker.*;
 import io.github.rosemoe.sora.*;
 import com.android.*;
 import com.googlecode.d2j.*;
-import dos.ir.res.*;
-import com.caverock.androidsvg.*;
 import org.antlr.v4.runtime.*;
+import com.caverock.androidsvg.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -84,6 +85,9 @@ public class SkproblockviewActivity extends AppCompatActivity {
 	private ListView pal;
 	
 	private SharedPreferences BlockData;
+	private Intent p = new Intent();
+	private Intent t = new Intent();
+	private SharedPreferences sp;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -114,6 +118,7 @@ public class SkproblockviewActivity extends AppCompatActivity {
 		bockview = findViewById(R.id.bockview);
 		pal = findViewById(R.id.pal);
 		BlockData = getSharedPreferences("data", Activity.MODE_PRIVATE);
+		sp = getSharedPreferences("block", Activity.MODE_PRIVATE);
 		
 		bockview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -584,6 +589,62 @@ public class SkproblockviewActivity extends AppCompatActivity {
 			cardview1.setCardBackgroundColor(0xFF000062);
 			cardview1.setRadius((float)19);
 			cardview1.setCardElevation((float)0);
+			textview1.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View _view) {
+					t.setClass(getApplicationContext(), SkproblockeditorActivity.class);
+					if (_data.get((int)_position).containsKey("name")) {
+						t.putExtra("name", _data.get((int)_position).get("name").toString());
+					}
+					else {
+						t.putExtra("name", "");
+					}
+					if (_data.get((int)_position).containsKey("type")) {
+						t.putExtra("type", _data.get((int)_position).get("type").toString());
+					}
+					else {
+						t.putExtra("type", " ");
+					}
+					if (_data.get((int)_position).containsKey("typeName")) {
+						t.putExtra("typeName", _data.get((int)_position).get("typeName").toString());
+					}
+					else {
+						t.putExtra("typeName", "");
+					}
+					if (_data.get((int)_position).containsKey("color")) {
+						t.putExtra("color", _data.get((int)_position).get("color").toString());
+					}
+					else {
+						t.putExtra("color", "");
+					}
+					if (_data.get((int)_position).containsKey("code")) {
+						t.putExtra("code", _data.get((int)_position).get("code").toString());
+					}
+					else {
+						t.putExtra("code", "");
+					}
+					if (_data.get((int)_position).containsKey("palette")) {
+						t.putExtra("palette", _data.get((int)_position).get("palette").toString());
+					}
+					else {
+						t.putExtra("palette", "");
+					}
+					if (_data.get((int)_position).containsKey("spec")) {
+						t.putExtra("spec", _data.get((int)_position).get("spec").toString());
+					}
+					else {
+						t.putExtra("spec", "");
+					}
+					if (_data.get((int)_position).containsKey("spec2")) {
+						t.putExtra("spec2", _data.get((int)_position).get("spec2").toString());
+					}
+					else {
+						t.putExtra("spec2", " ");
+					}
+					t.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(t);
+				}
+			});
 			
 			return _view;
 		}

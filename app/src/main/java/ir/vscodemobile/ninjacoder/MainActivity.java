@@ -62,9 +62,8 @@ import com.github.angads25.filepicker.*;
 import io.github.rosemoe.sora.*;
 import com.android.*;
 import com.googlecode.d2j.*;
-import dos.ir.res.*;
-import com.caverock.androidsvg.*;
 import org.antlr.v4.runtime.*;
+import com.caverock.androidsvg.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -536,8 +535,6 @@ public class MainActivity extends AppCompatActivity {
 				} catch (Exception rt) {
 					rt.printStackTrace();
 				}
-				_fab.setImageResource(R.drawable.json);
-				_fab.show();
 				le.setTitle("json forrmating??");
 				le.setIcon(R.drawable.cog);
 				le.setMessage("ایا میخواهید فایل : ".concat(getIntent().getStringExtra("title").concat(" مرتب کنید؟")));
@@ -643,6 +640,8 @@ public class MainActivity extends AppCompatActivity {
 					}
 				});
 				le.create().show();
+				_fab.show();
+				_fab.setImageResource(R.drawable.play);
 			}
 			else {
 				if (getIntent().getStringExtra("title").contains(".html")) {
@@ -662,7 +661,7 @@ public class MainActivity extends AppCompatActivity {
 					_fab.show();
 					_fab.setImageResource(R.drawable.play);
 					editor.setEditorLanguage(new HTMLLanguage()); 
-					_fab.setImageResource(R.drawable.html);
+					_fab.setImageResource(R.drawable.play);
 				}
 				else {
 					if (getIntent().getStringExtra("title").contains(".java")) {
@@ -681,11 +680,10 @@ public class MainActivity extends AppCompatActivity {
 						editor.setColorScheme(new theme());
 						editor.setEditorLanguage(new JavaLanguage()); 
 						_fab.show();
-						_fab.setImageResource(R.drawable.java);
+						_fab.setImageResource(R.drawable.play);
 					}
 					else {
 						if (getIntent().getStringExtra("title").contains(".sh")) {
-							_fab.setImageResource(R.drawable.shell);
 							_fab.show();
 							editor.setColorScheme(new theme());
 							editor.setEditorLanguage(new UniversalLanguage(new ShellDescription()));
@@ -701,6 +699,7 @@ public class MainActivity extends AppCompatActivity {
 							} catch (Exception rt) {
 								rt.printStackTrace();
 							}
+							_fab.setImageResource(R.drawable.play);
 						}
 						else {
 							if (getIntent().getStringExtra("title").contains(".c")) {
@@ -719,7 +718,7 @@ public class MainActivity extends AppCompatActivity {
 								editor.setColorScheme(new theme());
 								editor.setEditorLanguage(new UniversalLanguage(new CDescription()));
 								_fab.show();
-								_fab.setImageResource(R.drawable.lc);
+								_fab.setImageResource(R.drawable.play);
 							}
 							else {
 								if (getIntent().getStringExtra("title").contains(".cpp")) {
@@ -739,7 +738,7 @@ public class MainActivity extends AppCompatActivity {
 										rt.printStackTrace();
 									}
 									_fab.show();
-									_fab.setImageResource(R.drawable.cpp);
+									_fab.setImageResource(R.drawable.play);
 								}
 								else {
 									if (getIntent().getStringExtra("title").contains(".py")) {
@@ -776,7 +775,7 @@ public class MainActivity extends AppCompatActivity {
 											editor.setColorScheme(new theme());
 											_fab.show();
 											editor.setEditorLanguage(new UniversalLanguage(new JavaScriptDescription()));
-											_fab.setImageResource(R.drawable.javascr);
+											_fab.setImageResource(R.drawable.play);
 										}
 										else {
 											if (getIntent().getStringExtra("title").contains(".gradle")) {

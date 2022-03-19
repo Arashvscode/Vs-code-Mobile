@@ -68,9 +68,8 @@ import com.github.angads25.filepicker.*;
 import io.github.rosemoe.sora.*;
 import com.android.*;
 import com.googlecode.d2j.*;
-import dos.ir.res.*;
-import com.caverock.androidsvg.*;
 import org.antlr.v4.runtime.*;
+import com.caverock.androidsvg.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -208,6 +207,7 @@ public class FilesActivity extends AppCompatActivity {
 	private ProgressDialog SkpLdialog;
 	private Intent javacode = new Intent();
 	private Intent blockview = new Intent();
+	private SharedPreferences sp;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -287,6 +287,7 @@ public class FilesActivity extends AppCompatActivity {
 		dialogfile = new AlertDialog.Builder(this);
 		dialogfolder = new AlertDialog.Builder(this);
 		dialogfiled = new AlertDialog.Builder(this);
+		sp = getSharedPreferences("sp", Activity.MODE_PRIVATE);
 		
 		listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -2514,7 +2515,7 @@ support me if you like my work
 			packageInfo = null;
 			packageManager = null;
 		} catch (Exception e) {
-			_imageview.setImageResource(R.drawable.android);
+			_imageview.setImageResource(R.drawable.default_image);
 		}
 	}
 	
@@ -4877,9 +4878,9 @@ support me if you like my work
 								} catch (Exception e) {
 									SketchwareUtil.showMessage(getApplicationContext(), "Error");
 									SketchwareUtil.CustomToast(getApplicationContext(), "install library to ".concat(_mp.get((int)_pos).get(_log).toString().concat(" to ".concat(dir))), 0xFFE91E63, 15, 0xFFFFFFFF, 15, SketchwareUtil.BOTTOM);
-									SkpLdialog.dismiss();
-									break;
 								}
+								SkpLdialog.dismiss();
+								break;
 							}
 						}
 					});
