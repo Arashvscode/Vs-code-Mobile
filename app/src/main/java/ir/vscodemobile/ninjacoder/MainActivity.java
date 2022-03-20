@@ -64,6 +64,7 @@ import com.android.*;
 import com.googlecode.d2j.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
+import com.blogspot.atifsoftwares.animatoolib.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -91,7 +92,7 @@ import io.github.rosemoe.sora.langs.universal.*;
 import io.github.rosemoe.sora.langs.html.*;
 import io.github.rosemoe.sora.langs.desc.GoDescription;
  import io.github.rosemoe.sora.langs.xml.*;
-
+import io.github.rosemoe.sora.widget.EditorColorScheme;
 import io.github.rosemoe.sora.langs.desc.NINJADescription;
 import io.github.rosemoe.sora.langs.desc.ShellDescription;
 import io.github.rosemoe.sora.langs.desc.SmaillDescription;
@@ -502,8 +503,13 @@ public class MainActivity extends AppCompatActivity {
 		
 		editor.setPinLineNumber(!editor.isLineNumberPinned());
 		editor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
+		//editor.getColorScheme().setColor(EditorColorScheme.WHOLE_BACKGROUND, 0);
+		//editor.getColorScheme().setColor(EditorColorScheme.LINE_NUMBER_BACKGROUND, 0);
+		//editor.getColorScheme().setColor(EditorColorScheme.TEXT_NORMAL, 0);
+		
 		_fab.hide();
 		if (getIntent().getStringExtra("title").contains(".css")) {
+			editor.setColorScheme(new theme());
 			StringBuilder androidcss = new StringBuilder();
 			
 			try {
@@ -516,7 +522,6 @@ public class MainActivity extends AppCompatActivity {
 			} catch (Exception rt) {
 				rt.printStackTrace();
 			}
-			editor.setColorScheme(new theme());
 			editor.setEditorLanguage(new UniversalLanguage(new CssDescription()));
 		}
 		else {
@@ -657,10 +662,10 @@ public class MainActivity extends AppCompatActivity {
 					} catch (Exception rt) {
 						rt.printStackTrace();
 					}
-					editor.setColorScheme(new htmltheme());
 					_fab.show();
 					_fab.setImageResource(R.drawable.play);
 					editor.setEditorLanguage(new HTMLLanguage()); 
+					editor.setColorScheme(new htmltheme());
 					_fab.setImageResource(R.drawable.play);
 				}
 				else {
@@ -677,10 +682,10 @@ public class MainActivity extends AppCompatActivity {
 						} catch (Exception rt) {
 							rt.printStackTrace();
 						}
-						editor.setColorScheme(new theme());
 						editor.setEditorLanguage(new JavaLanguage()); 
 						_fab.show();
 						_fab.setImageResource(R.drawable.play);
+						editor.setColorScheme(new theme());
 					}
 					else {
 						if (getIntent().getStringExtra("title").contains(".sh")) {
@@ -826,9 +831,9 @@ public class MainActivity extends AppCompatActivity {
 														} catch (Exception rt) {
 															rt.printStackTrace();
 														}
-														editor.setColorScheme(new theme());
 														_fab.hide();
 														editor.setEditorLanguage(new UniversalLanguage(new DartDescription()));
+														editor.setColorScheme(new theme());
 													}
 													else {
 														

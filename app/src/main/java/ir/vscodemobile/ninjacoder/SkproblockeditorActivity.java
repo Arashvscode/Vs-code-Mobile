@@ -25,6 +25,7 @@ import java.util.*;
 import java.util.regex.*;
 import java.text.*;
 import org.json.*;
+import java.util.HashMap;
 import java.util.ArrayList;
 import android.widget.LinearLayout;
 import androidx.cardview.widget.CardView;
@@ -35,6 +36,7 @@ import android.widget.HorizontalScrollView;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.view.View;
+import com.google.gson.Gson;
 import androidx.webkit.*;
 import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
@@ -55,6 +57,7 @@ import com.android.*;
 import com.googlecode.d2j.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
+import com.blogspot.atifsoftwares.animatoolib.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -62,7 +65,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
-import io.github.rosemoe.sora.widget.CodeEditor;
+import io.github.rosemoe.sora.widget.CodeEditor;
+import io.github.rosemoe.sora.langs.java.JavaLanguage;
 
 public class SkproblockeditorActivity extends AppCompatActivity {
 	
@@ -73,8 +77,14 @@ public class SkproblockeditorActivity extends AppCompatActivity {
 	private String type = "";
 	private double returnNumber = 0;
 	private double isExpanded = 0;
+	private String blocksPath = "";
+	private double blockPosotion = 0;
+	private double paletteNumber = 0;
+	private boolean isExpanded1 = false;
+	private HashMap<String, Object> hashMap = new HashMap<>();
 	
 	private ArrayList<String> listStr = new ArrayList<>();
+	private ArrayList<HashMap<String, Object>> blocklist = new ArrayList<>();
 	
 	private LinearLayout linear1;
 	private LinearLayout linearAllData;
@@ -179,8 +189,9 @@ public class SkproblockeditorActivity extends AppCompatActivity {
 		setContentView(R.layout.skproblockeditor);
 		initialize(_savedInstanceState);
 		
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-			ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
+		|| ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+			ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
 		} else {
 			initializeLogic();
 		}
@@ -296,6 +307,7 @@ public class SkproblockeditorActivity extends AppCompatActivity {
 		imageview2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
+				Collections.sort(listStr);
 				listStr.add("regular");
 				listStr.add("c");
 				listStr.add("s");
@@ -367,7 +379,7 @@ public class SkproblockeditorActivity extends AppCompatActivity {
 							if (item.isEmpty()){
 								
 							} else {
-								typeEdit.setText(_setType(item));
+								typeEdit.setText(item);
 								alert.dismiss();
 							}
 									 if(wantToCloseDialog) {
@@ -421,7 +433,25 @@ public class SkproblockeditorActivity extends AppCompatActivity {
 		_fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				SketchwareUtil.showMessage(getApplicationContext(), "soon addet");
+				try {
+					hashMap = new HashMap<>();
+					hashMap.put("name", nameEdit.getText().toString());
+					hashMap.put("type", typeEdit.getText().toString());
+					hashMap.put("typeName", typeNameEdit.getText().toString());
+					hashMap.put("spec", specEdit.getText().toString());
+					hashMap.put("color", textColor.getText().toString());
+					hashMap.put("code", editor.getText().toString());
+					hashMap.put("palette", String.valueOf((long)(paletteNumber)));
+					if (typeEdit.getText().toString().equals("e")) {
+						hashMap.put("spec2", spec2Edit.getText().toString());
+					}
+					blocklist.add(hashMap);
+					FileUtil.writeFile(blocksPath, new Gson().toJson(blocklist));
+					SketchwareUtil.showMessage(getApplicationContext(), "√");
+					finish();
+				} catch (Exception e) {
+					SketchwareUtil.showMessage(getApplicationContext(), e.toString());
+				}
 			}
 		});
 	}
@@ -443,49 +473,85 @@ public class SkproblockeditorActivity extends AppCompatActivity {
 		cardview3.setCardElevation((float)0);
 		cardview4.setCardElevation((float)0);
 		cardview5.setCardElevation((float)0);
-		blockpath = FileUtil.getExternalStorageDir().concat("/.sketchware/resources/block/My Block/block.json");
-		paletpath = FileUtil.getPackageDataDir(getApplicationContext()).concat("/.sketchware/resources/block/My Block/palette.json");
-		typeEdit.setText("regular");
+		_clickAddText();
+		editor.setEditorLanguage(new JavaLanguage()); 
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		editor.setTextSize((int)16);
+		blocksPath = "/storage/emulated/0/.sketchware/resources/block/My Block/block.json";
 		try {
-			try {
-				nameEdit.setText(getIntent().getStringExtra("name"));
-				typeEdit.setText(getIntent().getStringExtra("spce"));
-				typeNameEdit.setText(getIntent().getStringExtra("typeName"));
-				specEdit.setText(getIntent().getStringExtra("spec"));
-				linearColor.setBackgroundColor(Color.parseColor(getIntent().getStringExtra("color")));
-				textColor.setText(getIntent().getStringExtra("color"));
-				{
-						StringBuilder stringBuilder = new StringBuilder();
-						
-						try {
-								
-								Scanner scanner = new Scanner(getIntent().getStringExtra("code")).useDelimiter("\\Z");
-								while (scanner.hasNext()) {
-										stringBuilder .append(scanner.next());
-								}
-								editor.setText(stringBuilder );
-						} catch (Exception rt) {
-								rt.printStackTrace();
-						}
+			paletteNumber = Double.parseDouble(getIntent().getStringExtra("palette")) + 9;
+			{
+				StringBuilder stringBuilder = new StringBuilder();
+				
+				try {
+					
+					Scanner scanner = new Scanner(getIntent().getStringExtra("code")).useDelimiter("\\Z");
+					while (scanner.hasNext()) {
+						stringBuilder .append(scanner.next());
+					}
+					editor.setText(stringBuilder );
+				} catch (Exception rt) {
+					rt.printStackTrace();
 				}
-			} catch (Exception e) {
-				 
 			}
-			if (getIntent().getStringExtra("type").equals("e")) {
-				linearSpec2.setVisibility(View.GONE);
+			nameEdit.setText(getIntent().getStringExtra("name"));
+			specEdit.setText(getIntent().getStringExtra("spec"));
+			textColor.setText(getIntent().getStringExtra("color"));
+			linearColor.setBackgroundColor(Color.parseColor(getIntent().getStringExtra("color")));
+			typeEdit.setText(getIntent().getStringExtra("type"));
+			typeNameEdit.setText(getIntent().getStringExtra("typename"));
+			linearSpec2.setVisibility(View.VISIBLE);
+			if (getIntent().hasExtra("spec2")) {
+				spec2Edit.setText(getIntent().getStringExtra("spec2"));
 			}
 			else {
-				if (getIntent().hasExtra("spec2")) {
-					spec2Edit.setText(getIntent().getStringExtra("spec2"));
-					linearSpec2.setVisibility(View.VISIBLE);
-				}
+				linearSpec2.setVisibility(View.GONE);
+				spec2Edit.setText("");
 			}
 		} catch (Exception e) {
-			SketchwareUtil.showMessage(getApplicationContext(), e.toString());
+			 
 		}
-		_clickAddText();
-		returnNumber = linearAllData.getHeight();
-		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		typeEdit.setEnabled(false);
+		    typeEdit.setCursorVisible(false);
+		    typeEdit.setKeyListener(null);
+		    typeEdit.setBackgroundColor(Color.TRANSPARENT); 
+		fonts(getApplicationContext(),getWindow().getDecorView()); 
+	} 
+	  private void fonts(final android.content.Context context, final View v) {
+		    String fontName = "fonts/myf.ttf";
+		 try {
+						Typeface 
+						typeace = Typeface.createFromAsset(getAssets(), fontName);
+						if ((v instanceof ViewGroup)) {
+								ViewGroup vg = (ViewGroup) v;
+								for (int i = 0;
+								i < vg.getChildCount();
+								i++) {
+										View child = vg.getChildAt(i);
+										fonts(context, child);
+								}
+						}
+						else {
+								if ((v instanceof TextView)) {
+										((TextView) v).setTypeface(typeace);
+								}
+								else {
+										if ((v instanceof EditText )) {
+												((EditText) v).setTypeface(typeace);
+										}
+										else {
+												if ((v instanceof Button)) {
+														((Button) v).setTypeface(typeace);
+												}
+										}
+								}
+						}
+				}
+				catch(Exception e)
+				
+				{
+						e.printStackTrace();
+				};
 	}
 	
 	public void _clickAddText() {
@@ -842,7 +908,7 @@ public class SkproblockeditorActivity extends AppCompatActivity {
 	
 	public String _setType(final String _text) {
 		if (_text.equals("regular")) {
-			type = " ";
+			type = "regular";
 		}
 		else {
 			if (_text.startsWith("c")) {

@@ -70,6 +70,7 @@ import com.android.*;
 import com.googlecode.d2j.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
+import com.blogspot.atifsoftwares.animatoolib.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -1251,8 +1252,7 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_sting.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				sting.setClass(getApplicationContext(), TanzimatActivity.class);
-				startActivity(sting);
+				startActivity(new Intent(FilesActivity.this, TanzimatActivity.class)); Animatoo.animateZoom(FilesActivity.this);
 			}
 		});
 	}

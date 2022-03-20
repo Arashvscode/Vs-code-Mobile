@@ -60,6 +60,7 @@ import com.android.*;
 import com.googlecode.d2j.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
+import com.blogspot.atifsoftwares.animatoolib.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
