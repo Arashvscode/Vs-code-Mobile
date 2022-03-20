@@ -32,7 +32,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:padding="4dp"
-				android:background="#000027"
+				android:background="@drawable/b1123456721222aa"
 				android:orientation="vertical">
 				<ListView
 					android:id="@+id/listview1"

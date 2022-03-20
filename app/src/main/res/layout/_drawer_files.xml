@@ -74,6 +74,15 @@
 							android:src="@drawable/library"
 							android:scaleType="centerInside" />
 						<ImageView
+							android:id="@+id/bockview"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="3dp"
+							android:layout_marginBottom="3dp"
+							android:padding="5dp"
+							android:src="@drawable/puzzle80"
+							android:scaleType="centerInside" />
+						<ImageView
 							android:id="@+id/javacode"
 							android:layout_width="50dp"
 							android:layout_height="50dp"

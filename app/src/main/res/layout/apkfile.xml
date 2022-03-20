@@ -30,7 +30,7 @@
 					android:focusable="false"
 					android:layout_width="60dp"
 					android:layout_height="60dp"
-					android:src="@drawable/android"
+					android:src="@drawable/default_image"
 					android:scaleType="centerInside" />
 				<TextView
 					android:id="@+id/name"
