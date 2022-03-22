@@ -1,0 +1,43 @@
+body
+{  
+     background-color: #000030;
+     text-align : center;
+     
+     }
+     
+.in
+{ 
+      text-align: center;
+      border-radius : 20%;
+}
+
+.i0
+{  
+       font-effect: outline;
+       font-size: 40px;
+       color : #C46317;
+     
+       
+    }
+      .i1
+      {  
+           font-effect: emboss;
+           font-size : 18px;
+           color : #C46320;
+           text-align-last: left;
+           
+      }
+       
+main
+{
+
+text-align-last: left;
+}
+
+li{
+       color: #00FFFF;
+   }
+   
+h3 {
+     color: #00ffff;
+     }
