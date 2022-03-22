@@ -71,6 +71,7 @@ import com.googlecode.d2j.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -208,7 +209,6 @@ public class FilesActivity extends AppCompatActivity {
 	private ProgressDialog SkpLdialog;
 	private Intent javacode = new Intent();
 	private Intent blockview = new Intent();
-	private SharedPreferences sp;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -288,7 +288,6 @@ public class FilesActivity extends AppCompatActivity {
 		dialogfile = new AlertDialog.Builder(this);
 		dialogfolder = new AlertDialog.Builder(this);
 		dialogfiled = new AlertDialog.Builder(this);
-		sp = getSharedPreferences("sp", Activity.MODE_PRIVATE);
 		
 		listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -1200,7 +1199,7 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_bockview.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				blockview.setClass(getApplicationContext(), SkproblockviewActivity.class);
+				blockview.setClass(getApplicationContext(), BlocksmanagerActivity.class);
 				startActivity(blockview);
 			}
 		});
@@ -1252,7 +1251,8 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_sting.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				startActivity(new Intent(FilesActivity.this, TanzimatActivity.class)); Animatoo.animateZoom(FilesActivity.this);
+				sting.setClass(getApplicationContext(), TanzimatActivity.class);
+				startActivity(sting);
 			}
 		});
 	}
@@ -2515,7 +2515,7 @@ support me if you like my work
 			packageInfo = null;
 			packageManager = null;
 		} catch (Exception e) {
-			_imageview.setImageResource(R.drawable.default_image);
+			_imageview.setImageResource(R.drawable.android);
 		}
 	}
 	
