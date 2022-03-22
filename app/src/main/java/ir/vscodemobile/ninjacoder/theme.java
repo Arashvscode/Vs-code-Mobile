@@ -16,7 +16,7 @@ public class theme extends EditorColorScheme {
         setColor(OPERATOR, 0xFFFFFF00);
         setColor(COMMENT, 0xFFFF00D2);
         setColor(KEYWORD, 0xFFFF0270);
-        setColor(WHOLE_BACKGROUND, 0xFF000027);
+        setColor(WHOLE_BACKGROUND,0xFF000027);
         setColor(TEXT_NORMAL, 0xFF83FFFD);
         setColor(LINE_NUMBER_BACKGROUND, 0xFF000027);
         setColor(LINE_NUMBER, 0xFFFF8800);
@@ -30,6 +30,8 @@ public class theme extends EditorColorScheme {
         setColor(SELECTION_HANDLE, 0xFFDCFF9D);
         setColor(BLOCK_LINE, 0xD5FD2A2D);
         setColor(BLOCK_LINE_CURRENT, 0xFF00D4FF);
+		setColor(AUTO_COMP_PANEL_BG , 0xFF4582D7);
+		setColor(AUTO_COMP_PANEL_CORNER ,0xFF4582D7);
        /// setColor(DEX , 0xFFFF00A6 );
         setColor(NON_PRINTABLE_CHAR, 0xFF4582D7);
     }
