@@ -33,6 +33,8 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import android.graphics.Typeface;
@@ -54,10 +56,11 @@ import com.github.angads25.filepicker.*;
 import io.github.rosemoe.sora.*;
 import com.android.*;
 import com.googlecode.d2j.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
+import ninja.toska.path.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -92,6 +95,42 @@ public class JavacodeActivity extends AppCompatActivity {
 		listview1 = findViewById(R.id.listview1);
 		e = findViewById(R.id.e);
 		q = findViewById(R.id.q);
+		
+		e.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence _param1, int _param2, int _param3, int _param4) {
+				final String _charSeq = _param1.toString();
+				final double length = f.size();
+				 
+				d = f.size() - 1;
+				 for(int i = 0; i < (int)(length); i++) {
+					  final String serching = f.get((int)d).get("title").toString();
+					  if (serching.toLowerCase().contains(_charSeq.toLowerCase())) {
+						   
+						  }else {
+						   f.remove((int)(d));
+						  }
+					  d--;
+					 }
+				
+				listview1.setAdapter(new Listview1Adapter(f));
+				((BaseAdapter)listview1.getAdapter()).notifyDataSetChanged();
+				
+			}
+			private double d;
+			{
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence _param1, int _param2, int _param3, int _param4) {
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable _param1) {
+				
+			}
+		});
 		
 		q.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override

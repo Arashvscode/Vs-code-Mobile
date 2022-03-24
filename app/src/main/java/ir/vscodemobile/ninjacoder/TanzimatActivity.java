@@ -52,10 +52,11 @@ import com.github.angads25.filepicker.*;
 import io.github.rosemoe.sora.*;
 import com.android.*;
 import com.googlecode.d2j.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
+import ninja.toska.path.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -68,12 +69,14 @@ public class TanzimatActivity extends AppCompatActivity {
 	private CoordinatorLayout _coordinator;
 	private boolean bool = false;
 	private boolean webview1 = false;
+	private boolean cxd = false;
 	
 	private LinearLayout bg;
 	private LinearLayout back;
 	private LinearLayout linear2;
 	private LinearLayout hiden;
 	private LinearLayout web;
+	private LinearLayout otherSettings;
 	private TextView textview1;
 	private ImageView imageview1;
 	private LinearLayout linear3;
@@ -107,6 +110,13 @@ public class TanzimatActivity extends AppCompatActivity {
 	private TextView textview10;
 	private SwitchCompat switch9;
 	private TextView textview11;
+	private LinearLayout linear17;
+	private LinearLayout otherhiden;
+	private TextView textview12;
+	private ImageView imageleft;
+	private LinearLayout linear19;
+	private SwitchCompat switch10;
+	private TextView textview13;
 	
 	private SharedPreferences r1;
 	private SharedPreferences r2;
@@ -119,6 +129,7 @@ public class TanzimatActivity extends AppCompatActivity {
 	private SharedPreferences webjavasce;
 	private SharedPreferences Rjavapath;
 	private SharedPreferences Dark;
+	private SharedPreferences autosave;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -146,6 +157,7 @@ public class TanzimatActivity extends AppCompatActivity {
 		linear2 = findViewById(R.id.linear2);
 		hiden = findViewById(R.id.hiden);
 		web = findViewById(R.id.web);
+		otherSettings = findViewById(R.id.otherSettings);
 		textview1 = findViewById(R.id.textview1);
 		imageview1 = findViewById(R.id.imageview1);
 		linear3 = findViewById(R.id.linear3);
@@ -179,6 +191,13 @@ public class TanzimatActivity extends AppCompatActivity {
 		textview10 = findViewById(R.id.textview10);
 		switch9 = findViewById(R.id.switch9);
 		textview11 = findViewById(R.id.textview11);
+		linear17 = findViewById(R.id.linear17);
+		otherhiden = findViewById(R.id.otherhiden);
+		textview12 = findViewById(R.id.textview12);
+		imageleft = findViewById(R.id.imageleft);
+		linear19 = findViewById(R.id.linear19);
+		switch10 = findViewById(R.id.switch10);
+		textview13 = findViewById(R.id.textview13);
 		r1 = getSharedPreferences("r1", Activity.MODE_PRIVATE);
 		r2 = getSharedPreferences("r2", Activity.MODE_PRIVATE);
 		Assin = getSharedPreferences("Assin", Activity.MODE_PRIVATE);
@@ -190,6 +209,7 @@ public class TanzimatActivity extends AppCompatActivity {
 		webjavasce = getSharedPreferences("webjavasce", Activity.MODE_PRIVATE);
 		Rjavapath = getSharedPreferences("Rjavapath", Activity.MODE_PRIVATE);
 		Dark = getSharedPreferences("Dark", Activity.MODE_PRIVATE);
+		autosave = getSharedPreferences("autosave", Activity.MODE_PRIVATE);
 		
 		imageview1.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -291,12 +311,12 @@ public class TanzimatActivity extends AppCompatActivity {
 				if (!webview1) {
 					webview1 = true;
 					installweb.setVisibility(View.VISIBLE);
-					imageview1.setImageResource(R.drawable.down);
+					dowen.setImageResource(R.drawable.down);
 				}
 				else {
 					webview1 = false;
 					installweb.setVisibility(View.GONE);
-					imageview1.setImageResource(R.drawable.up001);
+					dowen.setImageResource(R.drawable.up001);
 				}
 			}
 		});
@@ -339,6 +359,35 @@ public class TanzimatActivity extends AppCompatActivity {
 				}
 			}
 		});
+		
+		imageleft.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				if (!cxd) {
+					cxd = true;
+					otherhiden.setVisibility(View.VISIBLE);
+					imageleft.setImageResource(R.drawable.down);
+				}
+				else {
+					cxd = false;
+					otherhiden.setVisibility(View.GONE);
+					imageleft.setImageResource(R.drawable.up001);
+				}
+			}
+		});
+		
+		switch10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+				final boolean _isChecked = _param2;
+				if (_isChecked) {
+					autosave.edit().putString("Va", "true").commit();
+				}
+				else {
+					autosave.edit().putString("Va", "false").commit();
+				}
+			}
+		});
 	}
 	
 	private void initializeLogic() {
@@ -346,6 +395,8 @@ public class TanzimatActivity extends AppCompatActivity {
 		hiden.setVisibility(View.GONE);
 		webview1 = false;
 		installweb.setVisibility(View.GONE);
+		cxd = false;
+		otherhiden.setVisibility(View.GONE);
 		if (r1.getString("repu", "").equals("cd")) {
 			switch1.setChecked(true);
 		}
@@ -388,12 +439,6 @@ public class TanzimatActivity extends AppCompatActivity {
 		else {
 			switch7.setChecked(false);
 		}
-		if (Rjavapath.getString("Xcdm", "").equals("true")) {
-			switch8.setChecked(true);
-		}
-		else {
-			switch8.setChecked(false);
-		}
 		 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 				      
 			if (Dark.getString("IDark", "").equals("true")) {
@@ -407,6 +452,18 @@ public class TanzimatActivity extends AppCompatActivity {
 				      
 				    switch9.setEnabled(false);  
 				    }
+		if (Rjavapath.getString("Xcdm", "").equals("true")) {
+			switch8.setChecked(true);
+		}
+		else {
+			switch8.setChecked(false);
+		}
+		if (autosave.getString("Va", "").equals("true")) {
+			switch10.setChecked(true);
+		}
+		else {
+			switch10.setChecked(false);
+		}
 	}
 	
 	@Override

@@ -41,6 +41,8 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import java.util.Timer;
+import java.util.TimerTask;
 import android.view.View;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -62,10 +64,11 @@ import com.github.angads25.filepicker.*;
 import io.github.rosemoe.sora.*;
 import com.android.*;
 import com.googlecode.d2j.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
+import ninja.toska.path.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -118,6 +121,8 @@ import java.*;
 
 public class MainActivity extends AppCompatActivity {
 	
+	private Timer _timer = new Timer();
+	
 	private Toolbar _toolbar;
 	private AppBarLayout _app_bar;
 	private CoordinatorLayout _coordinator;
@@ -165,6 +170,9 @@ public class MainActivity extends AppCompatActivity {
 	private SharedPreferences sys;
 	private SharedPreferences Zb;
 	private AlertDialog.Builder alreplce;
+	private SharedPreferences autosave;
+	private TimerTask rang;
+	private TimerTask t;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -235,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
 		sys = getSharedPreferences("sys", Activity.MODE_PRIVATE);
 		Zb = getSharedPreferences("Zb", Activity.MODE_PRIVATE);
 		alreplce = new AlertDialog.Builder(this);
+		autosave = getSharedPreferences("autosave", Activity.MODE_PRIVATE);
 		
 		imageview1.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -473,9 +482,12 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
+		editor.setLineNumberAlign(Paint.Align.CENTER);
+		
+		
 		setTitle(getIntent().getStringExtra("title"));
 		setTheme(android.R.style.Theme_Material);
-		
+		editor.setTypefaceLineNumber(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
@@ -846,7 +858,7 @@ public class MainActivity extends AppCompatActivity {
 				}
 			}
 		}
-		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFFFF8800".replace("0xFF" , "#"))));
+		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFF2196F3".replace("0xFF" , "#"))));
 	}
 	
 	
@@ -900,7 +912,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 			else {
 				FileUtil.writeFile(getIntent().getStringExtra("save"), editor.getText().toString());
-				SketchwareUtil.showMessage(getApplicationContext(), "saved");
+				_snakbar();
 			}
 		}
 		if (_id == 4) {
@@ -1559,6 +1571,33 @@ public class MainActivity extends AppCompatActivity {
 				
 			}
 		}
+		if (autosave.getString("Va", "").equals("true")) {
+			rang = new TimerTask() {
+				@Override
+				public void run() {
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							if (getIntent().getStringExtra("key").equals("empty")) {
+								
+							}
+							else {
+								FileUtil.writeFile(getIntent().getStringExtra("key"), editor.getText().toString());
+							}
+						}
+					});
+				}
+			};
+			_timer.scheduleAtFixedRate(rang, (int)(0), (int)(2000));
+		}
+		else {
+			if (autosave.getString("Va", "").equals("false")) {
+				
+			}
+			else {
+				
+			}
+		}
 	}
 	
 	
@@ -1608,6 +1647,44 @@ public class MainActivity extends AppCompatActivity {
 				}
 			}
 		}
+	}
+	
+	
+	public void _snakbar() {
+		ViewGroup v = (ViewGroup) ((ViewGroup) MainActivity.this .findViewById(android.R.id.content)).getChildAt(0);
+		
+		final com.google.android.material.snackbar.Snackbar snackbar = com.google.android.material.snackbar.Snackbar.make(v, "", com.google.android.material.snackbar.Snackbar.LENGTH_LONG);
+		  
+		                
+		                View customSnackView = getLayoutInflater().inflate(R.layout.saved, null);
+		  
+		                
+		                snackbar.getView().setBackgroundColor(Color.TRANSPARENT);
+		  
+		                
+		                com.google.android.material.snackbar.Snackbar.SnackbarLayout snackbarLayout = (com.google.android.material.snackbar.Snackbar.SnackbarLayout) snackbar.getView();
+		  
+		                
+		                snackbarLayout.setPadding(0, 0, 0, 0);
+		  
+		                
+		                t = new TimerTask() {
+			@Override
+			public void run() {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						snackbar.dismiss();                    
+					}
+				});
+			}
+		};
+		_timer.schedule(t, (int)(2000));
+		  
+		                
+		                snackbarLayout.addView(customSnackView, 0);
+		                  
+		                snackbar.show();
 	}
 	
 	

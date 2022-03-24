@@ -73,10 +73,11 @@ import com.github.angads25.filepicker.*;
 import io.github.rosemoe.sora.*;
 import com.android.*;
 import com.googlecode.d2j.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
+import ninja.toska.path.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -98,7 +99,8 @@ import io.github.rosemoe.sora.widget.schemes.SchemeGitHub;
 import io.github.rosemoe.sora.widget.schemes.SchemeNotepadXX;
 import io.github.rosemoe.sora.widget.schemes.SchemeVS2019;
 
-import ir.vscodemobile.ninjacoder.theme;
+import ir.vscodemobile.ninjacoder.theme;
+import io.github.rosemoe.sora.langs.java.JavaLanguage;
 
 public class AddBlockActivity extends AppCompatActivity {
 	
@@ -452,77 +454,77 @@ public class AddBlockActivity extends AppCompatActivity {
 			public void onClick(View _view) {
 				View view = getCurrentFocus();
 				if (view != null) {  
-					    android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-					    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+						    android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+						    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 				}
 				{
-					final String[] array = listStr.toArray(new String[0]);
-					final String[] chosen = {""};
-					AlertDialog.Builder builder;
-					
-					boolean dark = isDark;
-					
-					if (dark) {
-							builder = new AlertDialog.Builder(AddBlockActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
-					} else {
-							builder = new AlertDialog.Builder(AddBlockActivity.this);
-					}
-					
-					
-					builder.setCancelable(false);
-					        //builder.setIcon(R.drawable.icon);
-					        builder.setTitle("Select");
-					        builder.setSingleChoiceItems(array, -1, new DialogInterface
-					                .OnClickListener() {
-						            public void onClick(DialogInterface dialog, int item) {
-							              
-							              chosen[0] = array[item];
-							              
-							            }
-						        });
-					        
-					        builder.setPositiveButton("✅", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int _which) {
-							
-							
-									
-							}
-					});
-					
-					builder.setNegativeButton("🚪", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface _dialog, int _which) {
-							
-							
-									
-							}
-					});
-					
-					        final AlertDialog alert = builder.create();
-					        alert.show();
-					
-					alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-					 { 
-							 @Override
-							 public void onClick(View v)
-							 {
-									 Boolean wantToCloseDialog = false;
-							
-							
-							String item = chosen[0];
-							if (item.isEmpty()){
-								
-							} else {
-								typeEdit.setText(_setType(item));
-								alert.dismiss();
-							}
-									 if(wantToCloseDialog) {
-											 
-											 }
-									 }
-							 });
-					
+						final String[] array = listStr.toArray(new String[0]);
+						final String[] chosen = {""};
+						AlertDialog.Builder builder;
+						
+						boolean dark = isDark;
+						
+						if (dark) {
+									builder = new AlertDialog.Builder(AddBlockActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+						} else {
+									builder = new AlertDialog.Builder(AddBlockActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+						}
+						
+						
+						builder.setCancelable(false);
+						        //builder.setIcon(R.drawable.icon);
+						        builder.setTitle("Select");
+						        builder.setSingleChoiceItems(array, -1, new DialogInterface
+						                .OnClickListener() {
+								            public void onClick(DialogInterface dialog, int item) {
+										              
+										              chosen[0] = array[item];
+										              
+										            }
+								        });
+						        
+						        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int _which) {
+										
+										
+												
+									}
+						});
+						
+						builder.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface _dialog, int _which) {
+										
+										
+												
+									}
+						});
+						
+						        final AlertDialog alert = builder.create();
+						        alert.show();
+						
+						alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+						 { 
+									 @Override
+									 public void onClick(View v)
+									 {
+												 Boolean wantToCloseDialog = false;
+										
+										
+										String item = chosen[0];
+										if (item.isEmpty()){
+												
+										} else {
+												typeEdit.setText(_setType(item));
+												alert.dismiss();
+										}
+												 if(wantToCloseDialog) {
+															 
+															 }
+												 }
+									 });
+						
 				}
 			}
 		});
@@ -713,14 +715,15 @@ public class AddBlockActivity extends AppCompatActivity {
 		imageview13.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				
+				android.view.inputmethod.BaseInputConnection inputConnection = new android.view.inputmethod.BaseInputConnection(AddBlockActivity.this.getWindow().getDecorView().getRootView(), true);
+				inputConnection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
 			}
 		});
 		
 		imageview1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				_DimAnimation(linearAllData, true, SketchwareUtil.getDip(getApplicationContext(), (int)(45)), 400);
+				_DimAnimation(linearAllData, true, SketchwareUtil.getDip(getApplicationContext(), (int)(40)), 400);
 				saveCloseLin.setVisibility(View.GONE);
 				bottomTools.setVisibility(View.VISIBLE);
 				_fab.show();
@@ -840,6 +843,15 @@ public class AddBlockActivity extends AppCompatActivity {
 	
 	private void initializeLogic() {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		editor.setTypefaceText(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
+		editor.setTypefaceLineNumber(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
+		editor.setPinLineNumber(!editor.isLineNumberPinned());
+		editor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
+		editor.setTextActionMode(CodeEditor.TextActionMode.POPUP_WINDOW);
+		editor.setEdgeEffectColor(Color.RED);
+		
+		editor.setColorScheme(new theme());
+		editor.setEditorLanguage(new JavaLanguage()); 
 		Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(AddBlockActivity.this));
 		returnNumber = linearAllData.getHeight();
 		isExpanded = true;
@@ -983,13 +995,46 @@ public class AddBlockActivity extends AppCompatActivity {
 		    typeEdit.setCursorVisible(false);
 		    typeEdit.setKeyListener(null);
 		    typeEdit.setBackgroundColor(Color.TRANSPARENT); 
+		fonts(getApplicationContext(),getWindow().getDecorView()); 
+	} 
+	  private void fonts(final android.content.Context context, final View v) {
+		    String fontName = "fonts/hack_regular.ttf";
+		 try {
+						Typeface 
+						typeace = Typeface.createFromAsset(getAssets(), fontName);
+						if ((v instanceof ViewGroup)) {
+								ViewGroup vg = (ViewGroup) v;
+								for (int i = 0;
+								i < vg.getChildCount();
+								i++) {
+										View child = vg.getChildAt(i);
+										fonts(context, child);
+								}
+						}
+						else {
+								if ((v instanceof TextView)) {
+										((TextView) v).setTypeface(typeace);
+								}
+								else {
+										if ((v instanceof EditText )) {
+												((EditText) v).setTypeface(typeace);
+										}
+										else {
+												if ((v instanceof Button)) {
+														((Button) v).setTypeface(typeace);
+												}
+										}
+								}
+						}
+				}
+				catch(Exception e)
+				
+				{
+						e.printStackTrace();
+				};
+		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFFFF8800".replace("0xFF" , "#"))));
 	}
 	
-	
-	@Override
-	public void onBackPressed() {
-		
-	}
 	
 	@Override
 	public void onStart() {

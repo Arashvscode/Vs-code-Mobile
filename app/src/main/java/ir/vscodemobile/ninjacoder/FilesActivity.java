@@ -68,10 +68,11 @@ import com.github.angads25.filepicker.*;
 import io.github.rosemoe.sora.*;
 import com.android.*;
 import com.googlecode.d2j.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
+import ninja.toska.path.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -1405,8 +1406,8 @@ public class FilesActivity extends AppCompatActivity {
 		else {
 			
 		}
-		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFFFF8800".replace("0xFF" , "#"))));
 		
+		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFF2196F3".replace("0xFF" , "#"))));
 	}
 	
 	@Override
@@ -1578,25 +1579,30 @@ public class FilesActivity extends AppCompatActivity {
 		edittext12.setLayoutParams(lparr);
 		dialog.setView(edittext12);
 		dialog.setMessage(Html.fromHtml("<font color=\"#00FFFF\">آیا میخواهید یک پوشه ایجاد کنید؟</font>"));
-		dialog.setNegativeButton(Html.fromHtml("<font color=\"#00FF00\">بله</font>"), new DialogInterface.OnClickListener() {
+		dialog.setNegativeButton(Html.fromHtml("<font color=\"#00FF00\">no</font>"), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
-				try {
-					CreateFolder = edittext12.getText().toString();
-					
-					if (!FileUtil.isFile(Folder.concat("/".concat(CreateFolder.concat("/"))))) {
-						FileUtil.makeDir(Folder.concat("/".concat(CreateFolder.concat("/"))));
-						_getFiles("");
-					}
-					else {
+				if (edittext12.getText().toString().equals("")) {
+					try {
+						CreateFolder = edittext12.getText().toString();
 						
+						if (!FileUtil.isFile(Folder.concat("/".concat(CreateFolder.concat("/"))))) {
+							FileUtil.makeDir(Folder.concat("/".concat(CreateFolder.concat("/"))));
+							_getFiles("");
+						}
+						else {
+							
+						}
+					} catch (Exception e) {
+						 
 					}
-				} catch (Exception e) {
-					 
+				}
+				else {
+					NinjaCodermain.CustomToast(getApplicationContext(), "Error Type name Folder", 0xFFFFFFFF, 16, 0xFF00003A, 25,NinjaCodermain.CENTER , 5);
 				}
 			}
 		});
-		dialog.setNeutralButton(Html.fromHtml("<font color=\"#FF0000\">خیر</font>"), new DialogInterface.OnClickListener() {
+		dialog.setNeutralButton(Html.fromHtml("<font color=\"#FF0000\">yes</font>"), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
 				
@@ -1612,11 +1618,10 @@ public class FilesActivity extends AppCompatActivity {
 		dialogmain.setMessage("ایا میخواهید یک فایل ایجاد کنید");
 		final EditText edittext2= new EditText(FilesActivity.this);
 		LinearLayout.LayoutParams lparr = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		edittext2.setHint("name file...");
-		edittext2.setHintTextColor(0xFF000000);
+		edittext2.setHint("Type name file!");
+		edittext2.setHintTextColor(0xFFF44336);
 		edittext2.setTextSize((float)16);
 		edittext2.setTextColor(0xFFF44336);
-		((EditText)edittext2).setError("Error plestype text");
 		edittext2.setLayoutParams(lparr);
 		dialogmain.setView(edittext2);
 		edittext2.addTextChangedListener(new TextWatcher() {
@@ -1717,35 +1722,40 @@ public class FilesActivity extends AppCompatActivity {
 			
 		});
 		
-		dialogmain.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		dialogmain.setPositiveButton("yes", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
-				try {
-					mainfile = edittext2.getText().toString();
-					if (mainfile.equals("")) {
-						_file();
-					}
-					else {
-						if (!mainfile.contains("/")) {
-							FileUtil.writeFile(Folder.concat("/".concat(mainfile)), "");
-							_getFiles("");
+				if (edittext2.getText().toString().equals("")) {
+					try {
+						mainfile = edittext2.getText().toString();
+						if (mainfile.equals("")) {
+							_file();
 						}
 						else {
-							if (FileUtil.isExistFile(Folder.concat("/".concat(mainfile)))) {
+							if (!mainfile.contains("/")) {
+								FileUtil.writeFile(Folder.concat("/".concat(mainfile)), "");
 								_getFiles("");
 							}
 							else {
-								
+								if (FileUtil.isExistFile(Folder.concat("/".concat(mainfile)))) {
+									_getFiles("");
+								}
+								else {
+									
+								}
 							}
 						}
+						
+					} catch (Exception e) {
+						 
 					}
-					
-				} catch (Exception e) {
-					 
+				}
+				else {
+					NinjaCodermain.CustomToast(getApplicationContext(), "Error Type Name File ", 0xFFFFFFFF, 16, 0xFF00003A, 25,NinjaCodermain.CENTER , 2);
 				}
 			}
 		});
-		dialogmain.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+		dialogmain.setNegativeButton("no", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
 				
@@ -2256,97 +2266,101 @@ support me if you like my work
 	
 	
 	public void _listfile(final double _pos, final String _FILE) {
-		if (files.get((int)_pos).get(_FILE).toString().endsWith(".jar")) {
-			cdm = files.get((int)_pos).get(_FILE).toString();
-			if (cdm.equals("")) {
-				SketchwareUtil.showMessage(getApplicationContext(), "خطا انتخاب فایل jar");
-			}
-			else {
-				if (cdm.endsWith(".jar")) {
-					if (FileUtil.isExistFile(cdm)) {
-						error = false;
-						try {
-							final SpinKitView spkv = new SpinKitView(FilesActivity.this);
-							spkv.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
-							spkv.setStyle(Style.WAVE);
-							spkv.setColor(0xFFFF8800);
-							
-							
-							
-							LinearLayout layoutP = new LinearLayout(FilesActivity.this);
-							LinearLayout layout1 = new LinearLayout(FilesActivity.this);
-							LinearLayout layout2 = new LinearLayout(FilesActivity.this);
-							
-							final TextView textLoad = new TextView(getApplicationContext());
-							textLoad.setText("jar to dex convert ".concat(cdm));
-							textLoad.setTextColor(0xFFFF8800);
-							textLoad.setTextSize((float)17);
-							
-							//layoutP.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
-							layoutP.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-							
-							layoutP.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-							layoutP.setOrientation(LinearLayout.VERTICAL);
-							layout1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-							layout2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-							  
-							
-							     
-							     
-							layout2.setPadding(8,8,8,8);
-							textLoad.setPadding(8,8,8,8);
-							
-							layout1.addView(spkv);
-							layout2.addView(textLoad);
-							layoutP.addView(layout1);
-							layoutP.addView(layout2);
-							
-							newDialogspkv = new AlertDialog.Builder(FilesActivity.this)
-								.setView(layoutP)
-								.create();
-							  newDialogspkv.show();
-							
-							newDialogspkv.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-							
-							new _BackgroundTaskClass2(FilesActivity.this) {
-									        @Override
-									        public void doInBackground() {
-									try {
-										_jar2dex(cdm, cdm.substring((int)(0), (int)(cdm.lastIndexOf(".jar"))).concat(".dex"));
-									} catch (Exception e) {
-										exception = e.toString();
-										error = true;
-									}
-									
-											        }
-									
-									        @Override
-									        public void onPostExecute() {
-											 
-									SketchwareUtil.showMessage(getApplicationContext(), "Success to convert - ".concat(cdm.substring((int)(0), (int)(cdm.lastIndexOf(".jar"))).concat(".dex")));
-									_getFiles("");
-									newDialogspkv.dismiss();
-									newDialogspkv.setCancelable(false);
-									if (error) {
-										SketchwareUtil.showMessage(getApplicationContext(), exception);
-									}
-									else {
+		try {
+			if (files.get((int)_pos).get(_FILE).toString().endsWith(".jar")) {
+				cdm = files.get((int)_pos).get(_FILE).toString();
+				if (cdm.equals("")) {
+					SketchwareUtil.showMessage(getApplicationContext(), "خطا انتخاب فایل jar");
+				}
+				else {
+					if (cdm.endsWith(".jar")) {
+						if (FileUtil.isExistFile(cdm)) {
+							error = false;
+							try {
+								final SpinKitView spkv = new SpinKitView(FilesActivity.this);
+								spkv.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
+								spkv.setStyle(Style.WAVE);
+								spkv.setColor(0xFFFF8800);
+								
+								
+								
+								LinearLayout layoutP = new LinearLayout(FilesActivity.this);
+								LinearLayout layout1 = new LinearLayout(FilesActivity.this);
+								LinearLayout layout2 = new LinearLayout(FilesActivity.this);
+								
+								final TextView textLoad = new TextView(getApplicationContext());
+								textLoad.setText("jar to dex convert ".concat(cdm));
+								textLoad.setTextColor(0xFFFF8800);
+								textLoad.setTextSize((float)17);
+								
+								//layoutP.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
+								layoutP.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+								
+								layoutP.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+								layoutP.setOrientation(LinearLayout.VERTICAL);
+								layout1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+								layout2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+								  
+								
+								     
+								     
+								layout2.setPadding(8,8,8,8);
+								textLoad.setPadding(8,8,8,8);
+								
+								layout1.addView(spkv);
+								layout2.addView(textLoad);
+								layoutP.addView(layout1);
+								layoutP.addView(layout2);
+								
+								newDialogspkv = new AlertDialog.Builder(FilesActivity.this)
+									.setView(layoutP)
+									.create();
+								  newDialogspkv.show();
+								
+								newDialogspkv.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+								
+								new _BackgroundTaskClass2(FilesActivity.this) {
+										        @Override
+										        public void doInBackground() {
+										try {
+											_jar2dex(cdm, cdm.substring((int)(0), (int)(cdm.lastIndexOf(".jar"))).concat(".dex"));
+										} catch (Exception e) {
+											exception = e.toString();
+											error = true;
+										}
 										
-									}
-											        }
-									    }.execute();
-						} catch (Exception e) {
-							 
+												        }
+										
+										        @Override
+										        public void onPostExecute() {
+												 
+										SketchwareUtil.showMessage(getApplicationContext(), "Success to convert - ".concat(cdm.substring((int)(0), (int)(cdm.lastIndexOf(".jar"))).concat(".dex")));
+										_getFiles("");
+										newDialogspkv.dismiss();
+										newDialogspkv.setCancelable(false);
+										if (error) {
+											SketchwareUtil.showMessage(getApplicationContext(), exception);
+										}
+										else {
+											
+										}
+												        }
+										    }.execute();
+							} catch (Exception e) {
+								 
+							}
+						}
+						else {
+							SketchwareUtil.showMessage(getApplicationContext(), "فایل پیدا نشد");
 						}
 					}
 					else {
-						SketchwareUtil.showMessage(getApplicationContext(), "فایل پیدا نشد");
+						SketchwareUtil.showMessage(getApplicationContext(), "فایل jar");
 					}
 				}
-				else {
-					SketchwareUtil.showMessage(getApplicationContext(), "فایل jar");
-				}
 			}
+		} catch (Exception e) {
+			NinjaCodermain.CustomToast(getApplicationContext(), e.toString(), 0xFFFFFFFF, 14, 0xFF00003A, 25,NinjaCodermain.TOP , 2);
 		}
 	}
 	
@@ -4738,9 +4752,9 @@ support me if you like my work
 		if (_imap.get((int)_pos).get(_path).toString().endsWith(".swb")) {
 			Aswb = _imap.get((int)_pos).get(_path).toString();
 			pro = new ProgressDialog(FilesActivity.this);
-			pro.getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+			pro.getWindow().setBackgroundDrawable(new ColorDrawable(0xFF130F3B));
 			pro.setTitle(Html.fromHtml("<font color=\"#00FFFF\">SwbFile</font>"));
-			pro.setMessage(Html.fromHtml("<font color=\"#0085FF\">restonSwbFile</font>"));
+			pro.setMessage(Html.fromHtml("<font color=\"#0085FF\">ReastoneSwbFile</font>"));
 			pro.setCanceledOnTouchOutside(false);
 			pro.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			pro.setMax((int)100);

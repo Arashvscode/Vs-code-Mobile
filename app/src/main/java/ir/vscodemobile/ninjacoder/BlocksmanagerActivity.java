@@ -68,10 +68,11 @@ import com.github.angads25.filepicker.*;
 import io.github.rosemoe.sora.*;
 import com.android.*;
 import com.googlecode.d2j.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
+import ninja.toska.path.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -520,11 +521,6 @@ e.printStackTrace();
 		searchEdit.setText("");
 		searchEdit.clearFocus();
 	}
-	
-	@Override
-	public void onBackPressed() {
-		
-	}
 	
 	public void _loadSpecificPletteblocks(final double _pos) {
 		if (FileUtil.isExistFile(blocksPath) && !(FileUtil.readFile(blocksPath).equals("") || FileUtil.readFile(blocksPath).equals("[]"))) {
@@ -696,11 +692,11 @@ e.printStackTrace();
 		
 		ImageView IconAdd = new ImageView(getApplicationContext()); 
 		
-		IconAdd.setImageDrawable(getResources().getDrawable(R.drawable.ic_control_point_black)); 
+		IconAdd.setImageDrawable(getResources().getDrawable(R.drawable.typeaddblock)); 
 		
 		com.oguzdev.circularfloatingactionmenu.library.SubActionButton Add = itemBuilder.setContentView(IconAdd).build(); 
 		
-		FrameLayout.LayoutParams AddParams = new FrameLayout.LayoutParams(120, 120);
+		FrameLayout.LayoutParams AddParams = new FrameLayout.LayoutParams(90, 90);
 		
 		        Add.setLayoutParams(AddParams);
 		
@@ -785,11 +781,11 @@ e.printStackTrace();
 						});
 		ImageView IconSendmultiples = new ImageView(getApplicationContext()); 
 		
-		IconSendmultiples.setImageDrawable(getResources().getDrawable(R.drawable.send_multiple)); 
+		IconSendmultiples.setImageDrawable(getResources().getDrawable(R.drawable.typeshareblock)); 
 		
 		com.oguzdev.circularfloatingactionmenu.library.SubActionButton Sendmultiples = itemBuilder.setContentView(IconSendmultiples).build(); 
 		
-		FrameLayout.LayoutParams SendmultiplesParams = new FrameLayout.LayoutParams(120, 120);
+		FrameLayout.LayoutParams SendmultiplesParams = new FrameLayout.LayoutParams(90, 90);
 		
 		        Sendmultiples.setLayoutParams(SendmultiplesParams);
 		
@@ -805,7 +801,7 @@ e.printStackTrace();
 										
 										builder.setTitle("select...");
 										
-										builder.setPositiveButton("✔️", new DialogInterface.OnClickListener() {
+										builder.setPositiveButton("ok️", new DialogInterface.OnClickListener() {
 														@Override
 														public void onClick(DialogInterface _dialog, int _which) {
 																
@@ -814,7 +810,7 @@ e.printStackTrace();
 														}
 										});
 										
-										builder.setNegativeButton("❌", new DialogInterface.OnClickListener() {
+										builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
 														@Override
 														public void onClick(DialogInterface _dialog, int _which) {
 																
@@ -946,11 +942,11 @@ e.printStackTrace();
 						});
 		ImageView IconSavemultiples = new ImageView(getApplicationContext()); 
 		
-		IconSavemultiples.setImageDrawable(getResources().getDrawable(R.drawable.save_multiple)); 
+		IconSavemultiples.setImageDrawable(getResources().getDrawable(R.drawable.typesaveblock)); 
 		
 		com.oguzdev.circularfloatingactionmenu.library.SubActionButton Savemultiples = itemBuilder.setContentView(IconSavemultiples).build(); 
 		
-		FrameLayout.LayoutParams SavemultiplesParams = new FrameLayout.LayoutParams(120, 120);
+		FrameLayout.LayoutParams SavemultiplesParams = new FrameLayout.LayoutParams(90, 90);
 		
 		        Savemultiples.setLayoutParams(SavemultiplesParams);
 		
@@ -3503,112 +3499,101 @@ blocksListMap.get((int)_repeat150).put("palette", String.valueOf((long)(couterNu
 	
 	
 	public void _preViewInfo(final String _which) {
-		if (_which.equals("p")) {
-			
-		}
-		else {
-			if (_which.equals("b")) {
-				final AlertDialog dialog = new AlertDialog.Builder(BlocksmanagerActivity.this).create();
-				LayoutInflater inflater = getLayoutInflater();
-				View convertView = (View) inflater.inflate(R.layout.preview, null);
+		try {
+			if (_which.equals("p")) {
 				
-				dialog.setView(convertView);
-				
-				
-				final ImageView type = (ImageView)
-				convertView.findViewById(R.id.type);
-				final CodeEditor codeEditor = (CodeEditor)
-				convertView.findViewById(R.id.codeEditor);
-				final EditText name = (EditText)
-				convertView.findViewById(R.id.name);
-				final EditText spec = (EditText)
-				convertView.findViewById(R.id.spec);
-				final ImageView close = (ImageView)
-				convertView.findViewById(R.id.close);
-				final ImageView save = (ImageView)
-				convertView.findViewById(R.id.save);
-				final TextView bnumber = (TextView)
-				convertView.findViewById(R.id.bnumber);
-				final TextView pname = (TextView)
-				convertView.findViewById(R.id.pname);
-				final TextView pnumber = (TextView)
-				convertView.findViewById(R.id.pnumber);
-				final androidx.cardview.widget.CardView cardview1 = (androidx.cardview.widget.CardView)
-						convertView.findViewById(R.id.cardview1);
-				codeEditor.setWordwrap(true);
-				codeEditor.setColorScheme(new theme());
-				codeEditor.setTextSize((int)12);
-				cardview1.setCardBackgroundColor(0xFF000027);
-				cardview1.setRadius((float)25);
-				cardview1.setCardElevation((float)0);
-				if (allBlocks) {
-					if (searchEdit.getText().toString().isEmpty()) {
-						ExactPos = dragedPos;
-					}
-					else {
-						ExactPos = searchAllNumberList.get((int)(dragedPos)).doubleValue();
-					}
-					_setImageForType(blocksListMap.get((int)ExactPos).get("type").toString(), type, blocksListMap.get((int)ExactPos).get("color").toString());
-					code = blocksListMap.get((int)ExactPos).get("code").toString();
-					spec.setText(blocksListMap.get((int)ExactPos).get("spec").toString());
-					name.setText(blocksListMap.get((int)ExactPos).get("name").toString());
-					bnumber.setText(String.valueOf((long)(ExactPos)));
-					pnumber.setText(blocksListMap.get((int)ExactPos).get("palette").toString());
-					pname.setText(palettesListMap.get((int)Double.parseDouble(blocksListMap.get((int)ExactPos).get("palette").toString()) - 9).get("name").toString());
-				}
-				else {
-					if (searchEdit.getText().toString().isEmpty()) {
-						ExactPos = dragedPos;
-						blockIndex = positionsB.get((int)(dragedPos)).doubleValue();
-						code = chosenPletteteListMap.get((int)ExactPos).get("code").toString();
-						_setImageForType(chosenPletteteListMap.get((int)ExactPos).get("type").toString(), type, chosenPletteteListMap.get((int)ExactPos).get("color").toString());
-						spec.setText(chosenPletteteListMap.get((int)ExactPos).get("spec").toString());
-						name.setText(chosenPletteteListMap.get((int)ExactPos).get("name").toString());
-						bnumber.setText(String.valueOf((long)(blockIndex)));
-						/*
-SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(ExactPos)));
-*/
-						pnumber.setText(chosenPletteteListMap.get((int)ExactPos).get("palette").toString());
-						pname.setText(palettesListMap.get((int)Double.parseDouble(chosenPletteteListMap.get((int)ExactPos).get("palette").toString()) - 9).get("name").toString());
-					}
-					else {
-						ExactPos = dragedPos;
-						blockIndex = SearchChosenNumberList.get((int)(ExactPos)).doubleValue();
-						code = SearchchosenList.get((int)ExactPos).get("code").toString();
-						_setImageForType(SearchchosenList.get((int)ExactPos).get("type").toString(), type, SearchchosenList.get((int)ExactPos).get("color").toString());
-						spec.setText(SearchchosenList.get((int)ExactPos).get("spec").toString());
-						name.setText(SearchchosenList.get((int)ExactPos).get("name").toString());
-						bnumber.setText(String.valueOf((long)(blockIndex)));
-						/*
-SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
-*/
-						pnumber.setText(SearchchosenList.get((int)ExactPos).get("palette").toString());
-						pname.setText(palettesListMap.get((int)Double.parseDouble(SearchchosenList.get((int)ExactPos).get("palette").toString()) - 9).get("name").toString());
-					}
-				}
-				save.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View _view) {
-						if (allBlocks) {
-							blocksListMap.get((int)blockIndex).put("code", codeEditor.getText().toString());
-							blocksListMap.get((int)blockIndex).put("name", name.getText().toString());
-							blocksListMap.get((int)blockIndex).put("spec", spec.getText().toString());
-							FileUtil.writeFile(blocksPath, new Gson().toJson(blocksListMap));
-							{
-								int index = blocksList.getFirstVisiblePosition();
-								int top = (blocksList.getChildAt(0) == null) ? 0 : (blocksList.getChildAt(0).getTop() - blocksList.getPaddingTop());
-								
-								_loadRefreshBlocks();
-								
-								
-								blocksList.setSelectionFromTop((int)index, (int)top);
-							}
-							dialog.dismiss();
-							SketchwareUtil.showMessage(getApplicationContext(), "✔️");
-							searchEdit.setText("");
+			}
+			else {
+				if (_which.equals("b")) {
+					final AlertDialog dialog = new AlertDialog.Builder(BlocksmanagerActivity.this).create();
+					LayoutInflater inflater = getLayoutInflater();
+					View convertView = (View) inflater.inflate(R.layout.preview, null);
+					
+					dialog.setView(convertView);
+					
+					
+					final ImageView type = (ImageView)
+					convertView.findViewById(R.id.type);
+					final CodeEditor codeEditor = (CodeEditor)
+					convertView.findViewById(R.id.codeEditor);
+					final EditText name = (EditText)
+					convertView.findViewById(R.id.name);
+					final EditText spec = (EditText)
+					convertView.findViewById(R.id.spec);
+					final ImageView close = (ImageView)
+					convertView.findViewById(R.id.close);
+					final ImageView save = (ImageView)
+					convertView.findViewById(R.id.save);
+					final TextView bnumber = (TextView)
+					convertView.findViewById(R.id.bnumber);
+					final TextView pname = (TextView)
+					convertView.findViewById(R.id.pname);
+					final TextView pnumber = (TextView)
+					convertView.findViewById(R.id.pnumber);
+					final androidx.cardview.widget.CardView cardview1 = (androidx.cardview.widget.CardView)
+							convertView.findViewById(R.id.cardview1);
+					codeEditor.setWordwrap(true);
+					codeEditor.setTypefaceText(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
+					codeEditor.setColorScheme(new theme());
+					codeEditor.setEditorLanguage(new JavaLanguage()); 
+					codeEditor.setTextActionMode(CodeEditor.TextActionMode.POPUP_WINDOW);
+					codeEditor.setEdgeEffectColor(Color.RED);
+					
+					codeEditor.setPinLineNumber(!codeEditor.isLineNumberPinned());
+					codeEditor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
+					codeEditor.setTextSize((int)12);
+					cardview1.setCardBackgroundColor(0xFF000027);
+					cardview1.setRadius((float)25);
+					cardview1.setCardElevation((float)0);
+					if (allBlocks) {
+						if (searchEdit.getText().toString().isEmpty()) {
+							ExactPos = dragedPos;
 						}
 						else {
-							if (!sp.getString("posNumber", "").equals("")) {
+							ExactPos = searchAllNumberList.get((int)(dragedPos)).doubleValue();
+						}
+						_setImageForType(blocksListMap.get((int)ExactPos).get("type").toString(), type, blocksListMap.get((int)ExactPos).get("color").toString());
+						code = blocksListMap.get((int)ExactPos).get("code").toString();
+						spec.setText(blocksListMap.get((int)ExactPos).get("spec").toString());
+						name.setText(blocksListMap.get((int)ExactPos).get("name").toString());
+						bnumber.setText(String.valueOf((long)(ExactPos)));
+						pnumber.setText(blocksListMap.get((int)ExactPos).get("palette").toString());
+						pname.setText(palettesListMap.get((int)Double.parseDouble(blocksListMap.get((int)ExactPos).get("palette").toString()) - 9).get("name").toString());
+					}
+					else {
+						if (searchEdit.getText().toString().isEmpty()) {
+							ExactPos = dragedPos;
+							blockIndex = positionsB.get((int)(dragedPos)).doubleValue();
+							code = chosenPletteteListMap.get((int)ExactPos).get("code").toString();
+							_setImageForType(chosenPletteteListMap.get((int)ExactPos).get("type").toString(), type, chosenPletteteListMap.get((int)ExactPos).get("color").toString());
+							spec.setText(chosenPletteteListMap.get((int)ExactPos).get("spec").toString());
+							name.setText(chosenPletteteListMap.get((int)ExactPos).get("name").toString());
+							bnumber.setText(String.valueOf((long)(blockIndex)));
+							/*
+SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(ExactPos)));
+*/
+							pnumber.setText(chosenPletteteListMap.get((int)ExactPos).get("palette").toString());
+							pname.setText(palettesListMap.get((int)Double.parseDouble(chosenPletteteListMap.get((int)ExactPos).get("palette").toString()) - 9).get("name").toString());
+						}
+						else {
+							ExactPos = dragedPos;
+							blockIndex = SearchChosenNumberList.get((int)(ExactPos)).doubleValue();
+							code = SearchchosenList.get((int)ExactPos).get("code").toString();
+							_setImageForType(SearchchosenList.get((int)ExactPos).get("type").toString(), type, SearchchosenList.get((int)ExactPos).get("color").toString());
+							spec.setText(SearchchosenList.get((int)ExactPos).get("spec").toString());
+							name.setText(SearchchosenList.get((int)ExactPos).get("name").toString());
+							bnumber.setText(String.valueOf((long)(blockIndex)));
+							/*
+SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
+*/
+							pnumber.setText(SearchchosenList.get((int)ExactPos).get("palette").toString());
+							pname.setText(palettesListMap.get((int)Double.parseDouble(SearchchosenList.get((int)ExactPos).get("palette").toString()) - 9).get("name").toString());
+						}
+					}
+					save.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View _view) {
+							if (allBlocks) {
 								blocksListMap.get((int)blockIndex).put("code", codeEditor.getText().toString());
 								blocksListMap.get((int)blockIndex).put("name", name.getText().toString());
 								blocksListMap.get((int)blockIndex).put("spec", spec.getText().toString());
@@ -3617,35 +3602,57 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 									int index = blocksList.getFirstVisiblePosition();
 									int top = (blocksList.getChildAt(0) == null) ? 0 : (blocksList.getChildAt(0).getTop() - blocksList.getPaddingTop());
 									
-									_loadSpecificPletteblocks(Double.parseDouble(sp.getString("posNumber", "")));
+									_loadRefreshBlocks();
 									
 									
 									blocksList.setSelectionFromTop((int)index, (int)top);
 								}
+								dialog.dismiss();
+								SketchwareUtil.showMessage(getApplicationContext(), "✔️");
+								searchEdit.setText("");
 							}
-							dialog.dismiss();
-							SketchwareUtil.showMessage(getApplicationContext(), "✔️");
-							searchEdit.setText("");
-							searchEdit.setText("");
+							else {
+								if (!sp.getString("posNumber", "").equals("")) {
+									blocksListMap.get((int)blockIndex).put("code", codeEditor.getText().toString());
+									blocksListMap.get((int)blockIndex).put("name", name.getText().toString());
+									blocksListMap.get((int)blockIndex).put("spec", spec.getText().toString());
+									FileUtil.writeFile(blocksPath, new Gson().toJson(blocksListMap));
+									{
+										int index = blocksList.getFirstVisiblePosition();
+										int top = (blocksList.getChildAt(0) == null) ? 0 : (blocksList.getChildAt(0).getTop() - blocksList.getPaddingTop());
+										
+										_loadSpecificPletteblocks(Double.parseDouble(sp.getString("posNumber", "")));
+										
+										
+										blocksList.setSelectionFromTop((int)index, (int)top);
+									}
+								}
+								dialog.dismiss();
+								SketchwareUtil.showMessage(getApplicationContext(), "saved!");
+								searchEdit.setText("");
+								searchEdit.setText("");
+							}
 						}
-					}
-				});
-				close.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View _view) {
-						dialog.dismiss();
-					}
-				});
-				codeEditor.setText(code);
-				dialog.show();
+					});
+					close.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View _view) {
+							dialog.dismiss();
+						}
+					});
+					codeEditor.setText(code);
+					dialog.show();
+				}
 			}
+			
+			
+			
+			
+			
+			
+		} catch (Exception e) {
+			SketchwareUtil.CustomToast(getApplicationContext(), "خطا رنگ یافت نشد!", 0xFFFFFFFF, 16, 0xFFE91E63, 25, SketchwareUtil.TOP);
 		}
-		
-		
-		
-		
-		
-		
 	}
 	
 	
