@@ -1668,7 +1668,16 @@ public class MainActivity extends AppCompatActivity {
 		                snackbarLayout.setPadding(0, 0, 0, 0);
 		  
 		                
-		                t = new TimerTask() {
+		                LinearLayout bg = customSnackView.findViewById(R.id.bg);           
+		{
+			GradientDrawable SketchUi = new GradientDrawable();
+			SketchUi.setColor(0xFF000060);SketchUi.setCornerRadii(new float[]{
+				getDip(25),getDip(25),getDip(25),getDip(25),getDip(0),getDip(0) ,getDip(0),getDip(0)});
+			bg.setElevation(getDip(0));
+			RippleDrawable SketchUiRD = new RippleDrawable(new ColorStateList(new int[][]{new int[]{}}, new int[]{0xFFE0E0E0}), SketchUi, null);
+			bg.setBackground(SketchUiRD);
+		}
+		t = new TimerTask() {
 			@Override
 			public void run() {
 				runOnUiThread(new Runnable() {

@@ -1574,35 +1574,31 @@ public class FilesActivity extends AppCompatActivity {
 		});
 		
 		edittext12.setTextColor(0xFFFFFFFF);
-		edittext12.setHintTextColor(0xFF2196F3);
+		edittext12.setHintTextColor(0xFFFFFFFF);
 		///end
 		edittext12.setLayoutParams(lparr);
 		dialog.setView(edittext12);
 		dialog.setMessage(Html.fromHtml("<font color=\"#00FFFF\">آیا میخواهید یک پوشه ایجاد کنید؟</font>"));
-		dialog.setNegativeButton(Html.fromHtml("<font color=\"#00FF00\">no</font>"), new DialogInterface.OnClickListener() {
+		dialog.setNegativeButton(Html.fromHtml("<font color=\"#00FF00\">Yes</font>"), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
-				if (edittext12.getText().toString().equals("")) {
-					try {
-						CreateFolder = edittext12.getText().toString();
-						
-						if (!FileUtil.isFile(Folder.concat("/".concat(CreateFolder.concat("/"))))) {
-							FileUtil.makeDir(Folder.concat("/".concat(CreateFolder.concat("/"))));
-							_getFiles("");
-						}
-						else {
-							
-						}
-					} catch (Exception e) {
-						 
+				try {
+					CreateFolder = edittext12.getText().toString();
+					
+					if (!FileUtil.isFile(Folder.concat("/".concat(CreateFolder.concat("/"))))) {
+						FileUtil.makeDir(Folder.concat("/".concat(CreateFolder.concat("/"))));
+						_getFiles("");
+						NinjaCodermain.CustomToast(getApplicationContext(), "Add Folder To ".concat(Folder), 0xFFFFFFFF, 16, 0xFF00003A, 25,NinjaCodermain.CENTER , 5);
 					}
-				}
-				else {
-					NinjaCodermain.CustomToast(getApplicationContext(), "Error Type name Folder", 0xFFFFFFFF, 16, 0xFF00003A, 25,NinjaCodermain.CENTER , 5);
+					else {
+						
+					}
+				} catch (Exception e) {
+					 
 				}
 			}
 		});
-		dialog.setNeutralButton(Html.fromHtml("<font color=\"#FF0000\">yes</font>"), new DialogInterface.OnClickListener() {
+		dialog.setNeutralButton(Html.fromHtml("<font color=\"#FF0000\">No</font>"), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
 				
@@ -1619,9 +1615,9 @@ public class FilesActivity extends AppCompatActivity {
 		final EditText edittext2= new EditText(FilesActivity.this);
 		LinearLayout.LayoutParams lparr = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		edittext2.setHint("Type name file!");
-		edittext2.setHintTextColor(0xFFF44336);
+		edittext2.setHintTextColor(0xFFFFFFFF);
 		edittext2.setTextSize((float)16);
-		edittext2.setTextColor(0xFFF44336);
+		edittext2.setTextColor(0xFFFFFFFF);
 		edittext2.setLayoutParams(lparr);
 		dialogmain.setView(edittext2);
 		edittext2.addTextChangedListener(new TextWatcher() {
@@ -1725,33 +1721,29 @@ public class FilesActivity extends AppCompatActivity {
 		dialogmain.setPositiveButton("yes", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
-				if (edittext2.getText().toString().equals("")) {
-					try {
-						mainfile = edittext2.getText().toString();
-						if (mainfile.equals("")) {
-							_file();
+				try {
+					mainfile = edittext2.getText().toString();
+					if (mainfile.equals("")) {
+						_file();
+					}
+					else {
+						if (!mainfile.contains("/")) {
+							FileUtil.writeFile(Folder.concat("/".concat(mainfile)), "");
+							_getFiles("");
 						}
 						else {
-							if (!mainfile.contains("/")) {
-								FileUtil.writeFile(Folder.concat("/".concat(mainfile)), "");
+							if (FileUtil.isExistFile(Folder.concat("/".concat(mainfile)))) {
 								_getFiles("");
+								NinjaCodermain.CustomToast(getApplicationContext(), "Add File To ".concat(Folder), 0xFFFFFFFF, 16, 0xFF00003A, 25,NinjaCodermain.CENTER , 2);
 							}
 							else {
-								if (FileUtil.isExistFile(Folder.concat("/".concat(mainfile)))) {
-									_getFiles("");
-								}
-								else {
-									
-								}
+								
 							}
 						}
-						
-					} catch (Exception e) {
-						 
 					}
-				}
-				else {
-					NinjaCodermain.CustomToast(getApplicationContext(), "Error Type Name File ", 0xFFFFFFFF, 16, 0xFF00003A, 25,NinjaCodermain.CENTER , 2);
+					
+				} catch (Exception e) {
+					 
 				}
 			}
 		});
