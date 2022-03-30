@@ -82,6 +82,15 @@
 							android:src="@drawable/puzzle80"
 							android:scaleType="centerInside" />
 						<ImageView
+							android:id="@+id/decoder"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="3dp"
+							android:layout_marginBottom="3dp"
+							android:padding="5dp"
+							android:src="@drawable/decode"
+							android:scaleType="centerInside" />
+						<ImageView
 							android:id="@+id/javacode"
 							android:layout_width="50dp"
 							android:layout_height="50dp"
@@ -115,6 +124,15 @@
 							android:layout_marginBottom="3dp"
 							android:padding="5dp"
 							android:src="@drawable/briefcase"
+							android:scaleType="centerInside" />
+						<ImageView
+							android:id="@+id/bug"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="2dp"
+							android:layout_marginBottom="2dp"
+							android:padding="4dp"
+							android:src="@drawable/bug"
 							android:scaleType="centerInside" />
 						<ImageView
 							android:id="@+id/About"

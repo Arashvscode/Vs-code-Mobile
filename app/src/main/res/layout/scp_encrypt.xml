@@ -1,0 +1,234 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/background"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="#000027"
+		android:gravity="center_horizontal|center_vertical"
+		android:orientation="vertical">
+		<LinearLayout
+			android:id="@+id/linear_encrypted"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="20dp"
+			android:padding="15dp"
+			android:background="#00003A"
+			android:gravity="center_vertical"
+			android:orientation="vertical">
+			<TextView
+				android:id="@+id/textview_logo_enc"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="10dp"
+				android:text="AES Encryption"
+				android:textSize="25sp"
+				android:textStyle="bold"
+				android:textColor="#00BCD4" />
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/textinputlayout1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="10dp"
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+				<EditText
+					android:id="@+id/edittext_data"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="10dp"
+					android:textSize="14sp"
+					android:textColor="#004FFF"
+					android:hint="Your Data"
+					android:textColorHint="#FFFFFF"
+					android:imeOptions="actionNext" />
+			</com.google.android.material.textfield.TextInputLayout>
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/textinputlayout2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="10dp"
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+				<EditText
+					android:id="@+id/edittext_pass"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="10dp"
+					android:textSize="14sp"
+					android:textColor="#004FFF"
+					android:hint="Secret Key"
+					android:textColorHint="#FFFFFF"
+					android:singleLine="true"
+					android:inputType="numberSigned"
+					android:imeOptions="actionDone" />
+			</com.google.android.material.textfield.TextInputLayout>
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/SCP_Material"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:gravity="center_horizontal|center_vertical"
+				android:text=" Security"
+				android:textSize="16sp"
+				android:textColor="#219EB7"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+				app:backgroundTint="#FFFD008B"
+				app:cornerRadius="15dp"
+				style="@style/Widget.MaterialComponents.Button" />
+			<TextView
+				android:id="@+id/textview_logores_enc"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="10dp"
+				android:text="Encrypted Text:"
+				android:textSize="16sp"
+				android:textStyle="bold"
+				android:textColor="#00BCD4" />
+			<LinearLayout
+				android:id="@+id/linear_result"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="10dp"
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
+				<EditText
+					android:id="@+id/textview_ed"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginRight="5dp"
+					android:background="@android:color/transparent"
+					android:textSize="14sp"
+					android:textColor="#219EB7"
+					android:singleLine="true"
+					android:layout_weight="1" />
+			</LinearLayout>
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/linear2"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:layout_marginBottom="20dp"
+			android:padding="8dp"
+			android:background="#00003A"
+			android:orientation="horizontal">
+			<TextView
+				android:id="@+id/textview2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="Secure Type :"
+				android:textSize="14sp"
+				android:textColor="#00BCD4" />
+			<CheckBox
+				android:id="@+id/checkbox1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="Encrypt Data"
+				android:textSize="12sp"
+				android:textColor="#00BCD4"
+				android:checked="true"
+				android:layout_weight="1" />
+			<CheckBox
+				android:id="@+id/checkbox2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="Decrypt Data"
+				android:textSize="12sp"
+				android:textColor="#00BCD4"
+				android:layout_weight="1" />
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/linear1"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:layout_marginBottom="20dp"
+			android:background="#00003A"
+			android:gravity="center_horizontal|center_vertical"
+			android:orientation="vertical">
+			<TextView
+				android:id="@+id/textview1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp"
+				android:padding="8dp"
+				android:gravity="left|center_vertical"
+				android:text="Choose Security Type"
+				android:textSize="16sp"
+				android:textStyle="bold"
+				android:textColor="#00BCD4"
+				android:layout_weight="1" />
+			<LinearLayout
+				android:id="@+id/linear3"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:gravity="center_horizontal|center_vertical"
+				android:orientation="vertical">
+				<RadioButton
+					android:id="@+id/radiobutton1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="AES V1"
+					android:textSize="11sp"
+					android:textColor="#219EB7" />
+				<RadioButton
+					android:id="@+id/radiobutton2"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="AES V2"
+					android:textSize="11sp"
+					android:textColor="#219EB7" />
+				<RadioButton
+					android:id="@+id/radiobutton3"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="Morse Code"
+					android:textSize="11sp"
+					android:textColor="#219EB7" />
+				<RadioButton
+					android:id="@+id/radiobutton4"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="Base64"
+					android:textSize="11sp"
+					android:textColor="#219EB7" />
+				<RadioButton
+					android:id="@+id/radiobutton5"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="MD5"
+					android:textSize="12sp"
+					android:textColor="#219EB7" />
+				<RadioButton
+					android:id="@+id/radiobutton6"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="Banary Code"
+					android:textSize="12sp"
+					android:textColor="#219EB7" />
+			</LinearLayout>
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/linear10"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:padding="8dp"
+			android:orientation="vertical" />
+	</LinearLayout>
+</LinearLayout>

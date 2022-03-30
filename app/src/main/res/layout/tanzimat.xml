@@ -56,7 +56,7 @@
 						android:layout_width="50dp"
 						android:layout_height="50dp"
 						android:padding="8dp"
-						android:src="@drawable/down"
+						android:src="@drawable/up001"
 						android:scaleType="centerInside" />
 				</LinearLayout>
 				<LinearLayout
@@ -247,7 +247,7 @@
 							android:layout_width="50dp"
 							android:layout_height="50dp"
 							android:padding="8dp"
-							android:src="@drawable/down"
+							android:src="@drawable/up001"
 							android:scaleType="centerInside" />
 					</LinearLayout>
 					<LinearLayout
@@ -354,7 +354,7 @@
 							android:layout_width="50dp"
 							android:layout_height="50dp"
 							android:padding="8dp"
-							android:src="@drawable/inputsysmbule_1"
+							android:src="@drawable/inputsysmbule_2"
 							android:scaleType="centerInside" />
 					</LinearLayout>
 					<LinearLayout
