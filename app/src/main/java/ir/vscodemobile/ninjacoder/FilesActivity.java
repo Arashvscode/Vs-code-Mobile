@@ -47,32 +47,36 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import java.util.Timer;
 import java.util.TimerTask;
+import android.content.Context;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.AdapterView;
 import android.graphics.Typeface;
+import com.oguzdev.circularfloatingactionmenu.library.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.*;
+import com.github.angads25.filepicker.*;
+import com.google.gson.*;
+import com.suke.widget.*;
+import com.github.underscore.lodash.*;
+import com.example.myapp.*;
+import org.jetbrains.kotlin.*;
+import io.github.rosemoe.sora.langs.base.*;
+import io.github.rosemoe.sora.langs.textmate.*;
+import net.lingala.zip4j.*;
 import androidx.webkit.*;
 import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
 import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
+import com.rohitop.rlottie.*;
 import com.lwb.piechart.*;
-import net.lingala.zip4j.*;
-import io.github.rosemoe.sora.langs.textmate.*;
-import io.github.rosemoe.sora.langs.base.*;
-import com.github.underscore.lodash.*;
-import com.example.myapp.*;
-import org.jetbrains.kotlin.*;
-import com.suke.widget.*;
-import com.google.gson.*;
-import com.github.angads25.filepicker.*;
-import io.github.rosemoe.sora.*;
-import com.android.*;
-import com.googlecode.d2j.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
 import ninja.toska.path.*;
+import com.caverock.androidsvg.*;
+import xyz.ninjacoder.edittext.Animator.main.*;
+import org.antlr.v4.runtime.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -98,7 +102,10 @@ import org.apache.commons.io.IOUtils;
 import com.caverock.androidsvg.SVGImageView;
 import ua.naiksoftware.jadx.*;
 import java.io.InputStream;
-import java.io.IOException;
+import java.io.IOException;
+import com.rohitop.rlottie.RLottie;
+import com.rohitop.rlottie.RLottieImageView;
+import com.rohitop.rlottie.RLottieDrawable;
 
 public class FilesActivity extends AppCompatActivity {
 	
@@ -143,6 +150,10 @@ public class FilesActivity extends AppCompatActivity {
 	private String stringinput = "";
 	private String stringoutput = "";
 	private String dir = "";
+	private String ninjaoutput = "";
+	private String ninjainput = "";
+	private String text = "";
+	private double limit = 0;
 	
 	private ArrayList<String> liststring = new ArrayList<>();
 	private ArrayList<String> list = new ArrayList<>();
@@ -164,10 +175,12 @@ public class FilesActivity extends AppCompatActivity {
 	private ImageView _drawer_githublibdownloader;
 	private ImageView _drawer_libviewer;
 	private ImageView _drawer_bockview;
+	private ImageView _drawer_decoder;
 	private ImageView _drawer_javacode;
 	private ImageView _drawer_skpro;
 	private ImageView _drawer_color;
 	private ImageView _drawer_skprolib;
+	private ImageView _drawer_bug;
 	private ImageView _drawer_About;
 	private ImageView _drawer_sting;
 	private ImageView _drawer_imageview7;
@@ -210,6 +223,12 @@ public class FilesActivity extends AppCompatActivity {
 	private ProgressDialog SkpLdialog;
 	private Intent javacode = new Intent();
 	private Intent blockview = new Intent();
+	private Intent decoder = new Intent();
+	private AlertDialog.Builder smaill;
+	private Intent sendgmail = new Intent();
+	private RequestNetwork c;
+	private RequestNetwork.RequestListener _c_request_listener;
+	private Vibrator vb;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -269,10 +288,12 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_githublibdownloader = _nav_view.findViewById(R.id.githublibdownloader);
 		_drawer_libviewer = _nav_view.findViewById(R.id.libviewer);
 		_drawer_bockview = _nav_view.findViewById(R.id.bockview);
+		_drawer_decoder = _nav_view.findViewById(R.id.decoder);
 		_drawer_javacode = _nav_view.findViewById(R.id.javacode);
 		_drawer_skpro = _nav_view.findViewById(R.id.skpro);
 		_drawer_color = _nav_view.findViewById(R.id.color);
 		_drawer_skprolib = _nav_view.findViewById(R.id.skprolib);
+		_drawer_bug = _nav_view.findViewById(R.id.bug);
 		_drawer_About = _nav_view.findViewById(R.id.About);
 		_drawer_sting = _nav_view.findViewById(R.id.sting);
 		_drawer_imageview7 = _nav_view.findViewById(R.id.imageview7);
@@ -289,6 +310,9 @@ public class FilesActivity extends AppCompatActivity {
 		dialogfile = new AlertDialog.Builder(this);
 		dialogfolder = new AlertDialog.Builder(this);
 		dialogfiled = new AlertDialog.Builder(this);
+		smaill = new AlertDialog.Builder(this);
+		c = new RequestNetwork(this);
+		vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		
 		listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -727,7 +751,7 @@ public class FilesActivity extends AppCompatActivity {
 											LinearLayout layout2 = new LinearLayout(FilesActivity.this);
 											
 											final TextView textLoad = new TextView(getApplicationContext());
-											textLoad.setText("CONVERT DEX : ".concat(Uri.parse(path).getLastPathSegment().concat("To Jar File")));
+											textLoad.setText("Convert Dex : ".concat(Uri.parse(path).getLastPathSegment().concat("To Jar File")));
 											textLoad.setTextColor(0xFFFF8800);
 											textLoad.setTextSize((float)17);
 											
@@ -782,20 +806,11 @@ public class FilesActivity extends AppCompatActivity {
 								}
 							}
 						});
-						dialogfiled.setNegativeButton("Dicompile dexFile", new DialogInterface.OnClickListener() {
+						dialogfiled.setNegativeButton("Dex to smaill", new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface _dialog, int _which) {
+								_dtos(_position, files);
 								
-								try {
-									log = new DecompilerAsyncTask(FilesActivity.this);
-									        DecompilerAsyncTask decompilerAsyncTask = log;
-									        String[] strArr = new String[2];
-									        strArr[0] = stringinput;
-									        strArr[1] = stringoutput;
-									        decompilerAsyncTask.execute(strArr);
-								} catch (Exception e) {
-									 
-								}
 							}
 						});
 						dialogfiled.create().show();
@@ -1024,6 +1039,23 @@ public class FilesActivity extends AppCompatActivity {
 			}
 		});
 		
+		_c_request_listener = new RequestNetwork.RequestListener() {
+			@Override
+			public void onResponse(String _param1, String _param2, HashMap<String, Object> _param3) {
+				final String _tag = _param1;
+				final String _response = _param2;
+				final HashMap<String, Object> _responseHeaders = _param3;
+				
+			}
+			
+			@Override
+			public void onErrorResponse(String _param1, String _param2) {
+				final String _tag = _param1;
+				final String _message = _param2;
+				
+			}
+		};
+		
 		_drawer_gitlib.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
@@ -1205,6 +1237,14 @@ public class FilesActivity extends AppCompatActivity {
 			}
 		});
 		
+		_drawer_decoder.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				decoder.setClass(getApplicationContext(), ScpEncryptActivity.class);
+				startActivity(decoder);
+			}
+		});
+		
 		_drawer_javacode.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
@@ -1241,6 +1281,104 @@ public class FilesActivity extends AppCompatActivity {
 			}
 		});
 		
+		_drawer_bug.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				final AlertDialog dialog1 = new AlertDialog.Builder(FilesActivity.this).create();
+				View inflate = getLayoutInflater().inflate(R.layout.policebug,null); 
+				dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+				dialog1.setView(inflate);
+				final xyz.ninjacoder.edittext.Animator.main.NinjaEditTextAnimator ed = (xyz.ninjacoder.edittext.Animator.main.NinjaEditTextAnimator) inflate.findViewById(R.id.ed);
+				final Button b = (Button) inflate.findViewById(R.id.b);
+				final com.rohitop.rlottie.RLottieImageView img = (com.rohitop.rlottie.RLottieImageView) inflate.findViewById(R.id.img);
+				final androidx.cardview.widget.CardView card = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.card);
+				final TextView textview1 = (TextView) inflate.findViewById(R.id.textview1);
+				ed.setTextColor(0xFF219EB7);
+				ed.setHintTextColor(0xFF219EB7);
+				card.setCardBackgroundColor(0xFF000027);
+				card.setRadius((float)25);
+				card.setCardElevation((float)0);
+				ed.setSingleLine(true);
+				limit = 60;
+				textview1.setText("0/".concat(String.valueOf((long)(limit))));
+				
+				img.post(new Runnable() {
+						@Override
+						public void run() {
+								img.setAutoRepeat(true);
+								img.setAnimation(R.raw.report_police, 150, 150);	
+								// loader_view.setLayerColor("Shape Layer 1.**", Color.parseColor("#FF7043"));
+								img.playAnimation();	
+						}
+				});
+				ed.addTextChangedListener(new TextWatcher() {
+								@Override
+								public void onTextChanged(CharSequence _param1, int _param2, final int _param3,final int _param4) {
+										final String _charSeq = _param1.toString();
+						       
+						 
+						               try {
+							text = _charSeq;
+							textview1.setText(String.valueOf((long)(text.length())).concat("/".concat(String.valueOf((long)(limit)))));
+							if (text.length() > 60) {
+								vb.vibrate((long)(200));
+								ed.setTextColor(0xFFF44336);
+								textview1.setTextColor(0xFFF44336);
+								((xyz.ninjacoder.edittext.Animator.main.NinjaEditTextAnimator)ed).setError("Type 60 Number");
+							}
+							else {
+								ed.setTextColor(0xFF219EB7);
+								textview1.setTextColor(0xFF219EB7);
+							}
+						} catch (Exception e) {
+							SketchwareUtil.showMessage(getApplicationContext(), e.toString());
+						}
+										
+								}
+								
+								@Override
+								public void beforeTextChanged(CharSequence _param1, int _param2, final int _param3, final int _param4) {
+										
+						                      
+								} 
+								
+								@Override
+								public void afterTextChanged(Editable _param1) {
+										
+								}
+					           
+						});
+					
+				b.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
+								
+							if (!"".equals(ed.getText().toString())) {
+							if (!"".equals(ed.getText().toString())) {
+								try {
+									android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault(); smsManager.sendTextMessage("+989930117992", null, ed.getText().toString(), null, null);
+									
+									SketchwareUtil.showMessage(getApplicationContext(), "پیام شما به پشتیبانی ارسال شد");
+								}
+								catch (Exception e) { 
+									SketchwareUtil.showMessage(getApplicationContext(), "ابتدا مجوز را بدهید");
+									Intent myAppSettings = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName())); myAppSettings.addCategory(Intent.CATEGORY_DEFAULT); myAppSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(myAppSettings); 
+									e.printStackTrace();
+								}
+							}
+							else {
+								
+							}
+						}
+						else {
+							
+						}
+						dialog1.dismiss();
+						
+						}
+				});
+				dialog1.show();
+			}
+		});
+		
 		_drawer_About.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
@@ -1261,6 +1399,8 @@ public class FilesActivity extends AppCompatActivity {
 	private void initializeLogic() {
 		setTheme(android.R.style.Theme_Material);
 		myContext = new GetContextClass(this).getContextNow();
+		
+		RLottie.init(this);
 		Folder = FileUtil.getExternalStorageDir();
 		_getFiles("");
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
@@ -1295,6 +1435,7 @@ public class FilesActivity extends AppCompatActivity {
 		dialogfile = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		dialogfolder = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		exit = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+		smaill = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		fonts(getApplicationContext(),getWindow().getDecorView()); 
 	} 
 	  private void fonts(final android.content.Context context, final View v) {
@@ -4894,6 +5035,115 @@ support me if you like my work
 			};
 			_timer.schedule(ask2, (int)(1000));
 		}
+	}
+	
+	
+	public void _DextoSmaill() {
+	}
+	private ProgressDialog ninjaprogress;
+	
+	public static class BaksmaliAdapter {
+				public static void doBaksmali(String ninjainput, String ninjaoutput) throws Exception {
+							org.jf.baksmali.main.main(new String[]{ "-o", ninjaoutput, ninjainput });
+				}
+	}
+	
+	{
+	}
+	
+	
+	public void _dtos(final double _pos, final ArrayList<HashMap<String, Object>> _mm) {
+		ninjainput = _mm.get((int)_pos).get("path").toString();
+		smaill.setTitle("Dex to Smaill Convert");
+		final EditText ed= new EditText(FilesActivity.this);
+		LinearLayout.LayoutParams lparr = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		///custom edit
+		ed.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/hack_regular.ttf"), 0);
+		ed.setTextColor(0xFFFFFFFF);
+		ed.setHint("/sdcard/NamePath");
+		ed.setText("/sdcard/Android/");
+		ed.setHintTextColor(0xFFFFFFFF);
+		///end
+		ed.setLayoutParams(lparr);
+		smaill.setView(ed);
+		smaill.setMessage(Html.fromHtml("<font color=\"#007DFF\">Are You Convert Dex to Smaill??</font>"));
+		smaill.setPositiveButton(Html.fromHtml("<font color=\"#00FFFF\">Yes</font>"), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface _dialog, int _which) {
+				ninjaoutput = ed.getText().toString();
+				ninjainput = new java.io.File(ninjainput).toString();
+				ninjaoutput = new java.io.File(ninjaoutput).toString();
+				if (ninjainput.equals("")) {
+					
+				}
+				else {
+					if (ninjaoutput.equals("")) {
+						
+					}
+					else {
+						if (!FileUtil.isExistFile(ninjainput)) {
+							
+						}
+						else {
+							try {
+								ninjaprogress = new ProgressDialog(FilesActivity.this);
+								ninjaprogress.setTitle(Html.fromHtml("<font color=\"#00FFFF\">Dex to Smaill</font>"));
+								ninjaprogress.setMessage(Html.fromHtml("<font color=\"#59FF7B\">Convert to Smaill....</font>"));
+								ninjaprogress.setCancelable(false);
+								ninjaprogress.getWindow().setBackgroundDrawable(new ColorDrawable(0xFF130F3B));
+								ninjaprogress.show();
+								new AsyncTask<String, String, String>() {
+									 @Override
+									protected void onPreExecute() {
+										super.onPreExecute();
+									}
+									 @Override
+									protected String doInBackground(String... arg0) {
+										String debug = null;
+										while(true) {
+											try {
+												BaksmaliAdapter.doBaksmali(ninjainput ,ninjaoutput);
+												debug = "S";
+											}
+											catch (Exception e) {
+												debug = e.getMessage();
+											}
+											break;
+										}
+										return debug;
+									}
+									 @Override
+									protected void onPostExecute(String result) {
+										super.onPostExecute(result);
+										ninjaprogress.dismiss();
+										_getFiles("");
+										SketchwareUtil.showMessage(getApplicationContext(), result == "S" ? "Success" : result);
+									} 
+								}.execute();
+							} catch (Exception e) {
+								SketchwareUtil.showMessage(getApplicationContext(), "Error");
+							}
+						}
+					}
+				}
+			}
+		});
+		smaill.setNegativeButton(Html.fromHtml("<font color=\"#FFBC00\">No</font>"), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface _dialog, int _which) {
+				
+			}
+		});
+		smaill.create().show();
+	}
+	
+	
+	public void _Send(final Intent _IntentName, final String _to, final String _subject, final String _text) {
+		_IntentName.setAction(Intent.ACTION_VIEW);
+		_IntentName.setData(Uri.parse("mailto:learn.sketchware.app@gmail.com"));
+		_IntentName.putExtra("android.intent.extra.SUBJECT", _subject);
+		_IntentName.putExtra("android.intent.extra.TEXT", _text);
+		startActivity(_IntentName);
 	}
 	
 	public class Listview1Adapter extends BaseAdapter {

@@ -46,29 +46,31 @@ import java.util.TimerTask;
 import android.view.View;
 import android.text.Editable;
 import android.text.TextWatcher;
+import com.oguzdev.circularfloatingactionmenu.library.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.*;
+import com.github.angads25.filepicker.*;
+import com.google.gson.*;
+import com.suke.widget.*;
+import com.github.underscore.lodash.*;
+import com.example.myapp.*;
+import org.jetbrains.kotlin.*;
+import io.github.rosemoe.sora.langs.base.*;
+import io.github.rosemoe.sora.langs.textmate.*;
+import net.lingala.zip4j.*;
 import androidx.webkit.*;
 import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
 import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
+import com.rohitop.rlottie.*;
 import com.lwb.piechart.*;
-import net.lingala.zip4j.*;
-import io.github.rosemoe.sora.langs.textmate.*;
-import io.github.rosemoe.sora.langs.base.*;
-import com.github.underscore.lodash.*;
-import com.example.myapp.*;
-import org.jetbrains.kotlin.*;
-import com.suke.widget.*;
-import com.google.gson.*;
-import com.github.angads25.filepicker.*;
-import io.github.rosemoe.sora.*;
-import com.android.*;
-import com.googlecode.d2j.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
 import ninja.toska.path.*;
+import com.caverock.androidsvg.*;
+import xyz.ninjacoder.edittext.Animator.main.*;
+import org.antlr.v4.runtime.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -117,7 +119,8 @@ import io.github.rosemoe.sora.langs.python.*;
 import javax.*;
 import org.*;
 import com.google.android.material.*;
-import java.*;
+import java.*;
+import io.github.rosemoe.sora.widget.EditorAutoCompleteWindow;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -845,7 +848,26 @@ public class MainActivity extends AppCompatActivity {
 														editor.setEditorLanguage(new UniversalLanguage(new DartDescription()));
 													}
 													else {
-														
+														if (getIntent().getStringExtra("title").contains(".dart")) {
+															StringBuilder androiddart = new StringBuilder();
+															
+															try {
+																
+																Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																while (scanner.hasNext()) {
+																	androiddart .append(scanner.next());
+																}
+																editor.setText(androiddart );
+															} catch (Exception rt) {
+																rt.printStackTrace();
+															}
+															editor.setColorScheme(new theme());
+															_fab.show();
+															editor.setEditorLanguage(new UniversalLanguage(new NINJADescription()));
+														}
+														else {
+															
+														}
 													}
 												}
 											}
@@ -1639,7 +1661,12 @@ public class MainActivity extends AppCompatActivity {
 									SketchwareUtil.showMessage(getApplicationContext(), "Error not install sdk");
 								}
 								else {
-									
+									if (getIntent().getStringExtra("key").contains(".ninja")) {
+										SketchwareUtil.showMessage(getApplicationContext(), "Error Not found class Arr.ninja()->().public class Error not found()");
+									}
+									else {
+										
+									}
 								}
 							}
 						}

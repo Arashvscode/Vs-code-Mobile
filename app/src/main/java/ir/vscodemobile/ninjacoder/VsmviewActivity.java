@@ -36,32 +36,37 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import java.util.Timer;
+import java.util.TimerTask;
 import android.view.View;
 import android.widget.AdapterView;
 import android.net.Uri;
+import android.graphics.Typeface;
+import com.oguzdev.circularfloatingactionmenu.library.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.*;
+import com.github.angads25.filepicker.*;
+import com.google.gson.*;
+import com.suke.widget.*;
+import com.github.underscore.lodash.*;
+import com.example.myapp.*;
+import org.jetbrains.kotlin.*;
+import io.github.rosemoe.sora.langs.base.*;
+import io.github.rosemoe.sora.langs.textmate.*;
+import net.lingala.zip4j.*;
 import androidx.webkit.*;
 import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
 import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
+import com.rohitop.rlottie.*;
 import com.lwb.piechart.*;
-import net.lingala.zip4j.*;
-import io.github.rosemoe.sora.langs.textmate.*;
-import io.github.rosemoe.sora.langs.base.*;
-import com.github.underscore.lodash.*;
-import com.example.myapp.*;
-import org.jetbrains.kotlin.*;
-import com.suke.widget.*;
-import com.google.gson.*;
-import com.github.angads25.filepicker.*;
-import io.github.rosemoe.sora.*;
-import com.android.*;
-import com.googlecode.d2j.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
 import ninja.toska.path.*;
+import com.caverock.androidsvg.*;
+import xyz.ninjacoder.edittext.Animator.main.*;
+import org.antlr.v4.runtime.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -71,6 +76,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 
 public class VsmviewActivity extends AppCompatActivity {
+	
+	private Timer _timer = new Timer();
 	
 	private Toolbar _toolbar;
 	private AppBarLayout _app_bar;
@@ -84,6 +91,8 @@ public class VsmviewActivity extends AppCompatActivity {
 	private ListView listview1;
 	
 	private AlertDialog.Builder alter;
+	private ProgressDialog pro;
+	private TimerTask r;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -91,9 +100,8 @@ public class VsmviewActivity extends AppCompatActivity {
 		setContentView(R.layout.vsmview);
 		initialize(_savedInstanceState);
 		
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
-		|| ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-			ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+			ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
 		} else {
 			initializeLogic();
 		}
@@ -168,21 +176,74 @@ public class VsmviewActivity extends AppCompatActivity {
 				LinearLayout.LayoutParams lparr = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 				///custom edit
 				txt.setText("/sdcard/");
+				txt.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/myf.ttf"), 0);
+				txt.setTextColor(0xFFFFFFFF);
+				txt.setHintTextColor(0xFF219EB7);
 				///end
 				txt.setLayoutParams(lparr);
 				alter.setView(txt);
 				alter.setPositiveButton("ok", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
-						try {
-							
-												new net.lingala.zip4j.ZipFile(viewmap.get((int)num).get("ninja").toString())
-														.extractAll(txt.getText().toString());
-							
-							
-										} catch (net.lingala.zip4j.exception.ZipException e) {
-												showMessage(e.toString());
+						pro = new ProgressDialog(VsmviewActivity.this);
+						pro.setTitle("ExsertFile");
+						pro.setMessage("Exsert VsmFile");
+						pro.show();
+						r = new TimerTask() {
+							@Override
+							public void run() {
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										try {
+											while(true) {
+												String fileZip = viewmap.get((int)num).get("ninja").toString();
+												        java.io.File destDir = new java.io.File(txt.getText().toString());
+												        byte[]  buffer = new byte[1024] ;
+												        try {
+													        java.util.zip.ZipInputStream zis = new java.util.zip.ZipInputStream(new java.io.FileInputStream(fileZip));
+													        java.util.zip.ZipEntry zipEntry = zis.getNextEntry();
+													
+													
+													        while (zipEntry != null) {
+														             java.io.File newFile = newFile(destDir, zipEntry);
+														             if (zipEntry.isDirectory()) {
+															                 if (!newFile.isDirectory() && !newFile.mkdirs()) {
+																                     throw new java.io.IOException("Failed to create directory " + newFile);
+																                 }
+															             } else {
+															                 // fix for Windows-created archives
+															                 java.io.File parent = newFile.getParentFile();
+															                 if (!parent.isDirectory() && !parent.mkdirs()) {
+																                     throw new java.io.IOException("Failed to create directory " + parent);
+																                 }
+															
+															                 // write file content
+															                 java.io.FileOutputStream fos = new java.io.FileOutputStream(newFile);
+															                 int len;
+															                 while ((len = zis.read(buffer)) > 0) {
+																                     fos.write(buffer, 0, len);
+																                 }
+															                 fos.close();
+															             }
+														         zipEntry = zis.getNextEntry();
+														        }
+													        zis.closeEntry();
+													        zis.close();
+												} catch (Exception e) {
+													  showMessage(e.toString());
+													   }
+												pro.dismiss();
+												finish();
+											}
+										} catch (Exception e) {
+											SketchwareUtil.showMessage(getApplicationContext(), "error");
 										}
+									}
+								});
+							}
+						};
+						_timer.schedule(r, (int)(2000));
 					}
 				});
 				alter.setNeutralButton("no", new DialogInterface.OnClickListener() {
@@ -225,7 +286,7 @@ public class VsmviewActivity extends AppCompatActivity {
 								showMessage(e.toString());
 						}
 		alter = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
-		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFFFF8800".replace("0xFF" , "#"))));
+		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFFE91E63".replace("0xFF" , "#"))));
 		listview1.setHorizontalScrollBarEnabled(false);
 		listview1.setVerticalScrollBarEnabled(false);
 		listview1.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
@@ -273,6 +334,123 @@ public class VsmviewActivity extends AppCompatActivity {
 		String pattern = String.format("0.00 %s",  mString);
 		DecimalFormat decimalFormat = new DecimalFormat(pattern);
 		_textview.setText(decimalFormat.format(mDouble));
+	}
+	
+	
+	public void _unzip() {
+	}
+	private boolean zipEntryMatch(String zeName, java.io.File[]  files, String path){
+		    for(int i = 0; i < files.length; i++){
+			        if((path + files[i] .getName()).equals(zeName)){
+				            return true;
+				        }
+			    }
+		    return false;
+	}
+	
+	    public static class ZipUtils {
+		
+		        private final List<java.io.File> fileList;
+		
+		        private List<String> paths;
+		
+		        public ZipUtils() {
+			            fileList = new ArrayList<>();
+			            paths = new ArrayList<>(25);
+			        }
+		
+		        public void zipIt(java.io.File sourceFile, java.io.File zipFile) {
+			            if (sourceFile.isDirectory()) {
+				                byte[]  buffer = new byte[1024] ;
+				                java.io.FileOutputStream fos = null;
+				                java.util.zip.ZipOutputStream zos = null;
+				
+				                try {
+					
+					
+					
+					                    String sourcePath = sourceFile.getParentFile().getPath();
+					                    generateFileList(sourceFile);
+					
+					                    fos = new java.io.FileOutputStream(zipFile);
+					                    zos = new java.util.zip.ZipOutputStream(fos);
+					
+					                    System.out.println("Output to Zip : " + zipFile);
+					                    java.io.FileInputStream in = null;
+					
+					                    for (java.io.File file : this.fileList) {
+						                        String path = file.getParent().trim();
+						                        path = path.substring(sourcePath.length());
+						
+						                        if (path.startsWith(java.io.File.separator)) {
+							                            path = path.substring(1);
+							                        }
+						
+						                        if (path.length() > 0) {
+							                            if (!paths.contains(path)) {
+								                                paths.add(path);
+								                                java.util.zip.ZipEntry ze = new java.util.zip.ZipEntry(path + "");
+								                                zos.putNextEntry(ze);
+								                                zos.closeEntry();
+								                            }
+							                            path += "/";
+							                        }
+						
+						                        String entryName = path.substring((int)(0), (int)(path.lastIndexOf("/")))+ "/" + file.getName();
+						                        System.out.println("File Added : " + entryName);
+						                        java.util.zip.ZipEntry ze = new java.util.zip.ZipEntry(entryName);
+						
+						                        zos.putNextEntry(ze);
+						                        try {
+							                            in = new java.io.FileInputStream(file);
+							                            int len;
+							                            while ((len = in.read(buffer)) > 0) {
+								                                zos.write(buffer, 0, len);
+								                            }
+							                        } finally {
+							                            in.close();
+							                        }
+						                    }
+					
+					                    zos.closeEntry();
+					                    System.out.println("Folder successfully compressed");
+					
+					                } catch (java.io.IOException ex) {
+					                    ex.printStackTrace();
+					                } finally {
+					                    try {
+						                        zos.close();
+						                    } catch (java.io.IOException e) {
+						                        e.printStackTrace();
+						                    }
+					                }
+				            }
+			        }
+		
+		        protected void generateFileList(java.io.File node) {
+			
+			            if (node.isFile()) {
+				                fileList.add(node);
+				            }
+			            if (node.isDirectory()) {
+				                java.io.File[]  subNote = node.listFiles();
+				                for (java.io.File filename : subNote) {
+					                    generateFileList(filename);
+					                }
+				            }
+			        }
+		    }
+	public  java.io.File newFile(java.io.File destinationDir, java.util.zip.ZipEntry zipEntry) throws java.io.IOException {
+		    java.io.File destFile = new java.io.File(destinationDir, zipEntry.getName());
+		
+		    String destDirPath = destinationDir.getCanonicalPath();
+		    String destFilePath = destFile.getCanonicalPath();
+		
+		    if (!destFilePath.startsWith(destDirPath + java.io.File.separator)) {
+			        throw new java.io.IOException("Entry is outside of the target dir: " + zipEntry.getName());
+			    }
+		
+		    return destFile;
 	}
 	
 	public class Listview1Adapter extends BaseAdapter {

@@ -37,29 +37,31 @@ import android.content.Intent;
 import android.net.Uri;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.oguzdev.circularfloatingactionmenu.library.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.*;
+import com.github.angads25.filepicker.*;
+import com.google.gson.*;
+import com.suke.widget.*;
+import com.github.underscore.lodash.*;
+import com.example.myapp.*;
+import org.jetbrains.kotlin.*;
+import io.github.rosemoe.sora.langs.base.*;
+import io.github.rosemoe.sora.langs.textmate.*;
+import net.lingala.zip4j.*;
 import androidx.webkit.*;
 import mrAr.Stop.notmeDicompile.*;
 import s4u.restore.swb.*;
 import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
+import com.rohitop.rlottie.*;
 import com.lwb.piechart.*;
-import net.lingala.zip4j.*;
-import io.github.rosemoe.sora.langs.textmate.*;
-import io.github.rosemoe.sora.langs.base.*;
-import com.github.underscore.lodash.*;
-import com.example.myapp.*;
-import org.jetbrains.kotlin.*;
-import com.suke.widget.*;
-import com.google.gson.*;
-import com.github.angads25.filepicker.*;
-import io.github.rosemoe.sora.*;
-import com.android.*;
-import com.googlecode.d2j.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
 import ninja.toska.path.*;
+import com.caverock.androidsvg.*;
+import xyz.ninjacoder.edittext.Animator.main.*;
+import org.antlr.v4.runtime.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -132,6 +134,9 @@ public class SkproprojectActivity extends AppCompatActivity {
 				   Hsi.setStatusBarColor(Color.parseColor("#FF000027")); Hsi.setNavigationBarColor(Color.parseColor("#FF000027"));
 		}
 		_GetProjects();
+		listview1.setHorizontalScrollBarEnabled(false);
+		listview1.setVerticalScrollBarEnabled(false);
+		listview1.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
 	}
 	
 	public void _ScrollingText(final TextView _view) {
