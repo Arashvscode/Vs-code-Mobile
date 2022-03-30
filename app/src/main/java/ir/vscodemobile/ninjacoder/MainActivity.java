@@ -111,6 +111,7 @@ import io.github.rosemoe.sora.langs.desc.FuntomDescription;
 import io.github.rosemoe.sora.langs.desc.RubyDescription;
 import io.github.rosemoe.sora.langs.desc.PasDescription;
 import io.github.rosemoe.sora.langs.desc.CssDescription;
+import io.github.rosemoe.sora.langs.desc.sharpDescription;
 import ir.vscodemobile.ninjacoder.theme;
 import ir.vscodemobile.ninjacoder.htmltheme;
 import dalvik.system.*;
@@ -719,23 +720,8 @@ public class MainActivity extends AppCompatActivity {
 							}
 						}
 						else {
-							if (getIntent().getStringExtra("title").contains(".c")) {
-								StringBuilder androidC = new StringBuilder();
+							if (getIntent().getStringExtra("title").contains(".Ac")) {
 								
-								try {
-									
-									Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-									while (scanner.hasNext()) {
-										androidC .append(scanner.next());
-									}
-									editor.setText(androidC );
-								} catch (Exception rt) {
-									rt.printStackTrace();
-								}
-								editor.setColorScheme(new theme());
-								editor.setEditorLanguage(new UniversalLanguage(new CDescription()));
-								_fab.show();
-								_fab.setImageResource(R.drawable.lc);
 							}
 							else {
 								if (getIntent().getStringExtra("title").contains(".cpp")) {
@@ -848,7 +834,7 @@ public class MainActivity extends AppCompatActivity {
 														editor.setEditorLanguage(new UniversalLanguage(new DartDescription()));
 													}
 													else {
-														if (getIntent().getStringExtra("title").contains(".dart")) {
+														if (getIntent().getStringExtra("title").contains(".ninja")) {
 															StringBuilder androiddart = new StringBuilder();
 															
 															try {
@@ -866,7 +852,45 @@ public class MainActivity extends AppCompatActivity {
 															editor.setEditorLanguage(new UniversalLanguage(new NINJADescription()));
 														}
 														else {
-															
+															if (getIntent().getStringExtra("title").contains(".rb")) {
+																StringBuilder androidrb = new StringBuilder();
+																
+																try {
+																	
+																	Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																	while (scanner.hasNext()) {
+																		androidrb .append(scanner.next());
+																	}
+																	editor.setText(androidrb );
+																} catch (Exception rt) {
+																	rt.printStackTrace();
+																}
+																editor.setColorScheme(new theme());
+																_fab.hide();
+																editor.setEditorLanguage(new UniversalLanguage(new RubyDescription()));
+															}
+															else {
+																if (getIntent().getStringExtra("title").contains(".cs")) {
+																	StringBuilder androidcs = new StringBuilder();
+																	
+																	try {
+																		
+																		Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																		while (scanner.hasNext()) {
+																			androidcs .append(scanner.next());
+																		}
+																		editor.setText(androidcs );
+																	} catch (Exception rt) {
+																		rt.printStackTrace();
+																	}
+																	editor.setColorScheme(new theme());
+																	_fab.hide();
+																	editor.setEditorLanguage(new UniversalLanguage(new sharpDescription()));
+																}
+																else {
+																	
+																}
+															}
 														}
 													}
 												}
@@ -1318,7 +1342,9 @@ public class MainActivity extends AppCompatActivity {
 			protected void onPreExecute() {
 				pr = new ProgressDialog(MainActivity.this);
 				
-				pr.setMessage("Running...");
+				pr.getWindow().setBackgroundDrawable(new ColorDrawable(0xFF130F3B));
+				pr.setMessage(Html.fromHtml("<font color=\"#59FF7B\">Running...</font>"));
+				
 				
 				pr.setCancelable(false);
 				

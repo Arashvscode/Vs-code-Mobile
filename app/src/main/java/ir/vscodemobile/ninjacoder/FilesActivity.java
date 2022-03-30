@@ -503,7 +503,7 @@ public class FilesActivity extends AppCompatActivity {
 						dialog1.show();
 					}
 					_listfile(_position, "path");
-					if (files.get((int)_position).get("path").toString().endsWith(".c")) {
+					if (files.get((int)_position).get("path").toString().endsWith(".jekdkcjejxkkekeekekekeoririri")) {
 						ini.setClass(getApplicationContext(), MainActivity.class);
 						ini.putExtra("key", files.get((int)_position).get("path").toString());
 						ini.putExtra("save", files.get((int)_position).get("path").toString());
@@ -604,103 +604,86 @@ public class FilesActivity extends AppCompatActivity {
 						});
 						si.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
 										
+									try {
 									final SpinKitView spkv = new SpinKitView(FilesActivity.this);
-								spkv.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
-								spkv.setStyle(Style.WAVE);
-								spkv.setColor(0xFFFF8800);
-								
-								
-								
-								LinearLayout layoutP = new LinearLayout(FilesActivity.this);
-								LinearLayout layout1 = new LinearLayout(FilesActivity.this);
-								LinearLayout layout2 = new LinearLayout(FilesActivity.this);
-								
-								final TextView textLoad = new TextView(getApplicationContext());
-								textLoad.setText("singing apk file......");
-								textLoad.setTextColor(0xFFFF8800);
-								textLoad.setTextSize((float)17);
-								
-								//layoutP.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
-								layoutP.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-								
-								layoutP.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-								layoutP.setOrientation(LinearLayout.VERTICAL);
-								layout1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-								layout2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-								  
-								
-								     
-								     
-								layout2.setPadding(8,8,8,8);
-								textLoad.setPadding(8,8,8,8);
-								
-								layout1.addView(spkv);
-								layout2.addView(textLoad);
-								layoutP.addView(layout1);
-								layoutP.addView(layout2);
-								
-								newDialogspkv = new AlertDialog.Builder(FilesActivity.this)
-									.setView(layoutP)
-									.create();
-								  newDialogspkv.show();
-								
-								newDialogspkv.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-								
-								timer = new TimerTask() {
-									@Override
-									public void run() {
-										runOnUiThread(new Runnable() {
-											@Override
-											public void run() {
-												while(true) {
-													try {
-														if (FileUtil.isExistFile(files.get((int)_position).get("path").toString())) {
-															if (files.get((int)_position).get("path").toString().endsWith(".apk")) {
-																FileUtil.writeFile("p", "p");
-																pathss = files.get((int)_position).get("path").toString();
-																try {
-																	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-																							Uri uri = androidx.core.content.FileProvider.getUriForFile(getApplicationContext(),
-																									FilesActivity.this.getPackageName() + ".provider", new java.io.File(paths));
-																							Intent intent = new Intent(Intent.ACTION_VIEW);
-																							intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-																							intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-																							intent.setDataAndType(uri, "application/vnd.android.package-archive");
-																							startActivity(intent);
-																		
-																					} else {
-																							Intent intent = new Intent(Intent.ACTION_VIEW);
-																							intent.setDataAndType(Uri.fromFile( new java.io.File(paths)),
-																									"application/vnd.android.package-archive");
-																							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-																							startActivity(intent);
-																					}
-																	
-																} catch (Exception rr) {
-																	showMessage (rr.toString());
+									spkv.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
+									spkv.setStyle(Style.WAVE);
+									spkv.setColor(0xFFFF8800);
+									
+									
+									
+									LinearLayout layoutP = new LinearLayout(FilesActivity.this);
+									LinearLayout layout1 = new LinearLayout(FilesActivity.this);
+									LinearLayout layout2 = new LinearLayout(FilesActivity.this);
+									
+									final TextView textLoad = new TextView(getApplicationContext());
+									textLoad.setText("singing apk file......");
+									textLoad.setTextColor(0xFFFF8800);
+									textLoad.setTextSize((float)17);
+									
+									//layoutP.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
+									layoutP.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+									
+									layoutP.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+									layoutP.setOrientation(LinearLayout.VERTICAL);
+									layout1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+									layout2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+									  
+									
+									     
+									     
+									layout2.setPadding(8,8,8,8);
+									textLoad.setPadding(8,8,8,8);
+									
+									layout1.addView(spkv);
+									layout2.addView(textLoad);
+									layoutP.addView(layout1);
+									layoutP.addView(layout2);
+									
+									newDialogspkv = new AlertDialog.Builder(FilesActivity.this)
+										.setView(layoutP)
+										.create();
+									  newDialogspkv.show();
+									
+									newDialogspkv.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+									
+									timer = new TimerTask() {
+										@Override
+										public void run() {
+											runOnUiThread(new Runnable() {
+												@Override
+												public void run() {
+													while(true) {
+														try {
+															if (FileUtil.isExistFile(files.get((int)_position).get("path").toString())) {
+																if (files.get((int)_position).get("path").toString().endsWith(".apk")) {
+																	FileUtil.writeFile("p", "p");
+																	pathss = files.get((int)_position).get("path").toString();
+																	signedFile(new File(pathss));
+																	_getFiles("");
 																}
-																_getFiles("");
-																signedFile(new File(pathss));
+																else {
+																	SketchwareUtil.showMessage(getApplicationContext(), "Enter path to APK file");
+																}
 															}
 															else {
-																SketchwareUtil.showMessage(getApplicationContext(), "Enter path to APK file");
+																SketchwareUtil.showMessage(getApplicationContext(), "The entered file is not exist");
 															}
+														} catch (Exception e) {
+															 
 														}
-														else {
-															SketchwareUtil.showMessage(getApplicationContext(), "The entered file is not exist");
-														}
-													} catch (Exception e) {
-														 
+														newDialogspkv.dismiss();
+														break;
 													}
-													newDialogspkv.dismiss();
-													break;
 												}
-											}
-										});
-									}
-								};
-								_timer.schedule(timer, (int)(1000));
-								newDialogspkv.setCancelable(false);
+											});
+										}
+									};
+									_timer.schedule(timer, (int)(1000));
+									newDialogspkv.setCancelable(false);
+								} catch (Exception e) {
+									 
+								}
 								
 								}
 						});
@@ -742,7 +725,7 @@ public class FilesActivity extends AppCompatActivity {
 											final SpinKitView spkv = new SpinKitView(FilesActivity.this);
 											spkv.setLayoutParams(new LinearLayout.LayoutParams(110, 110));
 											spkv.setStyle(Style.WAVE);
-											spkv.setColor(0xFFFF8800);
+											spkv.setColor(0xFFE91E63);
 											
 											
 											
@@ -752,7 +735,7 @@ public class FilesActivity extends AppCompatActivity {
 											
 											final TextView textLoad = new TextView(getApplicationContext());
 											textLoad.setText("Convert Dex : ".concat(Uri.parse(path).getLastPathSegment().concat("To Jar File")));
-											textLoad.setTextColor(0xFFFF8800);
+											textLoad.setTextColor(0xFFE91E63);
 											textLoad.setTextSize((float)17);
 											
 											layoutP.setLayoutParams(new LinearLayout.LayoutParams(400, 400));
@@ -831,6 +814,8 @@ public class FilesActivity extends AppCompatActivity {
 					}
 					_swbreston(_position, files, "path");
 					_SkpL("path", files, _position);
+					_rubycodeplay(_position, "path", files);
+					_charpcodeplay(_position, "path", files);
 				}
 			}
 		});
@@ -5146,6 +5131,28 @@ support me if you like my work
 		startActivity(_IntentName);
 	}
 	
+	
+	public void _rubycodeplay(final double _pos, final String _pa, final ArrayList<HashMap<String, Object>> _maplisy) {
+		if (_maplisy.get((int)_pos).get(_pa).toString().endsWith(".rb")) {
+			ini.setClass(getApplicationContext(), MainActivity.class);
+			ini.putExtra("key", _maplisy.get((int)_pos).get(_pa).toString());
+			ini.putExtra("title", Uri.parse(_maplisy.get((int)_pos).get(_pa).toString()).getLastPathSegment());
+			ini.putExtra("save", _maplisy.get((int)_pos).get(_pa).toString());
+			startActivity(ini);
+		}
+	}
+	
+	
+	public void _charpcodeplay(final double _pos, final String _ps, final ArrayList<HashMap<String, Object>> _lia) {
+		if (_lia.get((int)_pos).get(_ps).toString().endsWith(".cs")) {
+			ini.setClass(getApplicationContext(), MainActivity.class);
+			ini.putExtra("key", _lia.get((int)_pos).get(_ps).toString());
+			ini.putExtra("title", Uri.parse(_lia.get((int)_pos).get(_ps).toString()).getLastPathSegment());
+			ini.putExtra("save", _lia.get((int)_pos).get(_ps).toString());
+			startActivity(ini);
+		}
+	}
+	
 	public class Listview1Adapter extends BaseAdapter {
 		
 		ArrayList<HashMap<String, Object>> _data;
@@ -5340,8 +5347,20 @@ support me if you like my work
 																											imageview1.setImageAsset("SkpL.svg");
 																										}
 																										else {
-																											imageview1.setImageAsset("default_file.svg");
-																											sizeofdef.setVisibility(View.GONE);
+																											if (files.get((int)_position).get("path").toString().endsWith(".cs")) {
+																												_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
+																												imageview1.setImageAsset("csharp.svg");
+																											}
+																											else {
+																												if (files.get((int)_position).get("path").toString().endsWith(".rb")) {
+																													_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
+																													imageview1.setImageAsset("ruby.svg");
+																												}
+																												else {
+																													imageview1.setImageAsset("default_file.svg");
+																													sizeofdef.setVisibility(View.GONE);
+																												}
+																											}
 																										}
 																									}
 																								}
