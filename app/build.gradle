@@ -11,8 +11,8 @@ android {
 		applicationId "ir.vscodemobile.ninjacoder"
 		minSdkVersion 21
 		targetSdkVersion 28
-		versionCode 10
-		versionName "1.1.1 h"
+		versionCode 14010109
+		versionName "1.1.2 a"
 	}
 	
 	buildTypes {
