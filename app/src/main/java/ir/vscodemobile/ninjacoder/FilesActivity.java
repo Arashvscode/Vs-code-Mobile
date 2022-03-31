@@ -503,7 +503,7 @@ public class FilesActivity extends AppCompatActivity {
 						dialog1.show();
 					}
 					_listfile(_position, "path");
-					if (files.get((int)_position).get("path").toString().endsWith(".jekdkcjejxkkekeekekekeoririri")) {
+					if (files.get((int)_position).get("path").toString().endsWith(".c")) {
 						ini.setClass(getApplicationContext(), MainActivity.class);
 						ini.putExtra("key", files.get((int)_position).get("path").toString());
 						ini.putExtra("save", files.get((int)_position).get("path").toString());
@@ -813,9 +813,11 @@ public class FilesActivity extends AppCompatActivity {
 						startActivity(ini);
 					}
 					_swbreston(_position, files, "path");
-					_SkpL("path", files, _position);
-					_rubycodeplay(_position, "path", files);
-					_charpcodeplay(_position, "path", files);
+						_SkpL("path", files, _position);
+						_xmlrunr("path", _position, files);
+						_kt("path", _position, files);
+						_rubycodeplay(_position, "path", files);
+						_charpcodeplay(_position, "path", files);
 				}
 			}
 		});
@@ -5153,6 +5155,28 @@ support me if you like my work
 		}
 	}
 	
+	
+	public void _xmlrunr(final String _str, final double _pos, final ArrayList<HashMap<String, Object>> _imap) {
+		if (_imap.get((int)_pos).get(_str).toString().endsWith(".xml")) {
+			ini.setClass(getApplicationContext(), MainActivity.class);
+			ini.putExtra("key", _imap.get((int)_pos).get(_str).toString());
+			ini.putExtra("title", Uri.parse(_imap.get((int)_pos).get(_str).toString()).getLastPathSegment());
+			ini.putExtra("save", _imap.get((int)_pos).get(_str).toString());
+			startActivity(ini);
+		}
+	}
+	
+	
+	public void _kt(final String _str, final double _pos, final ArrayList<HashMap<String, Object>> _imP) {
+		if (_imP.get((int)_pos).get(_str).toString().endsWith("kt")) {
+			ini.setClass(getApplicationContext(), MainActivity.class);
+			ini.putExtra("key", _imP.get((int)_pos).get(_str).toString());
+			ini.putExtra("title", Uri.parse(_imP.get((int)_pos).get(_str).toString()).getLastPathSegment());
+			ini.putExtra("save", _imP.get((int)_pos).get(_str).toString());
+			startActivity(ini);
+		}
+	}
+	
 	public class Listview1Adapter extends BaseAdapter {
 		
 		ArrayList<HashMap<String, Object>> _data;
@@ -5357,8 +5381,20 @@ support me if you like my work
 																													imageview1.setImageAsset("ruby.svg");
 																												}
 																												else {
-																													imageview1.setImageAsset("default_file.svg");
-																													sizeofdef.setVisibility(View.GONE);
+																													if (files.get((int)_position).get("path").toString().endsWith(".kt")) {
+																														_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
+																														imageview1.setImageAsset("kotlin.svg");
+																													}
+																													else {
+																														if (files.get((int)_position).get("path").toString().endsWith(".xml")) {
+																															_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
+																															imageview1.setImageAsset("xml.svg");
+																														}
+																														else {
+																															imageview1.setImageAsset("default_file.svg");
+																															sizeofdef.setVisibility(View.GONE);
+																														}
+																													}
 																												}
 																											}
 																										}

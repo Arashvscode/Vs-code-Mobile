@@ -98,7 +98,7 @@ import io.github.rosemoe.sora.langs.universal.*;
 import io.github.rosemoe.sora.langs.html.*;
 import io.github.rosemoe.sora.langs.desc.GoDescription;
  import io.github.rosemoe.sora.langs.xml.*;
-
+import io.github.rosemoe.sora.langs.desc.KotlinDescription;
 import io.github.rosemoe.sora.langs.desc.NINJADescription;
 import io.github.rosemoe.sora.langs.desc.ShellDescription;
 import io.github.rosemoe.sora.langs.desc.SmaillDescription;
@@ -888,7 +888,64 @@ public class MainActivity extends AppCompatActivity {
 																	editor.setEditorLanguage(new UniversalLanguage(new sharpDescription()));
 																}
 																else {
-																	
+																	if (getIntent().getStringExtra("title").contains(".c")) {
+																		StringBuilder androidc = new StringBuilder();
+																		
+																		try {
+																			
+																			Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																			while (scanner.hasNext()) {
+																				androidc .append(scanner.next());
+																			}
+																			editor.setText(androidc );
+																		} catch (Exception rt) {
+																			rt.printStackTrace();
+																		}
+																		editor.setColorScheme(new theme());
+																		_fab.show();
+																		editor.setEditorLanguage(new UniversalLanguage(new CDescription()));
+																	}
+																	else {
+																		if (getIntent().getStringExtra("title").contains(".kt")) {
+																			StringBuilder androidc = new StringBuilder();
+																			
+																			try {
+																				
+																				Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																				while (scanner.hasNext()) {
+																					androidc .append(scanner.next());
+																				}
+																				editor.setText(androidc );
+																			} catch (Exception rt) {
+																				rt.printStackTrace();
+																			}
+																			editor.setColorScheme(new theme());
+																			_fab.hide();
+																			editor.setEditorLanguage(new UniversalLanguage(new KotlinDescription()));
+																		}
+																		else {
+																			if (getIntent().getStringExtra("title").contains(".xml")) {
+																				StringBuilder androidc = new StringBuilder();
+																				
+																				try {
+																					
+																					Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																					while (scanner.hasNext()) {
+																						androidc .append(scanner.next());
+																					}
+																					editor.setText(androidc );
+																				} catch (Exception rt) {
+																					rt.printStackTrace();
+																				}
+																				editor.setColorScheme(new theme());
+																				_fab.hide();
+																				XMLLanguage xmlLanguage=new XMLLanguage(); xmlLanguage.setSyntaxCheckEnable(true); editor.setEditorLanguage(xmlLanguage);
+																			}
+																			else {
+																				
+																			}
+																		}
+																	}
 																}
 															}
 														}
