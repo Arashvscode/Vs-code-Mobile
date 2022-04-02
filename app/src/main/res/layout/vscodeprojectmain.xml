@@ -62,7 +62,7 @@
 						android:padding="8dp"
 						android:text="فشرده کردن پوشه/SkpL"
 						android:textSize="12sp"
-						android:textColor="#2196F3" />
+						android:textColor="#219EB7" />
 					<ImageView
 						android:id="@+id/imageview1"
 						android:focusable="false"
@@ -87,7 +87,7 @@
 						android:padding="8dp"
 						android:text="فشرده کردن فایل"
 						android:textSize="12sp"
-						android:textColor="#2196F3" />
+						android:textColor="#219EB7" />
 					<ImageView
 						android:id="@+id/imageview2"
 						android:focusable="false"
