@@ -30,9 +30,9 @@ import java.util.regex.*;
 import java.text.*;
 import org.json.*;
 import java.util.ArrayList;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.EditText;
 import android.widget.Button;
 import android.content.Intent;
@@ -138,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
 	
 	private ArrayList<String> opt = new ArrayList<>();
 	
+	private RelativeLayout RelativeLayout;
+	private ImageView bak;
+	private LinearLayout coding;
 	private LinearLayout linear1;
 	private CodeEditor editor;
 	private LinearLayout fmt;
@@ -215,6 +218,9 @@ public class MainActivity extends AppCompatActivity {
 		});
 		_fab = findViewById(R.id._fab);
 		
+		RelativeLayout = findViewById(R.id.RelativeLayout);
+		bak = findViewById(R.id.bak);
+		coding = findViewById(R.id.coding);
 		linear1 = findViewById(R.id.linear1);
 		editor = findViewById(R.id.editor);
 		fmt = findViewById(R.id.fmt);

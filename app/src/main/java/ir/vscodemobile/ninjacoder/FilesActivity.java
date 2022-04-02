@@ -154,6 +154,7 @@ public class FilesActivity extends AppCompatActivity {
 	private String ninjainput = "";
 	private String text = "";
 	private double limit = 0;
+	private String output120 = "";
 	
 	private ArrayList<String> liststring = new ArrayList<>();
 	private ArrayList<String> list = new ArrayList<>();
@@ -229,6 +230,7 @@ public class FilesActivity extends AppCompatActivity {
 	private RequestNetwork c;
 	private RequestNetwork.RequestListener _c_request_listener;
 	private Vibrator vb;
+	private AlertDialog.Builder smail;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -313,6 +315,7 @@ public class FilesActivity extends AppCompatActivity {
 		smaill = new AlertDialog.Builder(this);
 		c = new RequestNetwork(this);
 		vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		smail = new AlertDialog.Builder(this);
 		
 		listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -978,14 +981,14 @@ public class FilesActivity extends AppCompatActivity {
 						});
 						dialogfolder.create().show();
 						bottomSheetDialog.dismiss();
+						bottomSheetDialog.setCancelable(true);
+						card.setCardBackgroundColor(0xFF000027);
+						card.setRadius((float)19);
+						card.setCardElevation((float)0);
+						bottomSheetDialog.show();
 						
 					}
 				});
-				bottomSheetDialog.setCancelable(true);
-				card.setCardBackgroundColor(0xFF000027);
-				card.setRadius((float)19);
-				card.setCardElevation((float)0);
-				bottomSheetDialog.show();
 				return true;
 			}
 		});
@@ -5030,8 +5033,39 @@ support me if you like my work
 	private ProgressDialog ninjaprogress;
 	
 	public static class BaksmaliAdapter {
-				public static void doBaksmali(String ninjainput, String ninjaoutput) throws Exception {
-							org.jf.baksmali.main.main(new String[]{ "-o", ninjaoutput, ninjainput });
+				public static void run(java.io.File ninjainput, java.io.File output120) throws Exception {
+							org.jf.baksmali.BaksmaliOptions options = new org.jf.baksmali.BaksmaliOptions();
+							options.deodex = false;
+							options.implicitReferences = false;
+							options.parameterRegisters = true;
+							options.localsDirective = true;
+							options.sequentialLabels = true;
+							options.debugInfo = true;
+							options.codeOffsets = false;
+							options.accessorComments = false;
+							options.registerInfo = 0;
+							options.inlineResolver = null;
+							int jobs = Runtime.getRuntime().availableProcessors();
+							if (jobs > 6) {
+										jobs = 6;
+							}
+							java.io.InputStream is = new java.io.BufferedInputStream(new java.io.FileInputStream(ninjainput.toString()));
+							org.jf.dexlib2.iface.DexFile dexFile = org.jf.dexlib2.dexbacked.DexBackedDexFile.fromInputStream(org.jf.dexlib2.Opcodes.forApi(15), is);
+							org.jf.baksmali.Baksmali.disassembleDexFile(dexFile, output120, jobs, options, null);
+				}
+				public static void run(String ninjainput, String output120) throws Exception {
+							run(new java.io.File(ninjainput), new java.io.File(output120));
+				}
+	}
+	
+	public static class SmaliAdapter {
+				public static void run(java.io.File ninjainput, java.io.File output120) throws Exception {
+							org.jf.smali.SmaliOptions params = new org.jf.smali.SmaliOptions();
+							params.outputDexFile = output120.getAbsolutePath();
+							org.jf.smali.Smali.assemble(params, Arrays.asList(ninjainput.getAbsolutePath()));
+				}
+				public static void run(String ninjainput, String output120) throws Exception {
+							run(new java.io.File(ninjainput), new java.io.File(output120));
 				}
 	}
 	
@@ -5053,18 +5087,18 @@ support me if you like my work
 		///end
 		ed.setLayoutParams(lparr);
 		smaill.setView(ed);
+		output120 = ed.getText().toString();
+		ninjainput = new java.io.File(ninjainput).toString();
+		output120 = new java.io.File(output120).toString();
 		smaill.setMessage(Html.fromHtml("<font color=\"#007DFF\">Are You Convert Dex to Smaill??</font>"));
 		smaill.setPositiveButton(Html.fromHtml("<font color=\"#00FFFF\">Yes</font>"), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
-				ninjaoutput = ed.getText().toString();
-				ninjainput = new java.io.File(ninjainput).toString();
-				ninjaoutput = new java.io.File(ninjaoutput).toString();
 				if (ninjainput.equals("")) {
 					
 				}
 				else {
-					if (ninjaoutput.equals("")) {
+					if (output120.equals("")) {
 						
 					}
 					else {
@@ -5072,43 +5106,46 @@ support me if you like my work
 							
 						}
 						else {
-							try {
-								ninjaprogress = new ProgressDialog(FilesActivity.this);
-								ninjaprogress.setTitle(Html.fromHtml("<font color=\"#00FFFF\">Dex to Smaill</font>"));
-								ninjaprogress.setMessage(Html.fromHtml("<font color=\"#59FF7B\">Convert to Smaill....</font>"));
-								ninjaprogress.setCancelable(false);
-								ninjaprogress.getWindow().setBackgroundDrawable(new ColorDrawable(0xFF130F3B));
-								ninjaprogress.show();
-								new AsyncTask<String, String, String>() {
-									 @Override
-									protected void onPreExecute() {
-										super.onPreExecute();
-									}
-									 @Override
-									protected String doInBackground(String... arg0) {
-										String debug = null;
-										while(true) {
-											try {
-												BaksmaliAdapter.doBaksmali(ninjainput ,ninjaoutput);
-												debug = "S";
-											}
-											catch (Exception e) {
-												debug = e.getMessage();
-											}
-											break;
+							if (FileUtil.isExistFile(output120)) {
+								
+							}
+							else {
+								if (!FileUtil.isExistFile(new java.io.File(ninjaoutput).getParent())) {
+									
+								}
+								else {
+									ninjaprogress = new ProgressDialog(FilesActivity.this);
+									ninjaprogress.setMessage(new java.io.File(ninjainput).getName() + " into " + ninjaoutput + "...");
+									ninjaprogress.setCancelable(false);
+									ninjaprogress.show();
+									new AsyncTask<String, String, String>() {
+										 @Override
+										protected void onPreExecute() {
+											super.onPreExecute();
 										}
-										return debug;
-									}
-									 @Override
-									protected void onPostExecute(String result) {
-										super.onPostExecute(result);
-										ninjaprogress.dismiss();
-										_getFiles("");
-										SketchwareUtil.showMessage(getApplicationContext(), result == "S" ? "Success" : result);
-									} 
-								}.execute();
-							} catch (Exception e) {
-								SketchwareUtil.showMessage(getApplicationContext(), "Error");
+										 @Override
+										protected String doInBackground(String... arg0) {
+											String debug = "";
+											while(true) {
+												try {
+													BaksmaliAdapter.run(ninjainput ,output120);
+													debug = "S";
+												}
+												catch (Exception e) {
+													debug = e.getMessage();
+												}
+												break;
+											}
+											return debug;
+										}
+										 @Override
+										protected void onPostExecute(String result) {
+											super.onPostExecute(result);
+											ninjaprogress.dismiss();
+											SketchwareUtil.showMessage(getApplicationContext(), result == "S" ? "Success" : result);
+										} 
+									}.execute();
+								}
 							}
 						}
 					}
@@ -5354,40 +5391,48 @@ support me if you like my work
 																							if (files.get((int)_position).get("path").toString().endsWith(".ninja")) {
 																								_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
 																								imageview1.setImageAsset("ninjafile.svg");
+																								sizeofdef.setVisibility(View.VISIBLE);
 																							}
 																							else {
 																								if (files.get((int)_position).get("path").toString().endsWith(".dart")) {
 																									_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
+																									sizeofdef.setVisibility(View.VISIBLE);
 																									imageview1.setImageAsset("dartfile.svg");
 																								}
 																								else {
 																									if (files.get((int)_position).get("path").toString().endsWith(".swb")) {
 																										_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
 																										imageview1.setImageAsset("swb.svg");
+																										sizeofdef.setVisibility(View.VISIBLE);
 																									}
 																									else {
 																										if (files.get((int)_position).get("path").toString().endsWith(".SkpL")) {
 																											_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
 																											imageview1.setImageAsset("SkpL.svg");
+																											sizeofdef.setVisibility(View.VISIBLE);
 																										}
 																										else {
 																											if (files.get((int)_position).get("path").toString().endsWith(".cs")) {
 																												_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
 																												imageview1.setImageAsset("csharp.svg");
+																												sizeofdef.setVisibility(View.VISIBLE);
 																											}
 																											else {
 																												if (files.get((int)_position).get("path").toString().endsWith(".rb")) {
 																													_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
 																													imageview1.setImageAsset("ruby.svg");
+																													sizeofdef.setVisibility(View.VISIBLE);
 																												}
 																												else {
 																													if (files.get((int)_position).get("path").toString().endsWith(".kt")) {
 																														_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
 																														imageview1.setImageAsset("kotlin.svg");
+																														sizeofdef.setVisibility(View.VISIBLE);
 																													}
 																													else {
 																														if (files.get((int)_position).get("path").toString().endsWith(".xml")) {
 																															_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
+																															sizeofdef.setVisibility(View.VISIBLE);
 																															imageview1.setImageAsset("xml.svg");
 																														}
 																														else {
