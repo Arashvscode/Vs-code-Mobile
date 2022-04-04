@@ -296,20 +296,20 @@ public class AboutActivity extends AppCompatActivity {
 				}
 			};
 			_timer.scheduleAtFixedRate(ask, (int)(0), (int)(1000));
-			circleimageview1.setOnTouchListener(new View.OnTouchListener() {
+			linear1.setOnTouchListener(new View.OnTouchListener() {
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
 					switch (event.getAction()){
 						case MotionEvent.ACTION_DOWN:{
 							ObjectAnimator scaleX = new ObjectAnimator();
-							scaleX.setTarget(circleimageview1);
+							scaleX.setTarget(linear1);
 							scaleX.setPropertyName("scaleX");
 							scaleX.setFloatValues(0.9f);
 							scaleX.setDuration((int)5);
 							scaleX.start();
 							
 							ObjectAnimator scaleY = new ObjectAnimator();
-							scaleY.setTarget(circleimageview1);
+							scaleY.setTarget(linear1);
 							scaleY.setPropertyName("scaleY");
 							scaleY.setFloatValues(0.9f);
 							scaleY.setDuration((int)5);
@@ -319,14 +319,14 @@ public class AboutActivity extends AppCompatActivity {
 						case MotionEvent.ACTION_UP:{
 							
 							ObjectAnimator scaleX = new ObjectAnimator();
-							scaleX.setTarget(circleimageview1);
+							scaleX.setTarget(linear1);
 							scaleX.setPropertyName("scaleX");
 							scaleX.setFloatValues((float)1);
 							scaleX.setDuration((int)5);
 							scaleX.start();
 							
 							ObjectAnimator scaleY = new ObjectAnimator();
-							scaleY.setTarget(circleimageview1);
+							scaleY.setTarget(linear1);
 							scaleY.setPropertyName("scaleY");
 							scaleY.setFloatValues((float)1);
 							scaleY.setDuration((int)5);

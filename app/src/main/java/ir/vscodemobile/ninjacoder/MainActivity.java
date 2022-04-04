@@ -135,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
 	private String currentWord = "";
 	private String maincss = "";
 	private String htmlb = "";
+	private boolean bool01 = false;
+	private boolean mm = false;
 	
 	private ArrayList<String> opt = new ArrayList<>();
 	
@@ -146,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 	private LinearLayout fmt;
 	private HorizontalScrollView hscroll1;
 	private LinearLayout fixbar;
-	private LinearLayout linear7;
+	private LinearLayout linearbar;
 	private SymbolInputView sysbar;
 	private LinearLayout linear6;
 	private ImageView imageview1;
@@ -180,6 +182,12 @@ public class MainActivity extends AppCompatActivity {
 	private SharedPreferences autosave;
 	private TimerTask rang;
 	private TimerTask t;
+	private SharedPreferences fb120;
+	private SharedPreferences RdImageview1;
+	private SharedPreferences Kmaranimage9;
+	private SharedPreferences paletImageview3;
+	private SharedPreferences mortalkomat;
+	private SharedPreferences gow;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -226,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
 		fmt = findViewById(R.id.fmt);
 		hscroll1 = findViewById(R.id.hscroll1);
 		fixbar = findViewById(R.id.fixbar);
-		linear7 = findViewById(R.id.linear7);
+		linearbar = findViewById(R.id.linearbar);
 		sysbar = findViewById(R.id.sysbar);
 		linear6 = findViewById(R.id.linear6);
 		imageview1 = findViewById(R.id.imageview1);
@@ -254,6 +262,12 @@ public class MainActivity extends AppCompatActivity {
 		Zb = getSharedPreferences("Zb", Activity.MODE_PRIVATE);
 		alreplce = new AlertDialog.Builder(this);
 		autosave = getSharedPreferences("autosave", Activity.MODE_PRIVATE);
+		fb120 = getSharedPreferences("fb120", Activity.MODE_PRIVATE);
+		RdImageview1 = getSharedPreferences("maincdmImage10", Activity.MODE_PRIVATE);
+		Kmaranimage9 = getSharedPreferences("0kotsc", Activity.MODE_PRIVATE);
+		paletImageview3 = getSharedPreferences("30302280", Activity.MODE_PRIVATE);
+		mortalkomat = getSharedPreferences("m102829201192", Activity.MODE_PRIVATE);
+		gow = getSharedPreferences("gow", Activity.MODE_PRIVATE);
 		
 		imageview1.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -498,6 +512,8 @@ public class MainActivity extends AppCompatActivity {
 		setTitle(getIntent().getStringExtra("title"));
 		setTheme(android.R.style.Theme_Material);
 		editor.setTypefaceLineNumber(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
+		
+		///bak.loadUrl("file:///android_asset/ribbon/ribbon.html");
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
@@ -967,7 +983,9 @@ public class MainActivity extends AppCompatActivity {
 				}
 			}
 		}
-		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFF2196F3".replace("0xFF" , "#"))));
+		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFFE91E63".replace("0xFF" , "#"))));
+		bool01 = false;
+		mm = false;
 	}
 	
 	
@@ -976,6 +994,9 @@ public class MainActivity extends AppCompatActivity {
 		MenuItem menuitem1 = menu.add(Menu.NONE, 0, Menu.NONE, "Undo");
 		menuitem1.setIcon(R.drawable.undo);
 		menuitem1.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		MenuItem menuitem8 = menu.add(Menu.NONE, 8, Menu.NONE, "Redo");
+		menuitem8.setIcon(R.drawable.image);
+		menuitem8.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		MenuItem menuitem6 = menu.add(Menu.NONE, 5, Menu.NONE, "cut");
 		menuitem6.setIcon(R.drawable.cut);
 		menuitem6.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -1040,12 +1061,157 @@ public class MainActivity extends AppCompatActivity {
 		if (_id == 6) {
 			editor.setText("");
 		}
+		if(_id == 8){
+			final AlertDialog dialog1 = new AlertDialog.Builder(MainActivity.this).create();
+			View inflate = getLayoutInflater().inflate(R.layout.editorbackground,null); 
+			dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+			dialog1.setView(inflate);
+			RadioButton r1 = (RadioButton) inflate.findViewById(R.id.r1);
+			RadioButton r2 = (RadioButton) inflate.findViewById(R.id.r2);
+			RadioButton r3 = (RadioButton) inflate.findViewById(R.id.r3);
+			RadioButton r4 = (RadioButton) inflate.findViewById(R.id.r4);
+			RadioButton r5 = (RadioButton) inflate.findViewById(R.id.r5);
+			androidx.cardview.widget.CardView card = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.card);
+			RadioButton r6 = (RadioButton) inflate.findViewById(R.id.r6);
+			ImageView m = (ImageView) inflate.findViewById(R.id.m);
+			card.setCardBackgroundColor(0xFF000000);
+			card.setRadius((float)25);
+			card.setCardElevation((float)3);
+			if (fb120.getString("img1", "").equals("true")) {
+				r1.setChecked(true);
+			}
+			else {
+				r1.setChecked(false);
+			}
+			if (RdImageview1.getString("img2", "").equals("true")) {
+				r2.setChecked(true);
+			}
+			else {
+				r2.setChecked(false);
+			}
+			if (Kmaranimage9.getString("img3", "").equals("true")) {
+				r3.setChecked(true);
+			}
+			else {
+				r3.setChecked(false);
+			}
+			if (paletImageview3.getString("img4", "").equals("true")) {
+				r4.setChecked(true);
+			}
+			else {
+				r4.setChecked(false);
+			}
+			if (mortalkomat.getString("img5", "").equals("true")) {
+				r5.setChecked(true);
+			}
+			else {
+				r5.setChecked(false);
+			}
+			if (gow.getString("img6", "").equals("true")) {
+				r6.setChecked(true);
+			}
+			else {
+				r6.setChecked(false);
+			}
+			r1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+							@Override
+							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+									final boolean _isChecked = _param2;
+									if (_isChecked) {
+						fb120.edit().putString("img1", "true").commit();
+						bak.setImageResource(R.drawable.back1);
+					}
+					else {
+						fb120.edit().putString("img1", "false").commit();
+					}
+							}
+					});
+				
+			r4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+							@Override
+							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+									final boolean _isChecked = _param2;
+									if (_isChecked) {
+						paletImageview3.edit().putString("img4", "true").commit();
+						bak.setImageResource(R.drawable.b1123456721222aa);
+					}
+					else {
+						paletImageview3.edit().putString("img4", "false").commit();
+					}
+							}
+					});
+				
+			r3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+							@Override
+							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+									final boolean _isChecked = _param2;
+									if (_isChecked) {
+						Kmaranimage9.edit().putString("img3", "true").commit();
+						bak.setImageResource(R.drawable.back3);
+					}
+					else {
+						Kmaranimage9.edit().putString("img3", "false").commit();
+					}
+							}
+					});
+				
+			r2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+							@Override
+							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+									final boolean _isChecked = _param2;
+									if (_isChecked) {
+						RdImageview1.edit().putString("img2", "true").commit();
+						bak.setImageResource(R.drawable.back2);
+					}
+					else {
+						RdImageview1.edit().putString("img2", "false").commit();
+					}
+							}
+					});
+				
+			r5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+							@Override
+							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+									final boolean _isChecked = _param2;
+									if (_isChecked) {
+						bak.setImageResource(R.drawable.back4);
+						mortalkomat.edit().putString("img5", "true").commit();
+					}
+					else {
+						mortalkomat.edit().putString("img5", "false").commit();
+					}
+							}
+					});
+				
+			r6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+							@Override
+							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+									final boolean _isChecked = _param2;
+									if (_isChecked) {
+						bak.setImageResource(R.drawable.back5);
+						gow.edit().putString("img6", "true").commit();
+					}
+					else {
+						gow.edit().putString("img6", "false").commit();
+					}
+							}
+					});
+				
+			m.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
+							
+						dialog1.dismiss();
+					
+					}
+			});
+			dialog1.show();
+		}
 		return super.onOptionsItemSelected(item);
 	}
 	
 	@Override
 	public void onStart() {
 		super.onStart();
+		_setbackground();
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -1709,6 +1875,72 @@ public class MainActivity extends AppCompatActivity {
 				
 			}
 		}
+		if (fb120.getString("img1", "").equals("true")) {
+			bak.setImageResource(R.drawable.back1);
+		}
+		else {
+			if (fb120.getString("img1", "").equals("false")) {
+				
+			}
+			else {
+				
+			}
+		}
+		if (RdImageview1.getString("img2", "").equals("true")) {
+			bak.setImageResource(R.drawable.back2);
+		}
+		else {
+			if (RdImageview1.getString("img2", "").equals("false")) {
+				
+			}
+			else {
+				
+			}
+		}
+		if (Kmaranimage9.getString("img3", "").equals("true")) {
+			bak.setImageResource(R.drawable.back3);
+		}
+		else {
+			if (Kmaranimage9.getString("img3", "").equals("false")) {
+				
+			}
+			else {
+				
+			}
+		}
+		if (paletImageview3.getString("img4", "").equals("true")) {
+			bak.setImageResource(R.drawable.b1123456721222aa);
+		}
+		else {
+			if (paletImageview3.getString("img4", "").equals("false")) {
+				
+			}
+			else {
+				
+			}
+		}
+		if (mortalkomat.getString("img5", "").equals("true")) {
+			bak.setImageResource(R.drawable.back4);
+		}
+		else {
+			if (mortalkomat.getString("img5", "").equals("false")) {
+				
+			}
+			else {
+				
+			}
+		}
+		if (gow.getString("img6", "").equals("true")) {
+			bak.setImageResource(R.drawable.back5);
+		}
+		else {
+			if (gow.getString("img6", "").equals("false")) {
+				
+			}
+			else {
+				
+			}
+		}
 	}
 	
 	
@@ -1810,6 +2042,11 @@ public class MainActivity extends AppCompatActivity {
 		                snackbarLayout.addView(customSnackView, 0);
 		                  
 		                snackbar.show();
+	}
+	
+	
+	public void _setbackground() {
+		
 	}
 	
 	

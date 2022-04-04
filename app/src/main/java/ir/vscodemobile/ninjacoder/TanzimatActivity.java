@@ -72,6 +72,10 @@ public class TanzimatActivity extends AppCompatActivity {
 	private boolean bool = false;
 	private boolean webview1 = false;
 	private boolean cxd = false;
+	private boolean img1 = false;
+	private boolean Eimg2 = false;
+	private boolean Fimg3 = false;
+	private boolean Himg4 = false;
 	
 	private LinearLayout bg;
 	private LinearLayout back;
@@ -132,6 +136,10 @@ public class TanzimatActivity extends AppCompatActivity {
 	private SharedPreferences Rjavapath;
 	private SharedPreferences Dark;
 	private SharedPreferences autosave;
+	private SharedPreferences t1;
+	private SharedPreferences m2;
+	private SharedPreferences l1;
+	private SharedPreferences Do;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -212,6 +220,10 @@ public class TanzimatActivity extends AppCompatActivity {
 		Rjavapath = getSharedPreferences("Rjavapath", Activity.MODE_PRIVATE);
 		Dark = getSharedPreferences("Dark", Activity.MODE_PRIVATE);
 		autosave = getSharedPreferences("autosave", Activity.MODE_PRIVATE);
+		t1 = getSharedPreferences("t1", Activity.MODE_PRIVATE);
+		m2 = getSharedPreferences("m2", Activity.MODE_PRIVATE);
+		l1 = getSharedPreferences("l1", Activity.MODE_PRIVATE);
+		Do = getSharedPreferences("Do", Activity.MODE_PRIVATE);
 		
 		imageview1.setOnClickListener(new View.OnClickListener() {
 			@Override
