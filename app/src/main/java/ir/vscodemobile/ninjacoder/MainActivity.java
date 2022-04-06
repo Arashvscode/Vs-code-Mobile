@@ -43,6 +43,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import java.util.Timer;
 import java.util.TimerTask;
+import android.content.ClipData;
 import android.view.View;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -125,6 +126,8 @@ import io.github.rosemoe.sora.widget.EditorAutoCompleteWindow;
 
 public class MainActivity extends AppCompatActivity {
 	
+	public final int REQ_CD_FILEPICKER = 101;
+	
 	private Timer _timer = new Timer();
 	
 	private Toolbar _toolbar;
@@ -188,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
 	private SharedPreferences paletImageview3;
 	private SharedPreferences mortalkomat;
 	private SharedPreferences gow;
+	private Intent Filepicker = new Intent(Intent.ACTION_GET_CONTENT);
+	private SharedPreferences fb;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -268,6 +273,9 @@ public class MainActivity extends AppCompatActivity {
 		paletImageview3 = getSharedPreferences("30302280", Activity.MODE_PRIVATE);
 		mortalkomat = getSharedPreferences("m102829201192", Activity.MODE_PRIVATE);
 		gow = getSharedPreferences("gow", Activity.MODE_PRIVATE);
+		Filepicker.setType("image/*");
+		Filepicker.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+		fb = getSharedPreferences("fb", Activity.MODE_PRIVATE);
 		
 		imageview1.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -988,6 +996,36 @@ public class MainActivity extends AppCompatActivity {
 		mm = false;
 	}
 	
+	@Override
+	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data) {
+		super.onActivityResult(_requestCode, _resultCode, _data);
+		
+		switch (_requestCode) {
+			case REQ_CD_FILEPICKER:
+			if (_resultCode == Activity.RESULT_OK) {
+				ArrayList<String> _filePath = new ArrayList<>();
+				if (_data != null) {
+					if (_data.getClipData() != null) {
+						for (int _index = 0; _index < _data.getClipData().getItemCount(); _index++) {
+							ClipData.Item _item = _data.getClipData().getItemAt(_index);
+							_filePath.add(FileUtil.convertUriToFilePath(getApplicationContext(), _item.getUri()));
+						}
+					}
+					else {
+						_filePath.add(FileUtil.convertUriToFilePath(getApplicationContext(), _data.getData()));
+					}
+				}
+				fb.edit().putString("set", _filePath.get((int)(0))).commit();
+			}
+			else {
+				
+			}
+			break;
+			default:
+			break;
+		}
+	}
+	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -1062,148 +1100,7 @@ public class MainActivity extends AppCompatActivity {
 			editor.setText("");
 		}
 		if(_id == 8){
-			final AlertDialog dialog1 = new AlertDialog.Builder(MainActivity.this).create();
-			View inflate = getLayoutInflater().inflate(R.layout.editorbackground,null); 
-			dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-			dialog1.setView(inflate);
-			RadioButton r1 = (RadioButton) inflate.findViewById(R.id.r1);
-			RadioButton r2 = (RadioButton) inflate.findViewById(R.id.r2);
-			RadioButton r3 = (RadioButton) inflate.findViewById(R.id.r3);
-			RadioButton r4 = (RadioButton) inflate.findViewById(R.id.r4);
-			RadioButton r5 = (RadioButton) inflate.findViewById(R.id.r5);
-			androidx.cardview.widget.CardView card = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.card);
-			RadioButton r6 = (RadioButton) inflate.findViewById(R.id.r6);
-			ImageView m = (ImageView) inflate.findViewById(R.id.m);
-			card.setCardBackgroundColor(0xFF000000);
-			card.setRadius((float)25);
-			card.setCardElevation((float)3);
-			if (fb120.getString("img1", "").equals("true")) {
-				r1.setChecked(true);
-			}
-			else {
-				r1.setChecked(false);
-			}
-			if (RdImageview1.getString("img2", "").equals("true")) {
-				r2.setChecked(true);
-			}
-			else {
-				r2.setChecked(false);
-			}
-			if (Kmaranimage9.getString("img3", "").equals("true")) {
-				r3.setChecked(true);
-			}
-			else {
-				r3.setChecked(false);
-			}
-			if (paletImageview3.getString("img4", "").equals("true")) {
-				r4.setChecked(true);
-			}
-			else {
-				r4.setChecked(false);
-			}
-			if (mortalkomat.getString("img5", "").equals("true")) {
-				r5.setChecked(true);
-			}
-			else {
-				r5.setChecked(false);
-			}
-			if (gow.getString("img6", "").equals("true")) {
-				r6.setChecked(true);
-			}
-			else {
-				r6.setChecked(false);
-			}
-			r1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
-									final boolean _isChecked = _param2;
-									if (_isChecked) {
-						fb120.edit().putString("img1", "true").commit();
-						bak.setImageResource(R.drawable.back1);
-					}
-					else {
-						fb120.edit().putString("img1", "false").commit();
-					}
-							}
-					});
-				
-			r4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
-									final boolean _isChecked = _param2;
-									if (_isChecked) {
-						paletImageview3.edit().putString("img4", "true").commit();
-						bak.setImageResource(R.drawable.b1123456721222aa);
-					}
-					else {
-						paletImageview3.edit().putString("img4", "false").commit();
-					}
-							}
-					});
-				
-			r3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
-									final boolean _isChecked = _param2;
-									if (_isChecked) {
-						Kmaranimage9.edit().putString("img3", "true").commit();
-						bak.setImageResource(R.drawable.back3);
-					}
-					else {
-						Kmaranimage9.edit().putString("img3", "false").commit();
-					}
-							}
-					});
-				
-			r2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
-									final boolean _isChecked = _param2;
-									if (_isChecked) {
-						RdImageview1.edit().putString("img2", "true").commit();
-						bak.setImageResource(R.drawable.back2);
-					}
-					else {
-						RdImageview1.edit().putString("img2", "false").commit();
-					}
-							}
-					});
-				
-			r5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
-									final boolean _isChecked = _param2;
-									if (_isChecked) {
-						bak.setImageResource(R.drawable.back4);
-						mortalkomat.edit().putString("img5", "true").commit();
-					}
-					else {
-						mortalkomat.edit().putString("img5", "false").commit();
-					}
-							}
-					});
-				
-			r6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-							@Override
-							public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
-									final boolean _isChecked = _param2;
-									if (_isChecked) {
-						bak.setImageResource(R.drawable.back5);
-						gow.edit().putString("img6", "true").commit();
-					}
-					else {
-						gow.edit().putString("img6", "false").commit();
-					}
-							}
-					});
-				
-			m.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
-							
-						dialog1.dismiss();
-					
-					}
-			});
-			dialog1.show();
+			startActivityForResult(Filepicker, REQ_CD_FILEPICKER);
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -1875,71 +1772,8 @@ public class MainActivity extends AppCompatActivity {
 				
 			}
 		}
-		if (fb120.getString("img1", "").equals("true")) {
-			bak.setImageResource(R.drawable.back1);
-		}
-		else {
-			if (fb120.getString("img1", "").equals("false")) {
-				
-			}
-			else {
-				
-			}
-		}
-		if (RdImageview1.getString("img2", "").equals("true")) {
-			bak.setImageResource(R.drawable.back2);
-		}
-		else {
-			if (RdImageview1.getString("img2", "").equals("false")) {
-				
-			}
-			else {
-				
-			}
-		}
-		if (Kmaranimage9.getString("img3", "").equals("true")) {
-			bak.setImageResource(R.drawable.back3);
-		}
-		else {
-			if (Kmaranimage9.getString("img3", "").equals("false")) {
-				
-			}
-			else {
-				
-			}
-		}
-		if (paletImageview3.getString("img4", "").equals("true")) {
-			bak.setImageResource(R.drawable.b1123456721222aa);
-		}
-		else {
-			if (paletImageview3.getString("img4", "").equals("false")) {
-				
-			}
-			else {
-				
-			}
-		}
-		if (mortalkomat.getString("img5", "").equals("true")) {
-			bak.setImageResource(R.drawable.back4);
-		}
-		else {
-			if (mortalkomat.getString("img5", "").equals("false")) {
-				
-			}
-			else {
-				
-			}
-		}
-		if (gow.getString("img6", "").equals("true")) {
-			bak.setImageResource(R.drawable.back5);
-		}
-		else {
-			if (gow.getString("img6", "").equals("false")) {
-				
-			}
-			else {
-				
-			}
+		if (FileUtil.isExistFile(fb.getString("set", ""))) {
+			bak.setImageBitmap(FileUtil.decodeSampleBitmapFromPath(fb.getString("set", ""), 1024, 1024));
 		}
 	}
 	
