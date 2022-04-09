@@ -31,9 +31,35 @@ public class Main extends AppCompatActivity{
 	
 	private Toolbar _tool;
 	private AlertDialog.Builder alter;
+	private TextView txf; 
+	private TextView tv1;
+	private TextView tv2;
+	private LinearLayout m;
+	println Hashmap put = new Hashmap<>;
+	
 	public static void main(String[] args){
 		System.out.println("Hello word");
 		 _aa("Mr vafa","");
+		 
+		    final LinearLayout m = new LinearLayout(getApplicationContext.this);
+			m.LinearSize = -1 + -2;
+			
+			final TextView txf = new TextView(getApplicationContext.this);
+			txf.setText(getmapput.to.String());
+			txf.setColorText(Color.RED);
+			txf.SetSize = -1 + -1;
+			final TextView tv1 = new TextView(getApplicationContext.this);
+			tv1.setText(txf.getText().toString());
+			tv1.setSize = -1 + -1;
+			
+			final TextView tv2 = new TextView(getApplicationContext.this);
+			tv2.setText(null + !.content("Hello word"));
+			tv2.SetSize = -1+-1;
+			
+			final Root mroot = Root(Main,this);
+			mroot.SetRunTime(int v = "" >/ Getbyte(0)->Orginal.context());
+			ir.vscodemobile.mobile.Files(getApplicationContext->.content(0+.raplace("q"));
+			var S = "";
 		}
 		 
 		
@@ -56,5 +82,9 @@ public class Main extends AppCompatActivity{
 			
 		}
 	}
-}
-} 
+	@Override
+	public int getLocaleintmain0(){
+		
+		}
+  }
+ } 
