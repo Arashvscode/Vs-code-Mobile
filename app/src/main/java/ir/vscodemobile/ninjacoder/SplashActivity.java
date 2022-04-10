@@ -33,6 +33,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.googlecode.d2j.*;
 import com.android.*;
@@ -78,6 +80,7 @@ public class SplashActivity extends AppCompatActivity {
 	private TimerTask timer;
 	private SharedPreferences por;
 	private TimerTask timerask;
+	private AlertDialog.Builder Error;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -106,9 +109,41 @@ public class SplashActivity extends AppCompatActivity {
 		imageview1 = findViewById(R.id.imageview1);
 		cardview1 = findViewById(R.id.cardview1);
 		por = getSharedPreferences("por", Activity.MODE_PRIVATE);
+		Error = new AlertDialog.Builder(this);
 	}
 	
 	private void initializeLogic() {
+		int notifyId = 001;
+		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		
+		Notification.Builder mbuilder = new Notification.Builder(SplashActivity.this);
+		mbuilder.setSmallIcon(R.drawable.vscode);
+		mbuilder.setContentTitle("vs code mobile ");
+		mbuilder.setContentText("Starting vs code mobile");
+		mbuilder.setDefaults( Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			String channelId1 = "1";
+			String channelName1 = "channel1";
+			NotificationChannel channel = new NotificationChannel(channelId1, channelName1, NotificationManager.IMPORTANCE_DEFAULT);
+			channel.enableLights(true);
+			channel.setLightColor(Color.BLUE);
+			channel.setShowBadge(true);
+			channel.enableVibration(true);
+			mbuilder.setChannelId(channelId1);
+			if (mNotificationManager != null) {
+				mNotificationManager.createNotificationChannel(channel);
+			}
+		} else {
+			mbuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+		}
+		
+		if (mNotificationManager != null) {
+			mNotificationManager.notify(notifyId, mbuilder.build());
+		}
+		
+		
+		Error = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		FileUtil.makeDir("/sdcard/vscodeandroid/");
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =SplashActivity.this.getWindow();

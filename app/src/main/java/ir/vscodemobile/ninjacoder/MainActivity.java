@@ -193,6 +193,8 @@ public class MainActivity extends AppCompatActivity {
 	private SharedPreferences gow;
 	private Intent Filepicker = new Intent(Intent.ACTION_GET_CONTENT);
 	private SharedPreferences fb;
+	private SharedPreferences noor12;
+	private Notification aram;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -276,6 +278,7 @@ public class MainActivity extends AppCompatActivity {
 		Filepicker.setType("image/*");
 		Filepicker.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 		fb = getSharedPreferences("fb", Activity.MODE_PRIVATE);
+		noor12 = getSharedPreferences("1d20", Activity.MODE_PRIVATE);
 		
 		imageview1.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -382,6 +385,42 @@ public class MainActivity extends AppCompatActivity {
 				}
 				else {
 					FileUtil.writeFile(getIntent().getStringExtra("key"), editor.getText().toString());
+							{
+						final Activity activity = MainActivity.this;
+								final Context context = activity.getApplicationContext();
+								final int notificationId = 18;
+								final String channelId = "8";
+								final String channelName = "aram";
+								
+								new androidx.core.app.NotificationCompat.Builder(context, channelId){
+										
+										
+										NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+										Intent intent335 = new Intent();
+																   public void create(){
+								
+																		   intent335.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); 
+																		   PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent335, 0);
+																		   
+																		   if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+																				   NotificationChannel mChannel = new NotificationChannel(
+																					   channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+																				   notificationManager.createNotificationChannel(mChannel);
+																			   }
+																	
+								
+								setSmallIcon(R.drawable.vscode);
+								setContentTitle("File saved");
+								setContentText("File saved ".concat(getIntent().getStringExtra("key")));
+								setOngoing(false);
+																		   setAutoCancel(true);
+								setPriority(androidx.core.app.NotificationCompat.PRIORITY_DEFAULT);
+								notificationManager.notify(notificationId, this.build());
+								
+																	   }
+							
+															   }.create();}
+							
 				}
 				final com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog = new com.google.android.material.bottomsheet.BottomSheetDialog(MainActivity.this);
 				
@@ -521,12 +560,14 @@ public class MainActivity extends AppCompatActivity {
 		setTheme(android.R.style.Theme_Material);
 		editor.setTypefaceLineNumber(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
 		
-		///bak.loadUrl("file:///android_asset/ribbon/ribbon.html");
+		//////editor.setTypefaceSymbolInputView(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
+		
+		
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFFFF8800".replace("0xFF" , "#")));
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
 		}
 		_libraryjarpack();
 		fixbar.setVisibility(View.GONE);
@@ -539,7 +580,7 @@ public class MainActivity extends AppCompatActivity {
 		SymbolInputView inputView = findViewById(R.id.sysbar);
 		
 		        inputView.bindEditor(editor);
-		        inputView.addSymbols(new String[]{"->", "{", "}", "(", ")", "<" , ">" ,"|","$",",", ".", ";", "&","<-","?", "+", "-", "*", "/"},
+		        inputView.addSymbols(new String[]{"->", "{", "}", "(", ")", "<" , ">" ,"|","$",",", ".", ";", "&","<-","?", "+", "-", "*", "/","@","!","!"},
 		                new String[]{"\t", "{}", "}", "(", ")", ",", ".", ";", "\"", "?", "+", "-", "*", "/"});
 		
 		hscroll1.setHorizontalScrollBarEnabled(false);
@@ -709,7 +750,6 @@ public class MainActivity extends AppCompatActivity {
 					_fab.show();
 					_fab.setImageResource(R.drawable.play);
 					editor.setEditorLanguage(new HTMLLanguage()); 
-					_fab.setImageResource(R.drawable.html);
 				}
 				else {
 					if (getIntent().getStringExtra("title").contains(".java")) {
@@ -728,11 +768,9 @@ public class MainActivity extends AppCompatActivity {
 						editor.setColorScheme(new theme());
 						editor.setEditorLanguage(new JavaLanguage()); 
 						_fab.show();
-						_fab.setImageResource(R.drawable.java);
 					}
 					else {
 						if (getIntent().getStringExtra("title").contains(".sh")) {
-							_fab.setImageResource(R.drawable.shell);
 							_fab.show();
 							editor.setColorScheme(new theme());
 							editor.setEditorLanguage(new UniversalLanguage(new ShellDescription()));
@@ -771,7 +809,6 @@ public class MainActivity extends AppCompatActivity {
 										rt.printStackTrace();
 									}
 									_fab.show();
-									_fab.setImageResource(R.drawable.cpp);
 								}
 								else {
 									if (getIntent().getStringExtra("title").contains(".py")) {
@@ -808,7 +845,6 @@ public class MainActivity extends AppCompatActivity {
 											editor.setColorScheme(new theme());
 											_fab.show();
 											editor.setEditorLanguage(new UniversalLanguage(new JavaScriptDescription()));
-											_fab.setImageResource(R.drawable.javascr);
 										}
 										else {
 											if (getIntent().getStringExtra("title").contains(".gradle")) {
@@ -1109,11 +1145,6 @@ public class MainActivity extends AppCompatActivity {
 	public void onStart() {
 		super.onStart();
 		_setbackground();
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-			Window w =this.getWindow();
-			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
-		}
 		{
 			android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
 			SketchUi.setColor(0xFF000051);SketchUi.setCornerRadius(getDip(16));

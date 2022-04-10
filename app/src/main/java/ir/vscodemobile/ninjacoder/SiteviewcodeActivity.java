@@ -67,7 +67,9 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import io.github.rosemoe.sora.widget.CodeEditor;
 import java.sql.*;
-import ir.vscodemobile.ninjacoder.theme;
+import ir.vscodemobile.ninjacoder.theme;
+import io.github.rosemoe.sora.langs.html.HTMLLanguage;
+import io.github.rosemoe.sora.widget.schemes.HTMLScheme;
 
 public class SiteviewcodeActivity extends AppCompatActivity {
 	
@@ -138,7 +140,11 @@ public class SiteviewcodeActivity extends AppCompatActivity {
 				di.setPositiveButton(Html.fromHtml("<font color=\"#F40000\">save or html file</font>"), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
-						FileUtil.writeFile("/sdcard/vscode mobile/code.html", editor.getText().toString());
+						try {
+							FileUtil.writeFile("/sdcard/vscode mobile/code.html", editor.getText().toString());
+						} catch (Exception e) {
+							 
+						}
 					}
 				});
 				di.setNegativeButton(Html.fromHtml("<font color=\"#25E0A5\">copy to keybord</font>"), new DialogInterface.OnClickListener() {
@@ -176,7 +182,7 @@ public class SiteviewcodeActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
-		editor.setEnabled(true);
+		editor.setEnabled(false);
 		editor.setColorScheme(new theme());
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) { 
 				   Window code = this.getWindow();
@@ -185,6 +191,9 @@ public class SiteviewcodeActivity extends AppCompatActivity {
 			
 				   code.setStatusBarColor(Color.parseColor("#000027")); code.setNavigationBarColor(Color.parseColor("#000027"));
 		}
+		di = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+		editor.setEditorLanguage(new HTMLLanguage()); 
+		editor.setColorScheme(new HTMLScheme());
 	}
 	
 	@Override

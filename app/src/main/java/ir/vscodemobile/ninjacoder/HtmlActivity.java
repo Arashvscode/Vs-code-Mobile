@@ -179,7 +179,8 @@ public class HtmlActivity extends AppCompatActivity {
 		}
 		
 		webview1.loadUrl("file:///".concat(getIntent().getStringExtra("code")));
-		setTitle("vs code mobile ".concat("( ".concat(getIntent().getStringExtra("title").concat(" )"))));
+		setTitle("vs code mobile ".concat(""));
+		getSupportActionBar().setSubtitle("{".concat(getIntent().getStringExtra("title").concat(" }")));
 		if (webjavasce.getString("Qjava", "").equals("true")) {
 			webview1.getSettings().setLoadWithOverviewMode(false);
 			webview1.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
