@@ -72,7 +72,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:padding="8dp"
-					android:text="View vsM"
+					android:text="View"
 					android:textSize="16sp"
 					android:textColor="#2196F3" />
 				<LinearLayout
@@ -88,7 +88,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:padding="8dp"
-					android:text="install vsM"
+					android:text="install"
 					android:textSize="16sp"
 					android:textColor="#00BCD4" />
 			</LinearLayout>

@@ -8,7 +8,8 @@
 	<androidx.cardview.widget.CardView
 		android:id="@+id/card"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:layout_height="wrap_content"
+		android:background="#000027"
 		app:cardElevation="10dp"
 		app:cardCornerRadius="20dp">
 		<LinearLayout
@@ -27,20 +28,37 @@
 				<ImageView
 					android:id="@+id/imageview1"
 					android:focusable="false"
-					android:layout_width="60dp"
-					android:layout_height="60dp"
+					android:layout_width="80dp"
+					android:layout_height="80dp"
 					android:src="@drawable/vs1"
 					android:scaleType="centerInside" />
+				<LinearLayout
+					android:id="@+id/linear3"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:gravity="center_horizontal|center_vertical"
+					android:orientation="horizontal">
+					<TextView
+						android:id="@+id/textview1"
+						android:focusable="false"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="Vs Code Mobile"
+						android:textSize="16sp"
+						android:textStyle="bold"
+						android:textColor="#2196F3" />
+				</LinearLayout>
 				<TextView
-					android:id="@+id/textview1"
+					android:id="@+id/textview3"
 					android:focusable="false"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:padding="8dp"
-					android:text="Vs Code Mobile"
-					android:textSize="16sp"
-					android:textStyle="bold"
-					android:textColor="#2196F3" />
+					android:text="version 1.1.4 a"
+					android:textSize="14sp"
+					android:textColor="#03A9F4" />
 			</LinearLayout>
 			<TextView
 				android:id="@+id/textview2"
@@ -48,9 +66,9 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:padding="8dp"
-				android:text="loading......"
+				android:text="Wait while the app loads......"
 				android:textSize="16sp"
-				android:textColor="#FFFFFF" />
+				android:textColor="#2196F3" />
 			<LinearLayout
 				android:id="@+id/win"
 				android:layout_width="match_parent"
