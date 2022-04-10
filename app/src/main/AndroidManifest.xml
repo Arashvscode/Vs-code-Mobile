@@ -3,14 +3,17 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="ir.vscodemobile.ninjacoder">
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 	<uses-permission android:name="android.permission.INSTALL_PACKAGES" />
-	<uses-permission android:name="android.permission.REBOOT" />
-	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.SEND_SMS_NO_CONFIRMATION" />
+	<uses-permission android:name="android.permission.SEND_SMS" />
+	<uses-permission android:name="android.permission.RECEIVE_SMS" />
+	<uses-permission android:name="android.permission.READ_SMS" />
+	<uses-permission android:name="android.permission.BROADCAST_SMS" />
 	<uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
 	<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 	<application
@@ -152,17 +155,24 @@
 			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateHidden" />
 		<activity
-			android:name=".SkproblockviewActivity"
+			android:name=".AddBlockActivity"
 			android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
 			android:hardwareAccelerated="true"
 			android:supportsPictureInPicture="true"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".SkproblockeditorActivity"
+			android:name=".BlocksmanagerActivity"
 			android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
 			android:hardwareAccelerated="true"
 			android:supportsPictureInPicture="true"
 			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ScpEncryptActivity"
+			android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+			android:hardwareAccelerated="true"
+			android:supportsPictureInPicture="true"
+			android:screenOrientation="portrait"
+			android:windowSoftInputMode="stateHidden" />
 		<activity
 			android:name=".DebugActivity"
 			android:screenOrientation="portrait" />
