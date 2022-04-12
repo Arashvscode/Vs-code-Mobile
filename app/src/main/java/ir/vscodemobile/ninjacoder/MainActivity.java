@@ -580,7 +580,7 @@ public class MainActivity extends AppCompatActivity {
 		SymbolInputView inputView = findViewById(R.id.sysbar);
 		
 		        inputView.bindEditor(editor);
-		        inputView.addSymbols(new String[]{"->", "{", "}", "(", ")", "<" , ">" ,"|","$",",", ".", ";", "&","<-","?", "+", "-", "*", "/","@","!","!"},
+		        inputView.addSymbols(new String[]{"->", "{", "}", "(", ")", "<" , ">" ,"|","$",",", ".",";","&","<-","?", "+", "-", "*", "/","@","!"},
 		                new String[]{"\t", "{}", "}", "(", ")", ",", ".", ";", "\"", "?", "+", "-", "*", "/"});
 		
 		hscroll1.setHorizontalScrollBarEnabled(false);

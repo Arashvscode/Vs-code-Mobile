@@ -840,6 +840,8 @@ public class FilesActivity extends AppCompatActivity {
 				LinearLayout bg = (LinearLayout) bottomSheetView.findViewById(R.id.bg);
 				LinearLayout file = (LinearLayout) bottomSheetView.findViewById(R.id.file);
 				LinearLayout folder = (LinearLayout) bottomSheetView.findViewById(R.id.folder);
+				final LinearLayout fb = (LinearLayout) bottomSheetView.findViewById(R.id.fb);
+				
 				file.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
 						
 						dialogfile.setTitle("Project folder ");
@@ -854,7 +856,7 @@ public class FilesActivity extends AppCompatActivity {
 						hsi.setTextSize((int)15);
 						hsi.setHintTextColor(0xFFFFFFFF);
 						hsi.setSingleLine(true);
-						hsi.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/myf.ttf"), 0);
+						hsi.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/myf.ttf"), 2);
 						///end
 						hsi.setLayoutParams(lparr);
 						dialogfile.setView(hsi);
@@ -981,14 +983,32 @@ public class FilesActivity extends AppCompatActivity {
 						});
 						dialogfolder.create().show();
 						bottomSheetDialog.dismiss();
-						bottomSheetDialog.setCancelable(true);
-						card.setCardBackgroundColor(0xFF000027);
-						card.setRadius((float)19);
-						card.setCardElevation((float)0);
-						bottomSheetDialog.show();
 						
 					}
 				});
+				fb.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
+								
+							String myFilePath = files.get((int)_position).get("path").toString();
+						
+						java.io.File file = new java.io.File(myFilePath);
+						
+						 Intent shareIntent = new Intent();
+						shareIntent.setAction(Intent.ACTION_SEND);
+						StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+						    StrictMode.setVmPolicy(builder.build());
+						
+						shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+file.getAbsolutePath()));
+						shareIntent.setType("*/*");
+						startActivity(Intent.createChooser(shareIntent, "Share to"));
+						bottomSheetDialog.dismiss();
+						
+						}
+				});
+				bottomSheetDialog.setCancelable(true);
+				card.setCardBackgroundColor(0xFF000027);
+				card.setRadius((float)19);
+				card.setCardElevation((float)0);
+				bottomSheetDialog.show();
 				return true;
 			}
 		});
@@ -5265,8 +5285,10 @@ support me if you like my work
 			sizeofdef.setMarqueeRepeatLimit(-1);
 			sizeofdef.setSingleLine(true);
 			sizeofdef.setSelected(true);
+			
+			
 			cardview1.setCardBackgroundColor(0xFF00003A);
-			cardview1.setRadius((float)14);
+			cardview1.setRadius((float)18);
 			cardview1.setCardElevation((float)1);
 			sizeofdef.setVisibility(View.GONE);
 			if (FileUtil.isDirectory(files.get((int)_position).get("path").toString())) {

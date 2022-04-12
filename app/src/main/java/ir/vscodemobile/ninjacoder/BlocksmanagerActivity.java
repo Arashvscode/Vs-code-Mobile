@@ -523,7 +523,17 @@ e.printStackTrace();
 		searchEdit.setText("");
 		searchEdit.clearFocus();
 	}
-	
+	
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+			Window w =this.getWindow();
+			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
+		}
+	}
 	public void _loadSpecificPletteblocks(final double _pos) {
 		if (FileUtil.isExistFile(blocksPath) && !(FileUtil.readFile(blocksPath).equals("") || FileUtil.readFile(blocksPath).equals("[]"))) {
 			chosenPos = _pos + 9;
@@ -5401,6 +5411,8 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 			final TextView name = _view.findViewById(R.id.name);
 			
 			name.setText(_data.get((int)_position).get("name").toString());
+			cardview1.setCardBackgroundColor(0xFF00003A);
+			name.setTextColor(0xFFFFFFFF);
 			if (_data.get((int)_position).containsKey("color")) {
 				try { 
 					linearColor.setBackgroundColor(Color.parseColor(_data.get((int)_position).get("color").toString()));
@@ -5421,12 +5433,12 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 			else {
 				if (sp.getString("theme", "").equals("day")) {
 					if (_data.get((int)_position).get("name").toString().equals(sp.getString("pos", ""))) {
-						cardview1.setCardBackgroundColor(0xFFFFF9C4);
-						name.setTextColor(0xFF000000);
+						cardview1.setCardBackgroundColor(0xFF000027);
+						name.setTextColor(0xFFFFFFFF);
 					}
 					else {
-						cardview1.setCardBackgroundColor(0xFFFFFFFF);
-						name.setTextColor(0xFF000000);
+						cardview1.setCardBackgroundColor(0xFF000027);
+						name.setTextColor(0xFFFFFFFF);
 					}
 				}
 			}
@@ -5586,6 +5598,10 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 			final LinearLayout linearColor2 = _view.findViewById(R.id.linearColor2);
 			
 			name.setText(_data.get((int)_position).get("name").toString());
+			cardview1.setCardBackgroundColor(0xFF00003A);
+			cardview1.setRadius((float)20);
+			cardview1.setCardElevation((float)2);
+			name.setTextColor(0xFFFFFFFF);
 			if (_data.get((int)_position).containsKey("color")) {
 				try { 
 					linearColor.setBackgroundColor(Color.parseColor(_data.get((int)_position).get("color").toString()));
