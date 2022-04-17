@@ -98,6 +98,31 @@
 						android:scaleType="centerInside" />
 				</LinearLayout>
 			</LinearLayout>
+			<LinearLayout
+				android:id="@+id/fb"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:gravity="right|center_vertical"
+				android:orientation="horizontal">
+				<TextView
+					android:id="@+id/textview4"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="اشتراک گذاری فایل"
+					android:textSize="12sp"
+					android:textColor="#00BCD4" />
+				<ImageView
+					android:id="@+id/imageview4"
+					android:focusable="false"
+					android:layout_width="50dp"
+					android:layout_height="50dp"
+					android:padding="5dp"
+					android:src="@drawable/share"
+					android:scaleType="centerInside" />
+			</LinearLayout>
 		</LinearLayout>
 	</androidx.cardview.widget.CardView>
 </LinearLayout>
