@@ -53,27 +53,22 @@ public class HTMLAutoComplete implements AutoCompleteProvider {
         
 		for (String ddd : HTMLLanguage.JS)
             if (ddd.toLowerCase().startsWith(prefix.toLowerCase()))
-                items.add(dddAsCompletion(ddd, "JS KEYWORF"));
+                items.add(dddAsCompletion(ddd, "JS KEYWORD"));
         
 		for(String mmm : HTMLLanguage.PHP)
 		if(mmm.toLowerCase().startsWith(prefix.toLowerCase()))
 		items.add(mmmAsCompletion(mmm, "Php keyword"));
 		
 		
-		for (String vvv : HTMLLanguage.ORV)
+		for (String vvv : HTMLLanguage.CSS_TAGS)
             if (vvv.toLowerCase().startsWith(prefix.toLowerCase()))
-                items.add(vvvAsCompletion(vvv, "css vveodod"));
+                items.add(vvvAsCompletion(vvv, "css keyword"));
         return items;
 		
 		
     }
      
-	 private CompletionItem mmmAsCompletion(String mmm, String desc) {
-		final CompletionItem item = new CompletionItem(mmm, desc);
-		item.cursorOffset(item.commit.length() - 1);
-		return item;
-		
-	 }
+	 
 	private CompletionItem attrAsCompletion(String attr, String desc) {
 		final CompletionItem item = new CompletionItem(attr, attr.concat("=\"\""), desc);
 		item.cursorOffset(item.commit.length() - 1);
@@ -99,5 +94,12 @@ public class HTMLAutoComplete implements AutoCompleteProvider {
 		item.cursorOffset(item.commit.length() - close.length());
 		return item;
 	}
+	
+	
+		private CompletionItem mmmAsCompletion(String mmm, String desc) {
+		final CompletionItem item = new CompletionItem(mmm, desc);
+		item.cursorOffset(item.commit.length() - 1);
+		return item;
+		}
 	
 }

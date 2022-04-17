@@ -48,7 +48,7 @@ public class HTMLAnalyzer implements CodeAnalyzer {
                         result.addIfNeeded(line, column, EditorColorScheme.OPERATOR,Span.STYLE_ITALICS);
 					break;
 						case HTMLLexer.CSS_TAGS:
-						result.addIfNeeded(line, column , EditorColorScheme.CSS_TAG,Span.STYLE_ITALICS);
+						result.addIfNeeded(line, column , EditorColorScheme.OPERATOR,Span.STYLE_ITALICS);
                         break;
                     case HTMLLexer.TAG_NAME:
                     case HTMLLexer.XML:

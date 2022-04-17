@@ -42,9 +42,9 @@ public class HTMLLexer extends Lexer {
             SEA_WS = 7, SCRIPT_OPEN = 8, STYLE_OPEN = 9, TAG_OPEN = 10, HTML_TEXT = 11, TAG_CLOSE = 12,
             TAG_SLASH_CLOSE = 13, TAG_SLASH = 14, TAG_EQUALS = 15, TAG_NAME = 16, TAG_WHITESPACE = 17,
             SCRIPT_BODY = 18, SCRIPT_SHORT_BODY = 19, STYLE_BODY = 20, STYLE_SHORT_BODY = 21,
-            ATTVALUE_VALUE = 22, ATTRIBUTE = 23, HSI = 24 , CSS_TAGS = 25;
+            ATTVALUE_VALUE = 22, ATTRIBUTE = 23, HSI = 24;
     public static final int
-            TAG = 1, SCRIPT = 2, STYLE = 3, ATTVALUE = 4;
+            TAG = 1, SCRIPT = 2, STYLE = 3, ATTVALUE = 4  , CSS_TAGS = 5;
 	
     public static final String[] ruleNames = makeRuleNames();
     /**
@@ -202,7 +202,7 @@ public class HTMLLexer extends Lexer {
             "DEFAULT_TOKEN_CHANNEL", "HIDDEN"
     };
     public static String[] modeNames = {
-            "DEFAULT_MODE", "TAG", "SCRIPT", "STYLE", "ATTVALUE"
+            "DEFAULT_MODE", "TAG", "SCRIPT", "STYLE", "ATTVALUE" , "CSS_TAGS"
     };
     
 	public static String[] ninja = {
@@ -248,7 +248,7 @@ public class HTMLLexer extends Lexer {
                 "HEXDIGIT", "DIGIT", "TAG_NameChar", "TAG_NameStartChar", "SCRIPT_BODY",
                 "SCRIPT_SHORT_BODY", "STYLE_BODY", "STYLE_SHORT_BODY", "ATTVALUE_VALUE",
                 "ATTRIBUTE", "ATTCHARS", "ATTCHAR", "HEXCHARS", "DECCHARS", "DOUBLE_QUOTE_STRING",
-                "SINGLE_QUOTE_STRING", "HSI","CSS_TAGS"
+                "SINGLE_QUOTE_STRING", "HSI"
         };
     }
 
@@ -265,7 +265,7 @@ public class HTMLLexer extends Lexer {
                 "SCRIPTLET", "SEA_WS", "SCRIPT_OPEN", "STYLE_OPEN", "TAG_OPEN", "HTML_TEXT",
                 "TAG_CLOSE", "TAG_SLASH_CLOSE", "TAG_SLASH", "TAG_EQUALS", "TAG_NAME",
                 "TAG_WHITESPACE", "SCRIPT_BODY", "SCRIPT_SHORT_BODY", "STYLE_BODY", "STYLE_SHORT_BODY",
-                "ATTVALUE_VALUE", "ATTRIBUTE" , "HSI","CSS_TAGS"
+                "ATTVALUE_VALUE", "ATTRIBUTE" , "HSI"
         };
     }
 
