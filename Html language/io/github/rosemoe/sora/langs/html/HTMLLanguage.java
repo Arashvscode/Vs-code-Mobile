@@ -67,9 +67,14 @@ public class HTMLLanguage implements EditorLanguage {
         };
 			
 		public static final String[] PHP = {
-			"php","if","else","switch"
-			
-		};
+			"__halt_compiler" ,"abstract", "array", "and", "as", "break", "callable", "case", "catch", "class", "clone", "const", "continue",
+                 "declare", "default", "do", "die",  "echo", "else", "elseif", "empty", "enddeclare", "endfor", "endforeach", "endif", "endswitch",
+                 "endwhile", "eval", "extends", "final", "finally", "fn", "for", "foreach", "function", "global", "goto", "if", "implements", "include",
+                 "include_once", "instanceof", "insteadof", "interface", "isset", "list", "namespace", "new", "or", "print", "private", "protected", "public", "require",
+                 "require_once", "return", "static", "switch", "throw", "trait", "try", "unset", "use", "var", "while", "xor", "yield", "yield_from", 
+                 "__CLASS__", "__DIR__", "__FILE__", "__FUNCTION__", "__LINE__", "__METHOD__", "__NAMESPACE__", "__TRAIT__"
+                 // Some keywords and predefined classes are still not included in this list
+	};
 			
 		
 
