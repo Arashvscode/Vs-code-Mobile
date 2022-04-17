@@ -72,11 +72,11 @@ import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
 import com.rohitop.rlottie.*;
 import com.lwb.piechart.*;
-import com.blogspot.atifsoftwares.animatoolib.*;
-import ninja.toska.path.*;
-import com.caverock.androidsvg.*;
 import xyz.ninjacoder.edittext.Animator.main.*;
 import org.antlr.v4.runtime.*;
+import com.caverock.androidsvg.*;
+import com.blogspot.atifsoftwares.animatoolib.*;
+import ninja.toska.path.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -155,6 +155,7 @@ public class FilesActivity extends AppCompatActivity {
 	private String text = "";
 	private double limit = 0;
 	private String output120 = "";
+	private String fileshare = "";
 	
 	private ArrayList<String> liststring = new ArrayList<>();
 	private ArrayList<String> list = new ArrayList<>();
@@ -180,6 +181,7 @@ public class FilesActivity extends AppCompatActivity {
 	private ImageView _drawer_javacode;
 	private ImageView _drawer_skpro;
 	private ImageView _drawer_color;
+	private ImageView _drawer_shellrun;
 	private ImageView _drawer_skprolib;
 	private ImageView _drawer_bug;
 	private ImageView _drawer_About;
@@ -231,6 +233,7 @@ public class FilesActivity extends AppCompatActivity {
 	private RequestNetwork.RequestListener _c_request_listener;
 	private Vibrator vb;
 	private AlertDialog.Builder smail;
+	private Intent c3 = new Intent();
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -294,6 +297,7 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_javacode = _nav_view.findViewById(R.id.javacode);
 		_drawer_skpro = _nav_view.findViewById(R.id.skpro);
 		_drawer_color = _nav_view.findViewById(R.id.color);
+		_drawer_shellrun = _nav_view.findViewById(R.id.shellrun);
 		_drawer_skprolib = _nav_view.findViewById(R.id.skprolib);
 		_drawer_bug = _nav_view.findViewById(R.id.bug);
 		_drawer_About = _nav_view.findViewById(R.id.About);
@@ -815,12 +819,14 @@ public class FilesActivity extends AppCompatActivity {
 						ini.putExtra("save", files.get((int)_position).get("path").toString());
 						startActivity(ini);
 					}
-					_swbreston(_position, files, "path");
+					    _swbreston(_position, files, "path");
 						_SkpL("path", files, _position);
 						_xmlrunr("path", _position, files);
 						_kt("path", _position, files);
 						_rubycodeplay(_position, "path", files);
-						_charpcodeplay(_position, "path", files);
+						_charpcodeplay(_position, "path", files);
+						_pacal("path", files, _position);
+						_txtnormal(_position, "path", files);
 				}
 			}
 		});
@@ -829,6 +835,7 @@ public class FilesActivity extends AppCompatActivity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> _param1, View _param2, int _param3, long _param4) {
 				final int _position = _param3;
+				fileshare = files.get((int)_position).get("path").toString();
 				final com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog = new com.google.android.material.bottomsheet.BottomSheetDialog(FilesActivity.this);
 				
 				View bottomSheetView; bottomSheetView = getLayoutInflater().inflate(R.layout.vscodeprojectmain,null );
@@ -988,7 +995,7 @@ public class FilesActivity extends AppCompatActivity {
 				});
 				fb.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
 								
-							String myFilePath = files.get((int)_position).get("path").toString();
+							String myFilePath = fileshare;
 						
 						java.io.File file = new java.io.File(myFilePath);
 						
@@ -1280,6 +1287,13 @@ public class FilesActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View _view) {
 				_colotpiker(HEX);
+			}
+		});
+		
+		_drawer_shellrun.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				startActivity(new Intent(FilesActivity.this, CmdActivity.class)); Animatoo.animateZoom(FilesActivity.this);
 			}
 		});
 		
@@ -5234,6 +5248,28 @@ support me if you like my work
 		}
 	}
 	
+	
+	public void _pacal(final String _path, final ArrayList<HashMap<String, Object>> _ii, final double _pos) {
+		if (_ii.get((int)_pos).get(_path).toString().endsWith(".pas")) {
+			ini.setClass(getApplicationContext(), MainActivity.class);
+			ini.putExtra("key", _ii.get((int)_pos).get(_path).toString());
+			ini.putExtra("title", Uri.parse(_ii.get((int)_pos).get(_path).toString()).getLastPathSegment());
+			ini.putExtra("save", _ii.get((int)_pos).get(_path).toString());
+			startActivity(ini);
+		}
+	}
+	
+	
+	public void _txtnormal(final double _pos, final String _path, final ArrayList<HashMap<String, Object>> _maplist) {
+		if (_maplist.get((int)_pos).get(_path).toString().endsWith(".txt")) {
+			ini.setClass(getApplicationContext(), MainActivity.class);
+			ini.putExtra("key", _maplist.get((int)_pos).get(_path).toString());
+			ini.putExtra("save", _maplist.get((int)_pos).get(_path).toString());
+			ini.putExtra("title", Uri.parse(_maplist.get((int)_pos).get(_path).toString()).getLastPathSegment());
+			startActivity(ini);
+		}
+	}
+	
 	public class Listview1Adapter extends BaseAdapter {
 		
 		ArrayList<HashMap<String, Object>> _data;
@@ -5458,8 +5494,22 @@ support me if you like my work
 																															imageview1.setImageAsset("xml.svg");
 																														}
 																														else {
-																															imageview1.setImageAsset("default_file.svg");
-																															sizeofdef.setVisibility(View.GONE);
+																															if (files.get((int)_position).get("path").toString().endsWith(".pas")) {
+																																_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
+																																sizeofdef.setVisibility(View.VISIBLE);
+																																imageview1.setImageAsset("pacal.svg");
+																															}
+																															else {
+																																if (files.get((int)_position).get("path").toString().endsWith(".txt")) {
+																																	_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
+																																	sizeofdef.setVisibility(View.VISIBLE);
+																																	imageview1.setImageAsset("text.svg");
+																																}
+																																else {
+																																	imageview1.setImageAsset("default_file.svg");
+																																	sizeofdef.setVisibility(View.GONE);
+																																}
+																															}
 																														}
 																													}
 																												}

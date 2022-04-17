@@ -67,11 +67,11 @@ import com.jtv7.rippleswitchlib.*;
 import com.android.tools.r8.*;
 import com.rohitop.rlottie.*;
 import com.lwb.piechart.*;
-import com.blogspot.atifsoftwares.animatoolib.*;
-import ninja.toska.path.*;
-import com.caverock.androidsvg.*;
 import xyz.ninjacoder.edittext.Animator.main.*;
 import org.antlr.v4.runtime.*;
+import com.caverock.androidsvg.*;
+import com.blogspot.atifsoftwares.animatoolib.*;
+import ninja.toska.path.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -122,7 +122,8 @@ import javax.*;
 import org.*;
 import com.google.android.material.*;
 import java.*;
-import io.github.rosemoe.sora.widget.EditorAutoCompleteWindow;
+import io.github.rosemoe.sora.widget.EditorAutoCompleteWindow;
+import io.github.rosemoe.sora.widget.EditorColorScheme;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -553,6 +554,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		editor.setLineNumberAlign(Paint.Align.CENTER);
 		
 		
@@ -562,8 +564,9 @@ public class MainActivity extends AppCompatActivity {
 		
 		//////editor.setTypefaceSymbolInputView(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
 		
+		editor.getColorScheme().setColor(EditorColorScheme.CSS_TAG, 0);
 		
-		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		editor.getColorScheme().setColor(EditorColorScheme.AUTO_COMP_PANEL_BG,0);
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -1008,7 +1011,45 @@ public class MainActivity extends AppCompatActivity {
 																				XMLLanguage xmlLanguage=new XMLLanguage(); xmlLanguage.setSyntaxCheckEnable(true); editor.setEditorLanguage(xmlLanguage);
 																			}
 																			else {
-																				
+																				if (getIntent().getStringExtra("title").contains(".pas")) {
+																					StringBuilder androidc = new StringBuilder();
+																					
+																					try {
+																						
+																						Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																						while (scanner.hasNext()) {
+																							androidc .append(scanner.next());
+																						}
+																						editor.setText(androidc );
+																					} catch (Exception rt) {
+																						rt.printStackTrace();
+																					}
+																					editor.setColorScheme(new theme());
+																					_fab.hide();
+																					editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
+																				}
+																				else {
+																					if (getIntent().getStringExtra("title").contains(".txt")) {
+																						StringBuilder androidtxt = new StringBuilder();
+																						
+																						try {
+																							
+																							Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																							while (scanner.hasNext()) {
+																								androidtxt .append(scanner.next());
+																							}
+																							editor.setText(androidtxt );
+																						} catch (Exception rt) {
+																							rt.printStackTrace();
+																						}
+																						editor.setColorScheme(new theme());
+																						_fab.hide();
+																						////editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
+																					}
+																					else {
+																						
+																					}
+																				}
 																			}
 																		}
 																	}
