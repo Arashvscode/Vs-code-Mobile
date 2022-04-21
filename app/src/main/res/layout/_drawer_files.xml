@@ -117,6 +117,15 @@
 							android:src="@drawable/palette"
 							android:scaleType="centerInside" />
 						<ImageView
+							android:id="@+id/D8"
+							android:layout_width="50dp"
+							android:layout_height="50dp"
+							android:layout_marginTop="3dp"
+							android:layout_marginBottom="3dp"
+							android:padding="3dp"
+							android:src="@drawable/shield"
+							android:scaleType="centerInside" />
+						<ImageView
 							android:id="@+id/shellrun"
 							android:layout_width="50dp"
 							android:layout_height="50dp"

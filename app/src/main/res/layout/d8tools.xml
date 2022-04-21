@@ -1,0 +1,291 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/_coordinator"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<com.google.android.material.appbar.AppBarLayout
+		android:id="@+id/_app_bar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:theme="@style/AppTheme.AppBarOverlay">
+		<androidx.appcompat.widget.Toolbar
+			android:id="@+id/_toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="?attr/colorPrimary"
+			app:popupTheme="@style/AppTheme.PopupOverlay" />
+	</com.google.android.material.appbar.AppBarLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
+		<LinearLayout
+			android:id="@+id/general"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:padding="8dp"
+			android:background="#000027"
+			android:orientation="vertical">
+			<LinearLayout
+				android:id="@+id/linear1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingLeft="8dp"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
+				<TextView
+					android:id="@+id/textview1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:paddingTop="8dp"
+					android:paddingBottom="8dp"
+					android:text="jar:"
+					android:textSize="14sp"
+					android:textStyle="bold"
+					android:textColor="#FFFFFF" />
+				<xyz.ninjacoder.edittext.Animator.main.NinjaEditTextAnimator
+					android:id="@+id/jar"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:textSize="14sp"
+					android:textColor="#219EB7"
+					android:hint="jar path here"
+					android:textColorHint="#FFFFFF"
+					android:singleLine="true"
+					android:layout_weight="1" />
+				<Button
+					android:id="@+id/btn_select_jar"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="4dp"
+					android:padding="8dp"
+					android:text="select"
+					android:textSize="12sp"
+					android:textColor="#F44336" />
+			</LinearLayout>
+			<LinearLayout
+				android:id="@+id/linear2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingLeft="8dp"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:orientation="horizontal">
+				<TextView
+					android:id="@+id/textview2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:paddingTop="8dp"
+					android:paddingBottom="8dp"
+					android:text="output:"
+					android:textSize="14sp"
+					android:textStyle="bold"
+					android:textColor="#FAFAFA" />
+				<xyz.ninjacoder.edittext.Animator.main.NinjaEditTextAnimator
+					android:id="@+id/output"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:textSize="14sp"
+					android:textColor="#219EB7"
+					android:hint="output path here"
+					android:textColorHint="#FFFFFF"
+					android:singleLine="true"
+					android:layout_weight="1" />
+				<Button
+					android:id="@+id/btn_select_output"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="4dp"
+					android:padding="8dp"
+					android:text="select"
+					android:textSize="12sp"
+					android:textColor="#F44336" />
+			</LinearLayout>
+			<LinearLayout
+				android:id="@+id/linear4"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingLeft="8dp"
+				android:paddingTop="4dp"
+				android:paddingBottom="4dp"
+				android:orientation="horizontal">
+				<TextView
+					android:id="@+id/textview3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:paddingTop="8dp"
+					android:paddingBottom="8dp"
+					android:text="android.jar:"
+					android:textSize="14sp"
+					android:textStyle="bold"
+					android:textColor="#FAFAFA" />
+				<xyz.ninjacoder.edittext.Animator.main.NinjaEditTextAnimator
+					android:id="@+id/anjar"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="/storage/emulated/0/vscodemobile/android.jar"
+					android:textSize="14sp"
+					android:textColor="#00BCD4"
+					android:hint="android.jar path (optional)"
+					android:textColorHint="#FFFFFF"
+					android:singleLine="true"
+					android:layout_weight="1" />
+				<Button
+					android:id="@+id/btn_select_ajar"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="4dp"
+					android:padding="8dp"
+					android:text="select"
+					android:textSize="12sp"
+					android:textColor="#F44336" />
+			</LinearLayout>
+			<HorizontalScrollView
+				android:id="@+id/hscroll1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				<LinearLayout
+					android:id="@+id/linear3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:paddingLeft="4dp"
+					android:paddingTop="8dp"
+					android:paddingRight="6dp"
+					android:paddingBottom="8dp"
+					android:orientation="horizontal">
+					<com.google.android.material.checkbox.MaterialCheckBox
+						android:id="@+id/c_release"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="--release"
+						android:textSize="12sp"
+						android:textColor="#FFFFFF"
+						android:button="@drawable/custom_checkbox" />
+					<com.google.android.material.checkbox.MaterialCheckBox
+						android:id="@+id/c_int"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="--intermediate"
+						android:textSize="12sp"
+						android:textColor="#FFFFFF"
+						android:checked="true"
+						android:button="@drawable/custom_checkbox" />
+					<com.google.android.material.checkbox.MaterialCheckBox
+						android:id="@+id/c_fileperclass"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="--file-per-class"
+						android:textSize="12sp"
+						android:textColor="#FFFFFF"
+						android:button="@drawable/custom_checkbox" />
+				</LinearLayout>
+			</HorizontalScrollView>
+			<xyz.ninjacoder.edittext.Animator.main.NinjaEditTextAnimator
+				android:id="@+id/more_args"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:textSize="12sp"
+				android:textColor="#000000"
+				android:hint="extra args"
+				android:textColorHint="#ECEFF1" />
+			<Button
+				android:id="@+id/run"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="4dp"
+				android:layout_marginRight="4dp"
+				android:padding="8dp"
+				android:text="RUN D8"
+				android:textSize="12sp"
+				android:textColor="#FFFFFF" />
+			<LinearLayout
+				android:id="@+id/linear7"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<TextView
+					android:id="@+id/log"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="You can put either an existing directory or a .zip file as the output path."
+					android:textSize="12sp"
+					android:textColor="#FFFFFF"
+					android:layout_weight="1" />
+				<ProgressBar
+					android:id="@+id/progressbar1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:indeterminate="true"
+					style="?android:progressBarStyle"
+					android:visibility="gone" />
+			</LinearLayout>
+			<LinearLayout
+				android:id="@+id/linear6"
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_marginLeft="4dp"
+				android:layout_marginRight="4dp"
+				android:padding="8dp"
+				android:background="#9E9E9E"
+				android:orientation="horizontal" />
+			<LinearLayout
+				android:id="@+id/linear5"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
+				<TextView
+					android:id="@+id/textview4"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:gravity="center_vertical"
+					android:text="Logger"
+					android:textSize="12sp"
+					android:textStyle="bold"
+					android:textColor="#2962FF"
+					android:layout_weight="1" />
+				<TextView
+					android:id="@+id/clear_log"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="Clear"
+					android:textSize="12sp"
+					android:textStyle="bold"
+					android:textColor="#2962FF" />
+			</LinearLayout>
+			<ScrollView
+				android:id="@+id/vscroll1"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:padding="8dp">
+				<EditText
+					android:id="@+id/logger"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:background="@android:color/transparent"
+					android:gravity="left|top"
+					android:textSize="16sp"
+					android:textColor="#2196F3"
+					android:hint="log jar file....."
+					android:textColorHint="#FFFFFF" />
+			</ScrollView>
+		</LinearLayout>
+	</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

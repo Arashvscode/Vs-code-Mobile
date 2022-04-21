@@ -27,29 +27,29 @@
 			android:layout_height="match_parent"
 			android:orientation="vertical"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior">
-			<LinearLayout
-				android:id="@+id/linear1"
+			<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+				android:id="@+id/Mrefrash"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:padding="4dp"
-				android:background="#000027"
-				android:orientation="vertical">
-				<ListView
-					android:id="@+id/listview1"
+				android:layout_height="match_parent">
+				<LinearLayout
+					android:id="@+id/linear1"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:padding="8dp"
-					android:dividerHeight="0dp"
-					android:divider="@null"
-					android:choiceMode="none"
-					android:layout_weight="1" />
-			</LinearLayout>
+					android:layout_height="match_parent"
+					android:padding="4dp"
+					android:background="#000027"
+					android:orientation="vertical">
+					<ListView
+						android:id="@+id/listview1"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:padding="8dp"
+						android:dividerHeight="0dp"
+						android:divider="@null"
+						android:choiceMode="none" />
+				</LinearLayout>
+			</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 		</LinearLayout>
 		<com.google.android.material.floatingactionbutton.FloatingActionButton
-style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-android:textColor="#FFFFFF"
-android:text="Run in code"
-app:shapeAppearance="@style/cutImage"
 			android:id="@+id/_fab"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -68,4 +68,4 @@ app:shapeAppearance="@style/cutImage"
 		android:background="#EEEEEE">
 		<include layout="@layout/_drawer_files" />
 	</LinearLayout>
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

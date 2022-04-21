@@ -45,7 +45,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="Vs Code Mobile"
+						android:text="Vs Code Mobile (beta)"
 						android:textSize="16sp"
 						android:textStyle="bold"
 						android:textColor="#2196F3" />
@@ -56,8 +56,18 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:padding="8dp"
-					android:text="version 1.1.4 a"
+					android:text="version 1.1.5 b"
 					android:textSize="14sp"
+					android:textColor="#03A9F4" />
+				<TextView
+					android:id="@+id/textview4"
+					android:focusable="false"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="bulider version  :  1400/01/02"
+					android:textSize="12sp"
+					android:textStyle="bold"
 					android:textColor="#03A9F4" />
 			</LinearLayout>
 			<TextView
@@ -66,7 +76,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:padding="8dp"
-				android:text="Wait while the app loads......"
+				android:text="Starting Vs code mobile ......"
 				android:textSize="16sp"
 				android:textColor="#2196F3" />
 			<LinearLayout
