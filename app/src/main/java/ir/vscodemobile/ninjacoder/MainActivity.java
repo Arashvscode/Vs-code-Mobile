@@ -47,31 +47,32 @@ import android.content.ClipData;
 import android.view.View;
 import android.text.Editable;
 import android.text.TextWatcher;
-import com.oguzdev.circularfloatingactionmenu.library.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.*;
-import com.github.angads25.filepicker.*;
-import com.google.gson.*;
-import com.suke.widget.*;
-import com.github.underscore.lodash.*;
-import com.example.myapp.*;
-import org.jetbrains.kotlin.*;
-import io.github.rosemoe.sora.langs.base.*;
-import io.github.rosemoe.sora.langs.textmate.*;
-import net.lingala.zip4j.*;
-import androidx.webkit.*;
-import mrAr.Stop.notmeDicompile.*;
-import s4u.restore.swb.*;
-import com.jtv7.rippleswitchlib.*;
-import com.android.tools.r8.*;
-import com.rohitop.rlottie.*;
 import com.lwb.piechart.*;
+import com.jtv7.rippleswitchlib.*;
+import com.rohitop.rlottie.*;
+import s4u.restore.swb.*;
+import mrAr.Stop.notmeDicompile.*;
+import androidx.webkit.*;
+import com.android.tools.r8.*;
 import xyz.ninjacoder.edittext.Animator.main.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
 import ninja.toska.path.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.langs.textmate.*;
+import net.lingala.zip4j.*;
+import io.github.rosemoe.sora.langs.base.*;
+import org.jetbrains.kotlin.*;
+import com.example.myapp.*;
+import com.github.underscore.lodash.*;
+import com.suke.widget.*;
+import com.google.gson.*;
+import com.google.android.material.*;
+import com.github.angads25.filepicker.*;
+import io.github.rosemoe.sora.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -589,8 +590,8 @@ public class MainActivity extends AppCompatActivity {
 		hscroll1.setHorizontalScrollBarEnabled(false);
 		hscroll1.setVerticalScrollBarEnabled(false);
 		hscroll1.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
-		editor.setTextActionMode(CodeEditor.TextActionMode.POPUP_WINDOW);
-		editor.setEdgeEffectColor(Color.RED);
+		//editor.setTextActionMode(CodeEditor.TextActionMode.POPUP_WINDOW);
+		//editor.setEdgeEffectColor(Color.RED);
 		
 		editor.setPinLineNumber(!editor.isLineNumberPinned());
 		editor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
@@ -1556,10 +1557,10 @@ public class MainActivity extends AppCompatActivity {
 				FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/"));
 				FileUtil.writeFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/Main.java"), editor.getText().toString());
 				//code that copies cp.jar from assets to temp folder (if not exists)
-				if (!FileUtil.isExistFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/cp.jar"))) {
-					try (InputStream input = getAssets().open("cp.jar");
+				if (!FileUtil.isExistFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/android.jar"))) {
+					try (InputStream input = getAssets().open("libs/android.jar");
 					OutputStream output = new FileOutputStream(
-					FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/cp.jar")
+					FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/android.jar")
 					)) {
 								byte[] buffer = new byte[input.available()];
 								int length;
@@ -1576,7 +1577,10 @@ public class MainActivity extends AppCompatActivity {
 				}
 				//code that runs ecj
 				long time = System.currentTimeMillis();
-				publishProgress("Compiling Java...");
+				//publishProgress(Html.fromHtml("<font color=\"#59FF7B\">.</font>"));
+				
+				pr.setMessage(Html.fromHtml("<font color=\"#59FF7B\">Java Compiling...</font>"));
+				
 				opt.clear();
 				opt.add("-1.8");
 				opt.add("-nowarn");
@@ -1584,7 +1588,7 @@ public class MainActivity extends AppCompatActivity {
 				opt.add("-d");
 				opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/classes"));
 				opt.add("-cp");
-				opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/cp.jar"));
+				opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/android.jar"));
 				opt.add("-proc:none");
 				opt.add("-sourcepath");
 				opt.add("ignore");
@@ -1616,7 +1620,11 @@ public class MainActivity extends AppCompatActivity {
 				}
 				ecjTime = System.currentTimeMillis() - time;
 				//code that packages classes to a JAR
-				publishProgress("Packaging JAR...");
+				////publishProgress(Html.fromHtml("<font color=\"#59FF7B\">...</font>"))
+				
+				
+				pr.setMessage(Html.fromHtml("<font color=\"#59FF7B\">Packaging JAR...</font>"));
+				
 				try {
 					new JarPackager(
 					
@@ -1631,7 +1639,11 @@ public class MainActivity extends AppCompatActivity {
 				//code that runs d8 //dx
 				time = System.currentTimeMillis();
 				try {
-					publishProgress("Dexing with D8...");
+					////////publishProgress(Html.fromHtml("<font color=\"#59FF7B\">...</font>"));
+					
+					
+					pr.setMessage(Html.fromHtml("<font color=\"#59FF7B\">Dexing with D8...</font>"));
+					
 					/*
 
 */
@@ -1639,7 +1651,7 @@ public class MainActivity extends AppCompatActivity {
 					opt.add("--output");
 					opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/"));
 					opt.add("--lib");
-					opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/cp.jar"));
+					opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/android.jar"));
 					opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/classes.jar"));
 					D8.main(opt.toArray(new String[0]));
 				} catch (Exception e) {

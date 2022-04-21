@@ -34,6 +34,8 @@ import java.text.*;
 import org.json.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -52,31 +54,32 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.AdapterView;
 import android.graphics.Typeface;
-import com.oguzdev.circularfloatingactionmenu.library.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.*;
-import com.github.angads25.filepicker.*;
-import com.google.gson.*;
-import com.suke.widget.*;
-import com.github.underscore.lodash.*;
-import com.example.myapp.*;
-import org.jetbrains.kotlin.*;
-import io.github.rosemoe.sora.langs.base.*;
-import io.github.rosemoe.sora.langs.textmate.*;
-import net.lingala.zip4j.*;
-import androidx.webkit.*;
-import mrAr.Stop.notmeDicompile.*;
-import s4u.restore.swb.*;
-import com.jtv7.rippleswitchlib.*;
-import com.android.tools.r8.*;
-import com.rohitop.rlottie.*;
 import com.lwb.piechart.*;
+import com.jtv7.rippleswitchlib.*;
+import com.rohitop.rlottie.*;
+import s4u.restore.swb.*;
+import mrAr.Stop.notmeDicompile.*;
+import androidx.webkit.*;
+import com.android.tools.r8.*;
 import xyz.ninjacoder.edittext.Animator.main.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
 import ninja.toska.path.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.langs.textmate.*;
+import net.lingala.zip4j.*;
+import io.github.rosemoe.sora.langs.base.*;
+import org.jetbrains.kotlin.*;
+import com.example.myapp.*;
+import com.github.underscore.lodash.*;
+import com.suke.widget.*;
+import com.google.gson.*;
+import com.google.android.material.*;
+import com.github.angads25.filepicker.*;
+import io.github.rosemoe.sora.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -156,6 +159,7 @@ public class FilesActivity extends AppCompatActivity {
 	private double limit = 0;
 	private String output120 = "";
 	private String fileshare = "";
+	private boolean isFab = false;
 	
 	private ArrayList<String> liststring = new ArrayList<>();
 	private ArrayList<String> list = new ArrayList<>();
@@ -163,6 +167,7 @@ public class FilesActivity extends AppCompatActivity {
 	private ArrayList<String> fileList = new ArrayList<>();
 	private ArrayList<HashMap<String, Object>> files = new ArrayList<>();
 	
+	private SwipeRefreshLayout Mrefrash;
 	private LinearLayout linear1;
 	private ListView listview1;
 	private LinearLayout _drawer_mynav;
@@ -181,6 +186,7 @@ public class FilesActivity extends AppCompatActivity {
 	private ImageView _drawer_javacode;
 	private ImageView _drawer_skpro;
 	private ImageView _drawer_color;
+	private ImageView _drawer_D8;
 	private ImageView _drawer_shellrun;
 	private ImageView _drawer_skprolib;
 	private ImageView _drawer_bug;
@@ -234,6 +240,8 @@ public class FilesActivity extends AppCompatActivity {
 	private Vibrator vb;
 	private AlertDialog.Builder smail;
 	private Intent c3 = new Intent();
+	private TimerTask ask200;
+	private Intent Ad8 = new Intent();
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -279,6 +287,7 @@ public class FilesActivity extends AppCompatActivity {
 		
 		LinearLayout _nav_view = findViewById(R.id._nav_view);
 		
+		Mrefrash = findViewById(R.id.Mrefrash);
 		linear1 = findViewById(R.id.linear1);
 		listview1 = findViewById(R.id.listview1);
 		_drawer_mynav = _nav_view.findViewById(R.id.mynav);
@@ -297,6 +306,7 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_javacode = _nav_view.findViewById(R.id.javacode);
 		_drawer_skpro = _nav_view.findViewById(R.id.skpro);
 		_drawer_color = _nav_view.findViewById(R.id.color);
+		_drawer_D8 = _nav_view.findViewById(R.id.D8);
 		_drawer_shellrun = _nav_view.findViewById(R.id.shellrun);
 		_drawer_skprolib = _nav_view.findViewById(R.id.skprolib);
 		_drawer_bug = _nav_view.findViewById(R.id.bug);
@@ -320,6 +330,36 @@ public class FilesActivity extends AppCompatActivity {
 		c = new RequestNetwork(this);
 		vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		smail = new AlertDialog.Builder(this);
+		
+		Mrefrash.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				ask200 = new TimerTask() {
+					@Override
+					public void run() {
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								Mrefrash.setRefreshing(false);
+								ask200 = new TimerTask() {
+									@Override
+									public void run() {
+										runOnUiThread(new Runnable() {
+											@Override
+											public void run() {
+												_getFiles("");
+											}
+										});
+									}
+								};
+								_timer.schedule(ask200, (int)(1000));
+							}
+						});
+					}
+				};
+				_timer.schedule(ask200, (int)(12000));
+			}
+		});
 		
 		listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -1023,36 +1063,16 @@ public class FilesActivity extends AppCompatActivity {
 		_fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				final com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog = new com.google.android.material.bottomsheet.BottomSheetDialog(FilesActivity.this);
-				
-				View bottomSheetView; bottomSheetView = getLayoutInflater().inflate(R.layout.dialogalter,null );
-				bottomSheetDialog.setContentView(bottomSheetView);
-				
-				bottomSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
-				
-				LinearLayout bg = (LinearLayout) bottomSheetView.findViewById(R.id.bg);
-				androidx.cardview.widget.CardView card = (androidx.cardview.widget.CardView) bottomSheetView.findViewById(R.id.card);
-				LinearLayout folder = (LinearLayout) bottomSheetView.findViewById(R.id.folder);
-				LinearLayout file = (LinearLayout) bottomSheetView.findViewById(R.id.file);
-				card.setCardBackgroundColor(0xFF000027);
-				card.setRadius((float)25);
-				card.setCardElevation((float)0);
-				file.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
-						
-						_file();
-						bottomSheetDialog.dismiss();
-						
-					}
-				});
-				folder.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
-						
-						_folder();
-						bottomSheetDialog.dismiss();
-						
-					}
-				});
-				bottomSheetDialog.setCancelable(true);
-				bottomSheetDialog.show();
+				if (isFab) {
+					isFab = false;
+					_fab.animate().setDuration(200).rotation(0);
+					_Show(false);
+				}
+				else {
+					isFab = true;
+					_fab.animate().setDuration(200).rotation(45);
+					_Show(true);
+				}
 			}
 		});
 		
@@ -1290,6 +1310,14 @@ public class FilesActivity extends AppCompatActivity {
 			}
 		});
 		
+		_drawer_D8.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				Ad8.setClass(getApplicationContext(), D8toolsActivity.class);
+				startActivity(Ad8);
+			}
+		});
+		
 		_drawer_shellrun.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
@@ -1425,6 +1453,20 @@ public class FilesActivity extends AppCompatActivity {
 		myContext = new GetContextClass(this).getContextNow();
 		
 		RLottie.init(this);
+		//Multicolor Swipe Refresh
+		
+		int blue = Color.parseColor("#4285F4");
+		int green = Color.parseColor("#34A853");
+		int orange = Color.parseColor("#FBBC05");
+		int red = Color.parseColor("#EA4335");
+		int mmm = Color.parseColor("#FFD510C1");
+		
+		Mrefrash.setColorSchemeColors(blue, green, orange, red , mmm);
+		
+		//Background Swipe Refresh
+		
+		int background = Color.parseColor("#FF000535");
+		Mrefrash.setProgressBackgroundColorSchemeColor(background);
 		Folder = FileUtil.getExternalStorageDir();
 		_getFiles("");
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
@@ -1592,6 +1634,16 @@ public class FilesActivity extends AppCompatActivity {
 		        super.onLowMemory();
 		        SketchwareUtil.CustomToast(getApplicationContext(), "حافظه کم است برای اجرا برنامه", 0xFFE91E63, 15, 0xFFFFFFFF, 25, SketchwareUtil.CENTER);
 		        }
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		_onCreatefab();
+		_fab1();
+		_fab2();
+		_fab3();
+		_Show(false);
+	}
 	public void _getFiles(final String _path) {
 		list.clear();
 		files.clear();
@@ -5268,6 +5320,100 @@ support me if you like my work
 			ini.putExtra("title", Uri.parse(_maplist.get((int)_pos).get(_path).toString()).getLastPathSegment());
 			startActivity(ini);
 		}
+	}
+	
+	
+	public void _fab1() {
+		LinearLayout fab1 = (LinearLayout)bg.findViewById(R.id.mfab1);
+		
+		LinearLayout open = (LinearLayout)bg.findViewById(R.id.open);
+		fab1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFE91E63));
+		open.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF424242));
+		fab1.setElevation((float)8);
+		open.setElevation((float)8);
+		
+		fab1.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+						
+				  _drawer.openDrawer(GravityCompat.START);
+				
+				}});
+	}
+	
+	
+	public void _fab2() {
+		LinearLayout fab2 = (LinearLayout)bg.findViewById(R.id.mfab2);
+		
+		LinearLayout folder = (LinearLayout)bg.findViewById(R.id.folder);
+		fab2.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFF9C27B0));
+		folder.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF424242));
+		fab2.setElevation((float)8);
+		folder.setElevation((float)8);
+		
+		fab2.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+						
+				  _folder();
+				
+				}});
+	}
+	
+	
+	public void _fab3() {
+		LinearLayout fab3 = (LinearLayout)bg.findViewById(R.id.mfab3);
+		
+		LinearLayout file = (LinearLayout)bg.findViewById(R.id.file);
+		fab3.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFE57373));
+		file.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF424242));
+		fab3.setElevation((float)8);
+		file.setElevation((float)8);
+		
+		fab3.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+						
+				  _file();
+				
+				}});
+	}
+	
+	
+	public void _onCreatefab() {
+		View cv = getLayoutInflater().inflate(R.layout.myfablinster, null);
+		
+		bg = (LinearLayout)cv.findViewById(R.id.ninja);
+		
+		((ViewGroup)bg.getParent()).removeView(bg);
+		
+		((ViewGroup)_fab.getParent()).addView(bg);
+	}
+	
+	
+	public void _Show(final boolean _show) {
+		if (_show) {
+				bg.setVisibility(View.VISIBLE);
+				bg.setTranslationY((int)getDip(0));
+				
+				
+				bg.setAlpha(0);
+				
+				
+				bg.animate().setDuration(200).alpha(1f).translationY(0);
+				
+				
+				_fab.animate().setDuration(200).rotation(45);
+		}
+		else {
+				bg.setVisibility(View.GONE);
+		}
+	}
+	private LinearLayout bg;
+	{
 	}
 	
 	public class Listview1Adapter extends BaseAdapter {

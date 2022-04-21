@@ -28,31 +28,32 @@ import java.util.regex.*;
 import java.text.*;
 import org.json.*;
 import android.widget.LinearLayout;
-import com.oguzdev.circularfloatingactionmenu.library.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.*;
-import com.github.angads25.filepicker.*;
-import com.google.gson.*;
-import com.suke.widget.*;
-import com.github.underscore.lodash.*;
-import com.example.myapp.*;
-import org.jetbrains.kotlin.*;
-import io.github.rosemoe.sora.langs.base.*;
-import io.github.rosemoe.sora.langs.textmate.*;
-import net.lingala.zip4j.*;
-import androidx.webkit.*;
-import mrAr.Stop.notmeDicompile.*;
-import s4u.restore.swb.*;
-import com.jtv7.rippleswitchlib.*;
-import com.android.tools.r8.*;
-import com.rohitop.rlottie.*;
 import com.lwb.piechart.*;
+import com.jtv7.rippleswitchlib.*;
+import com.rohitop.rlottie.*;
+import s4u.restore.swb.*;
+import mrAr.Stop.notmeDicompile.*;
+import androidx.webkit.*;
+import com.android.tools.r8.*;
 import xyz.ninjacoder.edittext.Animator.main.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
 import ninja.toska.path.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.langs.textmate.*;
+import net.lingala.zip4j.*;
+import io.github.rosemoe.sora.langs.base.*;
+import org.jetbrains.kotlin.*;
+import com.example.myapp.*;
+import com.github.underscore.lodash.*;
+import com.suke.widget.*;
+import com.google.gson.*;
+import com.google.android.material.*;
+import com.github.angads25.filepicker.*;
+import io.github.rosemoe.sora.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -100,7 +101,7 @@ public class CmdActivity extends AppCompatActivity {
 		
 		editor.setColorScheme(new ir.vscodemobile.ninjacoder.theme());
 		editor.setTypefaceText(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
-		editor.setWordwrap(true);
+		editor.setWordwrap(false);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE); 
 		
 		fonts(getApplicationContext(),getWindow().getDecorView()); 
@@ -166,17 +167,34 @@ public class CmdActivity extends AppCompatActivity {
 			ImageView mis = (ImageView) bottomSheetView.findViewById(R.id.mis);
 			LinearLayout bg = (LinearLayout) bottomSheetView.findViewById(R.id.bg);
 			bg.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)30, 0xFF000027));
-			boolean root = false;
-			new RunCommandTask(root).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, editor.getText().toString());
-			
-			java.lang.System.setOut(new java.io.PrintStream(new java.io.OutputStream() {
-					java.io.ByteArrayOutputStream outputStream = new java.io.ByteArrayOutputStream();
-					@Override
-					public void write(int oneByte) throws java.io.IOException {
-							outputStream.write(oneByte);
-							r.setText(new String(outputStream.toByteArray()));
-					}
-			}));
+			r.setColorScheme(new ir.vscodemobile.ninjacoder.theme());
+			new AsyncTask<String, String, String>() {
+				@Override
+				protected void onPreExecute() {
+					r.setText("Ruing code.....");
+				}
+				@Override
+				protected String doInBackground(String... params) {
+					String _param = params[0];
+					r.setText("Comment Ruing....");
+					return "";
+				}
+				@Override
+				protected void onPostExecute(String _result) {
+					boolean root = false;
+					new RunCommandTask(root).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, editor.getText().toString());
+					
+					java.lang.System.setOut(new java.io.PrintStream(new java.io.OutputStream() {
+							java.io.ByteArrayOutputStream outputStream = new java.io.ByteArrayOutputStream();
+							@Override
+							public void write(int oneByte) throws java.io.IOException {
+									outputStream.write(oneByte);
+									r.setText(new String(outputStream.toByteArray()));
+							}
+					}));
+					SketchwareUtil.hideKeyboard(getApplicationContext());
+				}
+			}.execute("");
 			mis.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
 					
 					bottomSheetDialog.dismiss();

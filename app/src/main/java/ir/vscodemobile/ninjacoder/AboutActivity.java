@@ -40,31 +40,32 @@ import java.util.Timer;
 import java.util.TimerTask;
 import android.view.View;
 import android.graphics.Typeface;
-import com.oguzdev.circularfloatingactionmenu.library.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.*;
-import com.github.angads25.filepicker.*;
-import com.google.gson.*;
-import com.suke.widget.*;
-import com.github.underscore.lodash.*;
-import com.example.myapp.*;
-import org.jetbrains.kotlin.*;
-import io.github.rosemoe.sora.langs.base.*;
-import io.github.rosemoe.sora.langs.textmate.*;
-import net.lingala.zip4j.*;
-import androidx.webkit.*;
-import mrAr.Stop.notmeDicompile.*;
-import s4u.restore.swb.*;
-import com.jtv7.rippleswitchlib.*;
-import com.android.tools.r8.*;
-import com.rohitop.rlottie.*;
 import com.lwb.piechart.*;
+import com.jtv7.rippleswitchlib.*;
+import com.rohitop.rlottie.*;
+import s4u.restore.swb.*;
+import mrAr.Stop.notmeDicompile.*;
+import androidx.webkit.*;
+import com.android.tools.r8.*;
 import xyz.ninjacoder.edittext.Animator.main.*;
 import org.antlr.v4.runtime.*;
 import com.caverock.androidsvg.*;
 import com.blogspot.atifsoftwares.animatoolib.*;
 import ninja.toska.path.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
+import com.googlecode.d2j.*;
+import com.android.*;
+import io.github.rosemoe.sora.langs.textmate.*;
+import net.lingala.zip4j.*;
+import io.github.rosemoe.sora.langs.base.*;
+import org.jetbrains.kotlin.*;
+import com.example.myapp.*;
+import com.github.underscore.lodash.*;
+import com.suke.widget.*;
+import com.google.gson.*;
+import com.google.android.material.*;
+import com.github.angads25.filepicker.*;
+import io.github.rosemoe.sora.*;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.DialogFragment;
@@ -196,12 +197,6 @@ public class AboutActivity extends AppCompatActivity {
 			lismapget.add(_item);
 		}
 		
-		{
-			HashMap<String, Object> _item = new HashMap<>();
-			_item.put("key", "");
-			lismapget.add(_item);
-		}
-		
 		listview1.setAdapter(new Listview1Adapter(lismapget));
 		((BaseAdapter)listview1.getAdapter()).notifyDataSetChanged();
 		bot = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
@@ -212,8 +207,8 @@ public class AboutActivity extends AppCompatActivity {
 		pieChartView.addItemType(new PieChartView.ItemType("java", 80, 0xFFFF9800));
 		pieChartView.addItemType(new PieChartView.ItemType("c", 10, 0xFF9C27B0));
 		pieChartView.addItemType(new PieChartView.ItemType("c++", 88, 0xFFE91E63));
-		pieChartView.addItemType(new PieChartView.ItemType("kotlin", 18, 0xFF673AB7));
-		pieChartView.addItemType(new PieChartView.ItemType("ninja", 69, 0xFFFFFFFF));
+		pieChartView.addItemType(new PieChartView.ItemType("kotlin", 32, 0xFF673AB7));
+		pieChartView.addItemType(new PieChartView.ItemType("ninja", 95, 0xFFFFFFFF));
 		pieChartView.addItemType(new PieChartView.ItemType("js", 22, 0xFFFFEB3B));
 		pieChartView.setPieCell(0);
 		pieChartView.setCell(0);
@@ -274,11 +269,6 @@ public class AboutActivity extends AppCompatActivity {
 				circleimageview1.setImageResource(R.drawable.more_1);
 			}
 			if (_position == 2) {
-				circleimageview1.setImageResource(R.drawable.more_2);
-				textview1.setText("BlackError");
-				color.setBackgroundColor(0xFF3F51B5);
-			}
-			if (_position == 3) {
 				circleimageview1.setImageResource(R.drawable.milad);
 				textview1.setText("☆ Milad ☆");
 				color.setBackgroundColor(0xFFFFEB3B);
