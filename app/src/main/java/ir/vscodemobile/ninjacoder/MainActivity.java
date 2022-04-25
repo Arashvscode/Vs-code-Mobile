@@ -1,85 +1,85 @@
 package ir.vscodemobile.ninjacoder;
 
 import ir.vscodemobile.ninjacoder.SplashActivity;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.*;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.Manifest;
+import android.animation.*;
 import android.app.*;
-import android.os.*;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.*;
+import android.content.ClipData;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.*;
 import android.graphics.*;
 import android.graphics.drawable.*;
 import android.media.*;
 import android.net.*;
-import android.text.*;
-import android.text.style.*;
-import android.util.*;
-import android.webkit.*;
-import android.animation.*;
-import android.view.animation.*;
-import java.io.*;
-import java.util.*;
-import java.util.regex.*;
-import java.text.*;
-import org.json.*;
-import java.util.ArrayList;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.HorizontalScrollView;
-import android.widget.EditText;
-import android.widget.Button;
-import android.content.Intent;
 import android.net.Uri;
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import java.util.Timer;
-import java.util.TimerTask;
-import android.content.ClipData;
-import android.view.View;
+import android.os.*;
+import android.text.*;
 import android.text.Editable;
 import android.text.TextWatcher;
-import com.lwb.piechart.*;
-import com.jtv7.rippleswitchlib.*;
-import com.rohitop.rlottie.*;
-import s4u.restore.swb.*;
-import mrAr.Stop.notmeDicompile.*;
-import androidx.webkit.*;
-import com.android.tools.r8.*;
-import xyz.ninjacoder.edittext.Animator.main.*;
-import org.antlr.v4.runtime.*;
-import com.caverock.androidsvg.*;
-import com.blogspot.atifsoftwares.animatoolib.*;
-import ninja.toska.path.*;
-import com.oguzdev.circularfloatingactionmenu.library.*;
-import com.googlecode.d2j.*;
-import com.android.*;
-import io.github.rosemoe.sora.langs.textmate.*;
-import net.lingala.zip4j.*;
-import io.github.rosemoe.sora.langs.base.*;
-import org.jetbrains.kotlin.*;
-import com.example.myapp.*;
-import com.github.underscore.lodash.*;
-import com.suke.widget.*;
-import com.google.gson.*;
-import com.google.android.material.*;
-import com.github.angads25.filepicker.*;
-import io.github.rosemoe.sora.*;
+import android.text.style.*;
+import android.util.*;
+import android.view.*;
+import android.view.View;
+import android.view.View.*;
+import android.view.animation.*;
+import android.webkit.*;
+import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import androidx.annotation.*;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.DialogFragment;
-import androidx.core.content.ContextCompat;
-import androidx.core.app.ActivityCompat;
-import android.Manifest;
-import android.content.pm.PackageManager;
+import androidx.webkit.*;
+import com.android.*;
+import com.android.tools.r8.*;
+import com.blogspot.atifsoftwares.animatoolib.*;
+import com.caverock.androidsvg.*;
+import com.example.myapp.*;
+import com.github.angads25.filepicker.*;
+import com.github.underscore.lodash.*;
+import com.google.android.material.*;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.*;
+import com.googlecode.d2j.*;
+import com.jtv7.rippleswitchlib.*;
+import com.lwb.piechart.*;
+import com.oguzdev.circularfloatingactionmenu.library.*;
+import com.rohitop.rlottie.*;
+import com.suke.widget.*;
+import io.github.rosemoe.sora.*;
+import io.github.rosemoe.sora.langs.base.*;
+import io.github.rosemoe.sora.langs.textmate.*;
+import java.io.*;
+import java.text.*;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.regex.*;
+import mrAr.Stop.notmeDicompile.*;
+import net.lingala.zip4j.*;
+import ninja.toska.path.*;
+import org.antlr.v4.runtime.*;
+import org.jetbrains.kotlin.*;
+import org.json.*;
+import s4u.restore.swb.*;
+import xyz.ninjacoder.edittext.Animator.main.*;
 import io.github.rosemoe.sora.widget.CodeEditor;
 import io.github.rosemoe.sora.langs.EmptyLanguage;
 import io.github.rosemoe.sora.langs.desc.CDescription;
@@ -583,9 +583,9 @@ public class MainActivity extends AppCompatActivity {
 		}
 		SymbolInputView inputView = findViewById(R.id.sysbar);
 		
-		        inputView.bindEditor(editor);
-		        inputView.addSymbols(new String[]{"->", "{", "}", "(", ")", "<" , ">" ,"|","$",",", ".",";","&","<-","?", "+", "-", "*", "/","@","!"},
-		                new String[]{"\t", "{}", "}", "(", ")", ",", ".", ";", "\"", "?", "+", "-", "*", "/"});
+		inputView.bindEditor(editor);
+		inputView.addSymbols(new String[]{"->", "{", "}", "(", ")", ",", "|", ".", ";", "\"", "?", "+", "-", "*", "/"},
+		new String[]{"\t", "{}", "}", "(", ")", ",", ".", ";", "|","\"", "?", "+", "-", "*", "/"});
 		
 		hscroll1.setHorizontalScrollBarEnabled(false);
 		hscroll1.setVerticalScrollBarEnabled(false);
@@ -595,6 +595,7 @@ public class MainActivity extends AppCompatActivity {
 		
 		editor.setPinLineNumber(!editor.isLineNumberPinned());
 		editor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
+		
 		_fab.hide();
 		if (getIntent().getStringExtra("title").contains(".css")) {
 			StringBuilder androidcss = new StringBuilder();
@@ -1131,6 +1132,9 @@ public class MainActivity extends AppCompatActivity {
 		MenuItem menuitem2 = menu.add(Menu.NONE, 1, Menu.NONE, "Redo");
 		menuitem2.setIcon(R.drawable.redo);
 		menuitem2.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		MenuItem Codeformat = menu.add(Menu.NONE, 10, Menu.NONE, "editor.formatCodeAsync");
+		Codeformat.setIcon(R.drawable.formatcodeasync);
+		Codeformat.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		return super.onCreateOptionsMenu(menu);
 	}
 	
@@ -1180,6 +1184,11 @@ public class MainActivity extends AppCompatActivity {
 		if(_id == 8){
 			startActivityForResult(Filepicker, REQ_CD_FILEPICKER);
 		}
+		if(_id == 10){
+				
+				editor.formatCodeAsync();
+		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 	
