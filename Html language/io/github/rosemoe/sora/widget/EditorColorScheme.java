@@ -180,13 +180,13 @@ public class EditorColorScheme {
             case WHOLE_BACKGROUND:
             case LINE_NUMBER_PANEL_TEXT:
             case AUTO_COMP_PANEL_BG:
-		          color = 0xFFFF6600;
+		          color = 0xFF030E33;
 				  break;
             case AUTO_COMP_PANEL_CORNER:
 			
             case TEXT_SELECTED:
 			case CSS_TAG:
-                color = 0xffffffff;
+                color = 0xFFFF0000;
                 break;
             case OPERATOR:
 			  color = 0xFFFF6600;
@@ -224,7 +224,7 @@ public class EditorColorScheme {
                 color = 0xFF8FA1FF;
                 break;
             case SCROLL_BAR_THUMB:
-                color = 0xffd8d8d8;
+                color = 0xFF000056;
                 break;
             case SCROLL_BAR_THUMB_PRESSED:
                 color = 0xFF00FF00;
@@ -234,7 +234,7 @@ public class EditorColorScheme {
                 break;
             case LINE_BLOCK_LABEL:
             case SCROLL_BAR_TRACK:
-                color = 0;
+                color = 0xFFB1B000;
                 break;
             case LINE_NUMBER_PANEL:
                 color = 0xFFFF0085;
@@ -251,10 +251,10 @@ public class EditorColorScheme {
                 color = 0xffffff00;
                 break;
             case NON_PRINTABLE_CHAR:
-                color = 0xeecccccc;
+                color = 0xff000000;
                 break;
             case PROBLEM_ERROR:
-                color = 0xaaff0000;
+                color = 0xffff0000;
                 break;
             case PROBLEM_WARNING:
                 color = 0xaafff100;
