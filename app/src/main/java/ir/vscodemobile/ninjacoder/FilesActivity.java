@@ -68,6 +68,7 @@ import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
 import com.suke.widget.*;
+import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
 import io.github.rosemoe.sora.langs.textmate.*;
@@ -1065,15 +1066,19 @@ public class FilesActivity extends AppCompatActivity {
 		_fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (isFab) {
-					isFab = false;
-					_fab.animate().setDuration(220).rotation(0);
-					_Show(false);
-				}
-				else {
-					isFab = true;
-					_fab.animate().setDuration(220).rotation(55);
-					_Show(true);
+				try {
+					if (isFab) {
+						isFab = false;
+						_fab.animate().setDuration(220).rotation(0);
+						_Show(false);
+					}
+					else {
+						isFab = true;
+						_fab.animate().setDuration(220).rotation(55);
+						_Show(true);
+					}
+				} catch (Exception e) {
+					SketchwareUtil.showMessage(getApplicationContext(), "Fab Error ");
 				}
 			}
 		});
@@ -4736,62 +4741,77 @@ public class FilesActivity extends AppCompatActivity {
 	
 	
 	public void _fab1() {
-		LinearLayout fab1 = (LinearLayout)bg.findViewById(R.id.mfab1);
-		
-		LinearLayout open = (LinearLayout)bg.findViewById(R.id.open);
-		fab1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFF44336));
-		open.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF2196F3));
-		fab1.setElevation((float)8);
-		open.setElevation((float)8);
-		
-		fab1.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-						
-				  _drawer.openDrawer(GravityCompat.START);
-				
-				}});
+		try {
+			LinearLayout fab1 = (LinearLayout)bg.findViewById(R.id.mfab1);
+			
+			LinearLayout open = (LinearLayout)bg.findViewById(R.id.open);
+			fab1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFF44336));
+			open.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF2196F3));
+			fab1.setElevation((float)8);
+			open.setElevation((float)8);
+			
+			fab1.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+							
+					  _drawer.openDrawer(GravityCompat.START);
+					_Show(false);
+					
+					}});
+		} catch (Exception e) {
+			 
+		}
 	}
 	
 	
 	public void _fab2() {
-		LinearLayout fab2 = (LinearLayout)bg.findViewById(R.id.mfab2);
-		
-		LinearLayout folder = (LinearLayout)bg.findViewById(R.id.folder);
-		fab2.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFFF9800));
-		folder.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF2196F3));
-		fab2.setElevation((float)8);
-		folder.setElevation((float)8);
-		
-		fab2.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-						
-				  _folder();
-				
-				}});
+		try {
+			LinearLayout fab2 = (LinearLayout)bg.findViewById(R.id.mfab2);
+			
+			LinearLayout folder = (LinearLayout)bg.findViewById(R.id.folder);
+			fab2.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFFF9800));
+			folder.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF2196F3));
+			fab2.setElevation((float)8);
+			folder.setElevation((float)8);
+			
+			fab2.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+							
+					  _folder();
+					_Show(false);
+					
+					}});
+		} catch (Exception e) {
+			 
+		}
 	}
 	
 	
 	public void _fab3() {
-		LinearLayout fab3 = (LinearLayout)bg.findViewById(R.id.mfab3);
-		
-		LinearLayout file = (LinearLayout)bg.findViewById(R.id.file);
-		fab3.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFFFC107));
-		file.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF2196F3));
-		fab3.setElevation((float)8);
-		file.setElevation((float)8);
-		
-		fab3.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-						
-				  _file();
-				
-				}});
+		try {
+			LinearLayout fab3 = (LinearLayout)bg.findViewById(R.id.mfab3);
+			
+			LinearLayout file = (LinearLayout)bg.findViewById(R.id.file);
+			fab3.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFFFC107));
+			file.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF2196F3));
+			fab3.setElevation((float)8);
+			file.setElevation((float)8);
+			
+			fab3.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+							
+					  _file();
+					_Show(false);
+					
+					}});
+		} catch (Exception e) {
+			 
+		}
 	}
 	
 	
