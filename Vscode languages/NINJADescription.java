@@ -42,7 +42,7 @@ public class NINJADescription implements LanguageDescription {
               "finally","for","forward","goto","if","implementation","import","in","inherited","initialization","interface","interrupt","is",
               "label","library","mod","module","name","near","nil","not","object","of","only","operator","or","or_else","otherwise","packed","pow","private", 
               "program","property","protected","public","published","qualified","record","repeat","resident","restricted","segment","set","shl","shr",
-              "then","to","try","type","unit","until","uses","value","var","view","virtual","while","with","xor","identifier","msg","praperty","exec","except","baseException","import","from","system","printor","out","cin","cout","lambda","z","qar"
+              "then","to","try","type","unit","until","uses","value","var","view","virtual","while","with","xor","identifier","msg","praperty","exec","except","baseException","import","from","system","printor","out","cin","cout","lambda","z","val","under","qar"
 		};
 	}
 	
