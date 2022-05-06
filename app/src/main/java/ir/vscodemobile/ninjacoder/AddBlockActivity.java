@@ -69,6 +69,7 @@ import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
 import com.suke.widget.*;
+import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
 import io.github.rosemoe.sora.langs.textmate.*;

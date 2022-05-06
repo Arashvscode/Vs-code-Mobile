@@ -3,9 +3,7 @@ package ir.vscodemobile.ninjacoder;
 import android.Manifest;
 import android.animation.*;
 import android.app.*;
-import android.app.AlertDialog;
 import android.content.*;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.*;
 import android.graphics.*;
@@ -17,16 +15,10 @@ import android.text.*;
 import android.text.style.*;
 import android.util.*;
 import android.view.*;
-import android.view.View;
 import android.view.View.*;
 import android.view.animation.*;
 import android.webkit.*;
 import android.widget.*;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -47,8 +39,6 @@ import com.github.underscore.lodash.*;
 import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.gson.*;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.googlecode.d2j.*;
 import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
@@ -62,8 +52,6 @@ import io.github.rosemoe.sora.langs.textmate.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.regex.*;
 import mrAr.Stop.notmeDicompile.*;
 import net.lingala.zip4j.*;
@@ -73,36 +61,33 @@ import org.jetbrains.kotlin.*;
 import org.json.*;
 import s4u.restore.swb.*;
 import xyz.ninjacoder.edittext.Animator.main.*;
+import coyamo.visualxml.lib.proxy.ProxyResources;
+import coyamo.visualxml.lib.parser.AndroidXmlParser;
+import coyamo.visualxml.lib.parser.ReadOnlyParser;
+import coyamo.visualxml.lib.proxy.ProxyResources;
+import coyamo.visualxml.lib.ui.OutlineView;
+import coyamo.visualxml.lib.utils.MessageArray;
+import coyamo.visualxml.lib.utils.Utils;
 
-public class SkprolibviewerActivity extends AppCompatActivity {
+public class LayoutxmlviewerActivity extends AppCompatActivity {
 	
 	private Toolbar _toolbar;
 	private AppBarLayout _app_bar;
 	private CoordinatorLayout _coordinator;
-	private String libraryused = "";
+	private String xmlviewer = "";
+	OutlineView outlineView;
 	
-	private ArrayList<HashMap<String, Object>> lis = new ArrayList<>();
-	
-	private LinearLayout linear1;
-	private LinearLayout linear2;
-	private LinearLayout linear3;
-	private LinearLayout linear5;
-	private EditText edittext1;
-	private ScrollView vscroll1;
-	private LinearLayout linear4;
-	private TextView textview1;
-	private Button button1;
-	
-	private AlertDialog.Builder dialogbulider;
+	private OutlineView linear1;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
-		setContentView(R.layout.skprolibviewer);
+		setContentView(R.layout.layoutxmlviewer);
 		initialize(_savedInstanceState);
 		
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-			ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
+		|| ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+			ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
 		} else {
 			initializeLogic();
 		}
@@ -130,54 +115,64 @@ public class SkprolibviewerActivity extends AppCompatActivity {
 			}
 		});
 		linear1 = findViewById(R.id.linear1);
-		linear2 = findViewById(R.id.linear2);
-		linear3 = findViewById(R.id.linear3);
-		linear5 = findViewById(R.id.linear5);
-		edittext1 = findViewById(R.id.edittext1);
-		vscroll1 = findViewById(R.id.vscroll1);
-		linear4 = findViewById(R.id.linear4);
-		textview1 = findViewById(R.id.textview1);
-		button1 = findViewById(R.id.button1);
-		dialogbulider = new AlertDialog.Builder(this);
-		
-		button1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				libraryused = "used library ==   ";
-				lis = new Gson().fromJson(FileUtil.readFile(FileUtil.getExternalStorageDir().concat("/.sketchware/data/".concat(edittext1.getText().toString().concat("/local_library")))), new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType());
-				try { 
-					for (int item = 0; item < (int)(lis.size()); item++) {
-						libraryused = libraryused.concat("      ".concat(lis.get((int)item).get("name").toString()));
-						textview1.setText(libraryused);
-					}
-				} catch (Exception ninja){
-					dialogbulider.setTitle("اشتباهات");
-					dialogbulider.setIcon(R.drawable.vs1);
-					dialogbulider.setMessage("ممکن است ایدی عددی پروژه را به درستی وارد نکرده باشید یا پروژه کتابخونه ندارد لطفا از اول برسی کنید");
-					dialogbulider.setPositiveButton("اوکی", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface _dialog, int _which) {
-							
-						}
-					});
-					dialogbulider.create().show();
-				}
-			}
-		});
 	}
 	
 	private void initializeLogic() {
+		setTitle("Xml viewer");
+		ProxyResources.init(this);
+		outlineView = findViewById(R.id.linear1);
+		outlineView.setDisplayType(OutlineView.DISPLAY_VIEW);
+		
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+			Window w =LayoutxmlviewerActivity.this.getWindow();
+			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF000027);
+		}
 	}
+	
 	
 	@Override
 	public void onStart() {
 		super.onStart();
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) { 
-				   Window coder = this.getWindow();
-			 coder.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			 coder.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+		xmlviewer = getIntent().getStringExtra("view");
+		try {
 			
-				   coder.setStatusBarColor(Color.parseColor("#000027")); coder.setNavigationBarColor(Color.parseColor("#000027"));
+			            AndroidXmlParser.with(outlineView)
+			                    .setOnParseListener(new AndroidXmlParser.OnParseListener() {
+				                        @Override
+				                        public void onAddChildView(View v, ReadOnlyParser parser) {
+					                            
+					                        }
+				
+				                        @Override
+				                        public void onJoin(ViewGroup viewGroup, ReadOnlyParser parser) {
+					                            
+					                        }
+				
+				                        @Override
+				                        public void onRevert(ViewGroup viewGroup, ReadOnlyParser parser) {
+					                            
+					
+					                        }
+				
+				                        @Override
+				                        public void onFinish() {
+					                        }
+				
+				                        @Override
+				                        public void onStart() {
+					                        }
+				                    })
+			                    .parse(xmlviewer);
+			
+			            
+			        } catch (Exception e) {
+			            e.printStackTrace();
+			        }
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+			Window w =this.getWindow();
+			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
 		}
 	}
 	

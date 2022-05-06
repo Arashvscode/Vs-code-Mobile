@@ -50,6 +50,7 @@ import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
 import com.suke.widget.*;
+import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
 import io.github.rosemoe.sora.langs.textmate.*;
@@ -197,6 +198,18 @@ public class AboutActivity extends AppCompatActivity {
 			lismapget.add(_item);
 		}
 		
+		{
+			HashMap<String, Object> _item = new HashMap<>();
+			_item.put("key", "");
+			lismapget.add(_item);
+		}
+		
+		{
+			HashMap<String, Object> _item = new HashMap<>();
+			_item.put("key", "");
+			lismapget.add(_item);
+		}
+		
 		listview1.setAdapter(new Listview1Adapter(lismapget));
 		((BaseAdapter)listview1.getAdapter()).notifyDataSetChanged();
 		bot = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
@@ -258,21 +271,6 @@ public class AboutActivity extends AppCompatActivity {
 			
 			circleimageview1.setCircleBackgroundColor(Color.TRANSPARENT);
 			circleimageview1.setBorderColor(Color.TRANSPARENT);
-			if (_position == 0) {
-				textview1.setText("Ninja coder");
-				color.setBackgroundColor(0xFFF44336);
-				circleimageview1.setImageResource(R.drawable.ninja);
-			}
-			if (_position == 1) {
-				textview1.setText("Arsh");
-				color.setBackgroundColor(0xFF4CAF50);
-				circleimageview1.setImageResource(R.drawable.more_1);
-			}
-			if (_position == 2) {
-				circleimageview1.setImageResource(R.drawable.milad);
-				textview1.setText("☆ Milad ☆");
-				color.setBackgroundColor(0xFFFFEB3B);
-			}
 			textview1.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/myf.ttf"), 1);
 			ask = new TimerTask() {
 				@Override
@@ -328,6 +326,36 @@ public class AboutActivity extends AppCompatActivity {
 					return false;
 				}
 			});
+			if (_position == 0) {
+				textview1.setText("Ninja coder");
+				color.setBackgroundColor(0xFFF44336);
+				circleimageview1.setImageResource(R.drawable.ninja);
+			}
+			if (_position == 1) {
+				textview1.setText("Mr A");
+				color.setBackgroundColor(0xFFFF5722);
+				circleimageview1.setImageResource(R.drawable.more_1);
+			}
+			if (_position == 2) {
+				circleimageview1.setImageResource(R.drawable.milad);
+				textview1.setText("☆ Milad ☆");
+				color.setBackgroundColor(0xFFFFEB3B);
+			}
+			if (_position == 3) {
+				circleimageview1.setImageResource(R.drawable.arman);
+				textview1.setText("Arman");
+				color.setBackgroundColor(0xFF9C27B0);
+			}
+			if (_position == 4) {
+				circleimageview1.setImageResource(R.drawable.amircoder);
+				textview1.setText("Amir");
+				color.setBackgroundColor(0xFFFFFFFF);
+			}
+			if (_position == 5) {
+				circleimageview1.setImageResource(R.drawable.hiz);
+				textview1.setText("Hisham Dz");
+				color.setBackgroundColor(0xFF2196F3);
+			}
 			
 			return _view;
 		}

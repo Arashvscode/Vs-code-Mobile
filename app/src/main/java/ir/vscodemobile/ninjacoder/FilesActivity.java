@@ -337,30 +337,8 @@ public class FilesActivity extends AppCompatActivity {
 		Mrefrash.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
-				ask200 = new TimerTask() {
-					@Override
-					public void run() {
-						runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								Mrefrash.setRefreshing(false);
-								ask200 = new TimerTask() {
-									@Override
-									public void run() {
-										runOnUiThread(new Runnable() {
-											@Override
-											public void run() {
-												_getFiles("");
-											}
-										});
-									}
-								};
-								_timer.schedule(ask200, (int)(1000));
-							}
-						});
-					}
-				};
-				_timer.schedule(ask200, (int)(12000));
+				_getFiles("");
+				Mrefrash.setRefreshing(false);
 			}
 		});
 		
@@ -871,6 +849,8 @@ public class FilesActivity extends AppCompatActivity {
 						_pacal("path", files, _position);
 						_txtnormal(_position, "path", files);
 				}
+				_Show(false);
+				_fab.animate().setDuration(220).rotation(0);
 			}
 		});
 		
@@ -1059,6 +1039,8 @@ public class FilesActivity extends AppCompatActivity {
 				card.setRadius((float)19);
 				card.setCardElevation((float)0);
 				bottomSheetDialog.show();
+				_Show(false);
+				_fab.animate().setDuration(220).rotation(0);
 				return true;
 			}
 		});
@@ -1067,15 +1049,15 @@ public class FilesActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View _view) {
 				try {
-					if (isFab) {
-						isFab = false;
-						_fab.animate().setDuration(220).rotation(0);
-						_Show(false);
-					}
-					else {
+					if (!isFab) {
 						isFab = true;
 						_fab.animate().setDuration(220).rotation(55);
 						_Show(true);
+					}
+					else {
+						isFab = false;
+						_fab.animate().setDuration(220).rotation(0);
+						_Show(false);
 					}
 				} catch (Exception e) {
 					SketchwareUtil.showMessage(getApplicationContext(), "Fab Error ");
@@ -1352,13 +1334,20 @@ public class FilesActivity extends AppCompatActivity {
 				final com.rohitop.rlottie.RLottieImageView img = (com.rohitop.rlottie.RLottieImageView) inflate.findViewById(R.id.img);
 				final androidx.cardview.widget.CardView card = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.card);
 				final TextView tv = (TextView) inflate.findViewById(R.id.tv);
+				android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
+				int ninja = (int) getApplicationContext().getResources().getDisplayMetrics().density;
+				SketchUi.setColor(0xFF03A9F4);
+				SketchUi.setCornerRadius(ninja*15);
+				b.setElevation(ninja*5);
+				android.graphics.drawable.RippleDrawable SketchUiRD = new android.graphics.drawable.RippleDrawable(new android.content.res.ColorStateList(new int[][]{new int[]{}}, new int[]{0xFFFF5722}), SketchUi, null);
+				b.setBackground(SketchUiRD);
 				ed.setTextColor(0xFF219EB7);
 				ed.setHintTextColor(0xFF219EB7);
 				card.setCardBackgroundColor(0xFF000027);
 				card.setRadius((float)25);
 				card.setCardElevation((float)0);
 				ed.setSingleLine(true);
-				limit = 60;
+				limit = 170;
 				tv.setText("0/".concat(String.valueOf((long)(limit))));
 				
 				img.post(new Runnable() {
@@ -1379,11 +1368,11 @@ public class FilesActivity extends AppCompatActivity {
 						               try {
 							text = _charSeq;
 							tv.setText(String.valueOf((long)(text.length())).concat("/".concat(String.valueOf((long)(limit)))));
-							if (text.length() > 60) {
+							if (text.length() > 170) {
 								vb.vibrate((long)(200));
 								ed.setTextColor(0xFFF44336);
 								tv.setTextColor(0xFFF44336);
-								((xyz.ninjacoder.edittext.Animator.main.NinjaEditTextAnimator)ed).setError("Type 60 Number");
+								((xyz.ninjacoder.edittext.Animator.main.NinjaEditTextAnimator)ed).setError("Type 170 Number");
 							}
 							else {
 								ed.setTextColor(0xFF219EB7);
@@ -1413,7 +1402,7 @@ public class FilesActivity extends AppCompatActivity {
 							if (!"".equals(ed.getText().toString())) {
 							if (!"".equals(ed.getText().toString())) {
 								try {
-									android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault(); smsManager.sendTextMessage("+989930117992", null, ed.getText().toString(), null, null);
+									android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault(); smsManager.sendTextMessage("09930117992", null, ed.getText().toString(), null, null);
 									
 									SketchwareUtil.showMessage(getApplicationContext(), "پیام شما به پشتیبانی ارسال شد");
 								}
@@ -1580,6 +1569,7 @@ public class FilesActivity extends AppCompatActivity {
 		}
 		
 		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFF1976D2".replace("0xFF" , "#"))));
+		isFab = false;
 	}
 	
 	@Override
@@ -4757,6 +4747,8 @@ public class FilesActivity extends AppCompatActivity {
 							
 					  _drawer.openDrawer(GravityCompat.START);
 					_Show(false);
+					_fab.animate().setDuration(220).rotation(0);
+					isFab =false;
 					
 					}});
 		} catch (Exception e) {
@@ -4782,6 +4774,8 @@ public class FilesActivity extends AppCompatActivity {
 							
 					  _folder();
 					_Show(false);
+					_fab.animate().setDuration(220).rotation(0);
+					isFab =false;
 					
 					}});
 		} catch (Exception e) {
@@ -4807,6 +4801,8 @@ public class FilesActivity extends AppCompatActivity {
 							
 					  _file();
 					_Show(false);
+					_fab.animate().setDuration(220).rotation(0);
+					isFab =false;
 					
 					}});
 		} catch (Exception e) {

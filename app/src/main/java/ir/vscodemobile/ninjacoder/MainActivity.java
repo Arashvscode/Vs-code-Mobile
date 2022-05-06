@@ -35,10 +35,9 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
@@ -53,7 +52,6 @@ import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
 import com.google.android.material.*;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.*;
 import com.googlecode.d2j.*;
@@ -62,6 +60,7 @@ import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
 import com.suke.widget.*;
+import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
 import io.github.rosemoe.sora.langs.textmate.*;
@@ -97,7 +96,7 @@ import io.github.rosemoe.sora.widget.schemes.SchemeNotepadXX;
 import io.github.rosemoe.sora.widget.schemes.SchemeVS2019;
 
 import io.github.rosemoe.sora.langs.universal.*;
-import io.github.rosemoe.sora.langs.html.*;
+
 import io.github.rosemoe.sora.langs.desc.GoDescription;
  import io.github.rosemoe.sora.langs.xml.*;
 import io.github.rosemoe.sora.langs.desc.KotlinDescription;
@@ -124,7 +123,10 @@ import org.*;
 import com.google.android.material.*;
 import java.*;
 import io.github.rosemoe.sora.widget.EditorAutoCompleteWindow;
-import io.github.rosemoe.sora.widget.EditorColorScheme;
+import io.github.rosemoe.sora.widget.EditorColorScheme;
+import android.widget.AdapterView.*;
+import android.text.*;
+import com.google.gson.internal.LinkedTreeMap;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -132,9 +134,6 @@ public class MainActivity extends AppCompatActivity {
 	
 	private Timer _timer = new Timer();
 	
-	private Toolbar _toolbar;
-	private AppBarLayout _app_bar;
-	private CoordinatorLayout _coordinator;
 	private FloatingActionButton _fab;
 	private String HEX = "";
 	private String currentWord = "";
@@ -142,6 +141,14 @@ public class MainActivity extends AppCompatActivity {
 	private String htmlb = "";
 	private boolean bool01 = false;
 	private boolean mm = false;
+	private String save_path = "";
+	private double mseekbarsort = 0;
+	private String mseekbarString = "";
+	private String mpath = "";
+	private String mpack = "";
+	private String mandroidjar = "";
+	private boolean mChack = false;
+	private boolean mbool = false;
 	
 	private ArrayList<String> opt = new ArrayList<>();
 	
@@ -149,20 +156,20 @@ public class MainActivity extends AppCompatActivity {
 	private ImageView bak;
 	private LinearLayout coding;
 	private LinearLayout linear1;
-	private CodeEditor editor;
+	private LinearLayout ll_tabs;
+	private LinearLayout linear12;
 	private LinearLayout fmt;
+	private LinearLayout mset;
+	private ImageView geticon;
+	private TextView gettt;
+	private ImageView imageview9;
+	private CodeEditor editor;
+	private LinearLayout sogole;
 	private HorizontalScrollView hscroll1;
 	private LinearLayout fixbar;
 	private LinearLayout linearbar;
 	private SymbolInputView sysbar;
 	private LinearLayout linear6;
-	private ImageView imageview1;
-	private ImageView imageview2;
-	private ImageView imageview3;
-	private ImageView imageview5;
-	private ImageView imageview4;
-	private ImageView imageview8;
-	private ImageView imageview6;
 	private LinearLayout mcolor;
 	private LinearLayout linear9;
 	private LinearLayout serachbar;
@@ -197,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
 	private SharedPreferences fb;
 	private SharedPreferences noor12;
 	private Notification aram;
+	private SharedPreferences MsortSeekbar;
+	private SharedPreferences mCh;
+	private TimerTask mTimerAsk;
+	private TimerTask mtimer;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -221,38 +232,26 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private void initialize(Bundle _savedInstanceState) {
-		_app_bar = findViewById(R.id._app_bar);
-		_coordinator = findViewById(R.id._coordinator);
-		_toolbar = findViewById(R.id._toolbar);
-		setSupportActionBar(_toolbar);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setHomeButtonEnabled(true);
-		_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _v) {
-				onBackPressed();
-			}
-		});
 		_fab = findViewById(R.id._fab);
 		
 		RelativeLayout = findViewById(R.id.RelativeLayout);
 		bak = findViewById(R.id.bak);
 		coding = findViewById(R.id.coding);
 		linear1 = findViewById(R.id.linear1);
-		editor = findViewById(R.id.editor);
+		ll_tabs = findViewById(R.id.ll_tabs);
+		linear12 = findViewById(R.id.linear12);
 		fmt = findViewById(R.id.fmt);
+		mset = findViewById(R.id.mset);
+		geticon = findViewById(R.id.geticon);
+		gettt = findViewById(R.id.gettt);
+		imageview9 = findViewById(R.id.imageview9);
+		editor = findViewById(R.id.editor);
+		sogole = findViewById(R.id.sogole);
 		hscroll1 = findViewById(R.id.hscroll1);
 		fixbar = findViewById(R.id.fixbar);
 		linearbar = findViewById(R.id.linearbar);
 		sysbar = findViewById(R.id.sysbar);
 		linear6 = findViewById(R.id.linear6);
-		imageview1 = findViewById(R.id.imageview1);
-		imageview2 = findViewById(R.id.imageview2);
-		imageview3 = findViewById(R.id.imageview3);
-		imageview5 = findViewById(R.id.imageview5);
-		imageview4 = findViewById(R.id.imageview4);
-		imageview8 = findViewById(R.id.imageview8);
-		imageview6 = findViewById(R.id.imageview6);
 		mcolor = findViewById(R.id.mcolor);
 		linear9 = findViewById(R.id.linear9);
 		serachbar = findViewById(R.id.serachbar);
@@ -281,57 +280,35 @@ public class MainActivity extends AppCompatActivity {
 		Filepicker.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 		fb = getSharedPreferences("fb", Activity.MODE_PRIVATE);
 		noor12 = getSharedPreferences("1d20", Activity.MODE_PRIVATE);
+		MsortSeekbar = getSharedPreferences("MsortSeekbar", Activity.MODE_PRIVATE);
+		mCh = getSharedPreferences("mCh", Activity.MODE_PRIVATE);
 		
-		imageview1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				editor.moveSelectionUp();
-			}
-		});
-		
-		imageview2.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				editor.moveSelectionDown();
-			}
-		});
-		
-		imageview3.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				editor.moveSelectionLeft();
-			}
-		});
-		
-		imageview5.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				editor.setSelection(editor.getText().getLineCount() - 1, editor.getText().getColumnCount(editor.getText().getLineCount() - 1));
-			}
-		});
-		
-		imageview4.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				editor.moveSelectionRight();
-			}
-		});
-		
-		imageview8.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				try {
-					fixbar.setVisibility(View.VISIBLE);
-				} catch (Exception e) {
-					 
+		//OnTouch
+		imageview9.setOnTouchListener(new View.OnTouchListener(){
+				@Override
+				public boolean onTouch(View v, MotionEvent event){
+						int ev = event.getAction();
+						switch (ev) {
+								case MotionEvent.ACTION_DOWN:
+								
+								 
+								
+								break;
+								case MotionEvent.ACTION_UP:
+								
+								 
+								
+								break;
+						} return true;
 				}
-			}
 		});
 		
-		imageview6.setOnClickListener(new View.OnClickListener() {
+		imageview9.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				editor.moveSelectionHome();
+				editor.setText("");
+				editor.setVisibility(View.GONE);
+				mset.setVisibility(View.GONE);
 			}
 		});
 		
@@ -382,6 +359,7 @@ public class MainActivity extends AppCompatActivity {
 		_fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
+				_myfab(true);
 				if (getIntent().getStringExtra("key").equals("empty")) {
 					
 				}
@@ -424,132 +402,24 @@ public class MainActivity extends AppCompatActivity {
 															   }.create();}
 							
 				}
-				final com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog = new com.google.android.material.bottomsheet.BottomSheetDialog(MainActivity.this);
-				
-				View bottomSheetView; bottomSheetView = getLayoutInflater().inflate(R.layout.pop,null );
-				bottomSheetDialog.setContentView(bottomSheetView);
-				
-				bottomSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
-				
-				LinearLayout bg = (LinearLayout) bottomSheetView.findViewById(R.id.bg);
-				LinearLayout link = (LinearLayout) bottomSheetView.findViewById(R.id.link);
-				LinearLayout run = (LinearLayout) bottomSheetView.findViewById(R.id.run);
-				LinearLayout exit = (LinearLayout) bottomSheetView.findViewById(R.id.exit);
-				{
-					android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-					SketchUi.setColor(0xFF000027);float lt = getDip(24);
-					float rt = getDip(24);
-					float rb = getDip(0);
-					float lb = getDip(0);
-					SketchUi.setCornerRadii(new float[]{
-							lt,lt,rt ,rt,rb,rb ,lb,lb });
-					bg.setElevation(getDip(3));
-					bg.setBackground(SketchUi);
+				if (editor.getText().toString().equals("")) {
+					SketchwareUtil.showMessage(getApplicationContext(), "متن نمیتواند خالی باشد");
 				}
-				run.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
-						
-						_srcruner();
-						bottomSheetDialog.dismiss();
-						
-					}
-				});
-				link.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
-						
-						final LinearLayout lin = new LinearLayout(getApplicationContext()); 
-						lin.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.MATCH_PARENT));
-						lin.setOrientation(LinearLayout.VERTICAL);
-						
-						
-						final Button btn = new Button(getApplicationContext()); 
-						btn.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT));
-						btn.setTextSize((int)16);
-						btn.setTextColor(0xFFFF9800);
-						
-						{
-							android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-							int colors [] = { 0xFF0288D1, 0xFF6DD5ED };
-							SketchUi= new android.graphics.drawable.GradientDrawable(android.graphics.drawable.GradientDrawable.Orientation.TOP_BOTTOM, colors);
-							SketchUi.setCornerRadius(getDip(11));
-							btn.setElevation(getDip(5));
-							android.graphics.drawable.RippleDrawable SketchUi_RD = new android.graphics.drawable.RippleDrawable(new android.content.res.ColorStateList(new int[][]{new int[]{}}, new int[]{0xFFE0E0E0}), SketchUi, null);
-							btn.setBackground(SketchUi_RD);
-						}
-						
-						
-						lin.setBackgroundColor(0xFF000027);
-						lin.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-						lin.setPadding(10,10,10,10);
-						if (Locale.getDefault().getDisplayLanguage().equals("العربية")) {
-								btn.setText("نسخ الكل");
-						}
-						else {
-								btn.setText("copy all");
-						}
-						String[] arr = editor.getText().toString().split(" ");
-						final StringBuilder build = new StringBuilder();
-						
-						
-						final AlertDialog.Builder bui = new AlertDialog.Builder(MainActivity.this);
-						
-						final TextView txt = new TextView(getApplicationContext());
-						txt.setTextColor(0xFFFF9800);
-						txt.setTextIsSelectable(true);
-						
-						
-						txt.setTextSize((float)16);
-						
-						for (String one : arr) {
-								if (one.contains("http")|| one.contains("www")){
-										
-										build.append(one).append("\n");
-										
-										
-										
-								}
-								
-						}
-						
-						txt.setText(build.toString().replace("\"", "").replace("\'", "").replace("(", "").replace(")", "").replace("{", "").replace("}", "").replace("[", "").replace("]", ""));
-						
-						lin.addView(txt);
-						
-						lin.addView(btn);
-						
-						bui.setView(lin);
-						
-						bui.show();
-						txt.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-						txt.setPadding(50,50,8,10);
-						btn.setOnClickListener(new View.OnClickListener() {
+				else {
+					mtimer = new TimerTask() {
+						@Override
+						public void run() {
+							runOnUiThread(new Runnable() {
 								@Override
-								public void onClick(View _view) {
-										try {
-												android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(CLIPBOARD_SERVICE); 
-												ClipData clip = ClipData.newPlainText("label", txt.getText().toString());
-												clipboard.setPrimaryClip(clip);
-										} catch (Exception e) {
-												e.printStackTrace();
-										}
-										if (Locale.getDefault().getDisplayLanguage().equals("العربية")) {
-												SketchwareUtil.showMessage(getApplicationContext(), "تم النسخ");
-										}
-										else {
-												SketchwareUtil.showMessage(getApplicationContext(), "کپی شد");
-										}
+								public void run() {
+									_srcruner();
+									_myfab(false);
 								}
-						});
-						bottomSheetDialog.dismiss();
-						
-					}
-				});
-				exit.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
-						
-						bottomSheetDialog.dismiss();
-						
-					}
-				});
-				bottomSheetDialog.setCancelable(true);
-				bottomSheetDialog.show();
+							});
+						}
+					};
+					_timer.schedule(mtimer, (int)(1000));
+				}
 			}
 		});
 	}
@@ -559,6 +429,7 @@ public class MainActivity extends AppCompatActivity {
 		editor.setLineNumberAlign(Paint.Align.CENTER);
 		
 		
+		gettt.setText(getIntent().getStringExtra("title"));
 		setTitle(getIntent().getStringExtra("title"));
 		setTheme(android.R.style.Theme_Material);
 		editor.setTypefaceLineNumber(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
@@ -574,6 +445,9 @@ public class MainActivity extends AppCompatActivity {
 			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
 		}
 		_libraryjarpack();
+		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFFE91E63".replace("0xFF" , "#"))));
+		bool01 = false;
+		mm = false;
 		fixbar.setVisibility(View.GONE);
 		editor.setTypefaceText(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
@@ -584,7 +458,7 @@ public class MainActivity extends AppCompatActivity {
 		SymbolInputView inputView = findViewById(R.id.sysbar);
 		
 		inputView.bindEditor(editor);
-		inputView.addSymbols(new String[]{"->", "{", "}", "(", ")", ",", "|", ".", ";", "\"", "?", "+", "-", "*", "/"},
+		inputView.addSymbols(new String[]{"->", "{", "}", "(", ")", ",", "|","=","#","!","&","/","%","`","_",";",".", "×", "<",">","\"", "?", "+", "-", "*", "/","<-"},
 		new String[]{"\t", "{}", "}", "(", ")", ",", ".", ";", "|","\"", "?", "+", "-", "*", "/"});
 		
 		hscroll1.setHorizontalScrollBarEnabled(false);
@@ -593,486 +467,310 @@ public class MainActivity extends AppCompatActivity {
 		//editor.setTextActionMode(CodeEditor.TextActionMode.POPUP_WINDOW);
 		//editor.setEdgeEffectColor(Color.RED);
 		
-		editor.setPinLineNumber(!editor.isLineNumberPinned());
-		editor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
+		//editor.setPinLineNumber(!editor.isLineNumberPinned());
+		//editor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
 		
 		_fab.hide();
-		if (getIntent().getStringExtra("title").contains(".css")) {
-			StringBuilder androidcss = new StringBuilder();
-			
-			try {
-				
-				Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-				while (scanner.hasNext()) {
-					androidcss .append(scanner.next());
-				}
-				editor.setText(androidcss );
-			} catch (Exception rt) {
-				rt.printStackTrace();
-			}
-			editor.setColorScheme(new theme());
-			editor.setEditorLanguage(new UniversalLanguage(new CssDescription()));
+		_coderuner();
+		LayoutInflater d = LayoutInflater.from(MainActivity.this);
+		LinearLayout mninjacoder = (LinearLayout) d.inflate(R.layout.editorlayoutmaster, null, false);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
+		mninjacoder.setLayoutParams(params);
+		  
+		final LinearLayout bg = mninjacoder.findViewById(R.id.bg);
+		final LinearLayout savecolor = mninjacoder.findViewById(R.id.savecolor);
+		final ImageView color = mninjacoder.findViewById(R.id.color);
+		final ImageView rep = mninjacoder.findViewById(R.id.rep);
+		final ImageView save = mninjacoder.findViewById(R.id.save);
+		final ImageView undo = mninjacoder.findViewById(R.id.undo);
+		final ImageView redo = mninjacoder.findViewById(R.id.redo);
+		final ImageView edi = mninjacoder.findViewById(R.id.edi);
+		final ImageView del = mninjacoder.findViewById(R.id.del);
+		final ImageView format = mninjacoder.findViewById(R.id.format);
+		final ImageView link = mninjacoder.findViewById(R.id.link);
+		final ImageView blur = mninjacoder.findViewById(R.id.blur);
+		final ImageView fb = mninjacoder.findViewById(R.id.fb);
+		undo.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+		redo.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+		mbool = false;
+		savecolor.setVisibility(View.GONE);
+		if (editor.getText().toString().contains("")) {
+			savecolor.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)200, 0xFFFF9800));
+			savecolor.setVisibility(View.VISIBLE);
 		}
 		else {
-			if (getIntent().getStringExtra("title").contains(".json")) {
-				editor.setColorScheme(new theme());
-				////editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
-				StringBuilder androidpy = new StringBuilder();
+			savecolor.setVisibility(View.GONE);
+		}
+		save.setOnClickListener((view) -> {
+			
+			       if (getIntent().getStringExtra("key").equals("empty")) {
 				
-				try {
-					
-					Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-					while (scanner.hasNext()) {
-						androidpy .append(scanner.next());
-					}
-					editor.setText(androidpy );
-				} catch (Exception rt) {
-					rt.printStackTrace();
-				}
-				_fab.setImageResource(R.drawable.json);
-				_fab.show();
-				le.setTitle("json forrmating??");
-				le.setIcon(R.drawable.cog);
-				le.setMessage("ایا میخواهید فایل : ".concat(getIntent().getStringExtra("title").concat(" مرتب کنید؟")));
-				le.setPositiveButton("بله", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface _dialog, int _which) {
-						{
-							final String json_str = editor.getText().toString();
-							final int indent_width = 1;
-								
-							    final char[] chars = json_str.toCharArray();
-							    final String newline = System.lineSeparator();
-							
-							final boolean[] begin_quotes = {false};
-							   
-							final int[] progres = {0};
-							 
-							final String[] ret = {""};
-							
-							final ProgressDialog prog = new ProgressDialog(MainActivity.this);
-							
-							prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-							
-							prog.setIndeterminate(false);
-							
-							prog.setMax(chars.length);
-							
-							prog.setMessage("Formatting in progress...");
-							
-							prog.setCancelable(false);
-							
-							prog.show();
-							new Thread(new Runnable() {
-									@Override
-									public void run() {
-											Looper.prepare();
-											
-											
-											    for (int i = 0, indent = 0; i < chars.length; i++) {
-													        char c = chars[i];
-													
-													prog.setProgress(i);
-													
-													
-													
-													        if (c == '\"') {
-															            ret[0] += c;
-															            begin_quotes[0] = !begin_quotes[0];
-															            continue;
-															        }
-													
-													        if (!begin_quotes[0]) {
-															            switch (c) {
-																	            case '{':
-																	            case '[':
-																	                ret[0] += c + newline + String.format("%" + (indent += indent_width) + "s", "");
-																	                continue;
-																	            case '}':
-																	            case ']':
-																	                ret[0] += newline + ((indent -= indent_width) > 0 ? String.format("%" + indent + "s", "") : "") + c;
-																	                continue;
-																	            case ':':
-																	                ret[0] += c + " ";
-																	                continue;
-																	            case ',':
-																	                ret[0] += c + newline + (indent > 0 ? String.format("%" + indent + "s", "") : "");
-																	                continue;
-																	            default:
-																	                if (Character.isWhitespace(c)) continue;
-																	            }
-															        }
-													
-													        ret[0] += c + (c == '\\' ? "" + chars[++i] : "");
-													    }
-											
-											    
-											
-											
-											runOnUiThread(new Runnable() {
-													@Override
-													public void run() {
-															
-															
-															
-															prog.dismiss();
-															
-											editor.setText(ret[0]);
-															
-															Looper.loop();
-													} 
-													
-											});
-									}
-							}).start();
-							
-						}
-					}
-				});
-				le.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface _dialog, int _which) {
-						
-					}
-				});
-				le.create().show();
 			}
 			else {
-				if (getIntent().getStringExtra("title").contains(".html")) {
-					StringBuilder androidhtml = new StringBuilder();
+				FileUtil.writeFile(getIntent().getStringExtra("key"), editor.getText().toString());
+						{
+					final Activity activity = MainActivity.this;
+							final Context context = activity.getApplicationContext();
+							final int notificationId = 18;
+							final String channelId = "8";
+							final String channelName = "aram";
+							
+							new androidx.core.app.NotificationCompat.Builder(context, channelId){
+									
+									
+									NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+									Intent intent335 = new Intent();
+															   public void create(){
+							
+																	   intent335.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); 
+																	   PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent335, 0);
+																	   
+																	   if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+																			   NotificationChannel mChannel = new NotificationChannel(
+																				   channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+																			   notificationManager.createNotificationChannel(mChannel);
+																		   }
+																
+							
+							setSmallIcon(R.drawable.vscode);
+							setContentTitle("File saved");
+							setContentText("File saved ".concat(getIntent().getStringExtra("key")));
+							setOngoing(false);
+																	   setAutoCancel(true);
+							setPriority(androidx.core.app.NotificationCompat.PRIORITY_DEFAULT);
+							notificationManager.notify(notificationId, this.build());
+							savecolor.setVisibility(View.GONE);
+							
+																   }
+						
+														   }.create();}
+						
+			}
+			
+			
+		});
+		color.setOnClickListener((view) -> {
+			
+			       _ColorPickerDialog(HEX);
+			
+			
+		});
+		rep.setOnClickListener((view) -> {
+			
+			       try {
+				fixbar.setVisibility(View.VISIBLE);
+			} catch (Exception e) {
+				 
+			}
+			
+			
+		});
+		undo.setOnClickListener((view) -> {
+			
+			       editor.undo();
+			
+			
+		});
+		redo.setOnClickListener((view) -> {
+			
+			       editor.redo();
+			
+			
+		});
+		edi.setOnClickListener((view) -> {
+			
+			       if (!mbool) {
+				mbool = true;
+				edi.setImageResource(R.drawable.eye);
+				editor.setEnabled(true);
+			}
+			else {
+				mbool = false;
+				edi.setImageResource(R.drawable.edit);
+				editor.setEnabled(false);
+			}
+			
+			
+		});
+		format.setOnClickListener((view) -> {
+			
+			       try {
 					
-					try {
-						
-						Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-						while (scanner.hasNext()) {
-							androidhtml .append(scanner.next());
-						}
-						editor.setText(androidhtml );
-					} catch (Exception rt) {
-						rt.printStackTrace();
-					}
-					editor.setColorScheme(new htmltheme());
-					_fab.show();
-					_fab.setImageResource(R.drawable.play);
-					editor.setEditorLanguage(new HTMLLanguage()); 
-				}
-				else {
-					if (getIntent().getStringExtra("title").contains(".java")) {
-						StringBuilder androidjava = new StringBuilder();
-						
-						try {
+					
+					editor.setText(format(editor.getText().toString()));
+			} catch (Exception ninjacoder) {
+					SketchwareUtil.CustomToast(getApplicationContext(), "Error no road Code format", 0xFFFFFFFF, 19, 0xFF3F51B5, 25, SketchwareUtil.TOP);
+			}
+			
+			
+			
+		});
+		link.setOnClickListener((view) -> {
+			
+			       final LinearLayout lin = new LinearLayout(getApplicationContext()); 
+			lin.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.MATCH_PARENT));
+			lin.setOrientation(LinearLayout.VERTICAL);
+			
+			
+			final Button btn = new Button(getApplicationContext()); 
+			btn.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT));
+			btn.setTextSize((int)16);
+			btn.setTextColor(0xFFFF9800);
+			
+			{
+				android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
+				int colors [] = { 0xFF0288D1, 0xFF6DD5ED };
+				SketchUi= new android.graphics.drawable.GradientDrawable(android.graphics.drawable.GradientDrawable.Orientation.TOP_BOTTOM, colors);
+				SketchUi.setCornerRadius(getDip(11));
+				btn.setElevation(getDip(5));
+				android.graphics.drawable.RippleDrawable SketchUi_RD = new android.graphics.drawable.RippleDrawable(new android.content.res.ColorStateList(new int[][]{new int[]{}}, new int[]{0xFFE0E0E0}), SketchUi, null);
+				btn.setBackground(SketchUi_RD);
+			}
+			
+			
+			lin.setBackgroundColor(0xFF000027);
+			lin.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+			lin.setPadding(10,10,10,10);
+			if (Locale.getDefault().getDisplayLanguage().equals("العربية")) {
+					btn.setText("نسخ الكل");
+			}
+			else {
+					btn.setText("copy all");
+			}
+			String[] arr = editor.getText().toString().split(" ");
+			final StringBuilder build = new StringBuilder();
+			
+			
+			final AlertDialog.Builder bui = new AlertDialog.Builder(MainActivity.this);
+			
+			final TextView txt = new TextView(getApplicationContext());
+			txt.setTextColor(0xFFFF9800);
+			txt.setTextIsSelectable(true);
+			
+			
+			txt.setTextSize((float)16);
+			
+			for (String one : arr) {
+					if (one.contains("http")|| one.contains("www")){
 							
-							Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-							while (scanner.hasNext()) {
-								androidjava .append(scanner.next());
-							}
-							editor.setText(androidjava );
-						} catch (Exception rt) {
-							rt.printStackTrace();
-						}
-						editor.setColorScheme(new theme());
-						editor.setEditorLanguage(new JavaLanguage()); 
-						_fab.show();
-					}
-					else {
-						if (getIntent().getStringExtra("title").contains(".sh")) {
-							_fab.show();
-							editor.setColorScheme(new theme());
-							editor.setEditorLanguage(new UniversalLanguage(new ShellDescription()));
-							StringBuilder androidjava = new StringBuilder();
+							build.append(one).append("\n");
 							
+							
+							
+					}
+					
+			}
+			
+			txt.setText(build.toString().replace("\"", "").replace("\'", "").replace("(", "").replace(")", "").replace("{", "").replace("}", "").replace("[", "").replace("]", ""));
+			
+			lin.addView(txt);
+			
+			lin.addView(btn);
+			
+			bui.setView(lin);
+			
+			bui.show();
+			txt.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+			txt.setPadding(50,50,8,10);
+			btn.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View _view) {
 							try {
-								
-								Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-								while (scanner.hasNext()) {
-									androidjava .append(scanner.next());
-								}
-								editor.setText(androidjava );
-							} catch (Exception rt) {
-								rt.printStackTrace();
+									android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(CLIPBOARD_SERVICE); 
+									ClipData clip = ClipData.newPlainText("label", txt.getText().toString());
+									clipboard.setPrimaryClip(clip);
+							} catch (Exception e) {
+									e.printStackTrace();
 							}
-						}
-						else {
-							if (getIntent().getStringExtra("title").contains(".Ac")) {
-								
+							if (Locale.getDefault().getDisplayLanguage().equals("العربية")) {
+									SketchwareUtil.showMessage(getApplicationContext(), "تم النسخ");
 							}
 							else {
-								if (getIntent().getStringExtra("title").contains(".cpp")) {
-									editor.setColorScheme(new theme());
-									
-									editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
-									StringBuilder androidjava = new StringBuilder();
-									
-									try {
-										
-										Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-										while (scanner.hasNext()) {
-											androidjava .append(scanner.next());
-										}
-										editor.setText(androidjava );
-									} catch (Exception rt) {
-										rt.printStackTrace();
-									}
-									_fab.show();
-								}
-								else {
-									if (getIntent().getStringExtra("title").contains(".py")) {
-										editor.setColorScheme(new theme());
-										////editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
-										StringBuilder androidpy = new StringBuilder();
-										
-										try {
-											
-											Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-											while (scanner.hasNext()) {
-												androidpy .append(scanner.next());
-											}
-											editor.setText(androidpy );
-										} catch (Exception rt) {
-											rt.printStackTrace();
-										}
-										editor.setEditorLanguage(new PythonLanguage()); 
-									}
-									else {
-										if (getIntent().getStringExtra("title").contains(".js")) {
-											StringBuilder androidjs = new StringBuilder();
-											
-											try {
-												
-												Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-												while (scanner.hasNext()) {
-													androidjs .append(scanner.next());
-												}
-												editor.setText(androidjs );
-											} catch (Exception rt) {
-												rt.printStackTrace();
-											}
-											editor.setColorScheme(new theme());
-											_fab.show();
-											editor.setEditorLanguage(new UniversalLanguage(new JavaScriptDescription()));
-										}
-										else {
-											if (getIntent().getStringExtra("title").contains(".gradle")) {
-												StringBuilder androidjs = new StringBuilder();
-												
-												try {
-													
-													Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-													while (scanner.hasNext()) {
-														androidjs .append(scanner.next());
-													}
-													editor.setText(androidjs );
-												} catch (Exception rt) {
-													rt.printStackTrace();
-												}
-												editor.setColorScheme(new theme());
-												_fab.hide();
-											}
-											else {
-												if (getIntent().getStringExtra("title").contains(".ninja")) {
-													StringBuilder androidninja = new StringBuilder();
-													
-													try {
-														
-														Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-														while (scanner.hasNext()) {
-															androidninja .append(scanner.next());
-														}
-														editor.setText(androidninja );
-													} catch (Exception rt) {
-														rt.printStackTrace();
-													}
-													editor.setColorScheme(new theme());
-													_fab.hide();
-													editor.setEditorLanguage(new UniversalLanguage(new NINJADescription()));
-												}
-												else {
-													if (getIntent().getStringExtra("title").contains(".dart")) {
-														StringBuilder androiddart = new StringBuilder();
-														
-														try {
-															
-															Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-															while (scanner.hasNext()) {
-																androiddart .append(scanner.next());
-															}
-															editor.setText(androiddart );
-														} catch (Exception rt) {
-															rt.printStackTrace();
-														}
-														editor.setColorScheme(new theme());
-														_fab.hide();
-														editor.setEditorLanguage(new UniversalLanguage(new DartDescription()));
-													}
-													else {
-														if (getIntent().getStringExtra("title").contains(".ninja")) {
-															StringBuilder androiddart = new StringBuilder();
-															
-															try {
-																
-																Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-																while (scanner.hasNext()) {
-																	androiddart .append(scanner.next());
-																}
-																editor.setText(androiddart );
-															} catch (Exception rt) {
-																rt.printStackTrace();
-															}
-															editor.setColorScheme(new theme());
-															_fab.show();
-															editor.setEditorLanguage(new UniversalLanguage(new NINJADescription()));
-														}
-														else {
-															if (getIntent().getStringExtra("title").contains(".rb")) {
-																StringBuilder androidrb = new StringBuilder();
-																
-																try {
-																	
-																	Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-																	while (scanner.hasNext()) {
-																		androidrb .append(scanner.next());
-																	}
-																	editor.setText(androidrb );
-																} catch (Exception rt) {
-																	rt.printStackTrace();
-																}
-																editor.setColorScheme(new theme());
-																_fab.hide();
-																editor.setEditorLanguage(new UniversalLanguage(new RubyDescription()));
-															}
-															else {
-																if (getIntent().getStringExtra("title").contains(".cs")) {
-																	StringBuilder androidcs = new StringBuilder();
-																	
-																	try {
-																		
-																		Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-																		while (scanner.hasNext()) {
-																			androidcs .append(scanner.next());
-																		}
-																		editor.setText(androidcs );
-																	} catch (Exception rt) {
-																		rt.printStackTrace();
-																	}
-																	editor.setColorScheme(new theme());
-																	_fab.hide();
-																	editor.setEditorLanguage(new UniversalLanguage(new sharpDescription()));
-																}
-																else {
-																	if (getIntent().getStringExtra("title").contains(".c")) {
-																		StringBuilder androidc = new StringBuilder();
-																		
-																		try {
-																			
-																			Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-																			while (scanner.hasNext()) {
-																				androidc .append(scanner.next());
-																			}
-																			editor.setText(androidc );
-																		} catch (Exception rt) {
-																			rt.printStackTrace();
-																		}
-																		editor.setColorScheme(new theme());
-																		_fab.show();
-																		editor.setEditorLanguage(new UniversalLanguage(new CDescription()));
-																	}
-																	else {
-																		if (getIntent().getStringExtra("title").contains(".kt")) {
-																			StringBuilder androidc = new StringBuilder();
-																			
-																			try {
-																				
-																				Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-																				while (scanner.hasNext()) {
-																					androidc .append(scanner.next());
-																				}
-																				editor.setText(androidc );
-																			} catch (Exception rt) {
-																				rt.printStackTrace();
-																			}
-																			editor.setColorScheme(new theme());
-																			_fab.hide();
-																			editor.setEditorLanguage(new UniversalLanguage(new KotlinDescription()));
-																		}
-																		else {
-																			if (getIntent().getStringExtra("title").contains(".xml")) {
-																				StringBuilder androidc = new StringBuilder();
-																				
-																				try {
-																					
-																					Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-																					while (scanner.hasNext()) {
-																						androidc .append(scanner.next());
-																					}
-																					editor.setText(androidc );
-																				} catch (Exception rt) {
-																					rt.printStackTrace();
-																				}
-																				editor.setColorScheme(new theme());
-																				_fab.hide();
-																				XMLLanguage xmlLanguage=new XMLLanguage(); xmlLanguage.setSyntaxCheckEnable(true); editor.setEditorLanguage(xmlLanguage);
-																			}
-																			else {
-																				if (getIntent().getStringExtra("title").contains(".pas")) {
-																					StringBuilder androidc = new StringBuilder();
-																					
-																					try {
-																						
-																						Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-																						while (scanner.hasNext()) {
-																							androidc .append(scanner.next());
-																						}
-																						editor.setText(androidc );
-																					} catch (Exception rt) {
-																						rt.printStackTrace();
-																					}
-																					editor.setColorScheme(new theme());
-																					_fab.hide();
-																					editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
-																				}
-																				else {
-																					if (getIntent().getStringExtra("title").contains(".txt")) {
-																						StringBuilder androidtxt = new StringBuilder();
-																						
-																						try {
-																							
-																							Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-																							while (scanner.hasNext()) {
-																								androidtxt .append(scanner.next());
-																							}
-																							editor.setText(androidtxt );
-																						} catch (Exception rt) {
-																							rt.printStackTrace();
-																						}
-																						editor.setColorScheme(new theme());
-																						_fab.hide();
-																						////editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
-																					}
-																					else {
-																						
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
+									SketchwareUtil.showMessage(getApplicationContext(), "کپی شد");
 							}
+					}
+			});
+			
+			
+		});
+		blur.setOnClickListener((view) -> {
+			
+			       final AlertDialog dialog1 = new AlertDialog.Builder(MainActivity.this).create();
+			View inflate = getLayoutInflater().inflate(R.layout.bluer,null); 
+			dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+			dialog1.setView(inflate);
+			final androidx.cardview.widget.CardView card = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.card);
+			final SeekBar sr = (SeekBar) inflate.findViewById(R.id.sr);
+			final LinearLayout mis = (LinearLayout) inflate.findViewById(R.id.mis);
+			try {
+				mseekbarString = MsortSeekbar.getString("seek", "");
+				sr.setProgress((int)Double.parseDouble(mseekbarString));
+			} catch (Exception e) {
+				 
+			}
+			card.setCardBackgroundColor(0xFF000027);
+			card.setRadius((float)25);
+			card.setCardElevation((float)1);
+			sr.getThumb().setColorFilter(Color.parseColor("#FF0095"), PorterDuff.Mode.SRC_IN);
+			sr.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+					@Override
+					public void onProgressChanged(SeekBar _param1, int _param2, boolean _param3) {
+							final int _progressValue = _param2;
+							
+							
+							
+					
+						
+						
+					}
+					
+					@Override
+					public void onStartTrackingTouch(SeekBar _param1) {
+							
+					}
+					
+							@Override
+							public void onStopTrackingTouch(SeekBar _param2) {
+									mseekbarsort = sr.getProgress();
+					MsortSeekbar.edit().putString("seek", String.valueOf((long)(mseekbarsort))).commit();
+					if (mpath.length() > 5) {
+						try {
+							BlurredBitmap bl = new BlurredBitmap();
+							Bitmap a = bl.fastBlur(FileUtil.decodeSampleBitmapFromPath(mpath, 400, 400), 1.0f, sr.getProgress());
+							bak.setImageBitmap(a);
+						} catch (Exception e) {
+							 
 						}
 					}
-				}
-			}
-		}
-		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFFE91E63".replace("0xFF" , "#"))));
-		bool01 = false;
-		mm = false;
+					else {
+						
+					}
+							}
+					});
+			mis.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
+							
+						dialog1.dismiss();
+					
+					}
+			});
+			dialog1.setCancelable(true);
+			dialog1.show();
+			
+			
+		});
+		fb.setOnClickListener((view) -> {
+			
+			       startActivityForResult(Filepicker, REQ_CD_FILEPICKER);
+			
+			
+		});
+		del.setOnClickListener((view) -> {
+			
+			       editor.setText("");
+			
+			
+		});
+		sogole.addView(mninjacoder);
 	}
 	
 	@Override
@@ -1107,92 +805,6 @@ public class MainActivity extends AppCompatActivity {
 	
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuItem menuitem1 = menu.add(Menu.NONE, 0, Menu.NONE, "Undo");
-		menuitem1.setIcon(R.drawable.undo);
-		menuitem1.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		MenuItem menuitem8 = menu.add(Menu.NONE, 8, Menu.NONE, "Redo");
-		menuitem8.setIcon(R.drawable.image);
-		menuitem8.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		MenuItem menuitem6 = menu.add(Menu.NONE, 5, Menu.NONE, "cut");
-		menuitem6.setIcon(R.drawable.cut);
-		menuitem6.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		MenuItem menuitem4 = menu.add(Menu.NONE, 2, Menu.NONE, "file");
-		menuitem4.setIcon(R.drawable.save);
-		menuitem4.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		MenuItem menuitem5 = menu.add(Menu.NONE, 4, Menu.NONE, "color");
-		menuitem5.setIcon(R.drawable.color);
-		menuitem5.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		MenuItem menuitem3 = menu.add(Menu.NONE, 3, Menu.NONE, "all");
-		menuitem3.setIcon(R.drawable.selectall);
-		menuitem3.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		MenuItem menuitem7 = menu.add(Menu.NONE, 6, Menu.NONE, "del");
-		menuitem7.setIcon(R.drawable.del);
-		menuitem7.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		MenuItem menuitem2 = menu.add(Menu.NONE, 1, Menu.NONE, "Redo");
-		menuitem2.setIcon(R.drawable.redo);
-		menuitem2.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		MenuItem Codeformat = menu.add(Menu.NONE, 10, Menu.NONE, "editor.formatCodeAsync");
-		Codeformat.setIcon(R.drawable.formatcodeasync);
-		Codeformat.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		return super.onCreateOptionsMenu(menu);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		final int _id = item.getItemId();
-		final String _title = (String) item.getTitle();
-		if (_id == 0) {
-			if (editor.canUndo()) {
-				editor.undo();
-			}
-		}
-		if (_id == 1) {
-			if (editor.canRedo()) {
-				editor.redo();
-			}
-		}
-		if (_id == 3) {
-			((io.github.rosemoe.sora.widget.CodeEditor)editor).selectAll();
-			
-		}
-		if (_id == 2) {
-			if (getIntent().getStringExtra("save").equals("empty")) {
-				
-			}
-			else {
-				FileUtil.writeFile(getIntent().getStringExtra("save"), editor.getText().toString());
-				_snakbar();
-			}
-		}
-		if (_id == 4) {
-			_ColorPickerDialog(HEX);
-		}
-		if (_id == 5) {
-			try {
-				android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(CLIPBOARD_SERVICE); 
-				ClipData clip = ClipData.newPlainText("label", editor.getText().toString());
-				clipboard.setPrimaryClip(clip);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			editor.setText("");
-		}
-		if (_id == 6) {
-			editor.setText("");
-		}
-		if(_id == 8){
-			startActivityForResult(Filepicker, REQ_CD_FILEPICKER);
-		}
-		if(_id == 10){
-				
-				editor.formatCodeAsync();
-		}
-		
-		return super.onOptionsItemSelected(item);
-	}
-	
-	@Override
 	public void onStart() {
 		super.onStart();
 		_setbackground();
@@ -1205,17 +817,19 @@ public class MainActivity extends AppCompatActivity {
 			btn.setBackground(SketchUi_RD);
 		}
 		{
-			android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-			SketchUi.setColor(0xFF000027);SketchUi.setCornerRadius(getDip(7));
-			search.setElevation(getDip(5));
-			search.setBackground(SketchUi);
+				android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
+				SketchUi.setColor(0xFF000027);SketchUi.setCornerRadius(getDip(7));
+				search.setElevation(getDip(5));
+				search.setBackground(SketchUi);
 		}
+		
 		{
-			android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-			SketchUi.setColor(0xFF000027);SketchUi.setCornerRadius(getDip(7));
-			Replace.setElevation(getDip(5));
-			Replace.setBackground(SketchUi);
+				android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
+				SketchUi.setColor(0xFF000027);SketchUi.setCornerRadius(getDip(7));
+				Replace.setElevation(getDip(5));
+				Replace.setBackground(SketchUi);
 		}
+		
 		editor.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
@@ -1271,6 +885,158 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 		_tanzimat();
+	}
+	private void a(StringBuilder content, int indents) {
+			for(int i = 0; i < indents; i++) {
+					content.append('\t');
+			}
+	}
+	
+	private String format(final String input) {
+			StringBuilder bilder = new StringBuilder();
+			
+			for (String line : editor.getText().toString().split("\n")) {
+					String trims = (line + "X").trim();
+					trims = trims.substring(0, trims.length() - 1);
+					
+					bilder.append(trims);
+					bilder.append("\n");
+			}
+			String s = bilder.toString();
+			
+			try {
+					final StringBuilder sb = new StringBuilder(4096);
+					final char[] charArray = s.toCharArray();
+					final int length = charArray.length;
+					int i = 0;
+					int n = 0;
+					int n2 = 0;
+					int n3 = 0;
+					int n4 = 0;
+					int n5 = 0;
+					int n6 = 0;
+				while (i < length) {
+							final char c = charArray[i];
+							int n10 = 0;
+							int n11 = 0;
+							Label_0094: {
+									Label_0082: {
+											if (n != 0) {
+													if (c == '\n') {
+															sb.append(c);
+															a(sb, n4);
+															n = 0;
+													}
+													else {
+															sb.append(c);
+													}
+											}
+											else if (n2 != 0) {
+													if (c == '*') {
+															final int n7 = i + 1;
+															final char c2 = charArray[n7];
+															if (c2 == '/') {
+																	sb.append(c);
+																	sb.append(c2);
+																	n2 = 0;
+																	i = n7;
+																	break Label_0082;
+															}
+													}
+													sb.append(c);
+													if(c=='\n') a(sb, n4);
+											}
+											else if (n3 != 0) {
+													sb.append(c);
+													n3 = 0;
+											}
+											else if (c == '\\') {
+													sb.append(c);
+													n3 = 1;
+											}
+											else if (n5 != 0) {
+													if (c == '\'') {
+															sb.append(c);
+															n5 = 0;
+													}
+													else {
+															sb.append(c);
+													}
+											}
+											else if (n6 != 0) {
+													if (c == '\"') {
+															sb.append(c);
+															n6 = 0;
+													}
+													else {
+															sb.append(c);
+													}
+											}
+											else {
+													if (c == '/') {
+															final int n8 = i + 1;
+															final char c3 = charArray[n8];
+															if (c3 == '/') {
+																	sb.append(c);
+																	sb.append(c3);
+																	n = 1;
+																	i = n8;
+																	break Label_0082;
+															}
+															if (c3 == '*') {
+																	sb.append(c);
+																	sb.append(c3);
+																	n2 = 1;
+																	i = n8;
+																	break Label_0082;
+															}
+													}
+													if (c != '\n') {
+															if (c == '\'') {
+																	n5 = 1;
+															}
+															int n9;
+															if (c == '\"') {
+																	n9 = 1;
+															}
+															else {
+																	n9 = n6;
+															}
+															if (c == '{') {
+																	++n4;
+															}
+															n10 = n4;
+															if (c == '}') {
+																	n10 = --n4;
+																	if (sb.charAt(sb.length() - 1) == '\t') {
+																			sb.deleteCharAt(sb.length() - 1);
+																			n10 = n4;
+																	}
+															}
+															sb.append(c);
+															n11 = n9;
+															break Label_0094;
+													}
+													sb.append(c);
+													a(sb, n4);
+											}
+									}
+									final int n12 = n6;
+									n10 = n4;
+									n11 = n12;
+							}
+							++i;
+							final int n13 = n10;
+							n6 = n11;
+							n4 = n13;
+					}
+					return sb.toString();
+			} catch (Exception e) {
+					return input;
+			}
+	}
+	
+	{
 	}
 	public void _ColorPickerDialog(final String _Hex) {
 		final AlertDialog ColorPicker = new AlertDialog.Builder(MainActivity.this).create();
@@ -1867,6 +1633,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 		if (FileUtil.isExistFile(fb.getString("set", ""))) {
 			bak.setImageBitmap(FileUtil.decodeSampleBitmapFromPath(fb.getString("set", ""), 1024, 1024));
+			mpath = fb.getString("set", "");
 		}
 	}
 	
@@ -1913,7 +1680,14 @@ public class MainActivity extends AppCompatActivity {
 										SketchwareUtil.showMessage(getApplicationContext(), "Error Not found class Arr.ninja()->().public class Error not found()");
 									}
 									else {
-										
+										if (getIntent().getStringExtra("key").contains(".xml")) {
+											in.setClass(getApplicationContext(), LayoutxmlviewerActivity.class);
+											in.putExtra("view", editor.getText().toString().trim());
+											startActivity(in);
+										}
+										else {
+											
+										}
 									}
 								}
 							}
@@ -1974,6 +1748,732 @@ public class MainActivity extends AppCompatActivity {
 	
 	public void _setbackground() {
 		
+	}
+	
+	
+	public void _blure() {
+	}
+	public class BlurredBitmap{
+		
+		public Bitmap fastBlur(Bitmap sentBitmap, float scale, int radius) {
+						Bitmap bitmap = null;
+				
+							if(sentBitmap!=null) {
+								int width = Math.round(sentBitmap.getWidth() * scale);
+								int height = Math.round(sentBitmap.getHeight() * scale);
+								sentBitmap = Bitmap.createScaledBitmap(sentBitmap, width, height, false);
+								
+								 bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
+								
+								if (radius < 1) {
+											return (null);
+								}
+								
+								int w = bitmap.getWidth();
+								int h = bitmap.getHeight();
+								
+								int[] pix = new int[w * h];
+								//	Log.e("pix", w + " " + h + " " + pix.length);
+								bitmap.getPixels(pix, 0, w, 0, 0, w, h);
+								
+								int wm = w - 1;
+								int hm = h - 1;
+								int wh = w * h;
+								int div = radius + radius + 1;
+								
+								int r[] = new int[wh];
+								int g[] = new int[wh];
+								int b[] = new int[wh];
+								int rsum, gsum, bsum, x, y, i, p, yp, yi, yw;
+								int vmin[] = new int[Math.max(w, h)];
+								
+								int divsum = (div + 1) >> 1;
+								divsum *= divsum;
+								int dv[] = new int[256 * divsum];
+								for (i = 0; i < 256 * divsum; i++) {
+											dv[i] = (i / divsum);
+								}
+								
+								yw = yi = 0;
+								
+								int[][] stack = new int[div][3];
+								int stackpointer;
+								int stackstart;
+								int[] sir;
+								int rbs;
+								int r1 = radius + 1;
+								int routsum, goutsum, boutsum;
+								int rinsum, ginsum, binsum;
+								
+								for (y = 0; y < h; y++) {
+											rinsum = ginsum = binsum = routsum = goutsum = boutsum = rsum = gsum = bsum = 0;
+											for (i = -radius; i <= radius; i++) {
+														p = pix[yi + Math.min(wm, Math.max(i, 0))];
+														sir = stack[i + radius];
+														sir[0] = (p & 0xff0000) >> 16;
+														sir[1] = (p & 0x00ff00) >> 8;
+														sir[2] = (p & 0x0000ff);
+														rbs = r1 - Math.abs(i);
+														rsum += sir[0] * rbs;
+														gsum += sir[1] * rbs;
+														bsum += sir[2] * rbs;
+														if (i > 0) {
+																	rinsum += sir[0];
+																	ginsum += sir[1];
+																	binsum += sir[2];
+														} else {
+																	routsum += sir[0];
+																	goutsum += sir[1];
+																	boutsum += sir[2];
+														}
+											}
+											stackpointer = radius;
+											
+											for (x = 0; x < w; x++) {
+														
+														r[yi] = dv[rsum];
+														g[yi] = dv[gsum];
+														b[yi] = dv[bsum];
+														
+														rsum -= routsum;
+														gsum -= goutsum;
+														bsum -= boutsum;
+														
+														stackstart = stackpointer - radius + div;
+														sir = stack[stackstart % div];
+														
+														routsum -= sir[0];
+														goutsum -= sir[1];
+														boutsum -= sir[2];
+														
+														if (y == 0) {
+																	vmin[x] = Math.min(x + radius + 1, wm);
+														}
+														p = pix[yw + vmin[x]];
+														
+														sir[0] = (p & 0xff0000) >> 16;
+														sir[1] = (p & 0x00ff00) >> 8;
+														sir[2] = (p & 0x0000ff);
+														
+														rinsum += sir[0];
+														ginsum += sir[1];
+														binsum += sir[2];
+														
+														rsum += rinsum;
+														gsum += ginsum;
+														bsum += binsum;
+														
+														stackpointer = (stackpointer + 1) % div;
+														sir = stack[(stackpointer) % div];
+														
+														routsum += sir[0];
+														goutsum += sir[1];
+														boutsum += sir[2];
+														
+														rinsum -= sir[0];
+														ginsum -= sir[1];
+														binsum -= sir[2];
+														
+														yi++;
+											}
+											yw += w;
+								}
+								for (x = 0; x < w; x++) {
+											rinsum = ginsum = binsum = routsum = goutsum = boutsum = rsum = gsum = bsum = 0;
+											yp = -radius * w;
+											for (i = -radius; i <= radius; i++) {
+														yi = Math.max(0, yp) + x;
+														
+														sir = stack[i + radius];
+														
+														sir[0] = r[yi];
+														sir[1] = g[yi];
+														sir[2] = b[yi];
+														
+														rbs = r1 - Math.abs(i);
+														
+														rsum += r[yi] * rbs;
+														gsum += g[yi] * rbs;
+														bsum += b[yi] * rbs;
+														
+														if (i > 0) {
+																	rinsum += sir[0];
+																	ginsum += sir[1];
+																	binsum += sir[2];
+														} else {
+																	routsum += sir[0];
+																	goutsum += sir[1];
+																	boutsum += sir[2];
+														}
+														
+														if (i < hm) {
+																	yp += w;
+														}
+											}
+											yi = x;
+											stackpointer = radius;
+											for (y = 0; y < h; y++) {
+														// Preserve alpha channel: ( 0xff000000 & pix[yi] )
+														pix[yi] = ( 0xff000000 & pix[yi] ) | ( dv[rsum] << 16 ) | ( dv[gsum] << 8 ) | dv[bsum];
+														
+														rsum -= routsum;
+														gsum -= goutsum;
+														bsum -= boutsum;
+														
+														stackstart = stackpointer - radius + div;
+														sir = stack[stackstart % div];
+														
+														routsum -= sir[0];
+														goutsum -= sir[1];
+														boutsum -= sir[2];
+														
+														if (x == 0) {
+																	vmin[y] = Math.min(y + r1, hm) * w;
+														}
+														p = x + vmin[y];
+														
+														sir[0] = r[p];
+														sir[1] = g[p];
+														sir[2] = b[p];
+														
+														rinsum += sir[0];
+														ginsum += sir[1];
+														binsum += sir[2];
+														
+														rsum += rinsum;
+														gsum += ginsum;
+														bsum += binsum;
+														
+														stackpointer = (stackpointer + 1) % div;
+														sir = stack[stackpointer];
+														
+														routsum += sir[0];
+														goutsum += sir[1];
+														boutsum += sir[2];
+														
+														rinsum -= sir[0];
+														ginsum -= sir[1];
+														binsum -= sir[2];
+														
+														yi += w;
+											}
+								}
+								
+								//	Log.e("pix", w + " " + h + " " + pix.length);
+								bitmap.setPixels(pix, 0, w, 0, 0, w, h);
+							} 
+							return (bitmap);
+			
+				}
+	}
+	
+	
+	public void _myfab(final boolean _see) {
+		try {
+			if (_see) {
+				_fab.setEnabled(false);
+				mChack = false;
+				_fab.setImageResource(R.drawable.loading);
+				mTimerAsk = new TimerTask() {
+					@Override
+					public void run() {
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!mChack) {
+									_fab.setRotation((float)(_fab.getRotation() + 11));
+								}
+							}
+						});
+					}
+				};
+				_timer.scheduleAtFixedRate(mTimerAsk, (int)(0), (int)(20));
+			}
+			else {
+				_fab.setImageResource(R.drawable.play);
+				mTimerAsk.cancel();
+				_fab.setRotation((float)(0));
+				_fab.setEnabled(true);
+				mChack = true;
+			}
+		} catch (Exception e) {
+			SketchwareUtil.showMessage(getApplicationContext(), "Error Fab");
+		}
+	}
+	
+	
+	public void _coderuner() {
+		if (getIntent().getStringExtra("title").contains(".css")) {
+			StringBuilder androidcss = new StringBuilder();
+			
+			try {
+				
+				Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+				while (scanner.hasNext()) {
+					androidcss .append(scanner.next());
+				}
+				editor.setText(androidcss );
+			} catch (Exception rt) {
+				rt.printStackTrace();
+			}
+			editor.setColorScheme(new theme());
+			editor.setEditorLanguage(new UniversalLanguage(new CssDescription()));
+			geticon.setImageResource(R.drawable.css);
+		}
+		else {
+			if (getIntent().getStringExtra("title").contains(".json")) {
+				editor.setColorScheme(new theme());
+				////editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
+				StringBuilder androidpy = new StringBuilder();
+				
+				try {
+					
+					Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+					while (scanner.hasNext()) {
+						androidpy .append(scanner.next());
+					}
+					editor.setText(androidpy );
+				} catch (Exception rt) {
+					rt.printStackTrace();
+				}
+				_fab.setImageResource(R.drawable.json);
+				_fab.show();
+				le.setTitle("json forrmating??");
+				le.setIcon(R.drawable.cog);
+				le.setMessage("ایا میخواهید فایل : ".concat(getIntent().getStringExtra("title").concat(" مرتب کنید؟")));
+				le.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface _dialog, int _which) {
+						{
+							final String json_str = editor.getText().toString();
+							final int indent_width = 1;
+								
+							    final char[] chars = json_str.toCharArray();
+							    final String newline = System.lineSeparator();
+							
+							final boolean[] begin_quotes = {false};
+							   
+							final int[] progres = {0};
+							 
+							final String[] ret = {""};
+							
+							final ProgressDialog prog = new ProgressDialog(MainActivity.this);
+							
+							prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+							
+							prog.setIndeterminate(false);
+							
+							prog.setMax(chars.length);
+							
+							prog.setMessage("Formatting in progress...");
+							
+							prog.setCancelable(false);
+							
+							prog.show();
+							new Thread(new Runnable() {
+									@Override
+									public void run() {
+											Looper.prepare();
+											
+											
+											    for (int i = 0, indent = 0; i < chars.length; i++) {
+													        char c = chars[i];
+													
+													prog.setProgress(i);
+													
+													
+													
+													        if (c == '\"') {
+															            ret[0] += c;
+															            begin_quotes[0] = !begin_quotes[0];
+															            continue;
+															        }
+													
+													        if (!begin_quotes[0]) {
+															            switch (c) {
+																	            case '{':
+																	            case '[':
+																	                ret[0] += c + newline + String.format("%" + (indent += indent_width) + "s", "");
+																	                continue;
+																	            case '}':
+																	            case ']':
+																	                ret[0] += newline + ((indent -= indent_width) > 0 ? String.format("%" + indent + "s", "") : "") + c;
+																	                continue;
+																	            case ':':
+																	                ret[0] += c + " ";
+																	                continue;
+																	            case ',':
+																	                ret[0] += c + newline + (indent > 0 ? String.format("%" + indent + "s", "") : "");
+																	                continue;
+																	            default:
+																	                if (Character.isWhitespace(c)) continue;
+																	            }
+															        }
+													
+													        ret[0] += c + (c == '\\' ? "" + chars[++i] : "");
+													    }
+											
+											    
+											
+											
+											runOnUiThread(new Runnable() {
+													@Override
+													public void run() {
+															
+															
+															
+															prog.dismiss();
+															
+											editor.setText(ret[0]);
+															
+															Looper.loop();
+													} 
+													
+											});
+									}
+							}).start();
+							
+						}
+					}
+				});
+				le.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface _dialog, int _which) {
+						
+					}
+				});
+				le.create().show();
+			}
+			else {
+				if (getIntent().getStringExtra("title").contains(".html")) {
+					StringBuilder androidhtml = new StringBuilder();
+					
+					try {
+						
+						Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+						while (scanner.hasNext()) {
+							androidhtml .append(scanner.next());
+						}
+						editor.setText(androidhtml );
+					} catch (Exception rt) {
+						rt.printStackTrace();
+					}
+					editor.setColorScheme(new htmltheme());
+					_fab.show();
+					geticon.setImageResource(R.drawable.html);
+					_fab.setImageResource(R.drawable.play);
+					editor.setEditorLanguage(new HTMLLanguage()); 
+				}
+				else {
+					if (getIntent().getStringExtra("title").contains(".java")) {
+						StringBuilder androidjava = new StringBuilder();
+						
+						try {
+							
+							Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+							while (scanner.hasNext()) {
+								androidjava .append(scanner.next());
+							}
+							editor.setText(androidjava );
+						} catch (Exception rt) {
+							rt.printStackTrace();
+						}
+						editor.setColorScheme(new theme());
+						editor.setEditorLanguage(new JavaLanguage()); 
+						_fab.show();
+						geticon.setImageResource(R.drawable.java);
+					}
+					else {
+						if (getIntent().getStringExtra("title").contains(".sh")) {
+							_fab.show();
+							editor.setColorScheme(new theme());
+							editor.setEditorLanguage(new UniversalLanguage(new ShellDescription()));
+							geticon.setImageResource(R.drawable.shell);
+							StringBuilder androidjava = new StringBuilder();
+							
+							try {
+								
+								Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+								while (scanner.hasNext()) {
+									androidjava .append(scanner.next());
+								}
+								editor.setText(androidjava );
+							} catch (Exception rt) {
+								rt.printStackTrace();
+							}
+						}
+						else {
+							if (getIntent().getStringExtra("title").contains(".Ac")) {
+								
+							}
+							else {
+								if (getIntent().getStringExtra("title").contains(".cpp")) {
+									editor.setColorScheme(new theme());
+									
+									editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
+									geticon.setImageResource(R.drawable.cpp);
+									StringBuilder androidjava = new StringBuilder();
+									
+									try {
+										
+										Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+										while (scanner.hasNext()) {
+											androidjava .append(scanner.next());
+										}
+										editor.setText(androidjava );
+									} catch (Exception rt) {
+										rt.printStackTrace();
+									}
+									_fab.show();
+								}
+								else {
+									if (getIntent().getStringExtra("title").contains(".py")) {
+										editor.setColorScheme(new theme());
+										////editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
+										StringBuilder androidpy = new StringBuilder();
+										
+										try {
+											
+											Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+											while (scanner.hasNext()) {
+												androidpy .append(scanner.next());
+											}
+											editor.setText(androidpy );
+										} catch (Exception rt) {
+											rt.printStackTrace();
+										}
+										editor.setEditorLanguage(new PythonLanguage()); 
+										geticon.setImageResource(R.drawable.py);
+									}
+									else {
+										if (getIntent().getStringExtra("title").contains(".js")) {
+											StringBuilder androidjs = new StringBuilder();
+											
+											try {
+												
+												Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+												while (scanner.hasNext()) {
+													androidjs .append(scanner.next());
+												}
+												editor.setText(androidjs );
+											} catch (Exception rt) {
+												rt.printStackTrace();
+											}
+											editor.setColorScheme(new theme());
+											_fab.show();
+											geticon.setImageResource(R.drawable.javascr);
+											editor.setEditorLanguage(new UniversalLanguage(new JavaScriptDescription()));
+										}
+										else {
+											if (getIntent().getStringExtra("title").contains(".gradle")) {
+												StringBuilder androidjs = new StringBuilder();
+												
+												try {
+													
+													Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+													while (scanner.hasNext()) {
+														androidjs .append(scanner.next());
+													}
+													editor.setText(androidjs );
+												} catch (Exception rt) {
+													rt.printStackTrace();
+												}
+												editor.setColorScheme(new theme());
+												_fab.hide();
+												bak.setImageResource(R.drawable.gra);
+											}
+											else {
+												if (getIntent().getStringExtra("title").contains(".ninja")) {
+													StringBuilder androidninja = new StringBuilder();
+													
+													try {
+														
+														Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+														while (scanner.hasNext()) {
+															androidninja .append(scanner.next());
+														}
+														editor.setText(androidninja );
+													} catch (Exception rt) {
+														rt.printStackTrace();
+													}
+													editor.setColorScheme(new theme());
+													_fab.show();
+													editor.setEditorLanguage(new UniversalLanguage(new NINJADescription()));
+													bak.setImageResource(R.drawable.ninjas);
+												}
+												else {
+													if (getIntent().getStringExtra("title").contains(".dart")) {
+														StringBuilder androiddart = new StringBuilder();
+														
+														try {
+															
+															Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+															while (scanner.hasNext()) {
+																androiddart .append(scanner.next());
+															}
+															editor.setText(androiddart );
+														} catch (Exception rt) {
+															rt.printStackTrace();
+														}
+														editor.setColorScheme(new theme());
+														_fab.hide();
+														editor.setEditorLanguage(new UniversalLanguage(new DartDescription()));
+														geticon.setImageResource(R.drawable.dex);
+													}
+													else {
+														if (getIntent().getStringExtra("title").contains(".493929292947fjrj")) {
+															
+														}
+														else {
+															if (getIntent().getStringExtra("title").contains(".rb")) {
+																StringBuilder androidrb = new StringBuilder();
+																
+																try {
+																	
+																	Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																	while (scanner.hasNext()) {
+																		androidrb .append(scanner.next());
+																	}
+																	editor.setText(androidrb );
+																} catch (Exception rt) {
+																	rt.printStackTrace();
+																}
+																editor.setColorScheme(new theme());
+																_fab.hide();
+																editor.setEditorLanguage(new UniversalLanguage(new RubyDescription()));
+															}
+															else {
+																if (getIntent().getStringExtra("title").contains(".cs")) {
+																	StringBuilder androidcs = new StringBuilder();
+																	
+																	try {
+																		
+																		Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																		while (scanner.hasNext()) {
+																			androidcs .append(scanner.next());
+																		}
+																		editor.setText(androidcs );
+																	} catch (Exception rt) {
+																		rt.printStackTrace();
+																	}
+																	editor.setColorScheme(new theme());
+																	_fab.hide();
+																	editor.setEditorLanguage(new UniversalLanguage(new sharpDescription()));
+																}
+																else {
+																	if (getIntent().getStringExtra("title").contains(".c")) {
+																		StringBuilder androidc = new StringBuilder();
+																		
+																		try {
+																			
+																			Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																			while (scanner.hasNext()) {
+																				androidc .append(scanner.next());
+																			}
+																			editor.setText(androidc );
+																		} catch (Exception rt) {
+																			rt.printStackTrace();
+																		}
+																		editor.setColorScheme(new theme());
+																		_fab.show();
+																		editor.setEditorLanguage(new UniversalLanguage(new CDescription()));
+																		geticon.setImageResource(R.drawable.cpp);
+																	}
+																	else {
+																		if (getIntent().getStringExtra("title").contains(".kt")) {
+																			StringBuilder androidc = new StringBuilder();
+																			
+																			try {
+																				
+																				Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																				while (scanner.hasNext()) {
+																					androidc .append(scanner.next());
+																				}
+																				editor.setText(androidc );
+																			} catch (Exception rt) {
+																				rt.printStackTrace();
+																			}
+																			editor.setColorScheme(new theme());
+																			_fab.hide();
+																			editor.setEditorLanguage(new UniversalLanguage(new KotlinDescription()));
+																		}
+																		else {
+																			if (getIntent().getStringExtra("title").contains(".xml")) {
+																				StringBuilder androidc = new StringBuilder();
+																				
+																				try {
+																					
+																					Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																					while (scanner.hasNext()) {
+																						androidc .append(scanner.next());
+																					}
+																					editor.setText(androidc );
+																				} catch (Exception rt) {
+																					rt.printStackTrace();
+																				}
+																				editor.setColorScheme(new theme());
+																				_fab.show();
+																				XMLLanguage xmlLanguage=new XMLLanguage(); xmlLanguage.setSyntaxCheckEnable(true); editor.setEditorLanguage(xmlLanguage);
+																			}
+																			else {
+																				if (getIntent().getStringExtra("title").contains(".pas")) {
+																					StringBuilder androidc = new StringBuilder();
+																					
+																					try {
+																						
+																						Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																						while (scanner.hasNext()) {
+																							androidc .append(scanner.next());
+																						}
+																						editor.setText(androidc );
+																					} catch (Exception rt) {
+																						rt.printStackTrace();
+																					}
+																					editor.setColorScheme(new theme());
+																					_fab.hide();
+																					editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
+																				}
+																				else {
+																					if (getIntent().getStringExtra("title").contains(".txt")) {
+																						StringBuilder androidtxt = new StringBuilder();
+																						
+																						try {
+																							
+																							Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																							while (scanner.hasNext()) {
+																								androidtxt .append(scanner.next());
+																							}
+																							editor.setText(androidtxt );
+																						} catch (Exception rt) {
+																							rt.printStackTrace();
+																						}
+																						editor.setColorScheme(new theme());
+																						_fab.hide();
+																						////editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
+																						geticon.setImageResource(R.drawable.txt);
+																					}
+																					else {
+																						
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	

@@ -64,6 +64,7 @@ import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
 import com.suke.widget.*;
+import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
 import io.github.rosemoe.sora.langs.textmate.*;
@@ -5434,11 +5435,11 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 			else {
 				if (sp.getString("theme", "").equals("day")) {
 					if (_data.get((int)_position).get("name").toString().equals(sp.getString("pos", ""))) {
-						cardview1.setCardBackgroundColor(0xFF000027);
+						cardview1.setCardBackgroundColor(0xFF000062);
 						name.setTextColor(0xFFFFFFFF);
 					}
 					else {
-						cardview1.setCardBackgroundColor(0xFF000027);
+						cardview1.setCardBackgroundColor(0xFF000062);
 						name.setTextColor(0xFFFFFFFF);
 					}
 				}

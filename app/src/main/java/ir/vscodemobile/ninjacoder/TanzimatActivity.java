@@ -48,6 +48,7 @@ import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
 import com.suke.widget.*;
+import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
 import io.github.rosemoe.sora.langs.textmate.*;
@@ -93,17 +94,17 @@ public class TanzimatActivity extends AppCompatActivity {
 	private LinearLayout linear8;
 	private LinearLayout linear9;
 	private SwitchCompat switch1;
-	private TextView textview2;
+	private TextView word;
 	private SwitchCompat switch2;
-	private TextView textview3;
+	private TextView set;
 	private SwitchCompat switch4;
-	private TextView textview5;
+	private TextView line;
 	private SwitchCompat switch3;
-	private TextView textview4;
+	private TextView showline;
 	private SwitchCompat switch5;
-	private TextView textview6;
+	private TextView sysbar;
 	private SwitchCompat switch6;
-	private TextView textview7;
+	private TextView autotext;
 	private LinearLayout linear11;
 	private LinearLayout installweb;
 	private TextView textview8;
@@ -112,18 +113,18 @@ public class TanzimatActivity extends AppCompatActivity {
 	private LinearLayout linear14;
 	private LinearLayout linear15;
 	private SwitchCompat switch7;
-	private TextView textview9;
+	private TextView webzoomSp;
 	private SwitchCompat switch8;
-	private TextView textview10;
+	private TextView webjs;
 	private SwitchCompat switch9;
-	private TextView textview11;
+	private TextView webdrak;
 	private LinearLayout linear17;
 	private LinearLayout otherhiden;
 	private TextView textview12;
 	private ImageView imageleft;
 	private LinearLayout linear19;
 	private SwitchCompat switch10;
-	private TextView textview13;
+	private TextView autosavefile;
 	
 	private SharedPreferences r1;
 	private SharedPreferences r2;
@@ -178,17 +179,17 @@ public class TanzimatActivity extends AppCompatActivity {
 		linear8 = findViewById(R.id.linear8);
 		linear9 = findViewById(R.id.linear9);
 		switch1 = findViewById(R.id.switch1);
-		textview2 = findViewById(R.id.textview2);
+		word = findViewById(R.id.word);
 		switch2 = findViewById(R.id.switch2);
-		textview3 = findViewById(R.id.textview3);
+		set = findViewById(R.id.set);
 		switch4 = findViewById(R.id.switch4);
-		textview5 = findViewById(R.id.textview5);
+		line = findViewById(R.id.line);
 		switch3 = findViewById(R.id.switch3);
-		textview4 = findViewById(R.id.textview4);
+		showline = findViewById(R.id.showline);
 		switch5 = findViewById(R.id.switch5);
-		textview6 = findViewById(R.id.textview6);
+		sysbar = findViewById(R.id.sysbar);
 		switch6 = findViewById(R.id.switch6);
-		textview7 = findViewById(R.id.textview7);
+		autotext = findViewById(R.id.autotext);
 		linear11 = findViewById(R.id.linear11);
 		installweb = findViewById(R.id.installweb);
 		textview8 = findViewById(R.id.textview8);
@@ -197,18 +198,18 @@ public class TanzimatActivity extends AppCompatActivity {
 		linear14 = findViewById(R.id.linear14);
 		linear15 = findViewById(R.id.linear15);
 		switch7 = findViewById(R.id.switch7);
-		textview9 = findViewById(R.id.textview9);
+		webzoomSp = findViewById(R.id.webzoomSp);
 		switch8 = findViewById(R.id.switch8);
-		textview10 = findViewById(R.id.textview10);
+		webjs = findViewById(R.id.webjs);
 		switch9 = findViewById(R.id.switch9);
-		textview11 = findViewById(R.id.textview11);
+		webdrak = findViewById(R.id.webdrak);
 		linear17 = findViewById(R.id.linear17);
 		otherhiden = findViewById(R.id.otherhiden);
 		textview12 = findViewById(R.id.textview12);
 		imageleft = findViewById(R.id.imageleft);
 		linear19 = findViewById(R.id.linear19);
 		switch10 = findViewById(R.id.switch10);
-		textview13 = findViewById(R.id.textview13);
+		autosavefile = findViewById(R.id.autosavefile);
 		r1 = getSharedPreferences("r1", Activity.MODE_PRIVATE);
 		r2 = getSharedPreferences("r2", Activity.MODE_PRIVATE);
 		Assin = getSharedPreferences("Assin", Activity.MODE_PRIVATE);
@@ -248,9 +249,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				final boolean _isChecked = _param2;
 				if (_isChecked) {
 					r1.edit().putString("repu", "cd").commit();
+					word.setText("Word Wrap on");
 				}
 				else {
 					r1.edit().putString("repu", "dc").commit();
+					word.setText("Word Wrap off");
 				}
 			}
 		});
@@ -261,9 +264,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				final boolean _isChecked = _param2;
 				if (_isChecked) {
 					Assin.edit().putString("ok1", "oks").commit();
+					set.setText("Set Overscrolll on");
 				}
 				else {
 					Assin.edit().putString("ok1", "nos").commit();
+					set.setText("Set Overscrolll off");
 				}
 			}
 		});
@@ -274,9 +279,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				final boolean _isChecked = _param2;
 				if (_isChecked) {
 					pin.edit().putString("Pin", "true").commit();
+					line.setText("Set Overscrolll on");
 				}
 				else {
 					pin.edit().putString("Pin", "false").commit();
+					line.setText("Set Overscrolll off");
 				}
 			}
 		});
@@ -287,9 +294,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				final boolean _isChecked = _param2;
 				if (_isChecked) {
 					lin.edit().putString("vi", "true").commit();
+					showline.setText("Show line on");
 				}
 				else {
 					lin.edit().putString("vi", "false").commit();
+					showline.setText("Show line off");
 				}
 			}
 		});
@@ -300,9 +309,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				final boolean _isChecked = _param2;
 				if (_isChecked) {
 					sys.edit().putString("Mpass", "true").commit();
+					sysbar.setText("Show symbol bar on");
 				}
 				else {
 					sys.edit().putString("Mpass", "false").commit();
+					sysbar.setText("Show symbol bar off");
 				}
 			}
 		});
@@ -313,9 +324,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				final boolean _isChecked = _param2;
 				if (_isChecked) {
 					Zb.edit().putString("Over", "true").commit();
+					autotext.setText("AutoTextComplete on");
 				}
 				else {
 					Zb.edit().putString("Over", "false").commit();
+					autotext.setText("AutoTextComplete off");
 				}
 			}
 		});
@@ -342,9 +355,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				final boolean _isChecked = _param2;
 				if (_isChecked) {
 					webjavasce.edit().putString("Qjava", "true").commit();
+					webzoomSp.setText("Web Zoom support on");
 				}
 				else {
 					webjavasce.edit().putString("Qjava", "false").commit();
+					webzoomSp.setText("Web Zoom support off");
 				}
 			}
 		});
@@ -355,9 +370,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				final boolean _isChecked = _param2;
 				if (_isChecked) {
 					Rjavapath.edit().putString("Xcdm", "true").commit();
+					webjs.setText("Web Javascript support on");
 				}
 				else {
 					Rjavapath.edit().putString("Xcdm", "false").commit();
+					webjs.setText("Web Javascript support off");
 				}
 			}
 		});
@@ -368,9 +385,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				final boolean _isChecked = _param2;
 				if (_isChecked) {
 					Dark.edit().putString("IDark", "true").commit();
+					webdrak.setText("Web Dark on");
 				}
 				else {
 					Dark.edit().putString("IDark", "false").commit();
+					webdrak.setText("Web Dark off");
 				}
 			}
 		});
@@ -397,9 +416,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				final boolean _isChecked = _param2;
 				if (_isChecked) {
 					autosave.edit().putString("Va", "true").commit();
+					autosavefile.setText("Auto Save on");
 				}
 				else {
 					autosave.edit().putString("Va", "false").commit();
+					autosavefile.setText("Auto Save off");
 				}
 			}
 		});
@@ -412,72 +433,76 @@ public class TanzimatActivity extends AppCompatActivity {
 		installweb.setVisibility(View.GONE);
 		cxd = false;
 		otherhiden.setVisibility(View.GONE);
-		if (r1.getString("repu", "").equals("cd")) {
-			switch1.setChecked(true);
-		}
-		else {
-			switch1.setChecked(false);
-		}
-		if (Assin.getString("ok1", "").equals("oks")) {
-			switch2.setChecked(true);
-		}
-		else {
-			switch2.setChecked(false);
-		}
-		if (lin.getString("vi", "").equals("true")) {
-			switch3.setChecked(true);
-		}
-		else {
-			switch3.setChecked(false);
-		}
-		if (pin.getString("Pin", "").equals("true")) {
-			switch4.setChecked(true);
-		}
-		else {
-			switch4.setChecked(false);
-		}
-		if (sys.getString("Mpass", "").equals("true")) {
-			switch5.setChecked(true);
-		}
-		else {
-			switch5.setChecked(false);
-		}
-		if (Zb.getString("Over", "").equals("true")) {
-			switch6.setChecked(true);
-		}
-		else {
-			switch6.setChecked(false);
-		}
-		if (webjavasce.getString("Qjava", "").equals("true")) {
-			switch7.setChecked(true);
-		}
-		else {
-			switch7.setChecked(false);
-		}
-		 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-				      
-			if (Dark.getString("IDark", "").equals("true")) {
-				switch9.setChecked(true);
+		try {
+			if (r1.getString("repu", "").equals("cd")) {
+				switch1.setChecked(true);
 			}
 			else {
-				switch9.setChecked(false);
+				switch1.setChecked(false);
 			}
-					        
-				    } else {
-				      
-				    switch9.setEnabled(false);  
-				    }
-		if (Rjavapath.getString("Xcdm", "").equals("true")) {
-			switch8.setChecked(true);
-		}
-		else {
-			switch8.setChecked(false);
-		}
-		if (autosave.getString("Va", "").equals("true")) {
-			switch10.setChecked(true);
-		}
-		else {
-			switch10.setChecked(false);
+			if (Assin.getString("ok1", "").equals("oks")) {
+				switch2.setChecked(true);
+			}
+			else {
+				switch2.setChecked(false);
+			}
+			if (lin.getString("vi", "").equals("true")) {
+				switch3.setChecked(true);
+			}
+			else {
+				switch3.setChecked(false);
+			}
+			if (pin.getString("Pin", "").equals("true")) {
+				switch4.setChecked(true);
+			}
+			else {
+				switch4.setChecked(false);
+			}
+			if (sys.getString("Mpass", "").equals("true")) {
+				switch5.setChecked(true);
+			}
+			else {
+				switch5.setChecked(false);
+			}
+			if (Zb.getString("Over", "").equals("true")) {
+				switch6.setChecked(true);
+			}
+			else {
+				switch6.setChecked(false);
+			}
+			if (webjavasce.getString("Qjava", "").equals("true")) {
+				switch7.setChecked(true);
+			}
+			else {
+				switch7.setChecked(false);
+			}
+			 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+					      
+				if (Dark.getString("IDark", "").equals("true")) {
+					switch9.setChecked(true);
+				}
+				else {
+					switch9.setChecked(false);
+				}
+						        
+					    } else {
+					      
+					    switch9.setEnabled(false);  
+					    }
+			if (Rjavapath.getString("Xcdm", "").equals("true")) {
+				switch8.setChecked(true);
+			}
+			else {
+				switch8.setChecked(false);
+			}
+			if (autosave.getString("Va", "").equals("true")) {
+				switch10.setChecked(true);
+			}
+			else {
+				switch10.setChecked(false);
+			}
+		} catch (Exception e) {
+			 
 		}
 	}
 	
