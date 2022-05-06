@@ -5,8 +5,8 @@
 int main(){
     String string();
     
-    private static int a = "";
-    private static int b = "";
+    int a = "";
+     int b = "";
     
     bool z = false ;
     bool x = -1 ;
@@ -20,7 +20,7 @@ int main(){
    }
     
     
-    }catch(Ex -> e){
+    }catch(null){
         cout << e << endl;
     }
     
