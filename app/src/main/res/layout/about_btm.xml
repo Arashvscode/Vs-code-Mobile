@@ -20,7 +20,7 @@
 			android:padding="8dp"
 			android:background="#000027"
 			android:gravity="center_horizontal|center_vertical"
-			android:orientation="horizontal">
+			android:orientation="vertical">
 			<ImageView
 				android:id="@+id/imageview1"
 				android:focusable="false"
@@ -29,6 +29,15 @@
 				android:padding="5dp"
 				android:src="@drawable/vscode"
 				android:scaleType="centerInside" />
+			<TextView
+				android:id="@+id/textview7"
+				android:focusable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="vs code mobile "
+				android:textSize="16sp"
+				android:textColor="#2196F3" />
 		</LinearLayout>
 		<LinearLayout
 			android:id="@+id/nub"
@@ -49,24 +58,6 @@
 					android:gravity="right"
 					android:orientation="vertical">
 					<TextView
-						android:id="@+id/textview1"
-						android:focusable="false"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:padding="8dp"
-						android:text="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-						android:textSize="16sp"
-						android:textColor="#FFFFFF" />
-					<TextView
-						android:id="@+id/textview2"
-						android:focusable="false"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:padding="8dp"
-						android:text="اضافه شدن گرافیک جدید در بخش درباره برنامه و انتخاب ایکون توسط خود کاربر!"
-						android:textSize="14sp"
-						android:textColor="#FFFFFF" />
-					<TextView
 						android:id="@+id/textview3"
 						android:focusable="false"
 						android:layout_width="wrap_content"
@@ -81,7 +72,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="رابط کابری بهتر شد فایل cp.jar مطابق کاربرد گوگل اضافه شد \nاکنون میتونید پروژه ها را با 2 فرمت skpl  و SkpL اضافه کنید با تشکر از صبحان BlackError جهت باز سازی \nکد های و کلمات shell توسط نینجا رمز گشاد بهبود پیدا کرد کامپایلر زبان سی C اضافه شد خدمات کاربری بهتر بهبود یافت خبر های جدید تو راه است!"
+						android:text="vs code mobile \nورژن 1.1.8 fixed\nچه خبر؟\nثابت شدن خطوط فرمان\nعمل کرد بهتر fab تمامی زبان ها اپدیت شدن و عمل کرد پایدار بهتر شدن\nاضافه شدن فرمت بندی کد مخصوص زبان های کامپایلری مانند \njava ruby kotlin c c++ و قالب css\nاضافه شدن بلور پس زمینه عکس ثابت نیست ولی در اینده تمرکز بیشتری میشود برای ثابت ماندن \nسرعت اجرا کننده کد در java fx به صورت شگفت انگیزی بالا رفت \nتشکر میکنیم برنامه ما را انتخاب کردید "
 						android:textSize="16sp"
 						android:textColor="#FFFFFF" />
 					<TextView
@@ -99,7 +90,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="تمامی حقوق برنامه توسط مایکروسافت حفظ شدع و حق امضا برنامه متعلق به نینجا رمز گشا است و تاییده های لازم از مایکروسافت دریافت شده است و برنامه کاملن منبع باز میباشد❤"
+						android:text="vs mobile code\n Version 1.1.8 fixed\n Whats up\?\n Fixed command lines\n Better performance fab All languages ​​updated and stable performance Improved\n Added code formatting for compiler languages ​​such as\n java ruby ​​kotlin c c ++ and css template\n Adding a background crystal to the photo is not fixed, but in the future there will be more focus to stay still\n The speed of executing code in java fx has increased dramatically\n Thank you for choosing our program"
 						android:textSize="16sp"
 						android:textColor="#FFFFFF" />
 				</LinearLayout>

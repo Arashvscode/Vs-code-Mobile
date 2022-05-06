@@ -47,9 +47,8 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="عمومی"
+						android:text="public Sittings"
 						android:textSize="16sp"
-						android:textStyle="bold"
 						android:textColor="#00BCD4" />
 					<ImageView
 						android:id="@+id/imageview1"
@@ -81,11 +80,11 @@
 							android:thumb="@drawable/thumb1"
 							app:track="@drawable/track1" />
 						<TextView
-							android:id="@+id/textview2"
+							android:id="@+id/word"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:padding="8dp"
-							android:text=" Word Wrap"
+							android:text=" Word Wrap off"
 							android:textSize="16sp"
 							android:textStyle="bold"
 							android:textColor="#00BCD4" />
@@ -104,15 +103,14 @@
 							android:padding="8dp"
 							android:textSize="12sp"
 							android:textColor="#000000"
-							android:checked="true"
 							android:thumb="@drawable/thumb1"
 							app:track="@drawable/track1" />
 						<TextView
-							android:id="@+id/textview3"
+							android:id="@+id/set"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:padding="8dp"
-							android:text="Set Overscrolll"
+							android:text="Set Overscrolll off"
 							android:textSize="16sp"
 							android:textStyle="bold"
 							android:textColor="#00BCD4" />
@@ -130,15 +128,14 @@
 							android:padding="8dp"
 							android:textSize="12sp"
 							android:textColor="#000000"
-							android:checked="true"
 							android:thumb="@drawable/thumb1"
 							app:track="@drawable/track1" />
 						<TextView
-							android:id="@+id/textview5"
+							android:id="@+id/line"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:padding="8dp"
-							android:text="Linepined"
+							android:text="Linepined off"
 							android:textSize="16sp"
 							android:textStyle="bold"
 							android:textColor="#00BCD4" />
@@ -156,15 +153,14 @@
 							android:padding="8dp"
 							android:textSize="12sp"
 							android:textColor="#000000"
-							android:checked="true"
 							android:thumb="@drawable/thumb1"
 							app:track="@drawable/track1" />
 						<TextView
-							android:id="@+id/textview4"
+							android:id="@+id/showline"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:padding="8dp"
-							android:text="Show line"
+							android:text="Show line off"
 							android:textSize="16sp"
 							android:textStyle="bold"
 							android:textColor="#00BCD4" />
@@ -185,11 +181,11 @@
 							android:thumb="@drawable/thumb1"
 							app:track="@drawable/track1" />
 						<TextView
-							android:id="@+id/textview6"
+							android:id="@+id/sysbar"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:padding="8dp"
-							android:text="Show symbol bar"
+							android:text="Show symbol bar off"
 							android:textSize="16sp"
 							android:textStyle="bold"
 							android:textColor="#00BCD4" />
@@ -207,15 +203,14 @@
 							android:padding="8dp"
 							android:textSize="12sp"
 							android:textColor="#000000"
-							android:checked="true"
 							android:thumb="@drawable/thumb1"
 							app:track="@drawable/track1" />
 						<TextView
-							android:id="@+id/textview7"
+							android:id="@+id/autotext"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:padding="8dp"
-							android:text="AutoTextComplete"
+							android:text="AutoTextComplete off"
 							android:textSize="16sp"
 							android:textStyle="bold"
 							android:textColor="#00BCD4" />
@@ -238,9 +233,8 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:padding="8dp"
-							android:text="تنظیمات وب ویو"
+							android:text="Web view Sittings"
 							android:textSize="14sp"
-							android:textStyle="bold"
 							android:textColor="#00BCD4" />
 						<ImageView
 							android:id="@+id/dowen"
@@ -271,11 +265,11 @@
 								android:thumb="@drawable/thumb1"
 								app:track="@drawable/track1" />
 							<TextView
-								android:id="@+id/textview9"
+								android:id="@+id/webzoomSp"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:padding="8dp"
-								android:text="Web Zoom support"
+								android:text="Web Zoom support off"
 								android:textSize="16sp"
 								android:textColor="#00BCD4" />
 						</LinearLayout>
@@ -295,11 +289,11 @@
 								android:thumb="@drawable/thumb1"
 								app:track="@drawable/track1" />
 							<TextView
-								android:id="@+id/textview10"
+								android:id="@+id/webjs"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:padding="8dp"
-								android:text="Web Javascript support"
+								android:text="Web Javascript support off"
 								android:textSize="16sp"
 								android:textColor="#00BCD4" />
 						</LinearLayout>
@@ -319,11 +313,11 @@
 								android:thumb="@drawable/thumb1"
 								app:track="@drawable/track1" />
 							<TextView
-								android:id="@+id/textview11"
+								android:id="@+id/webdrak"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:padding="8dp"
-								android:text="Web Dark"
+								android:text="Web Dark off"
 								android:textSize="16sp"
 								android:textColor="#00BCD4" />
 						</LinearLayout>
@@ -347,7 +341,7 @@
 							android:layout_height="wrap_content"
 							android:padding="8dp"
 							android:text="Other Sittings"
-							android:textSize="14sp"
+							android:textSize="16sp"
 							android:textColor="#00BCD4" />
 						<ImageView
 							android:id="@+id/imageleft"
@@ -378,11 +372,11 @@
 								android:thumb="@drawable/thumb1"
 								app:track="@drawable/track1" />
 							<TextView
-								android:id="@+id/textview13"
+								android:id="@+id/autosavefile"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:padding="8dp"
-								android:text="Auto Save"
+								android:text="Auto Save off"
 								android:textSize="16sp"
 								android:textColor="#00BCD4" />
 						</LinearLayout>

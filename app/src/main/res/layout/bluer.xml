@@ -9,38 +9,30 @@
 		android:id="@+id/card"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:background="#000027"
-		app:cardCornerRadius="20dp">
+		app:cardElevation="2dp"
+		app:cardCornerRadius="24dp">
 		<LinearLayout
 			android:id="@+id/linear1"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			android:layout_height="wrap_content"
 			android:padding="8dp"
+			android:background="#000027"
 			android:orientation="vertical">
 			<LinearLayout
 				android:id="@+id/linear2"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:padding="8dp"
-				android:gravity="center_vertical"
+				android:gravity="center_horizontal"
 				android:orientation="horizontal">
-				<ImageView
-					android:id="@+id/imageview1"
-					android:focusable="false"
-					android:layout_width="50dp"
-					android:layout_height="50dp"
-					android:padding="8dp"
-					android:src="@drawable/etp"
-					android:scaleType="centerInside" />
 				<TextView
-					android:id="@+id/textview1"
+					android:id="@+id/textview2"
 					android:focusable="false"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:padding="8dp"
-					android:text="EXIT APP\?"
-					android:textSize="14sp"
-					android:textStyle="bold"
+					android:text="Size bluer"
+					android:textSize="12sp"
 					android:textColor="#2196F3" />
 			</LinearLayout>
 			<LinearLayout
@@ -48,48 +40,33 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:padding="8dp"
-				android:orientation="vertical">
-				<TextView
-					android:id="@+id/textview2"
+				android:orientation="horizontal">
+				<SeekBar
+					android:id="@+id/sr"
 					android:focusable="false"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:padding="8dp"
-					android:text="are you exit to app\?"
-					android:textSize="18sp"
-					android:textColor="#00BCD4" />
+					android:progress="5"
+					android:max="50" />
 			</LinearLayout>
 			<LinearLayout
-				android:id="@+id/linear4"
+				android:id="@+id/mis"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_margin="4dp"
 				android:padding="8dp"
-				android:gravity="right"
+				android:gravity="center_horizontal|center_vertical"
 				android:orientation="horizontal">
 				<TextView
-					android:id="@+id/no"
+					android:id="@+id/textview1"
 					android:focusable="false"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:padding="8dp"
-					android:text="NO"
-					android:textSize="14sp"
-					android:textColor="#4CAF50" />
-				<LinearLayout
-					android:id="@+id/linear5"
-					android:layout_width="90dp"
-					android:layout_height="wrap_content"
-					android:padding="8dp"
-					android:orientation="horizontal" />
-				<TextView
-					android:id="@+id/ok"
-					android:focusable="false"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="8dp"
-					android:text="YES"
-					android:textSize="14sp"
-					android:textColor="#F44336" />
+					android:text="dismiss"
+					android:textSize="16sp"
+					android:textColor="#2196F3" />
 			</LinearLayout>
 		</LinearLayout>
 	</androidx.cardview.widget.CardView>

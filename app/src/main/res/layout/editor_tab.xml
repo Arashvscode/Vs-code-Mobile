@@ -1,0 +1,52 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/ll_main"
+		android:layout_width="wrap_content"
+		android:layout_height="30dp"
+		android:gravity="center_horizontal|center_vertical"
+		android:orientation="vertical"
+		android:minWidth="100dp">
+		<LinearLayout
+			android:id="@+id/linear1"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center_horizontal|center_vertical"
+			android:orientation="horizontal"
+			android:background="?android:attr/selectableItemBackground">
+			<TextView
+				android:id="@+id/tv_filename"
+				android:focusable="false"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingLeft="5dp"
+				android:paddingRight="5dp"
+				android:gravity="center_horizontal|center_vertical"
+				android:text="tab"
+				android:textSize="11sp"
+				android:textStyle="bold"
+				android:textColor="#FFFFFF"
+				android:layout_weight="1" />
+			<ImageView
+				android:id="@+id/img_close"
+				android:focusable="false"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginRight="2dp"
+				android:src="@drawable/ic_close_white"
+				android:scaleType="centerInside" />
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/ll_indicator"
+			android:layout_width="match_parent"
+			android:layout_height="3dp"
+			android:padding="8dp"
+			android:background="#455A64"
+			android:orientation="horizontal" />
+	</LinearLayout>
+</LinearLayout>
