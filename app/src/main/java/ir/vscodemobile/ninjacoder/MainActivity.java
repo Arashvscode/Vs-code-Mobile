@@ -35,6 +35,7 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -160,17 +161,23 @@ public class MainActivity extends AppCompatActivity {
 	private LinearLayout linear12;
 	private LinearLayout fmt;
 	private LinearLayout mset;
+	private ProgressBar progressbar1;
 	private ImageView geticon;
 	private TextView gettt;
-	private ImageView imageview9;
+	private ImageView imageview10;
 	private CodeEditor editor;
 	private LinearLayout sogole;
 	private HorizontalScrollView hscroll1;
 	private LinearLayout fixbar;
 	private LinearLayout linearbar;
-	private SymbolInputView sysbar;
 	private LinearLayout linear6;
+	private LinearLayout amro;
+	private SymbolInputView sysbar;
 	private LinearLayout mcolor;
+	private ImageView up;
+	private ImageView down;
+	private ImageView left;
+	private ImageView re;
 	private LinearLayout linear9;
 	private LinearLayout serachbar;
 	private ImageView imageview7;
@@ -208,6 +215,10 @@ public class MainActivity extends AppCompatActivity {
 	private SharedPreferences mCh;
 	private TimerTask mTimerAsk;
 	private TimerTask mtimer;
+	private ProgressDialog mprogreesbardialog;
+	private SharedPreferences AL;
+	private SharedPreferences imgAplhe;
+	private AlertDialog mdialog;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -242,17 +253,23 @@ public class MainActivity extends AppCompatActivity {
 		linear12 = findViewById(R.id.linear12);
 		fmt = findViewById(R.id.fmt);
 		mset = findViewById(R.id.mset);
+		progressbar1 = findViewById(R.id.progressbar1);
 		geticon = findViewById(R.id.geticon);
 		gettt = findViewById(R.id.gettt);
-		imageview9 = findViewById(R.id.imageview9);
+		imageview10 = findViewById(R.id.imageview10);
 		editor = findViewById(R.id.editor);
 		sogole = findViewById(R.id.sogole);
 		hscroll1 = findViewById(R.id.hscroll1);
 		fixbar = findViewById(R.id.fixbar);
 		linearbar = findViewById(R.id.linearbar);
-		sysbar = findViewById(R.id.sysbar);
 		linear6 = findViewById(R.id.linear6);
+		amro = findViewById(R.id.amro);
+		sysbar = findViewById(R.id.sysbar);
 		mcolor = findViewById(R.id.mcolor);
+		up = findViewById(R.id.up);
+		down = findViewById(R.id.down);
+		left = findViewById(R.id.left);
+		re = findViewById(R.id.re);
 		linear9 = findViewById(R.id.linear9);
 		serachbar = findViewById(R.id.serachbar);
 		imageview7 = findViewById(R.id.imageview7);
@@ -282,33 +299,42 @@ public class MainActivity extends AppCompatActivity {
 		noor12 = getSharedPreferences("1d20", Activity.MODE_PRIVATE);
 		MsortSeekbar = getSharedPreferences("MsortSeekbar", Activity.MODE_PRIVATE);
 		mCh = getSharedPreferences("mCh", Activity.MODE_PRIVATE);
+		AL = getSharedPreferences("AL", Activity.MODE_PRIVATE);
+		imgAplhe = getSharedPreferences("img", Activity.MODE_PRIVATE);
 		
-		//OnTouch
-		imageview9.setOnTouchListener(new View.OnTouchListener(){
-				@Override
-				public boolean onTouch(View v, MotionEvent event){
-						int ev = event.getAction();
-						switch (ev) {
-								case MotionEvent.ACTION_DOWN:
-								
-								 
-								
-								break;
-								case MotionEvent.ACTION_UP:
-								
-								 
-								
-								break;
-						} return true;
-				}
-		});
-		
-		imageview9.setOnClickListener(new View.OnClickListener() {
+		imageview10.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				editor.setText("");
 				editor.setVisibility(View.GONE);
 				mset.setVisibility(View.GONE);
+			}
+		});
+		
+		up.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				editor.moveSelectionUp();
+			}
+		});
+		
+		down.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				editor.moveSelectionDown();
+			}
+		});
+		
+		left.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				editor.moveSelectionLeft();
+			}
+		});
+		
+		re.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				editor.moveSelectionRight();
 			}
 		});
 		
@@ -365,6 +391,118 @@ public class MainActivity extends AppCompatActivity {
 				}
 				else {
 					FileUtil.writeFile(getIntent().getStringExtra("key"), editor.getText().toString());
+					if (AL.getString("A10", "").equals("true")) {
+								{
+							final Activity activity = MainActivity.this;
+									final Context context = activity.getApplicationContext();
+									final int notificationId = 18;
+									final String channelId = "8";
+									final String channelName = "aram";
+									
+									new androidx.core.app.NotificationCompat.Builder(context, channelId){
+											
+											
+											NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+											Intent intent335 = new Intent();
+																	   public void create(){
+									
+																			   intent335.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); 
+																			   PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent335, 0);
+																			   
+																			   if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+																					   NotificationChannel mChannel = new NotificationChannel(
+																						   channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+																					   notificationManager.createNotificationChannel(mChannel);
+																				   }
+																		
+									
+									setSmallIcon(R.drawable.vscode);
+									setContentTitle("File saved");
+									setContentText("File saved ".concat(getIntent().getStringExtra("key")));
+									setOngoing(false);
+																			   setAutoCancel(true);
+									setPriority(androidx.core.app.NotificationCompat.PRIORITY_DEFAULT);
+									notificationManager.notify(notificationId, this.build());
+									
+																		   }
+								
+																   }.create();}
+								
+					}
+					else {
+						if (AL.getString("A10", "").equals("false")) {
+							
+						}
+						else {
+							
+						}
+					}
+				}
+				if (editor.getText().toString().equals("")) {
+					SketchwareUtil.showMessage(getApplicationContext(), "متن نمیتواند خالی باشد");
+					_myfab(false);
+				}
+				else {
+					mtimer = new TimerTask() {
+						@Override
+						public void run() {
+							runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									_srcruner();
+									_myfab(false);
+								}
+							});
+						}
+					};
+					_timer.schedule(mtimer, (int)(1000));
+				}
+			}
+		});
+	}
+	
+	private void initializeLogic() {
+		up.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+		down.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+		left.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+		re.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+		imgAplhe.edit().putString("mview", "true").commit();
+		LayoutInflater d = LayoutInflater.from(MainActivity.this);
+		LinearLayout mninjacoder = (LinearLayout) d.inflate(R.layout.editorlayoutmaster, null, false);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
+		mninjacoder.setLayoutParams(params);
+		  
+		final LinearLayout bg = mninjacoder.findViewById(R.id.bg);
+		final LinearLayout savecolor = mninjacoder.findViewById(R.id.savecolor);
+		final ImageView color = mninjacoder.findViewById(R.id.color);
+		final ImageView rep = mninjacoder.findViewById(R.id.rep);
+		final ImageView save = mninjacoder.findViewById(R.id.save);
+		final ImageView undo = mninjacoder.findViewById(R.id.undo);
+		final ImageView redo = mninjacoder.findViewById(R.id.redo);
+		final ImageView edi = mninjacoder.findViewById(R.id.edi);
+		final ImageView del = mninjacoder.findViewById(R.id.del);
+		final ImageView format = mninjacoder.findViewById(R.id.format);
+		final ImageView link = mninjacoder.findViewById(R.id.link);
+		final ImageView blur = mninjacoder.findViewById(R.id.blur);
+		final ImageView fb = mninjacoder.findViewById(R.id.fb);
+		undo.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+		redo.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+		mbool = false;
+		savecolor.setVisibility(View.GONE);
+		if (false) {
+			
+		}
+		else {
+			
+		}
+		save.setOnClickListener((view) -> {
+			
+			       if (getIntent().getStringExtra("key").equals("empty")) {
+				
+			}
+			else {
+				FileUtil.writeFile(getIntent().getStringExtra("key"), editor.getText().toString());
+				if (AL.getString("A10", "").equals("true")) {
 							{
 						final Activity activity = MainActivity.this;
 								final Context context = activity.getApplicationContext();
@@ -391,160 +529,26 @@ public class MainActivity extends AppCompatActivity {
 								
 								setSmallIcon(R.drawable.vscode);
 								setContentTitle("File saved");
-								setContentText("File saved ".concat(getIntent().getStringExtra("key")));
+								setContentText("File saved ".concat(getIntent().getStringExtra("title")));
 								setOngoing(false);
 																		   setAutoCancel(true);
 								setPriority(androidx.core.app.NotificationCompat.PRIORITY_DEFAULT);
 								notificationManager.notify(notificationId, this.build());
+								savecolor.setVisibility(View.GONE);
 								
 																	   }
 							
 															   }.create();}
 							
 				}
-				if (editor.getText().toString().equals("")) {
-					SketchwareUtil.showMessage(getApplicationContext(), "متن نمیتواند خالی باشد");
-				}
 				else {
-					mtimer = new TimerTask() {
-						@Override
-						public void run() {
-							runOnUiThread(new Runnable() {
-								@Override
-								public void run() {
-									_srcruner();
-									_myfab(false);
-								}
-							});
-						}
-					};
-					_timer.schedule(mtimer, (int)(1000));
+					if (AL.getString("A10", "").equals("false")) {
+						
+					}
+					else {
+						
+					}
 				}
-			}
-		});
-	}
-	
-	private void initializeLogic() {
-		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-		editor.setLineNumberAlign(Paint.Align.CENTER);
-		
-		
-		gettt.setText(getIntent().getStringExtra("title"));
-		setTitle(getIntent().getStringExtra("title"));
-		setTheme(android.R.style.Theme_Material);
-		editor.setTypefaceLineNumber(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
-		
-		//////editor.setTypefaceSymbolInputView(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
-		
-		editor.getColorScheme().setColor(EditorColorScheme.CSS_TAG, 0);
-		
-		editor.getColorScheme().setColor(EditorColorScheme.AUTO_COMP_PANEL_BG,0);
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-			Window w =this.getWindow();
-			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
-		}
-		_libraryjarpack();
-		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFFE91E63".replace("0xFF" , "#"))));
-		bool01 = false;
-		mm = false;
-		fixbar.setVisibility(View.GONE);
-		editor.setTypefaceText(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-			Window w =MainActivity.this.getWindow();
-			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF000027);
-		}
-		SymbolInputView inputView = findViewById(R.id.sysbar);
-		
-		inputView.bindEditor(editor);
-		inputView.addSymbols(new String[]{"->", "{", "}", "(", ")", ",", "|","=","#","!","&","/","%","`","_",";",".", "×", "<",">","\"", "?", "+", "-", "*", "/","<-"},
-		new String[]{"\t", "{}", "}", "(", ")", ",", ".", ";", "|","\"", "?", "+", "-", "*", "/"});
-		
-		hscroll1.setHorizontalScrollBarEnabled(false);
-		hscroll1.setVerticalScrollBarEnabled(false);
-		hscroll1.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
-		//editor.setTextActionMode(CodeEditor.TextActionMode.POPUP_WINDOW);
-		//editor.setEdgeEffectColor(Color.RED);
-		
-		//editor.setPinLineNumber(!editor.isLineNumberPinned());
-		//editor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
-		
-		_fab.hide();
-		_coderuner();
-		LayoutInflater d = LayoutInflater.from(MainActivity.this);
-		LinearLayout mninjacoder = (LinearLayout) d.inflate(R.layout.editorlayoutmaster, null, false);
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
-		mninjacoder.setLayoutParams(params);
-		  
-		final LinearLayout bg = mninjacoder.findViewById(R.id.bg);
-		final LinearLayout savecolor = mninjacoder.findViewById(R.id.savecolor);
-		final ImageView color = mninjacoder.findViewById(R.id.color);
-		final ImageView rep = mninjacoder.findViewById(R.id.rep);
-		final ImageView save = mninjacoder.findViewById(R.id.save);
-		final ImageView undo = mninjacoder.findViewById(R.id.undo);
-		final ImageView redo = mninjacoder.findViewById(R.id.redo);
-		final ImageView edi = mninjacoder.findViewById(R.id.edi);
-		final ImageView del = mninjacoder.findViewById(R.id.del);
-		final ImageView format = mninjacoder.findViewById(R.id.format);
-		final ImageView link = mninjacoder.findViewById(R.id.link);
-		final ImageView blur = mninjacoder.findViewById(R.id.blur);
-		final ImageView fb = mninjacoder.findViewById(R.id.fb);
-		undo.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
-		redo.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
-		mbool = false;
-		savecolor.setVisibility(View.GONE);
-		if (editor.getText().toString().contains("")) {
-			savecolor.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)200, 0xFFFF9800));
-			savecolor.setVisibility(View.VISIBLE);
-		}
-		else {
-			savecolor.setVisibility(View.GONE);
-		}
-		save.setOnClickListener((view) -> {
-			
-			       if (getIntent().getStringExtra("key").equals("empty")) {
-				
-			}
-			else {
-				FileUtil.writeFile(getIntent().getStringExtra("key"), editor.getText().toString());
-						{
-					final Activity activity = MainActivity.this;
-							final Context context = activity.getApplicationContext();
-							final int notificationId = 18;
-							final String channelId = "8";
-							final String channelName = "aram";
-							
-							new androidx.core.app.NotificationCompat.Builder(context, channelId){
-									
-									
-									NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-									Intent intent335 = new Intent();
-															   public void create(){
-							
-																	   intent335.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); 
-																	   PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent335, 0);
-																	   
-																	   if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-																			   NotificationChannel mChannel = new NotificationChannel(
-																				   channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
-																			   notificationManager.createNotificationChannel(mChannel);
-																		   }
-																
-							
-							setSmallIcon(R.drawable.vscode);
-							setContentTitle("File saved");
-							setContentText("File saved ".concat(getIntent().getStringExtra("key")));
-							setOngoing(false);
-																	   setAutoCancel(true);
-							setPriority(androidx.core.app.NotificationCompat.PRIORITY_DEFAULT);
-							notificationManager.notify(notificationId, this.build());
-							savecolor.setVisibility(View.GONE);
-							
-																   }
-						
-														   }.create();}
-						
 			}
 			
 			
@@ -558,7 +562,7 @@ public class MainActivity extends AppCompatActivity {
 		rep.setOnClickListener((view) -> {
 			
 			       try {
-				fixbar.setVisibility(View.VISIBLE);
+				fixbar.setVisibility(View.GONE);
 			} catch (Exception e) {
 				 
 			}
@@ -582,12 +586,44 @@ public class MainActivity extends AppCompatActivity {
 			       if (!mbool) {
 				mbool = true;
 				edi.setImageResource(R.drawable.eye);
-				editor.setEnabled(true);
+				  {				
+										getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);			
+										
+					          if (android.os.Build.VERSION.SDK_INT <= 10) {
+						          			editor.setInputType(InputType.TYPE_NULL);
+						          	} else {
+						          			getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+						          			try {
+							          				Class<CodeEditor> cls = CodeEditor.class;
+							          				java.lang.reflect.Method setSoftInputShownOnFocus;
+							          				setSoftInputShownOnFocus = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
+							          				setSoftInputShownOnFocus.setAccessible(true);
+							          				setSoftInputShownOnFocus.invoke(editor, false);
+							          		} catch (Exception e) {
+							          				e.printStackTrace();
+							          		}
+						          	}
+					             }
 			}
 			else {
 				mbool = false;
 				edi.setImageResource(R.drawable.edit);
-				editor.setEnabled(false);
+				  {								getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+					          
+					          if (android.os.Build.VERSION.SDK_INT <= 10) {
+									editor.setInputType(InputType.TYPE_TEXT_VARIATION_NORMAL);
+							} else {
+									try {
+											Class<CodeEditor> cls = CodeEditor.class;
+											java.lang.reflect.Method setSoftInputShownOnFocus;
+											setSoftInputShownOnFocus = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
+											setSoftInputShownOnFocus.setAccessible(false);
+											setSoftInputShownOnFocus.invoke(editor, true);
+									} catch (Exception e) {
+											e.printStackTrace();
+									}
+							}
+					  }
 			}
 			
 			
@@ -732,18 +768,19 @@ public class MainActivity extends AppCompatActivity {
 							@Override
 							public void onStopTrackingTouch(SeekBar _param2) {
 									mseekbarsort = sr.getProgress();
-					MsortSeekbar.edit().putString("seek", String.valueOf((long)(mseekbarsort))).commit();
-					if (mpath.length() > 5) {
-						try {
-							BlurredBitmap bl = new BlurredBitmap();
-							Bitmap a = bl.fastBlur(FileUtil.decodeSampleBitmapFromPath(mpath, 400, 400), 1.0f, sr.getProgress());
-							bak.setImageBitmap(a);
-						} catch (Exception e) {
-							 
-						}
+					imgAplhe.edit().putString("mview", String.valueOf((long)(mseekbarsort))).commit();
+					if (imgAplhe.getString("mview", "").equals("true")) {
+						BlurredBitmap bl = new BlurredBitmap();
+						Bitmap a = bl.fastBlur(FileUtil.decodeSampleBitmapFromPath(mpack, 400, 400), 1.0f, sr.getProgress());
+						bak.setImageBitmap(a);
 					}
 					else {
-						
+						if (imgAplhe.getString("mview", "").equals("false")) {
+							
+						}
+						else {
+							
+						}
 					}
 							}
 					});
@@ -771,6 +808,73 @@ public class MainActivity extends AppCompatActivity {
 			
 		});
 		sogole.addView(mninjacoder);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		editor.setLineNumberAlign(Paint.Align.CENTER);
+		
+		
+		gettt.setText(getIntent().getStringExtra("title"));
+		setTitle(getIntent().getStringExtra("title"));
+		setTheme(android.R.style.Theme_Material);
+		editor.setTypefaceLineNumber(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
+		
+		//////editor.setTypefaceSymbolInputView(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
+		
+		editor.getColorScheme().setColor(EditorColorScheme.CSS_TAG, 0);
+		
+		editor.getColorScheme().setColor(EditorColorScheme.AUTO_COMP_PANEL_BG,0);
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+			Window w =this.getWindow();
+			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
+		}
+		_libraryjarpack();
+		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFF3F51B5".replace("0xFF" , "#"))));
+		bool01 = false;
+		mm = false;
+		fixbar.setVisibility(View.GONE);
+		editor.setTypefaceText(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+			Window w =MainActivity.this.getWindow();
+			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF000027);
+		}
+		SymbolInputView inputView = findViewById(R.id.sysbar);
+		
+		inputView.bindEditor(editor);
+		inputView.addSymbols(new String[]{"->", "{", "}", "(", ")", ",", "|","=","#","!","&","/","%","`","_",";",".", "×", "<",">","\"", "?", "+", "-", "*", "/","<-"},
+		new String[]{"\t", "{}", "}", "(", ")", ",", ".", ";", "|","\"", "?", "+", "-", "*", "/"});
+		
+		hscroll1.setHorizontalScrollBarEnabled(false);
+		hscroll1.setVerticalScrollBarEnabled(false);
+		hscroll1.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
+		//editor.setTextActionMode(CodeEditor.TextActionMode.POPUP_WINDOW);
+		//editor.setEdgeEffectColor(Color.RED);
+		
+		//editor.setPinLineNumber(!editor.isLineNumberPinned());
+		//editor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
+		
+		_fab.hide();
+		new AsyncTask<String, String, String>() {
+			@Override
+			protected void onPreExecute() {
+				progressbar1.setVisibility(View.VISIBLE);
+				if (android.os.Build.VERSION.SDK_INT >= 21) {
+						progressbar1.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FFFD0061"), PorterDuff.Mode.SRC_IN);
+				}
+				mset.setVisibility(View.GONE);
+			}
+			@Override
+			protected String doInBackground(String... params) {
+				String _param = params[0];
+				_coderuner();
+				return "";
+			}
+			@Override
+			protected void onPostExecute(String _result) {
+				progressbar1.setVisibility(View.GONE);
+				mset.setVisibility(View.VISIBLE);
+			}
+		}.execute("");
 	}
 	
 	@Override
@@ -792,7 +896,11 @@ public class MainActivity extends AppCompatActivity {
 						_filePath.add(FileUtil.convertUriToFilePath(getApplicationContext(), _data.getData()));
 					}
 				}
-				fb.edit().putString("set", _filePath.get((int)(0))).commit();
+				try {
+					fb.edit().putString("set", _filePath.get((int)(0))).commit();
+				} catch (Exception e) {
+					 
+				}
 			}
 			else {
 				
@@ -1328,14 +1436,14 @@ public class MainActivity extends AppCompatActivity {
 			protected String doInBackground(String... params) {
 				String _param = params[0];
 				//code that prepares the files
-				FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/"));
-				FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/"));
-				FileUtil.writeFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/Main.java"), editor.getText().toString());
+				FileUtil.deleteFile(FileUtil.getExternalStorageDir().concat("/bin/"));
+				FileUtil.makeDir(FileUtil.getExternalStorageDir().concat("/bin/"));
+				FileUtil.writeFile(FileUtil.getExternalStorageDir().concat("/bin/Main.java"), editor.getText().toString());
 				//code that copies cp.jar from assets to temp folder (if not exists)
-				if (!FileUtil.isExistFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/android.jar"))) {
+				if (!FileUtil.isExistFile(FileUtil.getExternalStorageDir().concat("/bin/android.jar"))) {
 					try (InputStream input = getAssets().open("libs/android.jar");
 					OutputStream output = new FileOutputStream(
-					FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/android.jar")
+					FileUtil.getExternalStorageDir().concat("/bin/android.jar")
 					)) {
 								byte[] buffer = new byte[input.available()];
 								int length;
@@ -1361,13 +1469,13 @@ public class MainActivity extends AppCompatActivity {
 				opt.add("-nowarn");
 				opt.add("-deprecation");
 				opt.add("-d");
-				opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/classes"));
+				opt.add(FileUtil.getExternalStorageDir().concat("/bin/classes"));
 				opt.add("-cp");
-				opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/android.jar"));
+				opt.add(FileUtil.getExternalStorageDir().concat("/bin/android.jar"));
 				opt.add("-proc:none");
 				opt.add("-sourcepath");
 				opt.add("ignore");
-				opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/Main.java"));
+				opt.add(FileUtil.getExternalStorageDir().concat("/bin/Main.java"));
 				PrintWriter printWriter = new PrintWriter(new OutputStream() {
 							@Override
 							public void write(int p1) throws IOException
@@ -1403,9 +1511,9 @@ public class MainActivity extends AppCompatActivity {
 				try {
 					new JarPackager(
 					
-					FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/classes/"),
+					FileUtil.getExternalStorageDir().concat("/bin/classes/"),
 					
-					FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/classes.jar")
+					FileUtil.getExternalStorageDir().concat("/bin/classes.jar")
 					
 					).create();
 				} catch (Exception e) {
@@ -1424,10 +1532,10 @@ public class MainActivity extends AppCompatActivity {
 */
 					opt.clear();
 					opt.add("--output");
-					opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/"));
+					opt.add(FileUtil.getExternalStorageDir().concat("/bin/"));
 					opt.add("--lib");
-					opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/android.jar"));
-					opt.add(FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/classes.jar"));
+					opt.add(FileUtil.getExternalStorageDir().concat("/bin/android.jar"));
+					opt.add(FileUtil.getExternalStorageDir().concat("/bin/classes.jar"));
 					D8.main(opt.toArray(new String[0]));
 				} catch (Exception e) {
 					return "Dex failed: " + e.toString();
@@ -1477,7 +1585,7 @@ public class MainActivity extends AppCompatActivity {
 						String optimizedDir = getApplicationContext().getDir("odex", MODE_PRIVATE).getAbsolutePath();
 						
 						DexClassLoader dcl = new DexClassLoader( 
-						FileUtil.getPackageDataDir(getApplicationContext()).concat("/bin/classes.dex")
+						FileUtil.getExternalStorageDir().concat("/bin/classes.dex")
 						, optimizedDir, null, getClassLoader() ); 
 						
 						Class calledClass = dcl.loadClass("Main");
@@ -1633,7 +1741,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 		if (FileUtil.isExistFile(fb.getString("set", ""))) {
 			bak.setImageBitmap(FileUtil.decodeSampleBitmapFromPath(fb.getString("set", ""), 1024, 1024));
-			mpath = fb.getString("set", "");
+			mpack = fb.getString("set", "");
 		}
 	}
 	
@@ -2003,6 +2111,7 @@ public class MainActivity extends AppCompatActivity {
 	
 	
 	public void _coderuner() {
+		editor.setColorScheme(new theme());
 		if (getIntent().getStringExtra("title").contains(".css")) {
 			StringBuilder androidcss = new StringBuilder();
 			
@@ -2016,9 +2125,9 @@ public class MainActivity extends AppCompatActivity {
 			} catch (Exception rt) {
 				rt.printStackTrace();
 			}
-			editor.setColorScheme(new theme());
-			editor.setEditorLanguage(new UniversalLanguage(new CssDescription()));
 			geticon.setImageResource(R.drawable.css);
+			editor.setEditorLanguage(new UniversalLanguage(new CssDescription()));
+			editor.setColorScheme(new theme());
 		}
 		else {
 			if (getIntent().getStringExtra("title").contains(".json")) {

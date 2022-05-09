@@ -55,6 +55,8 @@ import io.github.rosemoe.sora.langs.textmate.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.*;
 import mrAr.Stop.notmeDicompile.*;
 import net.lingala.zip4j.*;
@@ -64,9 +66,11 @@ import org.jetbrains.kotlin.*;
 import org.json.*;
 import s4u.restore.swb.*;
 import xyz.ninjacoder.edittext.Animator.main.*;
-import androidx.appcompat.widget.SwitchCompat;
+import com.google.android.material.checkbox.MaterialCheckBox;
 
 public class TanzimatActivity extends AppCompatActivity {
+	
+	private Timer _timer = new Timer();
 	
 	private Toolbar _toolbar;
 	private AppBarLayout _app_bar;
@@ -93,18 +97,22 @@ public class TanzimatActivity extends AppCompatActivity {
 	private LinearLayout linear5;
 	private LinearLayout linear8;
 	private LinearLayout linear9;
-	private SwitchCompat switch1;
+	private MaterialCheckBox switch1;
 	private TextView word;
-	private SwitchCompat switch2;
+	private MaterialCheckBox switch2;
 	private TextView set;
-	private SwitchCompat switch4;
+	private MaterialCheckBox switch4;
 	private TextView line;
-	private SwitchCompat switch3;
+	private MaterialCheckBox switch3;
 	private TextView showline;
-	private SwitchCompat switch5;
+	private MaterialCheckBox switch5;
 	private TextView sysbar;
-	private SwitchCompat switch6;
+	private LinearLayout linear20;
+	private LinearLayout linear21;
+	private MaterialCheckBox switch6;
 	private TextView autotext;
+	private MaterialCheckBox switch11;
+	private TextView textview13;
 	private LinearLayout linear11;
 	private LinearLayout installweb;
 	private TextView textview8;
@@ -112,18 +120,18 @@ public class TanzimatActivity extends AppCompatActivity {
 	private LinearLayout linear13;
 	private LinearLayout linear14;
 	private LinearLayout linear15;
-	private SwitchCompat switch7;
+	private MaterialCheckBox switch7;
 	private TextView webzoomSp;
-	private SwitchCompat switch8;
+	private MaterialCheckBox switch8;
 	private TextView webjs;
-	private SwitchCompat switch9;
+	private MaterialCheckBox switch9;
 	private TextView webdrak;
 	private LinearLayout linear17;
 	private LinearLayout otherhiden;
 	private TextView textview12;
 	private ImageView imageleft;
 	private LinearLayout linear19;
-	private SwitchCompat switch10;
+	private MaterialCheckBox switch10;
 	private TextView autosavefile;
 	
 	private SharedPreferences r1;
@@ -142,6 +150,8 @@ public class TanzimatActivity extends AppCompatActivity {
 	private SharedPreferences m2;
 	private SharedPreferences l1;
 	private SharedPreferences Do;
+	private TimerTask mtimer;
+	private SharedPreferences AL;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -188,8 +198,12 @@ public class TanzimatActivity extends AppCompatActivity {
 		showline = findViewById(R.id.showline);
 		switch5 = findViewById(R.id.switch5);
 		sysbar = findViewById(R.id.sysbar);
+		linear20 = findViewById(R.id.linear20);
+		linear21 = findViewById(R.id.linear21);
 		switch6 = findViewById(R.id.switch6);
 		autotext = findViewById(R.id.autotext);
+		switch11 = findViewById(R.id.switch11);
+		textview13 = findViewById(R.id.textview13);
 		linear11 = findViewById(R.id.linear11);
 		installweb = findViewById(R.id.installweb);
 		textview8 = findViewById(R.id.textview8);
@@ -226,6 +240,7 @@ public class TanzimatActivity extends AppCompatActivity {
 		m2 = getSharedPreferences("m2", Activity.MODE_PRIVATE);
 		l1 = getSharedPreferences("l1", Activity.MODE_PRIVATE);
 		Do = getSharedPreferences("Do", Activity.MODE_PRIVATE);
+		AL = getSharedPreferences("AL", Activity.MODE_PRIVATE);
 		
 		imageview1.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -329,6 +344,21 @@ public class TanzimatActivity extends AppCompatActivity {
 				else {
 					Zb.edit().putString("Over", "false").commit();
 					autotext.setText("AutoTextComplete off");
+				}
+			}
+		});
+		
+		switch11.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+				final boolean _isChecked = _param2;
+				if (_isChecked) {
+					textview13.setText("Enable notifications on");
+					AL.edit().putString("A10", "true").commit();
+				}
+				else {
+					textview13.setText("Enable notifications off");
+					AL.edit().putString("A10", "false").commit();
 				}
 			}
 		});
@@ -501,6 +531,12 @@ public class TanzimatActivity extends AppCompatActivity {
 			else {
 				switch10.setChecked(false);
 			}
+			if (AL.getString("A10", "").equals("true")) {
+				switch11.setChecked(true);
+			}
+			else {
+				switch11.setChecked(false);
+			}
 		} catch (Exception e) {
 			 
 		}
@@ -555,6 +591,26 @@ public class TanzimatActivity extends AppCompatActivity {
 				};
 	}
 	
+	public void _imageGordone(final ImageView _imageview, final boolean _mshow) {
+		if (_mshow) {
+			mtimer = new TimerTask() {
+				@Override
+				public void run() {
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							_imageview.setRotation((float)(_imageview.getRotation() + 10));
+						}
+					});
+				}
+			};
+			_timer.scheduleAtFixedRate(mtimer, (int)(0), (int)(1000));
+		}
+		else {
+			_imageview.setRotation((float)(0));
+		}
+	}
+	
 	
 	@Deprecated
 	public void showMessage(String _s) {

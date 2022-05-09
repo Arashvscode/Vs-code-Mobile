@@ -142,6 +142,7 @@ public class CmdActivity extends AppCompatActivity {
 				{
 						e.printStackTrace();
 				};
+		editor.setLineNumberEnabled(false);
 	}
 	
 	@Override
@@ -169,6 +170,7 @@ public class CmdActivity extends AppCompatActivity {
 			LinearLayout bg = (LinearLayout) bottomSheetView.findViewById(R.id.bg);
 			bg.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)30, 0xFF000027));
 			r.setColorScheme(new ir.vscodemobile.ninjacoder.theme());
+			r.setLineNumberEnabled(false);
 			new AsyncTask<String, String, String>() {
 				@Override
 				protected void onPreExecute() {
