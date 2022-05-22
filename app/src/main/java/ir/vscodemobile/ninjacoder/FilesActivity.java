@@ -48,8 +48,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 import androidx.webkit.*;
 import com.android.*;
 import com.android.tools.r8.*;
@@ -58,16 +56,12 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -94,22 +88,25 @@ import mod.agus.jcoderz.lib.FileUtil;
 import mod.hey.studios.project.library.LibraryDownloader;
 import mod.hey.studios.util.Helper;
 import java.io.File;
-import com.googlecode.dex2jar.v3.Dex2jar;
 import java.lang.reflect.Method;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.spec.PKCS8EncodedKeySpec;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import com.caverock.androidsvg.SVGImageView;
-import ua.naiksoftware.jadx.*;
 import java.io.InputStream;
 import java.io.IOException;
 import com.rohitop.rlottie.RLottie;
 import com.rohitop.rlottie.RLottieImageView;
-import com.rohitop.rlottie.RLottieDrawable;
+import com.rohitop.rlottie.RLottieDrawable;
+import java.security.*;
+import com.github.angads25.filepicker.view.*;
+import com.github.angads25.filepicker.model.*;
+import com.github.angads25.filepicker.controller.*;
+import com.github.angads25.filepicker.utils.*;
+import com.github.angads25.filepicker.widget.*;
+import com.google.android.material.checkbox.MaterialCheckBox;
 
 public class FilesActivity extends AppCompatActivity {
 	
@@ -167,9 +164,10 @@ public class FilesActivity extends AppCompatActivity {
 	private ArrayList<String> folderList = new ArrayList<>();
 	private ArrayList<String> fileList = new ArrayList<>();
 	private ArrayList<HashMap<String, Object>> files = new ArrayList<>();
+	private ArrayList<String> args = new ArrayList<>();
 	
-	private SwipeRefreshLayout Mrefrash;
-	private LinearLayout linear1;
+	private LinearLayout linear4;
+	private LinearLayout linear6;
 	private ListView listview1;
 	private LinearLayout _drawer_mynav;
 	private LinearLayout _drawer_linear5;
@@ -186,6 +184,7 @@ public class FilesActivity extends AppCompatActivity {
 	private ImageView _drawer_decoder;
 	private ImageView _drawer_javacode;
 	private ImageView _drawer_skpro;
+	private ImageView _drawer_keyboard;
 	private ImageView _drawer_color;
 	private ImageView _drawer_D8;
 	private ImageView _drawer_shellrun;
@@ -244,6 +243,11 @@ public class FilesActivity extends AppCompatActivity {
 	private TimerTask ask200;
 	private Intent Ad8 = new Intent();
 	private AlertDialog.Builder mdialogFolder;
+	private ProgressDialog mprograssbarinstallproject;
+	private ProgressDialog msimgeapkfile;
+	private SharedPreferences fb;
+	private ProgressDialog androidjar;
+	private AlertDialog.Builder mkeyboard;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -289,8 +293,8 @@ public class FilesActivity extends AppCompatActivity {
 		
 		LinearLayout _nav_view = findViewById(R.id._nav_view);
 		
-		Mrefrash = findViewById(R.id.Mrefrash);
-		linear1 = findViewById(R.id.linear1);
+		linear4 = findViewById(R.id.linear4);
+		linear6 = findViewById(R.id.linear6);
 		listview1 = findViewById(R.id.listview1);
 		_drawer_mynav = _nav_view.findViewById(R.id.mynav);
 		_drawer_linear5 = _nav_view.findViewById(R.id.linear5);
@@ -307,6 +311,7 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_decoder = _nav_view.findViewById(R.id.decoder);
 		_drawer_javacode = _nav_view.findViewById(R.id.javacode);
 		_drawer_skpro = _nav_view.findViewById(R.id.skpro);
+		_drawer_keyboard = _nav_view.findViewById(R.id.keyboard);
 		_drawer_color = _nav_view.findViewById(R.id.color);
 		_drawer_D8 = _nav_view.findViewById(R.id.D8);
 		_drawer_shellrun = _nav_view.findViewById(R.id.shellrun);
@@ -333,14 +338,8 @@ public class FilesActivity extends AppCompatActivity {
 		vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		smail = new AlertDialog.Builder(this);
 		mdialogFolder = new AlertDialog.Builder(this);
-		
-		Mrefrash.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-			@Override
-			public void onRefresh() {
-				_getFiles("");
-				Mrefrash.setRefreshing(false);
-			}
-		});
+		fb = getSharedPreferences("fb", Activity.MODE_PRIVATE);
+		mkeyboard = new AlertDialog.Builder(this);
 		
 		listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -412,107 +411,69 @@ public class FilesActivity extends AppCompatActivity {
 						card.setCardBackgroundColor(0xFF000027);
 						in.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
 										
-									final SpinKitView spkv = new SpinKitView(FilesActivity.this);
-								spkv.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
-								spkv.setStyle(Style.WAVE);
-								spkv.setColor(0xFFFF8800);
-								
-								
-								
-								LinearLayout layoutP = new LinearLayout(FilesActivity.this);
-								LinearLayout layout1 = new LinearLayout(FilesActivity.this);
-								LinearLayout layout2 = new LinearLayout(FilesActivity.this);
-								
-								final TextView textLoad = new TextView(getApplicationContext());
-								textLoad.setText("install project to".concat(" ".concat(Uri.parse(files.get((int)_position).get("path").toString()).getLastPathSegment())));
-								textLoad.setTextColor(0xFFFF8800);
-								textLoad.setTextSize((float)17);
-								
-								//layoutP.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
-								layoutP.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-								
-								layoutP.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-								layoutP.setOrientation(LinearLayout.VERTICAL);
-								layout1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-								layout2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-								  
-								
-								     
-								     
-								layout2.setPadding(8,8,8,8);
-								textLoad.setPadding(8,8,8,8);
-								
-								layout1.addView(spkv);
-								layout2.addView(textLoad);
-								layoutP.addView(layout1);
-								layoutP.addView(layout2);
-								
-								newDialogspkv = new AlertDialog.Builder(FilesActivity.this)
-									.setView(layoutP)
-									.create();
-								  newDialogspkv.show();
-								
-								newDialogspkv.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-								
-								r2 = new TimerTask() {
+									new AsyncTask<String, String, String>() {
 									@Override
-									public void run() {
-										runOnUiThread(new Runnable() {
-											@Override
-											public void run() {
-												while(true) {
-													try {
-														
-														String fileZip = files.get((int)_position).get("path").toString();
-														        java.io.File destDir = new java.io.File("/sdcard/vscodemobile/");
-														        byte[]  buffer = new byte[1024] ;
-														        try {
-															        java.util.zip.ZipInputStream zis = new java.util.zip.ZipInputStream(new java.io.FileInputStream(fileZip));
-															        java.util.zip.ZipEntry zipEntry = zis.getNextEntry();
-															
-															
-															        while (zipEntry != null) {
-																             java.io.File newFile = newFile(destDir, zipEntry);
-																             if (zipEntry.isDirectory()) {
-																	                 if (!newFile.isDirectory() && !newFile.mkdirs()) {
-																		                     throw new java.io.IOException("Failed to create directory " + newFile);
-																		                 }
-																	             } else {
-																	                 // fix for Windows-created archives
-																	                 java.io.File parent = newFile.getParentFile();
-																	                 if (!parent.isDirectory() && !parent.mkdirs()) {
-																		                     throw new java.io.IOException("Failed to create directory " + parent);
-																		                 }
-																	
-																	                 // write file content
-																	                 java.io.FileOutputStream fos = new java.io.FileOutputStream(newFile);
-																	                 int len;
-																	                 while ((len = zis.read(buffer)) > 0) {
-																		                     fos.write(buffer, 0, len);
-																		                 }
-																	                 fos.close();
-																	             }
-																         zipEntry = zis.getNextEntry();
-																        }
-															        zis.closeEntry();
-															        zis.close();
-														} catch (Exception e) {
-															  showMessage(e.toString());
-															   }
-														SketchwareUtil.showMessage(getApplicationContext(), "prject installed! ");
-														_getFiles("");
-													} catch (Exception e) {
-														 
-													}
-													newDialogspkv.dismiss();
-													break;
-												}
-											}
-										});
+									protected void onPreExecute() {
+										mprograssbarinstallproject = new ProgressDialog(FilesActivity.this);
+										mprograssbarinstallproject.setTitle(Html.fromHtml("<font color = \"red\"> install project vs code mobile </font>"));
+										mprograssbarinstallproject.getWindow().setBackgroundDrawable(new ColorDrawable(0xFF000027));
+										mprograssbarinstallproject.setCancelable(false);
+										mprograssbarinstallproject.setCanceledOnTouchOutside(false);
+										mprograssbarinstallproject.show();
 									}
-								};
-								_timer.schedule(r2, (int)(1000));
-								newDialogspkv.setCancelable(false);
+									@Override
+									protected String doInBackground(String... params) {
+										String _param = params[0];
+										try{
+											
+											String fileZip = files.get((int)_position).get("path").toString();
+											        java.io.File destDir = new java.io.File("/sdcard/vscodemobile/");
+											        byte[]  buffer = new byte[1024] ;
+											        try {
+												        java.util.zip.ZipInputStream zis = new java.util.zip.ZipInputStream(new java.io.FileInputStream(fileZip));
+												        java.util.zip.ZipEntry zipEntry = zis.getNextEntry();
+												
+												
+												        while (zipEntry != null) {
+													             java.io.File newFile = newFile(destDir, zipEntry);
+													             if (zipEntry.isDirectory()) {
+														                 if (!newFile.isDirectory() && !newFile.mkdirs()) {
+															                     throw new java.io.IOException("Failed to create directory " + newFile);
+															                 }
+														             } else {
+														                 // fix for Windows-created archives
+														                 java.io.File parent = newFile.getParentFile();
+														                 if (!parent.isDirectory() && !parent.mkdirs()) {
+															                     throw new java.io.IOException("Failed to create directory " + parent);
+															                 }
+														
+														                 // write file content
+														                 java.io.FileOutputStream fos = new java.io.FileOutputStream(newFile);
+														                 int len;
+														                 while ((len = zis.read(buffer)) > 0) {
+															                     fos.write(buffer, 0, len);
+															                 }
+														                 fos.close();
+														             }
+													         zipEntry = zis.getNextEntry();
+													        }
+												        zis.closeEntry();
+												        zis.close();
+											} catch (Exception e) {
+												  showMessage(e.toString());
+												   }
+											SketchwareUtil.showMessage(getApplicationContext(), "prject installed! ");
+											_getFiles("");
+										}catch(Exception e){
+											 
+										}
+										return "";
+									}
+									@Override
+									protected void onPostExecute(String _result) {
+										mprograssbarinstallproject.dismiss();
+									}
+								}.execute("");
 								dialog1.dismiss();
 								
 								}
@@ -632,86 +593,45 @@ public class FilesActivity extends AppCompatActivity {
 						});
 						si.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
 										
-									try {
-									final SpinKitView spkv = new SpinKitView(FilesActivity.this);
-									spkv.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
-									spkv.setStyle(Style.WAVE);
-									spkv.setColor(0xFFFF8800);
-									
-									
-									
-									LinearLayout layoutP = new LinearLayout(FilesActivity.this);
-									LinearLayout layout1 = new LinearLayout(FilesActivity.this);
-									LinearLayout layout2 = new LinearLayout(FilesActivity.this);
-									
-									final TextView textLoad = new TextView(getApplicationContext());
-									textLoad.setText("singing apk file......");
-									textLoad.setTextColor(0xFFFF8800);
-									textLoad.setTextSize((float)17);
-									
-									//layoutP.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
-									layoutP.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-									
-									layoutP.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-									layoutP.setOrientation(LinearLayout.VERTICAL);
-									layout1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-									layout2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-									  
-									
-									     
-									     
-									layout2.setPadding(8,8,8,8);
-									textLoad.setPadding(8,8,8,8);
-									
-									layout1.addView(spkv);
-									layout2.addView(textLoad);
-									layoutP.addView(layout1);
-									layoutP.addView(layout2);
-									
-									newDialogspkv = new AlertDialog.Builder(FilesActivity.this)
-										.setView(layoutP)
-										.create();
-									  newDialogspkv.show();
-									
-									newDialogspkv.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-									
-									timer = new TimerTask() {
-										@Override
-										public void run() {
-											runOnUiThread(new Runnable() {
-												@Override
-												public void run() {
-													while(true) {
-														try {
-															if (FileUtil.isExistFile(files.get((int)_position).get("path").toString())) {
-																if (files.get((int)_position).get("path").toString().endsWith(".apk")) {
-																	FileUtil.writeFile("p", "p");
-																	pathss = files.get((int)_position).get("path").toString();
-																	signedFile(new File(pathss));
-																	_getFiles("");
-																}
-																else {
-																	SketchwareUtil.showMessage(getApplicationContext(), "Enter path to APK file");
-																}
-															}
-															else {
-																SketchwareUtil.showMessage(getApplicationContext(), "The entered file is not exist");
-															}
-														} catch (Exception e) {
-															 
-														}
-														newDialogspkv.dismiss();
-														break;
-													}
+									new AsyncTask<String, String, String>() {
+									@Override
+									protected void onPostExecute(String _result) {
+										msimgeapkfile = new ProgressDialog(FilesActivity.this);
+										msimgeapkfile.setTitle(Html.fromHtml("<font color=\"blue\">singe Apk file....</font>"));
+										msimgeapkfile.setCancelable(false);
+										msimgeapkfile.setCanceledOnTouchOutside(false);
+										msimgeapkfile.getWindow().setBackgroundDrawable(new ColorDrawable(0xFF000027));
+										msimgeapkfile.show();
+									}
+									@Override
+									protected String doInBackground(String... params) {
+										String _param = params[0];
+										try{
+											if (FileUtil.isExistFile(files.get((int)_position).get("path").toString())) {
+												if (files.get((int)_position).get("path").toString().endsWith(".apk")) {
+													FileUtil.writeFile("p", "p");
+													pathss = files.get((int)_position).get("path").toString();
+													signedFile(new File(pathss));
+													_getFiles("");
 												}
-											});
+												else {
+													SketchwareUtil.showMessage(getApplicationContext(), "Enter path to APK file");
+												}
+											}
+											else {
+												SketchwareUtil.showMessage(getApplicationContext(), "The entered file is not exist");
+											}
+										}catch(Exception e){
+											 
 										}
-									};
-									_timer.schedule(timer, (int)(1000));
-									newDialogspkv.setCancelable(false);
-								} catch (Exception e) {
-									 
-								}
+										return "";
+									}
+									@Override
+									protected void onPreExecute() {
+										msimgeapkfile.dismiss();
+									}
+								}.execute("");
+								dialog1.dismiss();
 								
 								}
 						});
@@ -734,98 +654,6 @@ public class FilesActivity extends AppCompatActivity {
 						dialog1.show();
 					}
 					_imagerviewerclass(files, _position, "path");
-					if (files.get((int)_position).get("path").toString().endsWith(".dex")) {
-						stringinput = files.get((int)_position).get("path").toString();
-						stringoutput = FileUtil.getExternalStorageDir().concat("/vscodemobile/");
-						dialogfiled.setTitle("Vs code mobile DexFile");
-						dialogfiled.setIcon(R.drawable.vscode);
-						dialogfiled.setMessage("Set dex File convert to Jar or Dicompile java File?");
-						dialogfiled.setPositiveButton("Convert To jar File", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface _dialog, int _which) {
-								path = files.get((int)_position).get("path").toString();
-								if (path.equals("")) {
-									SketchwareUtil.showMessage(getApplicationContext(), "Enter path to .dex file");
-								}
-								else {
-									if (path.endsWith(".dex")) {
-										if (FileUtil.isExistFile(path)) {
-											final SpinKitView spkv = new SpinKitView(FilesActivity.this);
-											spkv.setLayoutParams(new LinearLayout.LayoutParams(110, 110));
-											spkv.setStyle(Style.WAVE);
-											spkv.setColor(0xFFE91E63);
-											
-											
-											
-											LinearLayout layoutP = new LinearLayout(FilesActivity.this);
-											LinearLayout layout1 = new LinearLayout(FilesActivity.this);
-											LinearLayout layout2 = new LinearLayout(FilesActivity.this);
-											
-											final TextView textLoad = new TextView(getApplicationContext());
-											textLoad.setText("Convert Dex : ".concat(Uri.parse(path).getLastPathSegment().concat("To Jar File")));
-											textLoad.setTextColor(0xFFE91E63);
-											textLoad.setTextSize((float)17);
-											
-											layoutP.setLayoutParams(new LinearLayout.LayoutParams(400, 400));
-											layoutP.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-											layoutP.setOrientation(LinearLayout.VERTICAL);
-											layout1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-											layout2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-											layout2.setPadding(8,8,8,8);
-											textLoad.setPadding(8,8,8,8);
-											
-											layout1.addView(spkv);
-											layout2.addView(textLoad);
-											layoutP.addView(layout1);
-											layoutP.addView(layout2);
-											
-											newDialogspkv = new AlertDialog.Builder(FilesActivity.this)
-												.setView(layoutP)
-												.create();
-											  newDialogspkv.show();
-											
-											newDialogspkv.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-											newDialogspkv.setCancelable(false);
-											try {
-												new _BackgroundTaskClass(FilesActivity.this) {
-														        @Override
-														        public void doInBackground() {
-														_ConvertDexToJar(path, path.substring((int)(0), (int)(path.lastIndexOf(".dex"))).concat(".jar"));
-														
-																        }
-														
-														        @Override
-														        public void onPostExecute() {
-																 
-														SketchwareUtil.CustomToast(getApplicationContext(), "Success to convert - ".concat(path.substring((int)(0), (int)(path.lastIndexOf(".dex"))).concat(".jar")), 0xFF2196F3, 16, 0xFF00003A, 19, SketchwareUtil.TOP);
-														newDialogspkv.dismiss();
-														_getFiles("");
-																        }
-														    }.execute();
-											} catch (Exception e) {
-												SketchwareUtil.showMessage(getApplicationContext(), e.toString());
-											}
-											newDialogspkv.setCancelable(true);
-										}
-										else {
-											SketchwareUtil.showMessage(getApplicationContext(), "File not found ");
-										}
-									}
-									else {
-										SketchwareUtil.showMessage(getApplicationContext(), "Enter path to .dex file");
-									}
-								}
-							}
-						});
-						dialogfiled.setNegativeButton("Dex to smaill", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface _dialog, int _which) {
-								_dtos(_position, files);
-								
-							}
-						});
-						dialogfiled.create().show();
-					}
 					if (files.get((int)_position).get("path").toString().endsWith(".ninja")) {
 						ini.setClass(getApplicationContext(), MainActivity.class);
 						ini.putExtra("key", files.get((int)_position).get("path").toString());
@@ -848,6 +676,8 @@ public class FilesActivity extends AppCompatActivity {
 						_charpcodeplay(_position, "path", files);
 						_pacal("path", files, _position);
 						_txtnormal(_position, "path", files);
+					    _scss(_position, files, "path");
+					    _newdextojar("path", _position, files);
 				}
 				_Show(false);
 				_fab.animate().setDuration(220).rotation(0);
@@ -883,7 +713,7 @@ public class FilesActivity extends AppCompatActivity {
 						///custom edit
 						hsi.setText(good);
 						hsi.setTextColor(0xFFFFFFFF);
-						hsi.setTextSize((int)15);
+						hsi.setTextSize((float)15);
 						hsi.setHintTextColor(0xFFFFFFFF);
 						hsi.setSingleLine(true);
 						hsi.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/myf.ttf"), 2);
@@ -908,7 +738,7 @@ public class FilesActivity extends AppCompatActivity {
 											@Override
 											public void run() {
 												while(true) {
-													try {
+													try{
 														
 														try {
 															
@@ -918,7 +748,7 @@ public class FilesActivity extends AppCompatActivity {
 																				showMessage(e.toString());
 																		}
 														_getFiles("");
-													} catch (Exception e) {
+													}catch(Exception e){
 														 
 													}
 													dialog1.dismiss();
@@ -957,7 +787,7 @@ public class FilesActivity extends AppCompatActivity {
 						ninja.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/myf.ttf"), 0);
 						ninja.setHintTextColor(0xFFFFFFFF);
 						ninja.setHint("/sdcard/name.vsM");
-						ninja.setTextSize((int)15);
+						ninja.setTextSize((float)15);
 						ninja.setTextColor(0xFFFFFFFF);
 						///end
 						ninja.setLayoutParams(lparr);
@@ -980,7 +810,7 @@ public class FilesActivity extends AppCompatActivity {
 											@Override
 											public void run() {
 												while(true) {
-													try {
+													try{
 														
 														try {
 															
@@ -990,7 +820,7 @@ public class FilesActivity extends AppCompatActivity {
 																				showMessage(e.toString());
 																		}
 														_getFiles("");
-													} catch (Exception e) {
+													}catch(Exception e){
 														 
 													}
 													dialog1.dismiss();
@@ -1048,19 +878,15 @@ public class FilesActivity extends AppCompatActivity {
 		_fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				try {
-					if (!isFab) {
-						isFab = true;
-						_fab.animate().setDuration(220).rotation(55);
-						_Show(true);
-					}
-					else {
-						isFab = false;
-						_fab.animate().setDuration(220).rotation(0);
-						_Show(false);
-					}
-				} catch (Exception e) {
-					SketchwareUtil.showMessage(getApplicationContext(), "Fab Error ");
+				if (!isFab) {
+					isFab = true;
+					_fab.animate().setDuration(220).rotation(55);
+					_Show(true);
+				}
+				else {
+					isFab = false;
+					_fab.animate().setDuration(220).rotation(0);
+					_Show(false);
 				}
 			}
 		});
@@ -1092,7 +918,7 @@ public class FilesActivity extends AppCompatActivity {
 				final TextView ok = (TextView) inflate.findViewById(R.id.ok);
 				final TextView no = (TextView) inflate.findViewById(R.id.no);
 				final androidx.cardview.widget.CardView card = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.card);
-				card.setCardBackgroundColor(0xFF000027);
+				card.setCardBackgroundColor(0xFF212121);
 				card.setRadius((float)20);
 				card.setCardElevation((float)0);
 				ok.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
@@ -1133,7 +959,7 @@ public class FilesActivity extends AppCompatActivity {
 				final TextView d8 = (TextView) inflate.findViewById(R.id.d8);
 				final TextView dx = (TextView) inflate.findViewById(R.id.dx);
 				final TextView no = (TextView) inflate.findViewById(R.id.no);
-				card.setCardBackgroundColor(0xFF00003A);
+				card.setCardBackgroundColor(0xFF424242);
 				card.setRadius((float)22);
 				card.setCardElevation((float)0);
 				d8.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
@@ -1292,6 +1118,28 @@ public class FilesActivity extends AppCompatActivity {
 			}
 		});
 		
+		_drawer_keyboard.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				mkeyboard.setTitle("Vcm keyboard A fast keyboard for typing your code");
+				mkeyboard.setIcon(R.drawable.keyboard);
+				mkeyboard.setMessage("Please select an operation. The settings of some mobile phones may be different. If it is not activated, you can activate the application keyboard from the settings section. Respectfully, vcm");
+				mkeyboard.setPositiveButton(Html.fromHtml("<h1 style=\"color:green;\">Select and confirm the keyboard from the settings</h1>"), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface _dialog, int _which) {
+						startActivityForResult(new Intent("android.settings.INPUT_METHOD_SETTINGS"), 0);
+					}
+				});
+				mkeyboard.setNegativeButton(Html.fromHtml("<h1 style =\"color:red;\">Keyboard confirmation</h1>"), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface _dialog, int _which) {
+						((android.view.inputmethod.InputMethodManager) getApplicationContext().getSystemService("input_method")).showInputMethodPicker();
+					}
+				});
+				mkeyboard.create().show();
+			}
+		});
+		
 		_drawer_color.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
@@ -1336,14 +1184,14 @@ public class FilesActivity extends AppCompatActivity {
 				final TextView tv = (TextView) inflate.findViewById(R.id.tv);
 				android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
 				int ninja = (int) getApplicationContext().getResources().getDisplayMetrics().density;
-				SketchUi.setColor(0xFF03A9F4);
-				SketchUi.setCornerRadius(ninja*15);
+				SketchUi.setColor(0xFF424242);
+				SketchUi.setCornerRadius(ninja*18);
 				b.setElevation(ninja*5);
 				android.graphics.drawable.RippleDrawable SketchUiRD = new android.graphics.drawable.RippleDrawable(new android.content.res.ColorStateList(new int[][]{new int[]{}}, new int[]{0xFFFF5722}), SketchUi, null);
 				b.setBackground(SketchUiRD);
 				ed.setTextColor(0xFF219EB7);
 				ed.setHintTextColor(0xFF219EB7);
-				card.setCardBackgroundColor(0xFF000027);
+				card.setCardBackgroundColor(0xFF212121);
 				card.setRadius((float)25);
 				card.setCardElevation((float)0);
 				ed.setSingleLine(true);
@@ -1365,7 +1213,7 @@ public class FilesActivity extends AppCompatActivity {
 										final String _charSeq = _param1.toString();
 						       
 						 
-						               try {
+						               try{
 							text = _charSeq;
 							tv.setText(String.valueOf((long)(text.length())).concat("/".concat(String.valueOf((long)(limit)))));
 							if (text.length() > 170) {
@@ -1378,7 +1226,7 @@ public class FilesActivity extends AppCompatActivity {
 								ed.setTextColor(0xFF219EB7);
 								tv.setTextColor(0xFF219EB7);
 							}
-						} catch (Exception e) {
+						}catch(Exception e){
 							SketchwareUtil.showMessage(getApplicationContext(), e.toString());
 						}
 										
@@ -1446,29 +1294,14 @@ public class FilesActivity extends AppCompatActivity {
 	
 	private void initializeLogic() {
 		setTheme(android.R.style.Theme_Material);
-		myContext = new GetContextClass(this).getContextNow();
-		
 		RLottie.init(this);
-		//Multicolor Swipe Refresh
 		
-		int blue = Color.parseColor("#4285F4");
-		int green = Color.parseColor("#34A853");
-		int orange = Color.parseColor("#FBBC05");
-		int red = Color.parseColor("#EA4335");
-		int mmm = Color.parseColor("#FFD510C1");
-		
-		Mrefrash.setColorSchemeColors(blue, green, orange, red , mmm);
-		
-		//Background Swipe Refresh
-		
-		int background = Color.parseColor("#FF000535");
-		Mrefrash.setProgressBackgroundColorSchemeColor(background);
 		Folder = FileUtil.getExternalStorageDir();
 		_getFiles("");
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =FilesActivity.this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF000027);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF212121);
 		}
 		listview1.setHorizontalScrollBarEnabled(false);
 		listview1.setVerticalScrollBarEnabled(false);
@@ -1479,13 +1312,13 @@ public class FilesActivity extends AppCompatActivity {
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF212121".replace("0xFF" , "#")));
 		}
 		_fab.setImageResource(R.drawable.plus);
 		
 		{
 			android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-			SketchUi.setColor(0xFF000027);SketchUi.setCornerRadius(getDip(10));
+			SketchUi.setColor(0xFF000000);SketchUi.setCornerRadius(getDip(10));
 			_drawer_mynav.setElevation(getDip(2));
 			_drawer_mynav.setBackground(SketchUi);
 		}
@@ -1498,6 +1331,7 @@ public class FilesActivity extends AppCompatActivity {
 		dialogfolder = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		exit = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		smaill = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+		mkeyboard = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		fonts(getApplicationContext(),getWindow().getDecorView()); 
 	} 
 	  private void fonts(final android.content.Context context, final View v) {
@@ -1545,7 +1379,7 @@ public class FilesActivity extends AppCompatActivity {
 		}
 		if (a11.getString("kk", "").equals("")) {
 			a11.edit().putString("kk", "1").commit();
-			try {
+			try{
 				 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 						      
 					// youtube channel Hichem Soft
@@ -1560,7 +1394,7 @@ public class FilesActivity extends AppCompatActivity {
 						      
 						       
 						    }
-			} catch (Exception e) {
+			}catch(Exception e){
 				SketchwareUtil.showMessage(getApplicationContext(), e.toString());
 			}
 		}
@@ -1570,6 +1404,55 @@ public class FilesActivity extends AppCompatActivity {
 		
 		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFF1976D2".replace("0xFF" , "#"))));
 		isFab = false;
+		if (FileUtil.isExistFile("/sdcard/.vcm/android.jar")) {
+			
+		}
+		else {
+			new AsyncTask<String, String, String>() {
+				@Override
+				protected void onPreExecute() {
+					androidjar = new ProgressDialog(FilesActivity.this);
+					androidjar.setTitle(Html.fromHtml("<font color =\"blue\">install android.jar</font>"));
+					androidjar.getWindow().setBackgroundDrawable(new ColorDrawable(0xFF000239));
+					androidjar.setMessage(Html.fromHtml("<font color =\"green\">road android.jar plz .....</font>"));
+					androidjar.show();
+				}
+				@Override
+				protected String doInBackground(String... params) {
+					String _param = params[0];
+					copyOneFileFromAssets("libs/androjd.jar", "/sdcard/.vcm/");
+					return "";
+				}
+				@Override
+				protected void onPostExecute(String _result) {
+					androidjar.dismiss();
+				}
+			}.execute("");
+		}
+		listview1.setOnScrollListener(new ListView.OnScrollListener() {
+				
+				private int mLastFirstVisibleItem;
+				
+				@Override
+				public void onScrollStateChanged(AbsListView view, int scrollState) {
+				}
+				
+				@Override
+				public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+						
+						if(mLastFirstVisibleItem<firstVisibleItem) {
+								_fab.hide();
+						}
+						
+						if(mLastFirstVisibleItem>firstVisibleItem) {
+								_fab.show();
+						}
+						
+						mLastFirstVisibleItem = firstVisibleItem;
+						
+				}
+				
+		});
 	}
 	
 	@Override
@@ -1642,7 +1525,7 @@ public class FilesActivity extends AppCompatActivity {
 	
 	
 	public void _folder() {
-		mdialogFolder.setTitle("Type name Folder");
+		mdialogFolder.setTitle(Html.fromHtml("<h1 style=\"color:green;\">Type name Folder</h1>"));
 		mdialogFolder.setIcon(R.drawable.vscode);
 		final EditText meditor= new EditText(FilesActivity.this);
 		LinearLayout.LayoutParams lparr = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -1654,11 +1537,11 @@ public class FilesActivity extends AppCompatActivity {
 		meditor.setLayoutParams(lparr);
 		mdialogFolder.setView(meditor);
 		mdialogFolder.setMessage("plz Type name Folder");
-		mdialogFolder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		mdialogFolder.setPositiveButton(Html.fromHtml("<h1 style=\"color:blue\">Yes</h1>"), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
 				CreateFolder = meditor.getText().toString();
-				try {
+				try{
 					
 					if (!FileUtil.isFile(Folder.concat("/".concat(CreateFolder.concat("/"))))) {
 						FileUtil.makeDir(Folder.concat("/".concat(CreateFolder.concat("/"))));
@@ -1668,12 +1551,12 @@ public class FilesActivity extends AppCompatActivity {
 					else {
 						
 					}
-				} catch (Exception e) {
+				}catch(Exception e){
 					 
 				}
 			}
 		});
-		mdialogFolder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+		mdialogFolder.setNegativeButton(Html.fromHtml("<h1 style=\"color:red;\">No</h1>"), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
 				
@@ -1700,7 +1583,7 @@ public class FilesActivity extends AppCompatActivity {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
 				mainfile = meditor.getText().toString();
-				try {
+				try{
 					if (mainfile.equals("")) {
 						_file();
 					}
@@ -1720,7 +1603,7 @@ public class FilesActivity extends AppCompatActivity {
 						}
 					}
 					
-				} catch (Exception e) {
+				}catch(Exception e){
 					 
 				}
 			}
@@ -1882,102 +1765,7 @@ public class FilesActivity extends AppCompatActivity {
 	
 	
 	public void _listfile(final double _pos, final String _FILE) {
-		try {
-			if (files.get((int)_pos).get(_FILE).toString().endsWith(".jar")) {
-				cdm = files.get((int)_pos).get(_FILE).toString();
-				if (cdm.equals("")) {
-					SketchwareUtil.showMessage(getApplicationContext(), "خطا انتخاب فایل jar");
-				}
-				else {
-					if (cdm.endsWith(".jar")) {
-						if (FileUtil.isExistFile(cdm)) {
-							error = false;
-							try {
-								final SpinKitView spkv = new SpinKitView(FilesActivity.this);
-								spkv.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
-								spkv.setStyle(Style.WAVE);
-								spkv.setColor(0xFFFF8800);
-								
-								
-								
-								LinearLayout layoutP = new LinearLayout(FilesActivity.this);
-								LinearLayout layout1 = new LinearLayout(FilesActivity.this);
-								LinearLayout layout2 = new LinearLayout(FilesActivity.this);
-								
-								final TextView textLoad = new TextView(getApplicationContext());
-								textLoad.setText("jar to dex convert ".concat(cdm));
-								textLoad.setTextColor(0xFFFF8800);
-								textLoad.setTextSize((float)17);
-								
-								//layoutP.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
-								layoutP.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-								
-								layoutP.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-								layoutP.setOrientation(LinearLayout.VERTICAL);
-								layout1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-								layout2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-								  
-								
-								     
-								     
-								layout2.setPadding(8,8,8,8);
-								textLoad.setPadding(8,8,8,8);
-								
-								layout1.addView(spkv);
-								layout2.addView(textLoad);
-								layoutP.addView(layout1);
-								layoutP.addView(layout2);
-								
-								newDialogspkv = new AlertDialog.Builder(FilesActivity.this)
-									.setView(layoutP)
-									.create();
-								  newDialogspkv.show();
-								
-								newDialogspkv.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-								
-								new _BackgroundTaskClass2(FilesActivity.this) {
-										        @Override
-										        public void doInBackground() {
-										try {
-											_jar2dex(cdm, cdm.substring((int)(0), (int)(cdm.lastIndexOf(".jar"))).concat(".dex"));
-										} catch (Exception e) {
-											exception = e.toString();
-											error = true;
-										}
-										
-												        }
-										
-										        @Override
-										        public void onPostExecute() {
-												 
-										SketchwareUtil.showMessage(getApplicationContext(), "Success to convert - ".concat(cdm.substring((int)(0), (int)(cdm.lastIndexOf(".jar"))).concat(".dex")));
-										_getFiles("");
-										newDialogspkv.dismiss();
-										newDialogspkv.setCancelable(false);
-										if (error) {
-											SketchwareUtil.showMessage(getApplicationContext(), exception);
-										}
-										else {
-											
-										}
-												        }
-										    }.execute();
-							} catch (Exception e) {
-								 
-							}
-						}
-						else {
-							SketchwareUtil.showMessage(getApplicationContext(), "فایل پیدا نشد");
-						}
-					}
-					else {
-						SketchwareUtil.showMessage(getApplicationContext(), "فایل jar");
-					}
-				}
-			}
-		} catch (Exception e) {
-			NinjaCodermain.CustomToast(getApplicationContext(), e.toString(), 0xFFFFFFFF, 14, 0xFF00003A, 25,NinjaCodermain.TOP , 2);
-		}
+		
 	}
 	
 	
@@ -1993,116 +1781,6 @@ public class FilesActivity extends AppCompatActivity {
 		return df.getActivity();
 	}
 	{
-	}
-	
-	
-	public void _ConvertDexToJar(final String _DexPath, final String _JarPath) {
-		try {
-			Dex2jar.from(new java.io.File(_DexPath)).to(new java.io.File(_JarPath));
-		} catch(java.io.IOException e) {
-				 
-				     //showMessage(e);
-		}
-	}
-	public static abstract class _BackgroundTaskClass {
-		
-		    private Activity activity;
-		    public _BackgroundTaskClass(Activity activity) {
-				        this.activity = activity;
-				    }
-		public _BackgroundTaskClass(Fragment activity) {
-				        this.activity = activity.getActivity();
-				    }
-		public _BackgroundTaskClass(DialogFragment activity) {
-				        this.activity = activity.getActivity();
-				    }
-		
-		    private void startBackground() {
-				        new Thread(new Runnable() {
-						            public void run() {
-								Looper.prepare();
-								                doInBackground();
-								                activity.runOnUiThread(new Runnable() {
-										                    public void run() {
-												
-												                        onPostExecute();
-												                    }
-										                });
-								            }
-						        }).start();
-				    }
-		    public void execute(){
-				        startBackground();
-				    }
-		
-		    public abstract void doInBackground();
-		    public abstract void onPostExecute();
-		
-	}
-	{
-	}
-	
-	
-	public void _DoInBackground() {
-	}
-	public static abstract class _BackgroundTaskClass2 {
-		
-		    private Activity activity;
-		    public _BackgroundTaskClass2(Activity activity) {
-				        this.activity = activity;
-				    }
-		public _BackgroundTaskClass2(Fragment activity) {
-				        this.activity = activity.getActivity();
-				    }
-		public _BackgroundTaskClass2(DialogFragment activity) {
-				        this.activity = activity.getActivity();
-				    }
-		
-		    private void startBackground() {
-				        new Thread(new Runnable() {
-						            public void run() {
-								Looper.prepare();
-								                doInBackground();
-								                activity.runOnUiThread(new Runnable() {
-										                    public void run() {
-												
-												                        onPostExecute();
-												                    }
-										                });
-								            }
-						        }).start();
-				    }
-		    public void execute(){
-				        startBackground();
-				    }
-		
-		    public abstract void doInBackground();
-		    public abstract void onPostExecute();
-		
-	}
-	{
-	}
-	
-	
-	public void _jar2dex(final String _input, final String _output) {
-		try {
-			java.io.File file = new java.io.File(_output);
-			java.io.File file2 = new java.io.File(_input);
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-			String[] strArr2 = new String[3];
-			strArr2[0] = "--dex";
-			StringBuffer stringBuffer = new StringBuffer();
-			StringBuffer stringBuffer2 = new StringBuffer();
-			strArr2[1] = stringBuffer.append("--output=").append(file.getAbsolutePath()).toString();
-			strArr2[2] = _input;
-			com.android.dx.command.Main.main(strArr2);
-			if (FileUtil.getFileLength(file.getAbsolutePath()) > 1) {
-			}
-		}
-		catch (Exception e) {
-		}
 	}
 	
 	
@@ -2136,7 +1814,7 @@ public class FilesActivity extends AppCompatActivity {
 	
 	
 	public void _getApkIcon(final String _path, final ImageView _imageview) {
-		try {
+		try{
 			android.content.pm.PackageManager packageManager = this.getPackageManager();
 			android.content.pm.PackageInfo packageInfo = packageManager.getPackageArchiveInfo(_path, 0);
 			packageInfo.applicationInfo.sourceDir = _path;
@@ -2144,7 +1822,7 @@ public class FilesActivity extends AppCompatActivity {
 			_imageview.setImageDrawable(packageInfo.applicationInfo.loadIcon(packageManager));
 			packageInfo = null;
 			packageManager = null;
-		} catch (Exception e) {
+		}catch(Exception e){
 			_imageview.setImageResource(R.drawable.android);
 		}
 	}
@@ -2153,13 +1831,13 @@ public class FilesActivity extends AppCompatActivity {
 	public void _apksingerlibrary() {
 	}
 	private void signedFile(final File file){
-		try {
+		try{
 			String outFile =file.getAbsolutePath();
 			FileUtil.makeDir(FileUtil.getExternalStorageDir().concat("/vscodemobile/"));
 			out = FileUtil.getExternalStorageDir().concat("/vscodemobile/".concat(Uri.parse(outFile).getLastPathSegment().replace(".apk", "").concat("-signedfilevscodemobile.apk")));
 			apksigner.Main.sign(file,out);
 			SketchwareUtil.CustomToast(getApplicationContext(), "Success - ".concat(Uri.parse(out).getLastPathSegment()), 0xFFFFFFFF, 14, 0xFFE91E63, 20, SketchwareUtil.BOTTOM);
-		} catch (Exception e) {
+		}catch(Exception e){
 			SketchwareUtil.showMessage(getApplicationContext(), e.toString());
 		}
 	}{
@@ -2168,7 +1846,7 @@ public class FilesActivity extends AppCompatActivity {
 	
 	public void _imagerviewerclass(final ArrayList<HashMap<String, Object>> _type, final double _pos, final String _path) {
 		if (_type.get((int)_pos).get(_path).toString().endsWith(".jpg") || _type.get((int)_pos).get(_path).toString().endsWith(".png")) {
-			try {
+			try{
 				final AlertDialog dialog1 = new AlertDialog.Builder(FilesActivity.this).create();
 				View inflate = getLayoutInflater().inflate(R.layout.imageviewer,null); 
 				dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -2195,7 +1873,7 @@ public class FilesActivity extends AppCompatActivity {
 				});
 				dialog1.setCancelable(true);
 				dialog1.show();
-			} catch (Exception e) {
+			}catch(Exception e){
 				 
 			}
 		}
@@ -4383,7 +4061,7 @@ public class FilesActivity extends AppCompatActivity {
 						@Override
 						public void run() {
 							while(true) {
-								try {
+								try{
 									if(Aswb.contains(".swb")){
 												if (FileUtil.isFile(Aswb)) {
 																S4U.selecteSWB(Aswb, getApplicationContext());
@@ -4401,7 +4079,7 @@ public class FilesActivity extends AppCompatActivity {
 									else {
 												SketchwareUtil.showMessage(getApplicationContext(), "THIS FILE IS NOT SWB");
 									}
-								} catch (Exception e) {
+								}catch(Exception e){
 									 
 								}
 								pro.dismiss();
@@ -4413,41 +4091,6 @@ public class FilesActivity extends AppCompatActivity {
 			};
 			_timer.schedule(ask2, (int)(1000));
 		}
-	}
-	
-	
-	public void _external() {
-	}
-	public static class GetContextClass {
-		        private Context myContext;
-		
-		        public GetContextClass(Context context) {
-			            this.myContext = context;
-			        }
-		
-		        public GetContextClass(Fragment fragment) {
-			            this.myContext = fragment.getActivity();
-			        }
-		
-		        public GetContextClass(DialogFragment dialogFragment) {
-			            this.myContext = dialogFragment.getActivity();
-			        }
-		
-		        public Context getContextNow() {
-			            return this.myContext;
-			        }
-		    }
-	public static InputStream getResourceAsStream(String str) throws IOException {
-		        return myContext.getAssets().open(str);
-		    }
-	 public static DecompilerAsyncTask log;
-	    public static Context myContext;
-	{
-	}
-	
-	
-	public void _jadx(final String _input, final String _output) {
-		
 	}
 	
 	
@@ -4468,7 +4111,7 @@ public class FilesActivity extends AppCompatActivity {
 						@Override
 						public void run() {
 							while(true) {
-								try {
+								try{
 									String fileZip = _mp.get((int)_pos).get(_log).toString();
 									        java.io.File destDir = new java.io.File(dir);
 									        byte[]  buffer = new byte[1024] ;
@@ -4505,7 +4148,7 @@ public class FilesActivity extends AppCompatActivity {
 									} catch (Exception e) {
 										  showMessage(e.toString());
 										   }
-								} catch (Exception e) {
+								}catch(Exception e){
 									SketchwareUtil.showMessage(getApplicationContext(), "Error");
 									SketchwareUtil.CustomToast(getApplicationContext(), "install library to ".concat(_mp.get((int)_pos).get(_log).toString().concat(" to ".concat(dir))), 0xFFE91E63, 15, 0xFFFFFFFF, 15, SketchwareUtil.BOTTOM);
 								}
@@ -4518,149 +4161,6 @@ public class FilesActivity extends AppCompatActivity {
 			};
 			_timer.schedule(ask2, (int)(1000));
 		}
-	}
-	
-	
-	public void _DextoSmaill() {
-	}
-	private ProgressDialog ninjaprogress;
-	
-	public static class BaksmaliAdapter {
-				public static void run(java.io.File ninjainput, java.io.File output120) throws Exception {
-							org.jf.baksmali.BaksmaliOptions options = new org.jf.baksmali.BaksmaliOptions();
-							options.deodex = false;
-							options.implicitReferences = false;
-							options.parameterRegisters = true;
-							options.localsDirective = true;
-							options.sequentialLabels = true;
-							options.debugInfo = true;
-							options.codeOffsets = false;
-							options.accessorComments = false;
-							options.registerInfo = 0;
-							options.inlineResolver = null;
-							int jobs = Runtime.getRuntime().availableProcessors();
-							if (jobs > 6) {
-										jobs = 6;
-							}
-							java.io.InputStream is = new java.io.BufferedInputStream(new java.io.FileInputStream(ninjainput.toString()));
-							org.jf.dexlib2.iface.DexFile dexFile = org.jf.dexlib2.dexbacked.DexBackedDexFile.fromInputStream(org.jf.dexlib2.Opcodes.forApi(15), is);
-							org.jf.baksmali.Baksmali.disassembleDexFile(dexFile, output120, jobs, options, null);
-				}
-				public static void run(String ninjainput, String output120) throws Exception {
-							run(new java.io.File(ninjainput), new java.io.File(output120));
-				}
-	}
-	
-	public static class SmaliAdapter {
-				public static void run(java.io.File ninjainput, java.io.File output120) throws Exception {
-							org.jf.smali.SmaliOptions params = new org.jf.smali.SmaliOptions();
-							params.outputDexFile = output120.getAbsolutePath();
-							org.jf.smali.Smali.assemble(params, Arrays.asList(ninjainput.getAbsolutePath()));
-				}
-				public static void run(String ninjainput, String output120) throws Exception {
-							run(new java.io.File(ninjainput), new java.io.File(output120));
-				}
-	}
-	
-	{
-	}
-	
-	
-	public void _dtos(final double _pos, final ArrayList<HashMap<String, Object>> _mm) {
-		ninjainput = _mm.get((int)_pos).get("path").toString();
-		smaill.setTitle("Dex to Smaill Convert");
-		final EditText ed= new EditText(FilesActivity.this);
-		LinearLayout.LayoutParams lparr = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		///custom edit
-		ed.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/hack_regular.ttf"), 0);
-		ed.setTextColor(0xFFFFFFFF);
-		ed.setHint("/sdcard/NamePath");
-		ed.setText("/sdcard/Android/");
-		ed.setHintTextColor(0xFFFFFFFF);
-		///end
-		ed.setLayoutParams(lparr);
-		smaill.setView(ed);
-		output120 = ed.getText().toString();
-		ninjainput = new java.io.File(ninjainput).toString();
-		output120 = new java.io.File(output120).toString();
-		smaill.setMessage(Html.fromHtml("<font color=\"#007DFF\">Are You Convert Dex to Smaill??</font>"));
-		smaill.setPositiveButton(Html.fromHtml("<font color=\"#00FFFF\">Yes</font>"), new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface _dialog, int _which) {
-				if (ninjainput.equals("")) {
-					
-				}
-				else {
-					if (output120.equals("")) {
-						
-					}
-					else {
-						if (!FileUtil.isExistFile(ninjainput)) {
-							
-						}
-						else {
-							if (FileUtil.isExistFile(output120)) {
-								
-							}
-							else {
-								if (!FileUtil.isExistFile(new java.io.File(ninjaoutput).getParent())) {
-									
-								}
-								else {
-									ninjaprogress = new ProgressDialog(FilesActivity.this);
-									ninjaprogress.setMessage(new java.io.File(ninjainput).getName() + " into " + ninjaoutput + "...");
-									ninjaprogress.setCancelable(false);
-									ninjaprogress.show();
-									new AsyncTask<String, String, String>() {
-										 @Override
-										protected void onPreExecute() {
-											super.onPreExecute();
-										}
-										 @Override
-										protected String doInBackground(String... arg0) {
-											String debug = "";
-											while(true) {
-												try {
-													BaksmaliAdapter.run(ninjainput ,output120);
-													debug = "S";
-												}
-												catch (Exception e) {
-													debug = e.getMessage();
-												}
-												break;
-											}
-											return debug;
-										}
-										 @Override
-										protected void onPostExecute(String result) {
-											super.onPostExecute(result);
-											ninjaprogress.dismiss();
-											SketchwareUtil.showMessage(getApplicationContext(), result == "S" ? "Success" : result);
-										} 
-									}.execute();
-								}
-							}
-						}
-					}
-				}
-			}
-		});
-		smaill.setNegativeButton(Html.fromHtml("<font color=\"#FFBC00\">No</font>"), new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface _dialog, int _which) {
-				
-			}
-		});
-		smaill.create().show();
-	}
-	
-	
-	public void _Send(final Intent _IntentName, final String _to, final String _subject, final String _text) {
-		_IntentName.setAction(Intent.ACTION_VIEW);
-		_IntentName.setData(Uri.parse("mailto:learn.sketchware.app@gmail.com"));
-		_IntentName.putExtra("android.intent.extra.SUBJECT", _subject);
-		_IntentName.putExtra("android.intent.extra.TEXT", _text);
-		startActivity(_IntentName);
 	}
 	
 	
@@ -4698,7 +4198,7 @@ public class FilesActivity extends AppCompatActivity {
 	
 	
 	public void _kt(final String _str, final double _pos, final ArrayList<HashMap<String, Object>> _imP) {
-		if (_imP.get((int)_pos).get(_str).toString().endsWith("kt")) {
+		if (_imP.get((int)_pos).get(_str).toString().endsWith(".kt")) {
 			ini.setClass(getApplicationContext(), MainActivity.class);
 			ini.putExtra("key", _imP.get((int)_pos).get(_str).toString());
 			ini.putExtra("title", Uri.parse(_imP.get((int)_pos).get(_str).toString()).getLastPathSegment());
@@ -4731,7 +4231,7 @@ public class FilesActivity extends AppCompatActivity {
 	
 	
 	public void _fab1() {
-		try {
+		try{
 			LinearLayout fab1 = (LinearLayout)bg.findViewById(R.id.mfab1);
 			
 			LinearLayout open = (LinearLayout)bg.findViewById(R.id.open);
@@ -4751,14 +4251,14 @@ public class FilesActivity extends AppCompatActivity {
 					isFab =false;
 					
 					}});
-		} catch (Exception e) {
+		}catch(Exception e){
 			 
 		}
 	}
 	
 	
 	public void _fab2() {
-		try {
+		try{
 			LinearLayout fab2 = (LinearLayout)bg.findViewById(R.id.mfab2);
 			
 			LinearLayout folder = (LinearLayout)bg.findViewById(R.id.folder);
@@ -4778,14 +4278,14 @@ public class FilesActivity extends AppCompatActivity {
 					isFab =false;
 					
 					}});
-		} catch (Exception e) {
+		}catch(Exception e){
 			 
 		}
 	}
 	
 	
 	public void _fab3() {
-		try {
+		try{
 			LinearLayout fab3 = (LinearLayout)bg.findViewById(R.id.mfab3);
 			
 			LinearLayout file = (LinearLayout)bg.findViewById(R.id.file);
@@ -4805,7 +4305,7 @@ public class FilesActivity extends AppCompatActivity {
 					isFab =false;
 					
 					}});
-		} catch (Exception e) {
+		}catch(Exception e){
 			 
 		}
 	}
@@ -4841,6 +4341,248 @@ public class FilesActivity extends AppCompatActivity {
 		}
 	}
 	private LinearLayout bg;
+	{
+	}
+	
+	
+	public void _scss(final double _pos, final ArrayList<HashMap<String, Object>> _mmap, final String _path) {
+		if (_mmap.get((int)_pos).get(_path).toString().endsWith(".scss")) {
+			ini.setClass(getApplicationContext(), MainActivity.class);
+			ini.putExtra("key", _mmap.get((int)_pos).get(_path).toString());
+			ini.putExtra("title", Uri.parse(_mmap.get((int)_pos).get(_path).toString()).getLastPathSegment());
+			ini.putExtra("save", _mmap.get((int)_pos).get(_path).toString());
+			startActivity(ini);
+		}
+	}
+	
+	
+	public void _newdextojar(final String _path, final double _pos, final ArrayList<HashMap<String, Object>> _map) {
+		if (_map.get((int)_pos).get(_path).toString().endsWith(".jar")) {
+			final AlertDialog dialog1 = new AlertDialog.Builder(FilesActivity.this).create();
+			View inflate = getLayoutInflater().inflate(R.layout.dialogjartodex,null); 
+			dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+			dialog1.setView(inflate);
+			final TextView title = (TextView) inflate.findViewById(R.id.title);
+			final ScrollView vscroll1 = (ScrollView) inflate.findViewById(R.id.vscroll1);
+			final TextView logger = (TextView) inflate.findViewById(R.id.logger);
+			final EditText anjar = (EditText) inflate.findViewById(R.id.anjar);
+			final ProgressBar pro = (ProgressBar) inflate.findViewById(R.id.pro);
+			final TextView tvrun = (TextView) inflate.findViewById(R.id.tvrun);
+			final Button btndir = (Button) inflate.findViewById(R.id.btndir);
+			final Button mainbtn = (Button) inflate.findViewById(R.id.mainbtn);
+			final EditText input = (EditText) inflate.findViewById(R.id.input);
+			final EditText output = (EditText) inflate.findViewById(R.id.output);
+			final ImageView img = (ImageView) inflate.findViewById(R.id.img);
+			final com.google.android.material.checkbox.MaterialCheckBox c_fileperclass = (com.google.android.material.checkbox.MaterialCheckBox) inflate.findViewById(R.id.c_fileperclass);
+			final androidx.cardview.widget.CardView cardx = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.cardx);
+			final com.google.android.material.checkbox.MaterialCheckBox c_int2 = (com.google.android.material.checkbox.MaterialCheckBox) inflate.findViewById(R.id.c_int2);
+			final com.google.android.material.checkbox.MaterialCheckBox c_release = (com.google.android.material.checkbox.MaterialCheckBox) inflate.findViewById(R.id.c_release);
+			title.setText(Uri.parse(_map.get((int)_pos).get(_path).toString()).getLastPathSegment());
+			
+			java.io.OutputStream _os = new java.io.OutputStream() {
+					StringBuilder mCache;
+					@Override
+					public void write(int b) {
+							if(mCache == null) mCache = new StringBuilder();
+							if(((char) b) == '\n'){
+									final String _print = mCache.toString();
+															
+									runOnUiThread(() -> {
+								logger.append("\n");
+							logger.append(_print);
+							vscroll1.post(() -> {
+									vscroll1.fullScroll(ScrollView.FOCUS_DOWN);
+							});
+						});
+														
+									mCache = new StringBuilder();
+							}else{
+									mCache.append((char)b);
+							}
+					}
+			};
+			
+			System.setOut(new java.io.PrintStream(_os));
+			System.setErr(new java.io.PrintStream(_os));
+			input.setText(_map.get((int)_pos).get(_path).toString());
+			pro.setVisibility(View.GONE);
+			tvrun.setVisibility(View.GONE);
+			output.setText(_map.get((int)_pos).get(_path).toString());
+			mainbtn.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)25, 0xFFE91E63));
+			btndir.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)25, 0xFFE91E63));
+			output.setEnabled(true);
+			cardx.setCardBackgroundColor(0xFF000027);
+			cardx.setRadius((float)20);
+			cardx.setCardElevation((float)1);
+			if (android.os.Build.VERSION.SDK_INT >= 21) {
+					pro.getIndeterminateDrawable().setColorFilter(Color.parseColor("#ff00ffff"), PorterDuff.Mode.SRC_IN);
+			}
+			mainbtn.setOnClickListener(v->{
+					
+				
+					 new AsyncTask<String, String, String>() {
+					@Override
+					protected void onPreExecute() {
+						pro.setVisibility(View.VISIBLE);
+						tvrun.setText("Runing jar to dex.....");
+						tvrun.setVisibility(View.VISIBLE);
+						input.setEnabled(false);
+						output.setEnabled(false);
+						btndir.setEnabled(false);
+						anjar.setEnabled(false);
+						mainbtn.setEnabled(false);
+						c_fileperclass.setEnabled(false);
+						c_int2.setEnabled(false);
+						c_release.setEnabled(false);
+					}
+					@Override
+					protected String doInBackground(String... params) {
+						String _param = params[0];
+						args.clear();
+						if (c_release.isChecked()) {
+							args.add(c_release.getText().toString());
+						}
+						if (c_int2.isChecked()) {
+							args.add(c_int2.getText().toString());
+						}
+						if (c_fileperclass.isChecked()) {
+							args.add(c_fileperclass.getText().toString());
+						}
+						if (!anjar.getText().toString().equals("")) {
+							args.add("--lib");
+							args.add(anjar.getText().toString());
+						}
+						//if(!more_args.getText().toString().isEmpty()) {
+						     //args.addAll(new ArrayList<String>(
+						         //Arrays.asList(more_args.getText().toString().split(" "))
+						     //));
+						//}
+						args.add("--output");
+						args.add(output.getText().toString());
+						args.add(input.getText().toString());
+						try {
+								
+									D8.main(args.toArray(new String[0]));
+									
+						} catch(final Exception e) {
+							runOnUiThread(() -> {
+									SketchwareUtil.showMessage(getApplicationContext(), e.toString());
+							});
+						}
+						return "";
+					}
+					@Override
+					protected void onPostExecute(String _result) {
+						tvrun.setText("Done Convert");
+						pro.setVisibility(View.GONE);
+						input.setEnabled(true);
+						output.setEnabled(true);
+						btndir.setEnabled(true);
+						anjar.setEnabled(true);
+						mainbtn.setEnabled(true);
+						c_fileperclass.setEnabled(true);
+						c_int2.setEnabled(true);
+						c_release.setEnabled(true);
+						dialog1.dismiss();
+					}
+				}.execute("");
+			});
+			btndir.setOnClickListener(v->{
+					
+				
+					 DialogProperties properties = new DialogProperties();
+				
+				properties.selection_mode = DialogConfigs.SINGLE_MODE;
+				properties.selection_type = DialogConfigs.DIR_SELECT;
+				properties.root = new File(DialogConfigs.DEFAULT_DIR);
+				properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
+				properties.offset = new File(DialogConfigs.DEFAULT_DIR);
+				
+				FilePickerDialog dialog = new FilePickerDialog(FilesActivity.this,properties);
+				
+				dialog.setTitle("Select an output directory for jar file ");
+				
+				dialog.setDialogSelectionListener((files) -> {
+						output.setText(files[0]);
+				});
+				
+				dialog.show();
+				
+			});
+			dialog1.show();
+		}
+	}
+	
+	
+	public void _exstarassterfilelib() {
+	}
+	private void copyAllFilesAssets(String assetsFolder, String outPath) {
+		    AssetManager assetManager = getAssets();
+		    String[] files = null;
+		    try {
+			        files = assetManager.list(assetsFolder);
+			    } catch (java.io.IOException e) {
+			        
+			    }
+		    if (files != null) for (String filename : files) {
+			        java.io.InputStream in = null;
+			        java.io.OutputStream out = null;
+			        try {
+				          in = assetManager.open(assetsFolder+"/"+filename);
+				          java.io.File outFile = new java.io.File(outPath, filename);
+				          if (!(outFile.exists())) {// File does not exist...
+					                out = new java.io.FileOutputStream(outFile);
+					                copyFile(in, out);
+					                showMessage("success !");
+					          }
+				        } catch(java.io.IOException e) {
+				            showMessage(e.toString());
+				        }     
+			        finally {
+				            if (in != null) {
+					                try {
+						                    in.close();
+						                } catch (java.io.IOException e) {
+						                    // NOOP
+						                }
+					            }
+				            if (out != null) {
+					                try {
+						                    out.close();
+						                } catch (java.io.IOException e) {
+						                    // NOOP
+						                }
+					            }
+				        }  
+			    }
+	}
+	private void copyFile(java.io.InputStream in, java.io.OutputStream out) throws java.io.IOException {
+		    byte[] buffer = new byte[1024];
+		    int read;
+		    while((read = in.read(buffer)) != -1){
+			      out.write(buffer, 0, read);
+			    }
+	}
+	
+	private void copyOneFileFromAssets(final String assetFilename, final String assetSavePath) {
+		  			try{
+			  				int count;
+			  				java.io.InputStream input = getAssets().open(assetFilename);
+			  				java.io.OutputStream output = new  java.io.FileOutputStream(assetSavePath+"/"+assetFilename);
+			  				byte data[] = new byte[1024];
+			  				while ((count = input.read(data))>0) {
+				  					output.write(data, 0, count);
+				  			}
+			  				output.flush();
+			  				output.close();
+			  				input.close();
+			  				
+			  				SketchwareUtil.showMessage(getApplicationContext(), "success ");
+			  		}catch(Exception e){
+			  				
+			  				SketchwareUtil.showMessage(getApplicationContext(), "failed !");
+			  		}
+	}
 	{
 	}
 	
@@ -4897,7 +4639,7 @@ public class FilesActivity extends AppCompatActivity {
 			sizeofdef.setSelected(true);
 			
 			
-			cardview1.setCardBackgroundColor(0xFF00003A);
+			cardview1.setCardBackgroundColor(0xFF212121);
 			cardview1.setRadius((float)18);
 			cardview1.setCardElevation((float)1);
 			sizeofdef.setVisibility(View.GONE);
@@ -5080,8 +4822,15 @@ public class FilesActivity extends AppCompatActivity {
 																																	imageview1.setImageAsset("text.svg");
 																																}
 																																else {
-																																	imageview1.setImageAsset("default_file.svg");
-																																	sizeofdef.setVisibility(View.GONE);
+																																	if (files.get((int)_position).get("path").toString().endsWith(".scss")) {
+																																		_tamal(files.get((int)_position).get("path").toString(), sizeofdef);
+																																		sizeofdef.setVisibility(View.VISIBLE);
+																																		imageview1.setImageAsset("scss.svg");
+																																	}
+																																	else {
+																																		imageview1.setImageAsset("default_file.svg");
+																																		sizeofdef.setVisibility(View.GONE);
+																																	}
 																																}
 																															}
 																														}

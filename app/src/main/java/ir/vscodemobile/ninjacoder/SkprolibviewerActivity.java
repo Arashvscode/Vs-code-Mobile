@@ -44,17 +44,13 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -172,12 +168,10 @@ public class SkprolibviewerActivity extends AppCompatActivity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) { 
-				   Window coder = this.getWindow();
-			 coder.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			 coder.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-			
-				   coder.setStatusBarColor(Color.parseColor("#000027")); coder.setNavigationBarColor(Color.parseColor("#000027"));
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+				Window w =this.getWindow();
+				w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+				w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
 		}
 	}
 	

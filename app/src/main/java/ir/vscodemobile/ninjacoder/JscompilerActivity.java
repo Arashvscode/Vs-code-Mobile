@@ -34,15 +34,11 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -124,11 +120,6 @@ public class JscompilerActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-			Window w =JscompilerActivity.this.getWindow();
-			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF000027);
-		}
 		String string = getIntent().getExtras().getString("sendCode");
 		        setTitle("Console");
 		        String str = "<html><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,  initial-scale=1.0'><title>console</title><link rel=\"stylesheet\" href=\"css/saam.min.css\"><link rel=\"stylesheet\" href=\"css/console.css\"></head><body><div class='coutput content scroll-content' id='log'></div><script>var Console = function(code){var args = [];for(var a in arguments){if(typeof arguments[a] == \"object\"){var c = JSON.stringify(arguments[a]);args.push(c);} else { args.push(arguments[a]);}} document.getElementById('log').innerHTML += `<code class='cline'>${args.join('')}</code>`;};(function runCode() { try { " + string.replace("console.log", "Console") + " } catch (err){ document.getElementById('log').innerHTML = `<code class='cline cerror'> ! ${err.message} </code>`; } })();</script></body></html>";
@@ -157,7 +148,7 @@ public class JscompilerActivity extends AppCompatActivity {
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF424242".replace("0xFF" , "#")));
 		}
 	}
 	

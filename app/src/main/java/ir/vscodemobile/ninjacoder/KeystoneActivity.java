@@ -42,17 +42,13 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.*;
 import com.google.android.material.textfield.*;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -183,7 +179,7 @@ public class KeystoneActivity extends AppCompatActivity {
 					SketchwareUtil.showMessage(getApplicationContext(), "تمامی فیلد ها رو پر کنید");
 				}
 				else {
-					try {
+					try{
 						alias = edittext_alias.getText().toString();
 						keyPassword = edittext_password.getText().toString();
 						storePassword = edittext_password.getText().toString();
@@ -219,7 +215,7 @@ public class KeystoneActivity extends AppCompatActivity {
 						if (FileUtil.isExistFile(save)) {
 							SketchwareUtil.showMessage(getApplicationContext(), "Success - ".concat(save.replace(FileUtil.getExternalStorageDir(), "")));
 						}
-					} catch (Exception e) {
+					}catch(Exception e){
 						SketchwareUtil.showMessage(getApplicationContext(), e.toString());
 					}
 				}

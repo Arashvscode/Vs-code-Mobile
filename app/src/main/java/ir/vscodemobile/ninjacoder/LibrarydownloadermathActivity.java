@@ -43,15 +43,11 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -144,12 +140,10 @@ public class LibrarydownloadermathActivity extends AppCompatActivity {
 	
 	private void initializeLogic() {
 		_RefreshData();
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) { 
-				   Window ninjacoder = this.getWindow();
-			 ninjacoder.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			 ninjacoder.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-			
-				   ninjacoder.setStatusBarColor(Color.parseColor("#FF000027")); ninjacoder.setNavigationBarColor(Color.parseColor("#FF000027"));
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+				Window w =this.getWindow();
+				w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+				w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
 		}
 	}
 	
@@ -175,7 +169,7 @@ public class LibrarydownloadermathActivity extends AppCompatActivity {
 			final TextView d8 = (TextView) inflate.findViewById(R.id.d8);
 			final TextView dx = (TextView) inflate.findViewById(R.id.dx);
 			final TextView no = (TextView) inflate.findViewById(R.id.no);
-			card.setCardBackgroundColor(0xFF00003A);
+			card.setCardBackgroundColor(0xFF424242);
 			card.setRadius((float)19);
 			card.setCardElevation((float)0);
 			d8.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){

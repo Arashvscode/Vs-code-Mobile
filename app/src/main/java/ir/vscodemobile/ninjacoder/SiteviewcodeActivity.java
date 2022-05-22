@@ -41,16 +41,12 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -142,9 +138,9 @@ public class SiteviewcodeActivity extends AppCompatActivity {
 				di.setPositiveButton(Html.fromHtml("<font color=\"#F40000\">save or html file</font>"), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
-						try {
+						try{
 							FileUtil.writeFile("/sdcard/vscode mobile/code.html", editor.getText().toString());
-						} catch (Exception e) {
+						}catch(Exception e){
 							 
 						}
 					}
@@ -186,16 +182,14 @@ public class SiteviewcodeActivity extends AppCompatActivity {
 	private void initializeLogic() {
 		editor.setEnabled(false);
 		editor.setColorScheme(new theme());
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) { 
-				   Window code = this.getWindow();
-			 code.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			 code.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-			
-				   code.setStatusBarColor(Color.parseColor("#000027")); code.setNavigationBarColor(Color.parseColor("#000027"));
-		}
-		di = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		editor.setEditorLanguage(new HTMLLanguage()); 
 		editor.setColorScheme(new HTMLScheme());
+		di = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+				Window w =this.getWindow();
+				w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+				w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
+		}
 	}
 	
 	@Override

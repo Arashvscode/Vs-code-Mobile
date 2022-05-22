@@ -4,7 +4,9 @@ import android.Manifest;
 import android.animation.*;
 import android.app.*;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.*;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.*;
@@ -48,15 +50,11 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -122,6 +120,7 @@ public class D8toolsActivity extends AppCompatActivity {
 	private EditText logger;
 	
 	private SharedPreferences helper;
+	private AlertDialog.Builder dialog;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -188,6 +187,7 @@ public class D8toolsActivity extends AppCompatActivity {
 		clear_log = findViewById(R.id.clear_log);
 		logger = findViewById(R.id.logger);
 		helper = getSharedPreferences("helper", Activity.MODE_PRIVATE);
+		dialog = new AlertDialog.Builder(this);
 		
 		run.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -416,9 +416,23 @@ public class D8toolsActivity extends AppCompatActivity {
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
 		}
 	}
+	
+	    public void onLowMemory() {
+		        super.onLowMemory();
+		        dialog.setTitle("Low memory");
+		dialog.setIcon(R.drawable.vscode);
+		dialog.setMessage("خطا حافظه موبایل شما کم است");
+		dialog.setPositiveButton("اوک", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface _dialog, int _which) {
+				
+			}
+		});
+		dialog.create().show();
+		        }
 	public void _lib() {
 	}
 	void removeSpan(Editable _param4, Class<? extends CharacterStyle> type) {

@@ -33,15 +33,11 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -97,9 +93,6 @@ public class CmdActivity extends AppCompatActivity {
 	private void initializeLogic() {
 		editor.setPinLineNumber(!editor.isLineNumberPinned());
 		editor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
-		editor.setTextActionMode(CodeEditor.TextActionMode.POPUP_WINDOW);
-		editor.setEdgeEffectColor(Color.RED);
-		
 		editor.setColorScheme(new ir.vscodemobile.ninjacoder.theme());
 		editor.setTypefaceText(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
 		editor.setWordwrap(false);
@@ -143,6 +136,11 @@ public class CmdActivity extends AppCompatActivity {
 						e.printStackTrace();
 				};
 		editor.setLineNumberEnabled(false);
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+			Window w =this.getWindow();
+			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF212121".replace("0xFF" , "#")));
+		}
 	}
 	
 	@Override
@@ -168,7 +166,7 @@ public class CmdActivity extends AppCompatActivity {
 			io.github.rosemoe.sora.widget.CodeEditor r = (io.github.rosemoe.sora.widget.CodeEditor) bottomSheetView.findViewById(R.id.r);
 			ImageView mis = (ImageView) bottomSheetView.findViewById(R.id.mis);
 			LinearLayout bg = (LinearLayout) bottomSheetView.findViewById(R.id.bg);
-			bg.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)30, 0xFF000027));
+			bg.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)30, 0xFF212121));
 			r.setColorScheme(new ir.vscodemobile.ninjacoder.theme());
 			r.setLineNumberEnabled(false);
 			new AsyncTask<String, String, String>() {

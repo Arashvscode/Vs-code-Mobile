@@ -46,16 +46,12 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -197,7 +193,7 @@ public class VsmviewActivity extends AppCompatActivity {
 								runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
-										try {
+										try{
 											while(true) {
 												String fileZip = viewmap.get((int)num).get("ninja").toString();
 												        java.io.File destDir = new java.io.File(txt.getText().toString());
@@ -238,7 +234,7 @@ public class VsmviewActivity extends AppCompatActivity {
 												pro.dismiss();
 												finish();
 											}
-										} catch (Exception e) {
+										}catch(Exception e){
 											SketchwareUtil.showMessage(getApplicationContext(), "error");
 										}
 									}
@@ -495,7 +491,7 @@ public class VsmviewActivity extends AppCompatActivity {
 			
 			textview1.setText(Uri.parse(viewmap.get((int)_position).get("ninja").toString()).getLastPathSegment());
 			_ScrollingText(textview1);
-			cardview1.setCardBackgroundColor(0xFF00003A);
+			cardview1.setCardBackgroundColor(0xFF212121);
 			cardview1.setRadius((float)19);
 			cardview1.setCardElevation((float)0);
 			if (_ispath(viewmap.get((int)_position).get("ninja").toString())) {

@@ -42,17 +42,13 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -149,7 +145,7 @@ public class SkproprojectActivity extends AppCompatActivity {
 	
 	
 	public void _GetProjects() {
-		try {
+		try{
 			FileUtil.listDir(FileUtil.getExternalStorageDir().concat("/.sketchware/mysc/list/"), path);
 			position = 0;
 			for(int _repeat14 = 0; _repeat14 < (int)(path.size()); _repeat14++) {
@@ -179,7 +175,7 @@ public class SkproprojectActivity extends AppCompatActivity {
 			Collections.reverse(listmap);
 			listview1.setAdapter(new Listview1Adapter(listmap));
 			((BaseAdapter)listview1.getAdapter()).notifyDataSetChanged();
-		} catch (Exception e) {
+		}catch(Exception e){
 			 
 		}
 	}
@@ -244,14 +240,14 @@ public class SkproprojectActivity extends AppCompatActivity {
 			linear1.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View _view) {
-					try {
+					try{
 						i.setClass(getApplicationContext(), ProjectskproviewActivity.class);
 						i.putExtra("ID", _data.get((int)_position).get("sc_id").toString());
 						i.putExtra("VERSION", _data.get((int)_position).get("sc_ver_name").toString());
 						i.putExtra("NAME", _data.get((int)_position).get("my_app_name").toString());
 						i.putExtra("PACK", _data.get((int)_position).get("my_sc_pkg_name").toString());
 						startActivity(i);
-					} catch (Exception e) {
+					}catch(Exception e){
 						SketchwareUtil.showMessage(getApplicationContext(), "پروژع کامپایل نشده");
 					}
 				}

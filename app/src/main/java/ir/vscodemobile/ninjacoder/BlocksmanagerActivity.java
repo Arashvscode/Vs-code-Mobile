@@ -53,17 +53,13 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -281,7 +277,7 @@ public class BlocksmanagerActivity extends AppCompatActivity {
 				_loadRefreshBlocks();
 				allBlocks = true;
 				try { 
-					getSupportActionBar().setTitle("Palette :  ".concat(String.valueOf((long)(palettesListMap.size()))));
+					
 					getSupportActionBar().setSubtitle("Blocks :".concat("  ".concat(String.valueOf((long)(lenghtBlocksList)))));
 				} catch (Exception e){
 					e.printStackTrace();
@@ -309,24 +305,24 @@ public class BlocksmanagerActivity extends AppCompatActivity {
 							searchListAll = new Gson().fromJson(allDataList, new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType());
 							final double length = searchListAll.size();
 							searchAllNumberList.clear();
-							 
-							 for (int i = 0; i < searchListAll.size(); i++){
-									 
-									 searchAllNumberList.add(Double.valueOf(i));
-									 
-								 }
-							 
+							
+							for (int i = 0; i < searchListAll.size(); i++){
+									
+									searchAllNumberList.add(Double.valueOf(i));
+									
+							}
+							
 							d = searchListAll.size() - 1;
-							 for(int i = 0; i < (int)(length); i++) {
-									  final String serching = searchListAll.get((int)d).get("name").toString();
-									  if (serching.toLowerCase().contains(_charSeq.toLowerCase())) {
-											   
-											  }else {
-											   searchListAll.remove((int)(d));
-											   searchAllNumberList.remove((int)d);
-											  }
-									  d--;
-									 }
+							for(int i = 0; i < (int)(length); i++) {
+									final String serching = searchListAll.get((int)d).get("name").toString();
+									if (serching.toLowerCase().contains(_charSeq.toLowerCase())) {
+											
+									}else {
+											searchListAll.remove((int)(d));
+											searchAllNumberList.remove((int)d);
+									}
+									d--;
+							}
 							
 							blocksList.setAdapter(new BlocksListAdapter(searchListAll));
 							((BaseAdapter)blocksList.getAdapter()).notifyDataSetChanged();
@@ -335,38 +331,39 @@ public class BlocksmanagerActivity extends AppCompatActivity {
 					else {
 							
 							SearchchosenList = new Gson().fromJson(allDataList, new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType());
-								
-								
-								SearchChosenNumberList.clear();
-								
-								
-								for (int i = 0; i < positionsB.size(); i++){
-									 
-									 SearchChosenNumberList.add(Double.valueOf(positionsB.get((int)(i)).doubleValue()));
-									 
-								 }
-							 
-								
-								
+							
+							
+							SearchChosenNumberList.clear();
+							
+							
+							for (int i = 0; i < positionsB.size(); i++){
+									
+									SearchChosenNumberList.add(Double.valueOf(positionsB.get((int)(i)).doubleValue()));
+									
+							}
+							
+							
+							
 							final double length = SearchchosenList.size();
-							 
+							
 							d = SearchchosenList.size() - 1;
-							 for(int i = 0; i < (int)(length); i++) {
-									  final String serching = SearchchosenList.get((int)d).get("name").toString();
-									  if (serching.toLowerCase().contains(_charSeq.toLowerCase())) {
-											   
-											  }else {
-											   SearchchosenList.remove((int)(d));
-											   SearchChosenNumberList.remove((int)d);
-											  }
-									  d--;
-									 }
+							for(int i = 0; i < (int)(length); i++) {
+									final String serching = SearchchosenList.get((int)d).get("name").toString();
+									if (serching.toLowerCase().contains(_charSeq.toLowerCase())) {
+											
+									}else {
+											SearchchosenList.remove((int)(d));
+											SearchChosenNumberList.remove((int)d);
+									}
+									d--;
+							}
 							
 							blocksList.setAdapter(new BlocksListAdapter(SearchchosenList));
 							((BaseAdapter)blocksList.getAdapter()).notifyDataSetChanged();
 							
-						
+							
 					}
+					
 					
 					searchMod = true;
 				}
@@ -374,7 +371,9 @@ public class BlocksmanagerActivity extends AppCompatActivity {
 			private double d;
 			{
 				/*
+
  
+
 */
 			}
 			
@@ -463,7 +462,7 @@ public class BlocksmanagerActivity extends AppCompatActivity {
 		
 		palettesPath = "/storage/emulated/0/.sketchware/resources/block/My Block/palette.json";
 		blocksPath = "/storage/emulated/0/.sketchware/resources/block/My Block/block.json";
-		appFolder = "/storage/emulated/0/.HichemSoft";
+		appFolder = "/storage/emulated/0/vscodemobile";
 		_loadRefreshPalettes();
 		_restoreListViewsState();
 		_targedViewAction();
@@ -483,11 +482,13 @@ public class BlocksmanagerActivity extends AppCompatActivity {
 			}
 		}
 		/*
+
 try { 
-getSupportActionBar().setTitle("Palettes : ".concat(String.valueOf((long)(palettesListMap.size())).concat(" / ".concat("blocks"))));
+
 } catch (Exception e){
 e.printStackTrace();
 }
+
 */
 	}
 	
@@ -533,7 +534,7 @@ e.printStackTrace();
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
 		}
 	}
 	public void _loadSpecificPletteblocks(final double _pos) {
@@ -561,7 +562,7 @@ e.printStackTrace();
 					allDataList = new Gson().toJson(chosenPletteteListMap);
 					allBlocks = false;
 					try { 
-						getSupportActionBar().setTitle("Palette :".concat(" ".concat(palettesListMap.get((int)_pos).get("name").toString())));
+						
 						getSupportActionBar().setSubtitle(String.valueOf((long)(chosenPletteteListMap.size())).concat(" / ".concat("blocks")));
 					} catch (Exception e){
 						e.printStackTrace();
@@ -677,7 +678,7 @@ e.printStackTrace();
 			if (sp.getString("pos", "").equals(palettesListMap.get((int)Double.parseDouble(sp.getString("posNumber", ""))).get("name").toString())) {
 				try { 
 					_loadSpecificPletteblocks(Double.parseDouble(sp.getString("posNumber", "")));
-					getSupportActionBar().setTitle("Palette :".concat(" ".concat(palettesListMap.get((int)Double.parseDouble(sp.getString("posNumber", ""))).get("name").toString())));
+					
 					if (!(chosenPletteteListMap.size() == 0)) {
 						getSupportActionBar().setSubtitle(String.valueOf((long)(chosenPletteteListMap.size())).concat(" / ".concat("blocks")));
 					}
@@ -725,55 +726,55 @@ e.printStackTrace();
 				{
 						final String[] array = listStr.toArray(new String[0]);
 						final String[] chosen = {""};
-					
-					
+						
+						
 						AlertDialog.Builder builder;
-					
-					if (isDark) {
-							builder = new AlertDialog.Builder(BlocksmanagerActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
-					} else {
-							builder = new AlertDialog.Builder(BlocksmanagerActivity.this);
-					}
-					
+						
+						if (isDark) {
+								builder = new AlertDialog.Builder(BlocksmanagerActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+						} else {
+								builder = new AlertDialog.Builder(BlocksmanagerActivity.this);
+						}
+						
 						builder.setCancelable(false);
-						        //builder.setIcon(R.drawable.icon);
-						        builder.setTitle("Select");
-						        builder.setSingleChoiceItems(array, -1, new DialogInterface
-						                .OnClickListener() {
-								            public void onClick(DialogInterface dialog, int item) {
-										              
-										              chosen[0] = array[item];
-										              
-										            }
-								        });
-						        
-						        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog, int _which) {
+						//builder.setIcon(R.drawable.icon);
+						builder.setTitle("Select");
+						builder.setSingleChoiceItems(array, -1, new DialogInterface
+						.OnClickListener() {
+								public void onClick(DialogInterface dialog, int item) {
+										
+										chosen[0] = array[item];
+										
+								}
+						});
+						
+						builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int _which) {
 										
 										
-												
-									}
+										
+								}
 						});
 						
 						builder.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface _dialog, int _which) {
+								@Override
+								public void onClick(DialogInterface _dialog, int _which) {
 										
 										
-												
-									}
+										
+								}
 						});
 						
-						        final AlertDialog alert = builder.create();
-						        alert.show();
+						final AlertDialog alert = builder.create();
+						alert.show();
 						
 						alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-						 { 
-									 @Override
-									 public void onClick(View v)
-									 {
-												 Boolean wantToCloseDialog = false;
+						{ 
+								@Override
+								public void onClick(View v)
+								{
+										Boolean wantToCloseDialog = false;
 										
 										
 										String item = chosen[0];
@@ -783,13 +784,14 @@ e.printStackTrace();
 												_addButton(item);
 												alert.dismiss();
 										}
-												 if(wantToCloseDialog) {
-															 
-															 }
-												 }
-									 });
+										if(wantToCloseDialog) {
+												
+										}
+								}
+						});
 						
 				}
+				
 				          actionMenu.close(true);
 								}
 						});
@@ -1479,7 +1481,7 @@ e.printStackTrace();
 	
 	public void _toolbar(final double _position) {
 		try { 
-			getSupportActionBar().setTitle("Palette :".concat(" ".concat(palettesListMap.get((int)_position).get("name").toString())));
+			
 			if (!(chosenPletteteListMap.size() == 0)) {
 				getSupportActionBar().setSubtitle(String.valueOf((long)(chosenPletteteListMap.size())).concat(" / ".concat("blocks")));
 			}
@@ -1835,14 +1837,14 @@ e.printStackTrace();
 		
 		
 		final class FileComparator implements Comparator<String> {
-					public int compare(String f1, String f2) {
-								if(f1 == f2) return 0;
-								if(FileUtil.isDirectory(f1) && FileUtil.isFile(f2))
-								return -1;
-								if(FileUtil.isFile(f1) && FileUtil.isDirectory(f2))
-								return 1;
-								return f1.compareToIgnoreCase(f2);
-					}
+				public int compare(String f1, String f2) {
+						if(f1 == f2) return 0;
+						if(FileUtil.isDirectory(f1) && FileUtil.isFile(f2))
+						return -1;
+						if(FileUtil.isFile(f1) && FileUtil.isDirectory(f2))
+						return 1;
+						return f1.compareToIgnoreCase(f2);
+				}
 		}
 		Collections.sort(strings, new FileComparator());
 		
@@ -1851,6 +1853,7 @@ e.printStackTrace();
 	private String path;
 	private AlertDialog.Builder build;
 	{
+		
 	}
 	
 	
@@ -1965,6 +1968,7 @@ e.printStackTrace();
 			showMessage(e.toString());
 		}
 		/*
+
 FileUtil.writeFile(blocksPath, new Gson().toJson(blocksListMap));
 for(int _repeat33 = 0; _repeat33 < (int)(positionsB.size()); _repeat33++) {
 blocksListMap.remove((int)(positionsB.get((int)(_repeat33)).doubleValue()));
@@ -1975,17 +1979,18 @@ couterNumPalette = Double.parseDouble(blocksListMap.get((int)_repeat150).get("pa
 blocksListMap.get((int)_repeat150).put("palette", String.valueOf((long)(couterNumPalette)));
 }
 }
+
 */
 	}
 	
 	
 	public void _editPaletteOrBlock(final String _which) {
-		try {
+		try{
 			if (_which.equals("p")) {
 				cmd = "edit";
 				ColorPicker seekColorPicker = new ColorPicker(BlocksmanagerActivity.this);
 				
-						final AlertDialog.Builder buildPicker;
+				final AlertDialog.Builder buildPicker;
 				
 				
 				if (isDark) {
@@ -1995,26 +2000,27 @@ blocksListMap.get((int)_repeat150).put("palette", String.valueOf((long)(couterNu
 				}
 				
 				
-						final LinearLayout linPicker = new LinearLayout(getApplicationContext());
-				
-				
-						
+				final LinearLayout linPicker = new LinearLayout(getApplicationContext());
 				
 				
 				
-						linPicker.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-				
-						linPicker.setOrientation(LinearLayout.VERTICAL);
-				
-						linPicker.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
 				
 				
 				
-						buildPicker.setPositiveButton("Yes️", new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialogInterface, int i) {
+				linPicker.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+				
+				linPicker.setOrientation(LinearLayout.VERTICAL);
+				
+				linPicker.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+				
+				
+				
+				buildPicker.setPositiveButton("Yes️", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialogInterface, int i) {
 								
-									
+								
+								
 						palettesListMap.get((int)Double.parseDouble(sp.getString("posNumber", ""))).put("name", nameEdit.getText().toString());
 						palettesListMap.get((int)Double.parseDouble(sp.getString("posNumber", ""))).put("color", hex.getText().toString());
 						FileUtil.writeFile(palettesPath, new Gson().toJson(palettesListMap));
@@ -2130,9 +2136,11 @@ blocksListMap.get((int)_repeat150).put("palette", String.valueOf((long)(couterNu
 				}
 			}
 			/*
+
  
+
 */
-		} catch (Exception e) {
+		}catch(Exception e){
 			 
 		}
 	}
@@ -3513,39 +3521,30 @@ blocksListMap.get((int)_repeat150).put("palette", String.valueOf((long)(couterNu
 	
 	
 	public void _preViewInfo(final String _which) {
-		try {
+		try{
 			if (_which.equals("p")) {
 				
 			}
 			else {
 				if (_which.equals("b")) {
-					final AlertDialog dialog = new AlertDialog.Builder(BlocksmanagerActivity.this).create();
-					LayoutInflater inflater = getLayoutInflater();
-					View convertView = (View) inflater.inflate(R.layout.preview, null);
-					
-					dialog.setView(convertView);
 					
 					
-					final ImageView type = (ImageView)
-					convertView.findViewById(R.id.type);
-					final CodeEditor codeEditor = (CodeEditor)
-					convertView.findViewById(R.id.codeEditor);
-					final EditText name = (EditText)
-					convertView.findViewById(R.id.name);
-					final EditText spec = (EditText)
-					convertView.findViewById(R.id.spec);
-					final ImageView close = (ImageView)
-					convertView.findViewById(R.id.close);
-					final ImageView save = (ImageView)
-					convertView.findViewById(R.id.save);
-					final TextView bnumber = (TextView)
-					convertView.findViewById(R.id.bnumber);
-					final TextView pname = (TextView)
-					convertView.findViewById(R.id.pname);
-					final TextView pnumber = (TextView)
-					convertView.findViewById(R.id.pnumber);
-					final androidx.cardview.widget.CardView cardview1 = (androidx.cardview.widget.CardView)
-							convertView.findViewById(R.id.cardview1);
+					final AlertDialog dialog1 = new AlertDialog.Builder(BlocksmanagerActivity.this).create();
+					View inflate = getLayoutInflater().inflate(R.layout.preview,null); 
+					dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+					dialog1.setView(inflate);
+					
+					dialog1.setCancelable(true);
+					final ImageView type = (ImageView) inflate.findViewById(R.id.type);
+					final CodeEditor codeEditor = (CodeEditor) inflate.findViewById(R.id.codeEditor);
+					final EditText name = (EditText) inflate.findViewById(R.id.name);
+					final EditText spec = (EditText) inflate.findViewById(R.id.spec);
+					final ImageView close = (ImageView) inflate.findViewById(R.id.close);
+					final ImageView save = (ImageView) inflate.findViewById(R.id.save);
+					final TextView bnumber = (TextView) inflate.findViewById(R.id.bnumber);
+					final TextView pname = (TextView) inflate.findViewById(R.id.pname);
+					final TextView pnumber = (TextView) inflate.findViewById(R.id.pnumber);
+					final androidx.cardview.widget.CardView cardview1 = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.cardview1);
 					codeEditor.setWordwrap(true);
 					codeEditor.setTypefaceText(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
 					codeEditor.setColorScheme(new theme());
@@ -3555,7 +3554,7 @@ blocksListMap.get((int)_repeat150).put("palette", String.valueOf((long)(couterNu
 					
 					codeEditor.setPinLineNumber(!codeEditor.isLineNumberPinned());
 					codeEditor.setNonPrintablePaintingFlags(CodeEditor.FLAG_DRAW_WHITESPACE_LEADING | CodeEditor.FLAG_DRAW_LINE_SEPARATOR);
-					codeEditor.setTextSize((int)12);
+					codeEditor.setTextSize((float)16);
 					cardview1.setCardBackgroundColor(0xFF000027);
 					cardview1.setRadius((float)25);
 					cardview1.setCardElevation((float)0);
@@ -3584,7 +3583,9 @@ blocksListMap.get((int)_repeat150).put("palette", String.valueOf((long)(couterNu
 							name.setText(chosenPletteteListMap.get((int)ExactPos).get("name").toString());
 							bnumber.setText(String.valueOf((long)(blockIndex)));
 							/*
+
 SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(ExactPos)));
+
 */
 							pnumber.setText(chosenPletteteListMap.get((int)ExactPos).get("palette").toString());
 							pname.setText(palettesListMap.get((int)Double.parseDouble(chosenPletteteListMap.get((int)ExactPos).get("palette").toString()) - 9).get("name").toString());
@@ -3598,16 +3599,37 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(ExactP
 							name.setText(SearchchosenList.get((int)ExactPos).get("name").toString());
 							bnumber.setText(String.valueOf((long)(blockIndex)));
 							/*
+
 SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
+
 */
 							pnumber.setText(SearchchosenList.get((int)ExactPos).get("palette").toString());
 							pname.setText(palettesListMap.get((int)Double.parseDouble(SearchchosenList.get((int)ExactPos).get("palette").toString()) - 9).get("name").toString());
 						}
 					}
-					save.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View _view) {
-							if (allBlocks) {
+					save.setOnClickListener(v->{
+							
+						
+							 if (allBlocks) {
+							blocksListMap.get((int)blockIndex).put("code", codeEditor.getText().toString());
+							blocksListMap.get((int)blockIndex).put("name", name.getText().toString());
+							blocksListMap.get((int)blockIndex).put("spec", spec.getText().toString());
+							FileUtil.writeFile(blocksPath, new Gson().toJson(blocksListMap));
+							{
+								int index = blocksList.getFirstVisiblePosition();
+								int top = (blocksList.getChildAt(0) == null) ? 0 : (blocksList.getChildAt(0).getTop() - blocksList.getPaddingTop());
+								
+								_loadRefreshBlocks();
+								
+								
+								blocksList.setSelectionFromTop((int)index, (int)top);
+							}
+							dialog1.dismiss();
+							SketchwareUtil.showMessage(getApplicationContext(), "Ok");
+							searchEdit.setText("");
+						}
+						else {
+							if (!sp.getString("posNumber", "").equals("")) {
 								blocksListMap.get((int)blockIndex).put("code", codeEditor.getText().toString());
 								blocksListMap.get((int)blockIndex).put("name", name.getText().toString());
 								blocksListMap.get((int)blockIndex).put("spec", spec.getText().toString());
@@ -3616,55 +3638,28 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 									int index = blocksList.getFirstVisiblePosition();
 									int top = (blocksList.getChildAt(0) == null) ? 0 : (blocksList.getChildAt(0).getTop() - blocksList.getPaddingTop());
 									
-									_loadRefreshBlocks();
+									_loadSpecificPletteblocks(Double.parseDouble(sp.getString("posNumber", "")));
 									
 									
 									blocksList.setSelectionFromTop((int)index, (int)top);
 								}
-								dialog.dismiss();
-								SketchwareUtil.showMessage(getApplicationContext(), "✔️");
-								searchEdit.setText("");
 							}
-							else {
-								if (!sp.getString("posNumber", "").equals("")) {
-									blocksListMap.get((int)blockIndex).put("code", codeEditor.getText().toString());
-									blocksListMap.get((int)blockIndex).put("name", name.getText().toString());
-									blocksListMap.get((int)blockIndex).put("spec", spec.getText().toString());
-									FileUtil.writeFile(blocksPath, new Gson().toJson(blocksListMap));
-									{
-										int index = blocksList.getFirstVisiblePosition();
-										int top = (blocksList.getChildAt(0) == null) ? 0 : (blocksList.getChildAt(0).getTop() - blocksList.getPaddingTop());
-										
-										_loadSpecificPletteblocks(Double.parseDouble(sp.getString("posNumber", "")));
-										
-										
-										blocksList.setSelectionFromTop((int)index, (int)top);
-									}
-								}
-								dialog.dismiss();
-								SketchwareUtil.showMessage(getApplicationContext(), "saved!");
-								searchEdit.setText("");
-								searchEdit.setText("");
-							}
+							dialog1.dismiss();
+							SketchwareUtil.showMessage(getApplicationContext(), "saved!");
+							searchEdit.setText("");
+							searchEdit.setText("");
 						}
 					});
-					close.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View _view) {
-							dialog.dismiss();
-						}
+					close.setOnClickListener(v->{
+							
+						
+							 dialog1.dismiss();
 					});
 					codeEditor.setText(code);
-					dialog.show();
+					dialog1.show();
 				}
 			}
-			
-			
-			
-			
-			
-			
-		} catch (Exception e) {
+		}catch(Exception e){
 			SketchwareUtil.CustomToast(getApplicationContext(), "خطا رنگ یافت نشد!", 0xFFFFFFFF, 16, 0xFFE91E63, 25, SketchwareUtil.TOP);
 		}
 	}
@@ -3965,19 +3960,19 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 				final Button back = new Button(getApplicationContext());
 				back.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 				
-				back.setText("⤎");
+				back.setText("Back");
 				back.setTextSize(20);
 				
 				final Button home = new Button(getApplicationContext());
 				home.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 				
-				home.setText("⌂");
+				home.setText("Home");
 				home.setTextSize(20);
 				
 				final Button select = new Button(getApplicationContext());
 				select.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 				
-				select.setText("✔️");
+				select.setText("ok");
 				select.setTextSize(20);
 				
 				
@@ -4079,11 +4074,11 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 														tv.setShadowLayer(1.5f,-2,2, 0xFFD7CCC8);
 														
 														if (FileUtil.isDirectory(listStr.get((int)(_position)))) {
-																tv.setText("📂 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
+																tv.setText("Folder".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
 														}
 														else {
 																if (FileUtil.isFile(listStr.get((int)(_position)))) {
-																		tv.setText("📄 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
+																		tv.setText("File".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
 																}
 														}
 														
@@ -4124,11 +4119,11 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 												tv.setShadowLayer(1.5f,-2,2, 0xFFD7CCC8);
 												
 												if (FileUtil.isDirectory(listStr.get((int)(_position)))) {
-														tv.setText("📂 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
+														tv.setText("Folder".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
 												}
 												else {
 														if (FileUtil.isFile(listStr.get((int)(_position)))) {
-																tv.setText("📄 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
+																tv.setText("File".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
 														}
 												}
 												
@@ -4250,18 +4245,18 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 				}
 				isDark = true;
 				if (isDark) {
-					build = new AlertDialog.Builder(BlocksmanagerActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+						build = new AlertDialog.Builder(BlocksmanagerActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 				} else {
-					build = new AlertDialog.Builder(BlocksmanagerActivity.this);
+						build = new AlertDialog.Builder(BlocksmanagerActivity.this);
 				}
 				
 				build.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface _dialog, int _which) {
+						@Override
+						public void onClick(DialogInterface _dialog, int _which) {
 								
 								
-										
-							}
+								
+						}
 				});
 				
 				build.setCancelable(false);
@@ -4347,12 +4342,12 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 						select.setClickable(true);
 				}
 				DisplayMetrics displayMetrics = new DisplayMetrics();
-				        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-				        int height = displayMetrics.heightPixels;
-				        int width = displayMetrics.widthPixels;
+				getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+				int height = displayMetrics.heightPixels;
+				int width = displayMetrics.widthPixels;
 				
-				        container.setMinimumHeight(height);
-				        container.setMinimumWidth(width);
+				container.setMinimumHeight(height);
+				container.setMinimumWidth(width);
 				
 				
 				final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String> (getApplicationContext(), android.R.layout.simple_list_item_1, listStr)
@@ -4365,16 +4360,16 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 								
 								TextView tv = (TextView) view.findViewById(android.R.id.text1);
 								tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-						
-						if (isDark){
-									 tv.setTextColor(0xFFFFFFFF); 
-							
-							
-						} else {
-							 tv.setTextColor(0xFF000000);
-							
-						}
-						
+								
+								if (isDark){
+										tv.setTextColor(0xFFFFFFFF); 
+										
+										
+								} else {
+										tv.setTextColor(0xFF000000);
+										
+								}
+								
 								tv.setShadowLayer(1.5f,-2,2, 0xFFFFCCBC);
 								
 								if (FileUtil.isDirectory(listStr.get((int)(_position)))) {
@@ -4397,7 +4392,7 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 						public void onClick(View _view) {
 								if (!(path.equals("/storage/emulated/0") || path.equals("/sdcard"))) {
 										String UpFolder = path.substring((int)(0), (int)(path.lastIndexOf("/")));
-											path = UpFolder;
+										path = UpFolder;
 										
 										edit.setText("");
 										
@@ -4412,22 +4407,22 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 														
 														TextView tv = (TextView) view.findViewById(android.R.id.text1);
 														tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-														 if (isDark){
-												 tv.setTextColor(0xFFFFFFFF); 
-										
-										
-									} else {
-										 tv.setTextColor(0xFF000000);
-										
-									}
+														if (isDark){
+																tv.setTextColor(0xFFFFFFFF); 
+																
+																
+														} else {
+																tv.setTextColor(0xFF000000);
+																
+														}
 														tv.setShadowLayer(1.5f,-2,2, 0xFFD7CCC8);
 														
 														if (FileUtil.isDirectory(listStr.get((int)(_position)))) {
-																tv.setText("📂 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
+																tv.setText("Folder".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
 														}
 														else {
 																if (FileUtil.isFile(listStr.get((int)(_position)))) {
-																		tv.setText("📄 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
+																		tv.setText("File".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
 																}
 														}
 														
@@ -4457,22 +4452,22 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 												
 												TextView tv = (TextView) view.findViewById(android.R.id.text1);
 												tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-												 if (isDark){
-											 tv.setTextColor(0xFFFFFFFF); 
-									
-									
-								} else {
-									 tv.setTextColor(0xFF000000);
-									
-								}
+												if (isDark){
+														tv.setTextColor(0xFFFFFFFF); 
+														
+														
+												} else {
+														tv.setTextColor(0xFF000000);
+														
+												}
 												tv.setShadowLayer(1.5f,-2,2, 0xFFD7CCC8);
 												
 												if (FileUtil.isDirectory(listStr.get((int)(_position)))) {
-														tv.setText("📂 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
+														tv.setText("Folder".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
 												}
 												else {
 														if (FileUtil.isFile(listStr.get((int)(_position)))) {
-																tv.setText("📄 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
+																tv.setText("File".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
 														}
 												}
 												
@@ -4488,8 +4483,7 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 						@Override
 						public void onClick(View _view) {
 								
-						
-						
+								
 						chosenBlockorPalette.add(map);
 						FileUtil.writeFile(selectedFile.concat("/".concat(chosenBlockorPalette.get((int)0).get("name").toString().concat(".json"))), new Gson().toJson(chosenBlockorPalette));
 						SketchwareUtil.showMessage(getApplicationContext(), selectedFile.concat("/".concat(chosenBlockorPalette.get((int)0).get("name").toString().concat(".json"))));
@@ -4833,75 +4827,75 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 								SketchwareUtil.showMessage(getApplicationContext(), selectedFile.concat("/".concat("palette.json")));
 							}
 							alertoo.dismiss();
-							}
+						}
 					});
 					List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-												@Override
-												public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-										
+						@Override
+						public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+							
+							
+							
+							java.io.File check = new java.io.File(listStr.get(position));
+							
+							if (check.isDirectory()){
 									
+									path = listStr.get(position);
+									
+									selectedFile = listStr.get(position);
+									
+									open(listStr, path);
+									
+									
+									final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String> (getApplicationContext(), android.R.layout.simple_list_item_1, listStr)
+									{ 
+											@Override 
+											public View getView(int _position, View convertView, ViewGroup parent){ 
+													View view = super.getView(_position, convertView, parent);
 													
-									java.io.File check = new java.io.File(listStr.get(position));
-									
-									if (check.isDirectory()){
-											
-											path = listStr.get(position);
-											
-											selectedFile = listStr.get(position);
-											
-											open(listStr, path);
-											
-											
-											final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String> (getApplicationContext(), android.R.layout.simple_list_item_1, listStr)
-											{ 
-													@Override 
-													public View getView(int _position, View convertView, ViewGroup parent){ 
-															View view = super.getView(_position, convertView, parent);
+													view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+													
+													TextView tv = (TextView) view.findViewById(android.R.id.text1);
+													tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+													if (isDark){
+															tv.setTextColor(0xFFFFFFFF); 
 															
-															view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
 															
-															TextView tv = (TextView) view.findViewById(android.R.id.text1);
-															tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-															 if (isDark){
-													 tv.setTextColor(0xFFFFFFFF); 
-											
-											
-										} else {
-											 tv.setTextColor(0xFF000000);
-											
-										}
-															tv.setShadowLayer(1.5f,-2,2, 0xFFD7CCC8);
+													} else {
+															tv.setTextColor(0xFF000000);
 															
-															if (FileUtil.isDirectory(listStr.get((int)(_position)))) {
-																	tv.setText("📂 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
+													}
+													tv.setShadowLayer(1.5f,-2,2, 0xFFD7CCC8);
+													
+													if (FileUtil.isDirectory(listStr.get((int)(_position)))) {
+															tv.setText("Folder".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
+													}
+													else {
+															if (FileUtil.isFile(listStr.get((int)(_position)))) {
+																	tv.setText("📄 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
 															}
-															else {
-																	if (FileUtil.isFile(listStr.get((int)(_position)))) {
-																			tv.setText("📄 ".concat(Uri.parse(listStr.get((int)(_position))).getLastPathSegment()));
-																	}
-															}
-															
-															return view; 
-													} 
-											}; 
-											List.setAdapter(arrayAdapter);
-											((BaseAdapter)List.getAdapter()).notifyDataSetChanged();
-											
-									} else {
-											
-											
-											
-											
-											
-											edit.setText("selected folder : "+selectedFile);
-											
-											
-											
-									}
+													}
+													
+													return view; 
+											} 
+									}; 
+									List.setAdapter(arrayAdapter);
+									((BaseAdapter)List.getAdapter()).notifyDataSetChanged();
 									
-									        
-												}
-									});
+							} else {
+									
+									
+									
+									
+									
+									edit.setText("selected folder : "+selectedFile);
+									
+									
+									
+							}
+							
+							
+						}
+					});
 					
 					header.addView(edit);
 					container.addView(header);
@@ -4914,8 +4908,6 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 					alertoo.setView(container);
 					
 					alertoo.show();
-					
-					
 					
 				}
 			}
@@ -5069,38 +5061,33 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 	}
 	
 	
-	public void _adMob() {
-		
-	}
-	
-	
 	public void _showProjectsSelected(final String _selected) {
 		_Load_Projects();
 		final AlertDialog.Builder build = new AlertDialog.Builder(BlocksmanagerActivity.this, AlertDialog.THEME_HOLO_LIGHT); 
 		
-		        build.setCancelable(false);
-		        build.setTitle("select project"); 
-			
-		build.setPositiveButton("❌", new DialogInterface.OnClickListener() {
+		build.setCancelable(false);
+		build.setTitle("select project"); 
+		
+		build.setPositiveButton("No", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface _dialog, int _which) {
-				
-				
+						
+						
 						
 				}
 		});
-			final AlertDialog alt = build.create();
-			
-		        final LinearLayout main_layout = new LinearLayout(BlocksmanagerActivity.this); 
-				
-		        main_layout.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT,android.widget.LinearLayout.LayoutParams.WRAP_CONTENT));
-				main_layout.setOrientation(LinearLayout.HORIZONTAL);
+		final AlertDialog alt = build.create();
 		
-		        final ListView listview = new ListView(BlocksmanagerActivity.this); 
-				
-		        listview.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.MATCH_PARENT));
-				
-				listview.setAdapter(new listviewAdapter(temp_listmap1));
+		final LinearLayout main_layout = new LinearLayout(BlocksmanagerActivity.this); 
+		
+		main_layout.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT,android.widget.LinearLayout.LayoutParams.WRAP_CONTENT));
+		main_layout.setOrientation(LinearLayout.HORIZONTAL);
+		
+		final ListView listview = new ListView(BlocksmanagerActivity.this); 
+		
+		listview.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.MATCH_PARENT));
+		
+		listview.setAdapter(new listviewAdapter(temp_listmap1));
 		((BaseAdapter)listview.getAdapter()).notifyDataSetChanged();
 		
 		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -5121,7 +5108,7 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 							
 							builder.setTitle("select...");
 							
-							builder.setPositiveButton("✔️", new DialogInterface.OnClickListener() {
+							builder.setPositiveButton("Yes️", new DialogInterface.OnClickListener() {
 											@Override
 											public void onClick(DialogInterface _dialog, int _which) {
 													
@@ -5130,7 +5117,7 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 											}
 							});
 							
-							builder.setNegativeButton("❌", new DialogInterface.OnClickListener() {
+							builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
 											@Override
 											public void onClick(DialogInterface _dialog, int _which) {
 													
@@ -5356,13 +5343,14 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 		for(int _repeat18 = 0; _repeat18 < (int)(temp_str1.size()); _repeat18++) {
 			if (FileUtil.isExistFile(FileUtil.getExternalStorageDir().concat("/.sketchware/mysc/list/".concat(Uri.parse(temp_str1.get((int)(number))).getLastPathSegment().concat("/project"))))) {
 				try {
-					javax.crypto.Cipher instance = javax.crypto.Cipher.getInstance("AES/CBC/PKCS5Padding");
-					byte[] bytes = "sketchwaresecure".getBytes();
-					instance.init(2, new javax.crypto.spec.SecretKeySpec(bytes, "AES"), new javax.crypto.spec.IvParameterSpec(bytes));
-					java.io.RandomAccessFile randomAccessFile = new java.io.RandomAccessFile(FileUtil.getExternalStorageDir().concat("/.sketchware/mysc/list/".concat(Uri.parse(temp_str1.get((int)(number))).getLastPathSegment().concat("/project"))), "r");
-					byte[] bArr = new byte[((int) randomAccessFile.length())];
-					randomAccessFile.readFully(bArr);
-					temp_decrypted = new String(instance.doFinal(bArr));
+						javax.crypto.Cipher instance = javax.crypto.Cipher.getInstance("AES/CBC/PKCS5Padding");
+						byte[] bytes = "sketchwaresecure".getBytes();
+						instance.init(2, new javax.crypto.spec.SecretKeySpec(bytes, "AES"), new javax.crypto.spec.IvParameterSpec(bytes));
+						java.io.RandomAccessFile randomAccessFile = new java.io.RandomAccessFile(FileUtil.getExternalStorageDir().concat("/.sketchware/mysc/list/".concat(Uri.parse(temp_str1.get((int)(number))).getLastPathSegment().concat("/project"))), "r");
+						byte[] bArr = new byte[((int) randomAccessFile.length())];
+						randomAccessFile.readFully(bArr);
+						temp_decrypted = new String(instance.doFinal(bArr));
+						
 					temp_map1 = new HashMap<>();
 					temp_map1 = new Gson().fromJson(temp_decrypted, new TypeToken<HashMap<String, Object>>(){}.getType());
 					temp_listmap1.add(temp_map1);
@@ -5374,6 +5362,7 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 			number++;
 		}
 		Collections.reverse(temp_listmap1);
+		
 	}
 	
 	public class PalettesListAdapter extends BaseAdapter {
@@ -5413,7 +5402,7 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 			final TextView name = _view.findViewById(R.id.name);
 			
 			name.setText(_data.get((int)_position).get("name").toString());
-			cardview1.setCardBackgroundColor(0xFF00003A);
+			cardview1.setCardBackgroundColor(0xFF212121);
 			name.setTextColor(0xFFFFFFFF);
 			if (_data.get((int)_position).containsKey("color")) {
 				try { 
@@ -5467,7 +5456,7 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 					((BaseAdapter)palettesList.getAdapter()).notifyDataSetChanged();
 					_loadSpecificPletteblocks(_position);
 					try { 
-						getSupportActionBar().setTitle("Palette :".concat(" ".concat(palettesListMap.get((int)_position).get("name").toString())));
+						
 						if (!(chosenPletteteListMap.size() == 0)) {
 							getSupportActionBar().setSubtitle(String.valueOf((long)(chosenPletteteListMap.size())).concat(" / ".concat("blocks")));
 						}
@@ -5555,7 +5544,9 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 				}
 			});
 			/*
+
  
+
 */
 			
 			return _view;
@@ -5600,10 +5591,10 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 			final LinearLayout linearColor2 = _view.findViewById(R.id.linearColor2);
 			
 			name.setText(_data.get((int)_position).get("name").toString());
-			cardview1.setCardBackgroundColor(0xFF00003A);
+			cardview1.setCardBackgroundColor(0xFF000000);
 			cardview1.setRadius((float)20);
 			cardview1.setCardElevation((float)2);
-			name.setTextColor(0xFFFFFFFF);
+			name.setTextColor(0xFF2196F3);
 			if (_data.get((int)_position).containsKey("color")) {
 				try { 
 					linearColor.setBackgroundColor(Color.parseColor(_data.get((int)_position).get("color").toString()));
@@ -5634,7 +5625,9 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 						    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 					}
 					/*
+
  
+
 */
 							  
 					            return true;
@@ -5774,11 +5767,11 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 				if (sp.getString("theme", "").equals("night")) {
 					if (_data.get((int)_position).containsKey("type")) {
 						if (_data.get((int)_position).get("type").toString().equals("h")) {
-							linear1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b, int c) { this.setStroke(a, b); this.setColor(c); return this; } }.getIns((int)2, 0xFF37474F, 0xFF0097A7));
+							linear1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b, int c) { this.setStroke(a, b); this.setColor(c); return this; } }.getIns((int)2, 0xFF212121, 0xFF000000));
 							name.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 						}
 						else {
-							linear1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b, int c) { this.setStroke(a, b); this.setColor(c); return this; } }.getIns((int)2, 0xFF37474F, 0xFF263238));
+							linear1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b, int c) { this.setStroke(a, b); this.setColor(c); return this; } }.getIns((int)2, 0xFF000000, 0xFF000000));
 							name.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
 						}
 					}
@@ -5792,12 +5785,14 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 						if (_data.get((int)_position).get("type").toString().equals("h")) {
 							linear1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b, int c) { this.setStroke(a, b); this.setColor(c); return this; } }.getIns((int)2, 0xFFE0E0E0, 0xFF80DEEA));
 							name.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+							cardview1.setCardBackgroundColor(0xFF212121);
 						}
 						else {
 							linear1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b, int c) { this.setStroke(a, b); this.setColor(c); return this; } }.getIns((int)2, 0xFFE0E0E0, 0xFFFFFFFF));
+							cardview1.setCardBackgroundColor(0xFF1A237E);
 							name.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
 						}
-						name.setTextColor(0xFF000000);
+						name.setTextColor(0xFFFFFFFF);
 					}
 				}
 			}

@@ -27,6 +27,7 @@ import android.webkit.*;
 import android.widget.*;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -43,14 +44,10 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -76,7 +73,13 @@ public class SplashActivity extends AppCompatActivity {
 	
 	private LinearLayout linear1;
 	private ImageView imageview1;
-	private CardView cardview1;
+	private LinearLayout linear3;
+	private TextView textview1;
+	private LinearLayout linear2;
+	private CardView windows;
+	private LinearLayout linear4;
+	private TextView textview2;
+	private TextView textview3;
 	
 	private Intent vscodeintent = new Intent();
 	private TimerTask timer;
@@ -110,7 +113,13 @@ public class SplashActivity extends AppCompatActivity {
 	private void initialize(Bundle _savedInstanceState) {
 		linear1 = findViewById(R.id.linear1);
 		imageview1 = findViewById(R.id.imageview1);
-		cardview1 = findViewById(R.id.cardview1);
+		linear3 = findViewById(R.id.linear3);
+		textview1 = findViewById(R.id.textview1);
+		linear2 = findViewById(R.id.linear2);
+		windows = findViewById(R.id.windows);
+		linear4 = findViewById(R.id.linear4);
+		textview2 = findViewById(R.id.textview2);
+		textview3 = findViewById(R.id.textview3);
 		por = getSharedPreferences("por", Activity.MODE_PRIVATE);
 		Error = new AlertDialog.Builder(this);
 		AL = getSharedPreferences("AL", Activity.MODE_PRIVATE);
@@ -124,43 +133,21 @@ public class SplashActivity extends AppCompatActivity {
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =SplashActivity.this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF000027);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF616161);
 		}
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
 		}
-		timerask = new TimerTask() {
-			@Override
-			public void run() {
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						imageview1.setVisibility(View.GONE);
-					}
-				});
-			}
-		};
-		_timer.schedule(timerask, (int)(100));
-		final AlertDialog dialog1 = new AlertDialog.Builder(SplashActivity.this).create();
-		View inflate = getLayoutInflater().inflate(R.layout.vscode,null); 
-		dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-		dialog1.setView(inflate);
-		final androidx.cardview.widget.CardView card = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.card);
-		final LinearLayout win = (LinearLayout) inflate.findViewById(R.id.win);
-		final LinearLayout bg = (LinearLayout) inflate.findViewById(R.id.bg);
-		try {
+		try{
 			WP7ProgressBar gg = new WP7ProgressBar(this);
 			gg.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-			win.addView(gg);
+			windows.addView(gg);
 			gg.showProgressBar();
-		} catch (Exception e) {
+		}catch(Exception e){
 			 
 		}
-		card.setCardBackgroundColor(0xFF000027);
-		card.setRadius((float)18);
-		card.setCardElevation((float)0);
 		timer = new TimerTask() {
 			@Override
 			public void run() {
@@ -176,9 +163,6 @@ public class SplashActivity extends AppCompatActivity {
 			}
 		};
 		_timer.schedule(timer, (int)(4000));
-		dialog1.dismiss();
-		dialog1.setCancelable(false);
-		dialog1.show();
 		if (AL.getString("A10", "").equals("true")) {
 			int notifyId = 001;
 			NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

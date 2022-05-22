@@ -36,15 +36,11 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -75,7 +71,7 @@ public class LayoutxmlviewerActivity extends AppCompatActivity {
 	private AppBarLayout _app_bar;
 	private CoordinatorLayout _coordinator;
 	private String xmlviewer = "";
-	OutlineView outlineView;
+	private  OutlineView outlineView;
 	
 	private OutlineView linear1;
 	

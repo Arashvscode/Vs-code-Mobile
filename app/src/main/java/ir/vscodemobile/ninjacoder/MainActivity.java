@@ -36,7 +36,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -44,6 +43,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.*;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import androidx.webkit.*;
 import com.android.*;
 import com.android.tools.r8.*;
@@ -52,15 +55,12 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.*;
+import com.google.gson.Gson;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -69,6 +69,7 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.*;
@@ -119,6 +120,7 @@ import ir.vscodemobile.ninjacoder.htmltheme;
 import dalvik.system.*;
 import io.github.rosemoe.sora.langs.java.*;
 import io.github.rosemoe.sora.langs.python.*;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import javax.*;
 import org.*;
 import com.google.android.material.*;
@@ -150,8 +152,13 @@ public class MainActivity extends AppCompatActivity {
 	private String mandroidjar = "";
 	private boolean mChack = false;
 	private boolean mbool = false;
+	private String save_tab = "";
+	private boolean isbool = false;
+	private double num = 0;
 	
 	private ArrayList<String> opt = new ArrayList<>();
+	private ArrayList<HashMap<String, Object>> map_tabs = new ArrayList<>();
+	private ArrayList<HashMap<String, Object>> map_tabcode = new ArrayList<>();
 	
 	private RelativeLayout RelativeLayout;
 	private ImageView bak;
@@ -160,11 +167,8 @@ public class MainActivity extends AppCompatActivity {
 	private LinearLayout ll_tabs;
 	private LinearLayout linear12;
 	private LinearLayout fmt;
-	private LinearLayout mset;
+	private RecyclerView recyclerview1;
 	private ProgressBar progressbar1;
-	private ImageView geticon;
-	private TextView gettt;
-	private ImageView imageview10;
 	private CodeEditor editor;
 	private LinearLayout sogole;
 	private HorizontalScrollView hscroll1;
@@ -175,8 +179,11 @@ public class MainActivity extends AppCompatActivity {
 	private SymbolInputView sysbar;
 	private LinearLayout mcolor;
 	private ImageView up;
+	private LinearLayout linear13;
 	private ImageView down;
+	private LinearLayout linear14;
 	private ImageView left;
+	private LinearLayout linear15;
 	private ImageView re;
 	private LinearLayout linear9;
 	private LinearLayout serachbar;
@@ -219,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
 	private SharedPreferences AL;
 	private SharedPreferences imgAplhe;
 	private AlertDialog mdialog;
+	private Intent newfile = new Intent();
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -252,11 +260,8 @@ public class MainActivity extends AppCompatActivity {
 		ll_tabs = findViewById(R.id.ll_tabs);
 		linear12 = findViewById(R.id.linear12);
 		fmt = findViewById(R.id.fmt);
-		mset = findViewById(R.id.mset);
+		recyclerview1 = findViewById(R.id.recyclerview1);
 		progressbar1 = findViewById(R.id.progressbar1);
-		geticon = findViewById(R.id.geticon);
-		gettt = findViewById(R.id.gettt);
-		imageview10 = findViewById(R.id.imageview10);
 		editor = findViewById(R.id.editor);
 		sogole = findViewById(R.id.sogole);
 		hscroll1 = findViewById(R.id.hscroll1);
@@ -267,8 +272,11 @@ public class MainActivity extends AppCompatActivity {
 		sysbar = findViewById(R.id.sysbar);
 		mcolor = findViewById(R.id.mcolor);
 		up = findViewById(R.id.up);
+		linear13 = findViewById(R.id.linear13);
 		down = findViewById(R.id.down);
+		linear14 = findViewById(R.id.linear14);
 		left = findViewById(R.id.left);
+		linear15 = findViewById(R.id.linear15);
 		re = findViewById(R.id.re);
 		linear9 = findViewById(R.id.linear9);
 		serachbar = findViewById(R.id.serachbar);
@@ -301,14 +309,6 @@ public class MainActivity extends AppCompatActivity {
 		mCh = getSharedPreferences("mCh", Activity.MODE_PRIVATE);
 		AL = getSharedPreferences("AL", Activity.MODE_PRIVATE);
 		imgAplhe = getSharedPreferences("img", Activity.MODE_PRIVATE);
-		
-		imageview10.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				editor.setVisibility(View.GONE);
-				mset.setVisibility(View.GONE);
-			}
-		});
 		
 		up.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -462,6 +462,12 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+			Window w =this.getWindow();
+			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
+		}
+		mpack = "";
 		up.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
 		down.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
 		left.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
@@ -485,6 +491,8 @@ public class MainActivity extends AppCompatActivity {
 		final ImageView link = mninjacoder.findViewById(R.id.link);
 		final ImageView blur = mninjacoder.findViewById(R.id.blur);
 		final ImageView fb = mninjacoder.findViewById(R.id.fb);
+		final ImageView more = mninjacoder.findViewById(R.id.more);
+		final ImageView  add = mninjacoder.findViewById(R.id. add);
 		undo.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
 		redo.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
 		mbool = false;
@@ -561,9 +569,9 @@ public class MainActivity extends AppCompatActivity {
 		});
 		rep.setOnClickListener((view) -> {
 			
-			       try {
-				fixbar.setVisibility(View.GONE);
-			} catch (Exception e) {
+			       try{
+				fixbar.setVisibility(View.VISIBLE);
+			}catch(Exception e){
 				 
 			}
 			
@@ -738,10 +746,10 @@ public class MainActivity extends AppCompatActivity {
 			final androidx.cardview.widget.CardView card = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.card);
 			final SeekBar sr = (SeekBar) inflate.findViewById(R.id.sr);
 			final LinearLayout mis = (LinearLayout) inflate.findViewById(R.id.mis);
-			try {
+			try{
 				mseekbarString = MsortSeekbar.getString("seek", "");
 				sr.setProgress((int)Double.parseDouble(mseekbarString));
-			} catch (Exception e) {
+			}catch(Exception e){
 				 
 			}
 			card.setCardBackgroundColor(0xFF000027);
@@ -767,21 +775,7 @@ public class MainActivity extends AppCompatActivity {
 					
 							@Override
 							public void onStopTrackingTouch(SeekBar _param2) {
-									mseekbarsort = sr.getProgress();
-					imgAplhe.edit().putString("mview", String.valueOf((long)(mseekbarsort))).commit();
-					if (imgAplhe.getString("mview", "").equals("true")) {
-						BlurredBitmap bl = new BlurredBitmap();
-						Bitmap a = bl.fastBlur(FileUtil.decodeSampleBitmapFromPath(mpack, 400, 400), 1.0f, sr.getProgress());
-						bak.setImageBitmap(a);
-					}
-					else {
-						if (imgAplhe.getString("mview", "").equals("false")) {
-							
-						}
-						else {
-							
-						}
-					}
+									 
 							}
 					});
 			mis.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
@@ -807,12 +801,24 @@ public class MainActivity extends AppCompatActivity {
 			
 			
 		});
+		more.setOnClickListener((view) -> {
+			
+			       _popmenu(more);
+			
+			
+		});
+		add.setOnClickListener((view) -> {
+			
+			       newfile.setClass(getApplicationContext(), FilesActivity.class);
+			startActivity(newfile);
+			
+			
+		});
 		sogole.addView(mninjacoder);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		editor.setLineNumberAlign(Paint.Align.CENTER);
 		
 		
-		gettt.setText(getIntent().getStringExtra("title"));
 		setTitle(getIntent().getStringExtra("title"));
 		setTheme(android.R.style.Theme_Material);
 		editor.setTypefaceLineNumber(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
@@ -822,22 +828,10 @@ public class MainActivity extends AppCompatActivity {
 		editor.getColorScheme().setColor(EditorColorScheme.CSS_TAG, 0);
 		
 		editor.getColorScheme().setColor(EditorColorScheme.AUTO_COMP_PANEL_BG,0);
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-			Window w =this.getWindow();
-			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF000027".replace("0xFF" , "#")));
-		}
-		_libraryjarpack();
-		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFF3F51B5".replace("0xFF" , "#"))));
 		bool01 = false;
 		mm = false;
 		fixbar.setVisibility(View.GONE);
 		editor.setTypefaceText(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-			Window w =MainActivity.this.getWindow();
-			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF000027);
-		}
 		SymbolInputView inputView = findViewById(R.id.sysbar);
 		
 		inputView.bindEditor(editor);
@@ -861,20 +855,26 @@ public class MainActivity extends AppCompatActivity {
 				if (android.os.Build.VERSION.SDK_INT >= 21) {
 						progressbar1.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FFFD0061"), PorterDuff.Mode.SRC_IN);
 				}
-				mset.setVisibility(View.GONE);
+				recyclerview1.setVisibility(View.GONE);
 			}
 			@Override
 			protected String doInBackground(String... params) {
 				String _param = params[0];
-				_coderuner();
+				editor.setColorScheme(new theme());
 				return "";
 			}
 			@Override
 			protected void onPostExecute(String _result) {
+				recyclerview1.setVisibility(View.VISIBLE);
 				progressbar1.setVisibility(View.GONE);
-				mset.setVisibility(View.VISIBLE);
+				_editortab(Uri.parse(getIntent().getStringExtra("title")).getLastPathSegment(), getIntent().getStringExtra("title"));
 			}
 		}.execute("");
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+			Window w =MainActivity.this.getWindow();
+			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF212121);
+		}
 	}
 	
 	@Override
@@ -896,9 +896,9 @@ public class MainActivity extends AppCompatActivity {
 						_filePath.add(FileUtil.convertUriToFilePath(getApplicationContext(), _data.getData()));
 					}
 				}
-				try {
+				try{
 					fb.edit().putString("set", _filePath.get((int)(0))).commit();
-				} catch (Exception e) {
+				}catch(Exception e){
 					 
 				}
 			}
@@ -915,29 +915,6 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		_setbackground();
-		{
-			android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-			SketchUi.setColor(0xFF000051);SketchUi.setCornerRadius(getDip(16));
-			SketchUi.setStroke((int)getDip(3) ,0xFF01579B);
-			btn.setElevation(getDip(5));
-			android.graphics.drawable.RippleDrawable SketchUi_RD = new android.graphics.drawable.RippleDrawable(new android.content.res.ColorStateList(new int[][]{new int[]{}}, new int[]{0xFFE91E63}), SketchUi, null);
-			btn.setBackground(SketchUi_RD);
-		}
-		{
-				android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-				SketchUi.setColor(0xFF000027);SketchUi.setCornerRadius(getDip(7));
-				search.setElevation(getDip(5));
-				search.setBackground(SketchUi);
-		}
-		
-		{
-				android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-				SketchUi.setColor(0xFF000027);SketchUi.setCornerRadius(getDip(7));
-				Replace.setElevation(getDip(5));
-				Replace.setBackground(SketchUi);
-		}
-		
 		editor.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
@@ -1110,7 +1087,7 @@ public class MainActivity extends AppCompatActivity {
 															else {
 																	n9 = n6;
 															}
-															if (c == '{') {
+															if (c== '{') {
 																	++n4;
 															}
 															n10 = n4;
@@ -1189,14 +1166,14 @@ public class MainActivity extends AppCompatActivity {
 		InputFilter[] editFiltersHEX = hex.getFilters(); InputFilter[] newFiltersHEX = new InputFilter[editFiltersHEX.length + 1]; System.arraycopy(editFiltersHEX, 0, newFiltersHEX, 0, editFiltersHEX.length); newFiltersHEX[editFiltersHEX.length] = new InputFilter.LengthFilter(8); hex.setFilters(newFiltersHEX);
 		{
 			android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-			SketchUi.setColor(0xFF000027);SketchUi.setCornerRadius(getDip(19));
+			SketchUi.setColor(0xFF424242);SketchUi.setCornerRadius(getDip(19));
 			confirmar.setElevation(getDip(1));
 			android.graphics.drawable.RippleDrawable SketchUi_RD = new android.graphics.drawable.RippleDrawable(new android.content.res.ColorStateList(new int[][]{new int[]{}}, new int[]{0xFFE0E0E0}), SketchUi, null);
 			confirmar.setBackground(SketchUi_RD);
 		}
 		{
 			android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-			SketchUi.setColor(0xFF000027);SketchUi.setCornerRadius(getDip(19));
+			SketchUi.setColor(0xFF424242);SketchUi.setCornerRadius(getDip(19));
 			cancelar.setElevation(getDip(1));
 			android.graphics.drawable.RippleDrawable SketchUi_RD = new android.graphics.drawable.RippleDrawable(new android.content.res.ColorStateList(new int[][]{new int[]{}}, new int[]{0xFFE0E0E0}), SketchUi, null);
 			cancelar.setBackground(SketchUi_RD);
@@ -1508,7 +1485,7 @@ public class MainActivity extends AppCompatActivity {
 				
 				pr.setMessage(Html.fromHtml("<font color=\"#59FF7B\">Packaging JAR...</font>"));
 				
-				try {
+				try{
 					new JarPackager(
 					
 					FileUtil.getExternalStorageDir().concat("/bin/classes/"),
@@ -1516,12 +1493,12 @@ public class MainActivity extends AppCompatActivity {
 					FileUtil.getExternalStorageDir().concat("/bin/classes.jar")
 					
 					).create();
-				} catch (Exception e) {
+				}catch(Exception e){
 					return "Packaging JAR failed: " + e.toString();
 				}
 				//code that runs d8 //dx
 				time = System.currentTimeMillis();
-				try {
+				try{
 					////////publishProgress(Html.fromHtml("<font color=\"#59FF7B\">...</font>"));
 					
 					
@@ -1537,7 +1514,7 @@ public class MainActivity extends AppCompatActivity {
 					opt.add(FileUtil.getExternalStorageDir().concat("/bin/android.jar"));
 					opt.add(FileUtil.getExternalStorageDir().concat("/bin/classes.jar"));
 					D8.main(opt.toArray(new String[0]));
-				} catch (Exception e) {
+				}catch(Exception e){
 					return "Dex failed: " + e.toString();
 				}
 				dxTime = System.currentTimeMillis() - time;
@@ -1588,7 +1565,7 @@ public class MainActivity extends AppCompatActivity {
 						FileUtil.getExternalStorageDir().concat("/bin/classes.dex")
 						, optimizedDir, null, getClassLoader() ); 
 						
-						Class calledClass = dcl.loadClass("Main");
+						Class calledClass = dcl.loadClass("");
 						
 						java.lang.reflect.Method method = calledClass.getDeclaredMethod("main", String[].class); 
 						
@@ -1609,12 +1586,13 @@ public class MainActivity extends AppCompatActivity {
 					.setPositiveButton("OK", null)
 					.setNegativeButton("Cancel", null)
 					.setOnDismissListener(new DialogInterface.OnDismissListener() {
-								@Override
-								public void onDismiss(DialogInterface dialogInterface) {
-									    
-								}
+							@Override
+							public void onDismiss(DialogInterface dialogInterface) {
+									
+							}
 					})
 					.create().show();
+					
 				}
 				else {
 					dialog("Failed..", _result);
@@ -1741,7 +1719,6 @@ public class MainActivity extends AppCompatActivity {
 		}
 		if (FileUtil.isExistFile(fb.getString("set", ""))) {
 			bak.setImageBitmap(FileUtil.decodeSampleBitmapFromPath(fb.getString("set", ""), 1024, 1024));
-			mpack = fb.getString("set", "");
 		}
 	}
 	
@@ -2077,7 +2054,7 @@ public class MainActivity extends AppCompatActivity {
 	
 	
 	public void _myfab(final boolean _see) {
-		try {
+		try{
 			if (_see) {
 				_fab.setEnabled(false);
 				mChack = false;
@@ -2104,7 +2081,7 @@ public class MainActivity extends AppCompatActivity {
 				_fab.setEnabled(true);
 				mChack = true;
 			}
-		} catch (Exception e) {
+		}catch(Exception e){
 			SketchwareUtil.showMessage(getApplicationContext(), "Error Fab");
 		}
 	}
@@ -2112,458 +2089,455 @@ public class MainActivity extends AppCompatActivity {
 	
 	public void _coderuner() {
 		editor.setColorScheme(new theme());
-		if (getIntent().getStringExtra("title").contains(".css")) {
-			StringBuilder androidcss = new StringBuilder();
+		if (getIntent().getStringExtra("title").contains(".scss")) {
+			StringBuilder androidtxt = new StringBuilder();
 			
 			try {
 				
 				Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 				while (scanner.hasNext()) {
-					androidcss .append(scanner.next());
+					androidtxt .append(scanner.next());
 				}
-				editor.setText(androidcss );
+				editor.setText(androidtxt );
 			} catch (Exception rt) {
 				rt.printStackTrace();
 			}
-			geticon.setImageResource(R.drawable.css);
-			editor.setEditorLanguage(new UniversalLanguage(new CssDescription()));
 			editor.setColorScheme(new theme());
+			_fab.hide();
+			editor.setEditorLanguage(new UniversalLanguage(new io.github.rosemoe.sora.langs.desc.SCSSDescription()));
 		}
 		else {
-			if (getIntent().getStringExtra("title").contains(".json")) {
-				editor.setColorScheme(new theme());
-				////editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
-				StringBuilder androidpy = new StringBuilder();
+			if (getIntent().getStringExtra("title").contains(".txt")) {
+				StringBuilder androidtxt = new StringBuilder();
 				
 				try {
 					
 					Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 					while (scanner.hasNext()) {
-						androidpy .append(scanner.next());
+						androidtxt .append(scanner.next());
 					}
-					editor.setText(androidpy );
+					editor.setText(androidtxt );
 				} catch (Exception rt) {
 					rt.printStackTrace();
 				}
-				_fab.setImageResource(R.drawable.json);
-				_fab.show();
-				le.setTitle("json forrmating??");
-				le.setIcon(R.drawable.cog);
-				le.setMessage("ایا میخواهید فایل : ".concat(getIntent().getStringExtra("title").concat(" مرتب کنید؟")));
-				le.setPositiveButton("بله", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface _dialog, int _which) {
-						{
-							final String json_str = editor.getText().toString();
-							final int indent_width = 1;
-								
-							    final char[] chars = json_str.toCharArray();
-							    final String newline = System.lineSeparator();
-							
-							final boolean[] begin_quotes = {false};
-							   
-							final int[] progres = {0};
-							 
-							final String[] ret = {""};
-							
-							final ProgressDialog prog = new ProgressDialog(MainActivity.this);
-							
-							prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-							
-							prog.setIndeterminate(false);
-							
-							prog.setMax(chars.length);
-							
-							prog.setMessage("Formatting in progress...");
-							
-							prog.setCancelable(false);
-							
-							prog.show();
-							new Thread(new Runnable() {
-									@Override
-									public void run() {
-											Looper.prepare();
-											
-											
-											    for (int i = 0, indent = 0; i < chars.length; i++) {
-													        char c = chars[i];
-													
-													prog.setProgress(i);
-													
-													
-													
-													        if (c == '\"') {
-															            ret[0] += c;
-															            begin_quotes[0] = !begin_quotes[0];
-															            continue;
-															        }
-													
-													        if (!begin_quotes[0]) {
-															            switch (c) {
-																	            case '{':
-																	            case '[':
-																	                ret[0] += c + newline + String.format("%" + (indent += indent_width) + "s", "");
-																	                continue;
-																	            case '}':
-																	            case ']':
-																	                ret[0] += newline + ((indent -= indent_width) > 0 ? String.format("%" + indent + "s", "") : "") + c;
-																	                continue;
-																	            case ':':
-																	                ret[0] += c + " ";
-																	                continue;
-																	            case ',':
-																	                ret[0] += c + newline + (indent > 0 ? String.format("%" + indent + "s", "") : "");
-																	                continue;
-																	            default:
-																	                if (Character.isWhitespace(c)) continue;
-																	            }
-															        }
-													
-													        ret[0] += c + (c == '\\' ? "" + chars[++i] : "");
-													    }
-											
-											    
-											
-											
-											runOnUiThread(new Runnable() {
-													@Override
-													public void run() {
-															
-															
-															
-															prog.dismiss();
-															
-											editor.setText(ret[0]);
-															
-															Looper.loop();
-													} 
-													
-											});
-									}
-							}).start();
-							
-						}
-					}
-				});
-				le.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface _dialog, int _which) {
-						
-					}
-				});
-				le.create().show();
+				editor.setColorScheme(new theme());
+				_fab.hide();
+				////editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
 			}
 			else {
-				if (getIntent().getStringExtra("title").contains(".html")) {
-					StringBuilder androidhtml = new StringBuilder();
+				if (getIntent().getStringExtra("title").contains(".pas")) {
+					StringBuilder androidc = new StringBuilder();
 					
 					try {
 						
 						Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 						while (scanner.hasNext()) {
-							androidhtml .append(scanner.next());
+							androidc .append(scanner.next());
 						}
-						editor.setText(androidhtml );
+						editor.setText(androidc );
 					} catch (Exception rt) {
 						rt.printStackTrace();
 					}
-					editor.setColorScheme(new htmltheme());
-					_fab.show();
-					geticon.setImageResource(R.drawable.html);
-					_fab.setImageResource(R.drawable.play);
-					editor.setEditorLanguage(new HTMLLanguage()); 
+					editor.setColorScheme(new theme());
+					_fab.hide();
+					editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
 				}
 				else {
-					if (getIntent().getStringExtra("title").contains(".java")) {
-						StringBuilder androidjava = new StringBuilder();
+					if (getIntent().getStringExtra("title").contains(".xml")) {
+						StringBuilder androidc = new StringBuilder();
 						
 						try {
 							
 							Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 							while (scanner.hasNext()) {
-								androidjava .append(scanner.next());
+								androidc .append(scanner.next());
 							}
-							editor.setText(androidjava );
+							editor.setText(androidc );
 						} catch (Exception rt) {
 							rt.printStackTrace();
 						}
 						editor.setColorScheme(new theme());
-						editor.setEditorLanguage(new JavaLanguage()); 
 						_fab.show();
-						geticon.setImageResource(R.drawable.java);
+						XMLLanguage xmlLanguage=new XMLLanguage(); xmlLanguage.setSyntaxCheckEnable(true); editor.setEditorLanguage(xmlLanguage);
 					}
 					else {
-						if (getIntent().getStringExtra("title").contains(".sh")) {
-							_fab.show();
-							editor.setColorScheme(new theme());
-							editor.setEditorLanguage(new UniversalLanguage(new ShellDescription()));
-							geticon.setImageResource(R.drawable.shell);
-							StringBuilder androidjava = new StringBuilder();
+						if (getIntent().getStringExtra("title").contains(".kt")) {
+							StringBuilder androidc = new StringBuilder();
 							
 							try {
 								
 								Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 								while (scanner.hasNext()) {
-									androidjava .append(scanner.next());
+									androidc .append(scanner.next());
 								}
-								editor.setText(androidjava );
+								editor.setText(androidc );
 							} catch (Exception rt) {
 								rt.printStackTrace();
 							}
+							editor.setColorScheme(new theme());
+							_fab.hide();
+							editor.setEditorLanguage(new UniversalLanguage(new KotlinDescription()));
 						}
 						else {
-							if (getIntent().getStringExtra("title").contains(".Ac")) {
+							if (getIntent().getStringExtra("title").contains(".cs")) {
+								StringBuilder androidcs = new StringBuilder();
 								
+								try {
+									
+									Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+									while (scanner.hasNext()) {
+										androidcs .append(scanner.next());
+									}
+									editor.setText(androidcs );
+								} catch (Exception rt) {
+									rt.printStackTrace();
+								}
+								editor.setColorScheme(new theme());
+								_fab.hide();
+								editor.setEditorLanguage(new UniversalLanguage(new sharpDescription()));
 							}
 							else {
-								if (getIntent().getStringExtra("title").contains(".cpp")) {
-									editor.setColorScheme(new theme());
-									
-									editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
-									geticon.setImageResource(R.drawable.cpp);
-									StringBuilder androidjava = new StringBuilder();
+								if (getIntent().getStringExtra("title").contains(".c")) {
+									StringBuilder androidc = new StringBuilder();
 									
 									try {
 										
 										Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 										while (scanner.hasNext()) {
-											androidjava .append(scanner.next());
+											androidc .append(scanner.next());
 										}
-										editor.setText(androidjava );
+										editor.setText(androidc );
 									} catch (Exception rt) {
 										rt.printStackTrace();
 									}
+									editor.setColorScheme(new theme());
 									_fab.show();
+									editor.setEditorLanguage(new UniversalLanguage(new CDescription()));
 								}
 								else {
-									if (getIntent().getStringExtra("title").contains(".py")) {
-										editor.setColorScheme(new theme());
-										////editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
-										StringBuilder androidpy = new StringBuilder();
+									if (getIntent().getStringExtra("title").contains(".rb")) {
+										StringBuilder androidrb = new StringBuilder();
 										
 										try {
 											
 											Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 											while (scanner.hasNext()) {
-												androidpy .append(scanner.next());
+												androidrb .append(scanner.next());
 											}
-											editor.setText(androidpy );
+											editor.setText(androidrb );
 										} catch (Exception rt) {
 											rt.printStackTrace();
 										}
-										editor.setEditorLanguage(new PythonLanguage()); 
-										geticon.setImageResource(R.drawable.py);
+										editor.setColorScheme(new theme());
+										_fab.hide();
+										editor.setEditorLanguage(new UniversalLanguage(new RubyDescription()));
 									}
 									else {
-										if (getIntent().getStringExtra("title").contains(".js")) {
-											StringBuilder androidjs = new StringBuilder();
+										if (getIntent().getStringExtra("title").contains(".dart")) {
+											StringBuilder androiddart = new StringBuilder();
 											
 											try {
 												
 												Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 												while (scanner.hasNext()) {
-													androidjs .append(scanner.next());
+													androiddart .append(scanner.next());
 												}
-												editor.setText(androidjs );
+												editor.setText(androiddart );
 											} catch (Exception rt) {
 												rt.printStackTrace();
 											}
 											editor.setColorScheme(new theme());
-											_fab.show();
-											geticon.setImageResource(R.drawable.javascr);
-											editor.setEditorLanguage(new UniversalLanguage(new JavaScriptDescription()));
+											_fab.hide();
+											editor.setEditorLanguage(new UniversalLanguage(new DartDescription()));
 										}
 										else {
-											if (getIntent().getStringExtra("title").contains(".gradle")) {
-												StringBuilder androidjs = new StringBuilder();
+											if (getIntent().getStringExtra("title").contains(".ninja")) {
+												StringBuilder androidninja = new StringBuilder();
 												
 												try {
 													
 													Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 													while (scanner.hasNext()) {
-														androidjs .append(scanner.next());
+														androidninja .append(scanner.next());
 													}
-													editor.setText(androidjs );
+													editor.setText(androidninja );
 												} catch (Exception rt) {
 													rt.printStackTrace();
 												}
 												editor.setColorScheme(new theme());
-												_fab.hide();
-												bak.setImageResource(R.drawable.gra);
+												_fab.show();
+												editor.setEditorLanguage(new UniversalLanguage(new NINJADescription()));
 											}
 											else {
-												if (getIntent().getStringExtra("title").contains(".ninja")) {
-													StringBuilder androidninja = new StringBuilder();
+												if (getIntent().getStringExtra("title").contains(".gradle")) {
+													StringBuilder androidjs = new StringBuilder();
 													
 													try {
 														
 														Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 														while (scanner.hasNext()) {
-															androidninja .append(scanner.next());
+															androidjs .append(scanner.next());
 														}
-														editor.setText(androidninja );
+														editor.setText(androidjs );
 													} catch (Exception rt) {
 														rt.printStackTrace();
 													}
 													editor.setColorScheme(new theme());
-													_fab.show();
-													editor.setEditorLanguage(new UniversalLanguage(new NINJADescription()));
-													bak.setImageResource(R.drawable.ninjas);
+													_fab.hide();
 												}
 												else {
-													if (getIntent().getStringExtra("title").contains(".dart")) {
-														StringBuilder androiddart = new StringBuilder();
+													if (getIntent().getStringExtra("title").contains(".json")) {
+														editor.setColorScheme(new theme());
+														////editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
+														StringBuilder androidpy = new StringBuilder();
 														
 														try {
 															
 															Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 															while (scanner.hasNext()) {
-																androiddart .append(scanner.next());
+																androidpy .append(scanner.next());
 															}
-															editor.setText(androiddart );
+															editor.setText(androidpy );
 														} catch (Exception rt) {
 															rt.printStackTrace();
 														}
-														editor.setColorScheme(new theme());
-														_fab.hide();
-														editor.setEditorLanguage(new UniversalLanguage(new DartDescription()));
-														geticon.setImageResource(R.drawable.dex);
+														_fab.setImageResource(R.drawable.json);
+														_fab.show();
+														le.setTitle("json forrmating??");
+														le.setIcon(R.drawable.cog);
+														le.setMessage("ایا میخواهید فایل : ".concat(getIntent().getStringExtra("title").concat(" مرتب کنید؟")));
+														le.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+															@Override
+															public void onClick(DialogInterface _dialog, int _which) {
+																{
+																	final String json_str = editor.getText().toString();
+																	final int indent_width = 1;
+																		
+																	    final char[] chars = json_str.toCharArray();
+																	    final String newline = System.lineSeparator();
+																	
+																	final boolean[] begin_quotes = {false};
+																	   
+																	final int[] progres = {0};
+																	 
+																	final String[] ret = {""};
+																	
+																	final ProgressDialog prog = new ProgressDialog(MainActivity.this);
+																	
+																	prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+																	
+																	prog.setIndeterminate(false);
+																	
+																	prog.setMax(chars.length);
+																	
+																	prog.setMessage("Formatting in progress...");
+																	
+																	prog.setCancelable(false);
+																	
+																	prog.show();
+																	new Thread(new Runnable() {
+																			@Override
+																			public void run() {
+																					Looper.prepare();
+																					
+																					
+																					    for (int i = 0, indent = 0; i < chars.length; i++) {
+																							        char c = chars[i];
+																							
+																							prog.setProgress(i);
+																							
+																							
+																							
+																							        if (c == '\"') {
+																									            ret[0] += c;
+																									            begin_quotes[0] = !begin_quotes[0];
+																									            continue;
+																									        }
+																							
+																							        if (!begin_quotes[0]) {
+																									            switch (c) {
+																											            case '{':
+																											            case '[':
+																											                ret[0] += c + newline + String.format("%" + (indent += indent_width) + "s", "");
+																											                continue;
+																											            case '}':
+																											            case ']':
+																											                ret[0] += newline + ((indent -= indent_width) > 0 ? String.format("%" + indent + "s", "") : "") + c;
+																											                continue;
+																											            case ':':
+																											                ret[0] += c + " ";
+																											                continue;
+																											            case ',':
+																											                ret[0] += c + newline + (indent > 0 ? String.format("%" + indent + "s", "") : "");
+																											                continue;
+																											            default:
+																											                if (Character.isWhitespace(c)) continue;
+																											            }
+																									        }
+																							
+																							        ret[0] += c + (c == '\\' ? "" + chars[++i] : "");
+																							    }
+																					
+																					    
+																					
+																					
+																					runOnUiThread(new Runnable() {
+																							@Override
+																							public void run() {
+																									
+																									
+																									
+																									prog.dismiss();
+																									
+																					editor.setText(ret[0]);
+																									
+																									Looper.loop();
+																							} 
+																							
+																					});
+																			}
+																	}).start();
+																	
+																}
+															}
+														});
+														le.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+															@Override
+															public void onClick(DialogInterface _dialog, int _which) {
+																
+															}
+														});
+														le.create().show();
 													}
 													else {
-														if (getIntent().getStringExtra("title").contains(".493929292947fjrj")) {
+														if (getIntent().getStringExtra("title").contains(".py")) {
+															editor.setColorScheme(new theme());
+															////editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
+															StringBuilder androidpy = new StringBuilder();
 															
+															try {
+																
+																Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
+																while (scanner.hasNext()) {
+																	androidpy .append(scanner.next());
+																}
+																editor.setText(androidpy );
+															} catch (Exception rt) {
+																rt.printStackTrace();
+															}
+															editor.setEditorLanguage(new PythonLanguage()); 
 														}
 														else {
-															if (getIntent().getStringExtra("title").contains(".rb")) {
-																StringBuilder androidrb = new StringBuilder();
+															if (getIntent().getStringExtra("title").contains(".cpp")) {
+																editor.setColorScheme(new theme());
+																
+																StringBuilder androidjava = new StringBuilder();
 																
 																try {
 																	
 																	Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 																	while (scanner.hasNext()) {
-																		androidrb .append(scanner.next());
+																		androidjava .append(scanner.next());
 																	}
-																	editor.setText(androidrb );
+																	editor.setText(androidjava );
 																} catch (Exception rt) {
 																	rt.printStackTrace();
 																}
-																editor.setColorScheme(new theme());
-																_fab.hide();
-																editor.setEditorLanguage(new UniversalLanguage(new RubyDescription()));
+																_fab.show();
+																editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
 															}
 															else {
-																if (getIntent().getStringExtra("title").contains(".cs")) {
-																	StringBuilder androidcs = new StringBuilder();
+																if (getIntent().getStringExtra("title").contains(".sh")) {
+																	_fab.show();
+																	editor.setColorScheme(new theme());
+																	StringBuilder androidjava = new StringBuilder();
 																	
 																	try {
 																		
 																		Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 																		while (scanner.hasNext()) {
-																			androidcs .append(scanner.next());
+																			androidjava .append(scanner.next());
 																		}
-																		editor.setText(androidcs );
+																		editor.setText(androidjava );
 																	} catch (Exception rt) {
 																		rt.printStackTrace();
 																	}
-																	editor.setColorScheme(new theme());
-																	_fab.hide();
-																	editor.setEditorLanguage(new UniversalLanguage(new sharpDescription()));
+																	editor.setEditorLanguage(new UniversalLanguage(new ShellDescription()));
 																}
 																else {
-																	if (getIntent().getStringExtra("title").contains(".c")) {
-																		StringBuilder androidc = new StringBuilder();
+																	if (getIntent().getStringExtra("title").contains(".java")) {
+																		StringBuilder androidjava = new StringBuilder();
 																		
 																		try {
 																			
 																			Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 																			while (scanner.hasNext()) {
-																				androidc .append(scanner.next());
+																				androidjava .append(scanner.next());
 																			}
-																			editor.setText(androidc );
+																			editor.setText(androidjava );
 																		} catch (Exception rt) {
 																			rt.printStackTrace();
 																		}
 																		editor.setColorScheme(new theme());
+																		editor.setEditorLanguage(new JavaLanguage()); 
 																		_fab.show();
-																		editor.setEditorLanguage(new UniversalLanguage(new CDescription()));
-																		geticon.setImageResource(R.drawable.cpp);
 																	}
 																	else {
-																		if (getIntent().getStringExtra("title").contains(".kt")) {
-																			StringBuilder androidc = new StringBuilder();
+																		if (getIntent().getStringExtra("title").contains(".html")) {
+																			StringBuilder androidhtml = new StringBuilder();
 																			
 																			try {
 																				
 																				Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 																				while (scanner.hasNext()) {
-																					androidc .append(scanner.next());
+																					androidhtml .append(scanner.next());
 																				}
-																				editor.setText(androidc );
+																				editor.setText(androidhtml );
 																			} catch (Exception rt) {
 																				rt.printStackTrace();
 																			}
-																			editor.setColorScheme(new theme());
-																			_fab.hide();
-																			editor.setEditorLanguage(new UniversalLanguage(new KotlinDescription()));
+																			editor.setColorScheme(new htmltheme());
+																			_fab.show();
+																			_fab.setImageResource(R.drawable.play);
+																			editor.setEditorLanguage(new HTMLLanguage()); 
 																		}
 																		else {
-																			if (getIntent().getStringExtra("title").contains(".xml")) {
-																				StringBuilder androidc = new StringBuilder();
+																			if (getIntent().getStringExtra("title").contains(".js")) {
+																				StringBuilder androidjs = new StringBuilder();
 																				
 																				try {
 																					
 																					Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 																					while (scanner.hasNext()) {
-																						androidc .append(scanner.next());
+																						androidjs .append(scanner.next());
 																					}
-																					editor.setText(androidc );
+																					editor.setText(androidjs );
 																				} catch (Exception rt) {
 																					rt.printStackTrace();
 																				}
 																				editor.setColorScheme(new theme());
+																				editor.setEditorLanguage(new UniversalLanguage(new JavaScriptDescription()));
 																				_fab.show();
-																				XMLLanguage xmlLanguage=new XMLLanguage(); xmlLanguage.setSyntaxCheckEnable(true); editor.setEditorLanguage(xmlLanguage);
 																			}
 																			else {
-																				if (getIntent().getStringExtra("title").contains(".pas")) {
-																					StringBuilder androidc = new StringBuilder();
+																				if (getIntent().getStringExtra("title").contains(".css")) {
+																					editor.setEditorLanguage(new UniversalLanguage(new CssDescription()));
+																					editor.setColorScheme(new theme());
+																					StringBuilder androidcss = new StringBuilder();
 																					
 																					try {
 																						
 																						Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
 																						while (scanner.hasNext()) {
-																							androidc .append(scanner.next());
+																							androidcss .append(scanner.next());
 																						}
-																						editor.setText(androidc );
+																						editor.setText(androidcss );
 																					} catch (Exception rt) {
 																						rt.printStackTrace();
 																					}
-																					editor.setColorScheme(new theme());
-																					_fab.hide();
-																					editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
 																				}
 																				else {
-																					if (getIntent().getStringExtra("title").contains(".txt")) {
-																						StringBuilder androidtxt = new StringBuilder();
-																						
-																						try {
-																							
-																							Scanner scanner = new Scanner(new java.io.File(getIntent().getStringExtra("key"))).useDelimiter("\\Z");
-																							while (scanner.hasNext()) {
-																								androidtxt .append(scanner.next());
-																							}
-																							editor.setText(androidtxt );
-																						} catch (Exception rt) {
-																							rt.printStackTrace();
-																						}
-																						editor.setColorScheme(new theme());
-																						_fab.hide();
-																						////editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
-																						geticon.setImageResource(R.drawable.txt);
-																					}
-																					else {
-																						
-																					}
+																					
 																				}
 																			}
 																		}
@@ -2583,6 +2557,172 @@ public class MainActivity extends AppCompatActivity {
 				}
 			}
 		}
+	}
+	
+	
+	public void _Ripple_Drawable(final View _view, final String _c) {
+		android.content.res.ColorStateList clr = new android.content.res.ColorStateList(new int[][]{new int[]{}},new int[]{Color.parseColor(_c)}); android.graphics.drawable.RippleDrawable ripdr = new android.graphics.drawable.RippleDrawable(clr, null, null); _view.setBackground(ripdr);
+	}
+	
+	
+	public void _popmenu(final View _views) {
+		View popupView = getLayoutInflater().inflate(R.layout.popup, null);
+		final PopupWindow popup = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+		LinearLayout l1 = popupView.findViewById(R.id.l1);
+		l1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF000027));
+		 com.google.android.material.checkbox.MaterialCheckBox   ch01 = popupView.findViewById(R.id.ch01);
+		
+		 
+		
+		 com.google.android.material.checkbox.MaterialCheckBox   ch02 = popupView.findViewById(R.id.ch02);
+		
+		 
+		
+		 com.google.android.material.checkbox.MaterialCheckBox   ch03 = popupView.findViewById(R.id.ch03);
+		
+		 
+		
+		ch01.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+						@Override
+						public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+								final boolean _isChecked = _param2;
+								if (_isChecked) {
+					SketchwareUtil.CustomToast(getApplicationContext(), "soon", 0xFFFFFFFF, 16, 0xFF000027, 25, SketchwareUtil.TOP);
+				}
+				else {
+					
+				}
+						}
+				});
+			
+		ch02.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+						@Override
+						public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+								final boolean _isChecked = _param2;
+								if (_isChecked) {
+					SketchwareUtil.CustomToast(getApplicationContext(), "soon", 0xFFFFFFFF, 16, 0xFF000027, 25, SketchwareUtil.TOP);
+				}
+				else {
+					
+				}
+						}
+				});
+			
+		ch03.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+						@Override
+						public void onCheckedChanged(CompoundButton _param1, boolean _param2) {
+								final boolean _isChecked = _param2;
+								if (_isChecked) {
+					SketchwareUtil.CustomToast(getApplicationContext(), "soon", 0xFFFFFFFF, 16, 0xFF000027, 25, SketchwareUtil.TOP);
+				}
+				else {
+					
+				}
+						}
+				});
+			
+		popup.setAnimationStyle(android.R.style.Animation_Dialog);
+		
+		popup.showAsDropDown(_views, 0,0);
+		
+		popup.setBackgroundDrawable(new BitmapDrawable());
+	}
+	
+	
+	public void _editortab(final String _name, final String _code) {
+		{
+			HashMap<String, Object> _item = new HashMap<>();
+			_item.put("tab", _name);
+			map_tabs.add(_item);
+		}
+		
+		{
+			HashMap<String, Object> _item = new HashMap<>();
+			_item.put("code", _code);
+			map_tabcode.add(_item);
+		}
+		
+		_coderuner();
+		recyclerview1.setAdapter(new Recyclerview1Adapter(map_tabs));
+		LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+		recyclerview1.setHasFixedSize(true); 
+		recyclerview1.setLayoutManager(layoutManager);  
+		
+		save_tab = new Gson().toJson(map_tabs);
+	}
+	public class Recyclerview1Adapter extends RecyclerView.Adapter<Recyclerview1Adapter.ViewHolder> {
+			
+			ArrayList<HashMap<String, Object>> _data;
+			
+			public Recyclerview1Adapter(ArrayList<HashMap<String, Object>> _arr) {
+					_data = _arr;
+			}
+			
+			@Override
+			public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+					LayoutInflater _inflater = getLayoutInflater();
+					View _v = _inflater.inflate(R.layout.editor_tab, null);
+					RecyclerView.LayoutParams _lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+					_v.setLayoutParams(_lp);
+					return new ViewHolder(_v);
+			}
+			
+			@Override
+			public void onBindViewHolder(ViewHolder _holder, final int _position) {
+					View _view = _holder.itemView;
+					
+					final LinearLayout ll_main = _view.findViewById(R.id.ll_main);
+					final LinearLayout linear1 = _view.findViewById(R.id.linear1);
+					final LinearLayout ll_indicator = _view.findViewById(R.id.ll_indicator);
+					final TextView tv_filename = _view.findViewById(R.id.tv_filename);
+					final ImageView img_close = _view.findViewById(R.id.img_close);
+					
+					tv_filename.setText(map_tabs.get((int)_position).get("tab").toString());
+					linear1.setOnClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View _view) {
+									save_path = map_tabcode.get(_position).get("code").toString();
+									//editor.setText(FileUtil.readFile(map_tabcode.get((int)_position).get("code").toString()));
+					                _coderuner();
+							}
+					});
+					
+					img_close.setOnClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View _view) {
+									if (editor.getText().toString().equals(FileUtil.readFile(map_tabcode.get((int)_position).get("code").toString()))) {
+											editor.setVisibility(View.GONE);
+											editor.setText("");
+											
+											map_tabs.remove(_position);
+											map_tabcode.remove(_position);
+											LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+											recyclerview1.setHasFixedSize(true); 
+											recyclerview1.setLayoutManager(layoutManager);
+									}
+									else {
+											map_tabs.remove(_position);
+											map_tabcode.remove(_position);
+											LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+											recyclerview1.setHasFixedSize(true); 
+											recyclerview1.setLayoutManager(layoutManager);
+									}
+							}
+					});
+			}
+			
+			@Override
+			public int getItemCount() {
+					return _data.size();
+			}
+			
+			public class ViewHolder extends RecyclerView.ViewHolder {
+					public ViewHolder(View v) {
+							super(v);
+					}
+			}
+			
+			
 	}
 	
 	

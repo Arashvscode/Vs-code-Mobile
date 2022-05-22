@@ -41,17 +41,13 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -169,7 +165,7 @@ public class ProjectskproviewActivity extends AppCompatActivity {
 			
 				   Hsi.setStatusBarColor(Color.parseColor("#FF000027")); Hsi.setNavigationBarColor(Color.parseColor("#FF000027"));
 		}
-		try {
+		try{
 			cardview1.setCardBackgroundColor(0xFF00003A);
 			cardview1.setRadius((float)25);
 			cardview1.setCardElevation((float)2);
@@ -186,7 +182,7 @@ public class ProjectskproviewActivity extends AppCompatActivity {
 				librarys.setText(library);
 				library_co.setText(String.valueOf((long)(map.size())));
 			}
-		} catch (Exception e) {
+		}catch(Exception e){
 			 
 		}
 		vscroll1.setHorizontalScrollBarEnabled(false);

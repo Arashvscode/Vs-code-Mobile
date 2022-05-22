@@ -57,18 +57,14 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -737,7 +733,7 @@ public class AddBlockActivity extends AppCompatActivity {
 		imageview18.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				try {
+				try{
 					if (getIntent().getStringExtra("cmd").equals("edit")) {
 						if (typeEdit.getText().toString().equals("e")) {
 							blocksListMap.get((int)blockPosotion).put("name", nameEdit.getText().toString());
@@ -804,7 +800,7 @@ public class AddBlockActivity extends AppCompatActivity {
 							
 						}
 					}
-				} catch (Exception e) {
+				}catch(Exception e){
 					 
 				}
 			}
@@ -861,7 +857,7 @@ public class AddBlockActivity extends AppCompatActivity {
 		returnNumber = linearAllData.getHeight();
 		isExpanded = true;
 		blocksPath = "/storage/emulated/0/.sketchware/resources/block/My Block/block.json";
-		editor.setTextSize((int)13);
+		editor.setTextSize((float)13);
 		if (getIntent().getStringExtra("cmd").equals("edit")) {
 			blockPosotion = Double.parseDouble(getIntent().getStringExtra("blockIndex"));
 			paletteNumber = Double.parseDouble(getIntent().getStringExtra("palette")) + 9;
@@ -916,7 +912,9 @@ public class AddBlockActivity extends AppCompatActivity {
 			}
 		}
 		/*
+
  
+
 */
 		new Thread(new Runnable() {
 			@Override
@@ -1044,21 +1042,6 @@ public class AddBlockActivity extends AppCompatActivity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		cardview1.setCardBackgroundColor(0xFF000027);
-		cardview2.setCardBackgroundColor(0xFF000027);
-		cardview3.setCardBackgroundColor(0xFF000027);
-		cardview4.setCardBackgroundColor(0xFF000027);
-		cardview5.setCardBackgroundColor(0xFF000027);
-		cardview1.setRadius((float)25);
-		cardview2.setRadius((float)25);
-		cardview3.setRadius((float)25);
-		cardview4.setRadius((float)25);
-		cardview5.setRadius((float)25);
-		cardview1.setCardElevation((float)25);
-		cardview2.setRadius((float)25);
-		cardview3.setRadius((float)25);
-		cardview4.setRadius((float)25);
-		cardview5.setCardElevation((float)25);
 		colorHandles(nameEdit, 0xFFF44336);
 		setCursorDrawableColor(nameEdit, 0xFFF44336);
 		nameEdit.setHighlightColor(0xFFF44336);
@@ -1077,6 +1060,21 @@ public class AddBlockActivity extends AppCompatActivity {
 		colorHandles(searchEdit, 0xFFFFEB3B);
 		setCursorDrawableColor(searchEdit, 0xFFFFEB3B);
 		searchEdit.setHighlightColor(0xFFFFEB3B);
+		cardview1.setCardBackgroundColor(0xFF000000);
+		cardview2.setCardBackgroundColor(0xFF000000);
+		cardview3.setCardBackgroundColor(0xFF000000);
+		cardview4.setCardBackgroundColor(0xFF000000);
+		cardview5.setCardBackgroundColor(0xFF000000);
+		cardview1.setRadius((float)25);
+		cardview2.setRadius((float)25);
+		cardview3.setRadius((float)25);
+		cardview4.setRadius((float)25);
+		cardview5.setRadius((float)25);
+		cardview1.setCardElevation((float)25);
+		cardview2.setRadius((float)25);
+		cardview3.setRadius((float)25);
+		cardview4.setRadius((float)25);
+		cardview5.setCardElevation((float)25);
 	}
 	public void _clickAddText() {
 		for(int _repeat10 = 0; _repeat10 < (int)(linearFirstRow.getChildCount()); _repeat10++) {

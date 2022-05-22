@@ -23,6 +23,7 @@ import android.widget.*;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,15 +40,11 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -83,7 +80,7 @@ public class TanzimatActivity extends AppCompatActivity {
 	private boolean Fimg3 = false;
 	private boolean Himg4 = false;
 	
-	private LinearLayout bg;
+	private ScrollView vscroll1;
 	private LinearLayout back;
 	private LinearLayout linear2;
 	private LinearLayout hiden;
@@ -174,7 +171,7 @@ public class TanzimatActivity extends AppCompatActivity {
 				onBackPressed();
 			}
 		});
-		bg = findViewById(R.id.bg);
+		vscroll1 = findViewById(R.id.vscroll1);
 		back = findViewById(R.id.back);
 		linear2 = findViewById(R.id.linear2);
 		hiden = findViewById(R.id.hiden);
@@ -463,7 +460,7 @@ public class TanzimatActivity extends AppCompatActivity {
 		installweb.setVisibility(View.GONE);
 		cxd = false;
 		otherhiden.setVisibility(View.GONE);
-		try {
+		try{
 			if (r1.getString("repu", "").equals("cd")) {
 				switch1.setChecked(true);
 			}
@@ -537,7 +534,7 @@ public class TanzimatActivity extends AppCompatActivity {
 			else {
 				switch11.setChecked(false);
 			}
-		} catch (Exception e) {
+		}catch(Exception e){
 			 
 		}
 	}
@@ -545,13 +542,6 @@ public class TanzimatActivity extends AppCompatActivity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) { 
-				   Window ninjacoder = this.getWindow();
-			 ninjacoder.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			 ninjacoder.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-			
-				   ninjacoder.setStatusBarColor(Color.parseColor("#FF000027")); ninjacoder.setNavigationBarColor(Color.parseColor("#FF000027"));
-		}
 		fonts(getApplicationContext(),getWindow().getDecorView()); 
 	} 
 	  private void fonts(final android.content.Context context, final View v) {
@@ -589,6 +579,11 @@ public class TanzimatActivity extends AppCompatActivity {
 				{
 						e.printStackTrace();
 				};
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+				Window w =this.getWindow();
+				w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+				w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
+		}
 	}
 	
 	public void _imageGordone(final ImageView _imageview, final boolean _mshow) {

@@ -41,15 +41,11 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
-import com.google.android.material.*;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.gson.*;
 import com.googlecode.d2j.*;
-import com.jtv7.rippleswitchlib.*;
 import com.lwb.piechart.*;
 import com.oguzdev.circularfloatingactionmenu.library.*;
 import com.rohitop.rlottie.*;
-import com.suke.widget.*;
 import coyamo.visualxml.*;
 import io.github.rosemoe.sora.*;
 import io.github.rosemoe.sora.langs.base.*;
@@ -173,43 +169,19 @@ public class AboutActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) { 
-				   Window ninjacoder = this.getWindow();
-			 ninjacoder.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			 ninjacoder.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+				Window w =this.getWindow();
+				w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+				w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
+		}
+		for(int _repeat49 = 0; _repeat49 < (int)(5); _repeat49++) {
+			{
+				HashMap<String, Object> _item = new HashMap<>();
+				_item.put("key", "");
+				lismapget.add(_item);
+			}
 			
-				   ninjacoder.setStatusBarColor(Color.parseColor("#FF000027")); ninjacoder.setNavigationBarColor(Color.parseColor("#FF000027"));
 		}
-		{
-			HashMap<String, Object> _item = new HashMap<>();
-			_item.put("key", "");
-			lismapget.add(_item);
-		}
-		
-		{
-			HashMap<String, Object> _item = new HashMap<>();
-			_item.put("key", "");
-			lismapget.add(_item);
-		}
-		
-		{
-			HashMap<String, Object> _item = new HashMap<>();
-			_item.put("key", "");
-			lismapget.add(_item);
-		}
-		
-		{
-			HashMap<String, Object> _item = new HashMap<>();
-			_item.put("key", "");
-			lismapget.add(_item);
-		}
-		
-		{
-			HashMap<String, Object> _item = new HashMap<>();
-			_item.put("key", "");
-			lismapget.add(_item);
-		}
-		
 		listview1.setAdapter(new Listview1Adapter(lismapget));
 		((BaseAdapter)listview1.getAdapter()).notifyDataSetChanged();
 		bot = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
@@ -284,46 +256,51 @@ public class AboutActivity extends AppCompatActivity {
 				}
 			};
 			_timer.scheduleAtFixedRate(ask, (int)(0), (int)(1000));
-			linear1.setOnTouchListener(new View.OnTouchListener() {
+			linear1.setOnClickListener(new View.OnClickListener() {
 				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					switch (event.getAction()){
-						case MotionEvent.ACTION_DOWN:{
-							ObjectAnimator scaleX = new ObjectAnimator();
-							scaleX.setTarget(linear1);
-							scaleX.setPropertyName("scaleX");
-							scaleX.setFloatValues(0.9f);
-							scaleX.setDuration((int)5);
-							scaleX.start();
-							
-							ObjectAnimator scaleY = new ObjectAnimator();
-							scaleY.setTarget(linear1);
-							scaleY.setPropertyName("scaleY");
-							scaleY.setFloatValues(0.9f);
-							scaleY.setDuration((int)5);
-							scaleY.start();
-							break;
+				public void onClick(View _view) {
+					linear1.setOnTouchListener(new View.OnTouchListener() {
+						@Override
+						public boolean onTouch(View v, MotionEvent event) {
+							switch (event.getAction()){
+								case MotionEvent.ACTION_DOWN:{
+									ObjectAnimator scaleX = new ObjectAnimator();
+									scaleX.setTarget(linear1);
+									scaleX.setPropertyName("scaleX");
+									scaleX.setFloatValues(0.9f);
+									scaleX.setDuration((int)5);
+									scaleX.start();
+									
+									ObjectAnimator scaleY = new ObjectAnimator();
+									scaleY.setTarget(linear1);
+									scaleY.setPropertyName("scaleY");
+									scaleY.setFloatValues(0.9f);
+									scaleY.setDuration((int)5);
+									scaleY.start();
+									break;
+								}
+								case MotionEvent.ACTION_UP:{
+									
+									ObjectAnimator scaleX = new ObjectAnimator();
+									scaleX.setTarget(linear1);
+									scaleX.setPropertyName("scaleX");
+									scaleX.setFloatValues((float)1);
+									scaleX.setDuration((int)5);
+									scaleX.start();
+									
+									ObjectAnimator scaleY = new ObjectAnimator();
+									scaleY.setTarget(linear1);
+									scaleY.setPropertyName("scaleY");
+									scaleY.setFloatValues((float)1);
+									scaleY.setDuration((int)5);
+									scaleY.start();
+									
+									break;
+								}
+							}
+							return false;
 						}
-						case MotionEvent.ACTION_UP:{
-							
-							ObjectAnimator scaleX = new ObjectAnimator();
-							scaleX.setTarget(linear1);
-							scaleX.setPropertyName("scaleX");
-							scaleX.setFloatValues((float)1);
-							scaleX.setDuration((int)5);
-							scaleX.start();
-							
-							ObjectAnimator scaleY = new ObjectAnimator();
-							scaleY.setTarget(linear1);
-							scaleY.setPropertyName("scaleY");
-							scaleY.setFloatValues((float)1);
-							scaleY.setDuration((int)5);
-							scaleY.start();
-							
-							break;
-						}
-					}
-					return false;
+					});
 				}
 			});
 			if (_position == 0) {
@@ -337,9 +314,9 @@ public class AboutActivity extends AppCompatActivity {
 				circleimageview1.setImageResource(R.drawable.more_1);
 			}
 			if (_position == 2) {
+				textview1.setText("Rosemoe");
+				color.setBackgroundColor(0xFF9C27B0);
 				circleimageview1.setImageResource(R.drawable.milad);
-				textview1.setText("☆ Milad ☆");
-				color.setBackgroundColor(0xFFFFEB3B);
 			}
 			if (_position == 3) {
 				circleimageview1.setImageResource(R.drawable.arman);
