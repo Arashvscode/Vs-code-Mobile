@@ -1124,13 +1124,13 @@ public class FilesActivity extends AppCompatActivity {
 				mkeyboard.setTitle("Vcm keyboard A fast keyboard for typing your code");
 				mkeyboard.setIcon(R.drawable.keyboard);
 				mkeyboard.setMessage("Please select an operation. The settings of some mobile phones may be different. If it is not activated, you can activate the application keyboard from the settings section. Respectfully, vcm");
-				mkeyboard.setPositiveButton(Html.fromHtml("<h1 style=\"color:green;\">Select and confirm the keyboard from the settings</h1>"), new DialogInterface.OnClickListener() {
+				mkeyboard.setPositiveButton(Html.fromHtml("<font color=\"green\">Select and confirm the keyboard from the settings</font>"), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
 						startActivityForResult(new Intent("android.settings.INPUT_METHOD_SETTINGS"), 0);
 					}
 				});
-				mkeyboard.setNegativeButton(Html.fromHtml("<h1 style =\"color:red;\">Keyboard confirmation</h1>"), new DialogInterface.OnClickListener() {
+				mkeyboard.setNegativeButton(Html.fromHtml("<font color =\"red\">Keyboard confirmation</font>"), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
 						((android.view.inputmethod.InputMethodManager) getApplicationContext().getSystemService("input_method")).showInputMethodPicker();
@@ -1442,6 +1442,8 @@ public class FilesActivity extends AppCompatActivity {
 						
 						if(mLastFirstVisibleItem<firstVisibleItem) {
 								_fab.hide();
+								_fab.animate().setDuration(220).rotation(0);
+								_Show(false);
 						}
 						
 						if(mLastFirstVisibleItem>firstVisibleItem) {
@@ -1453,6 +1455,7 @@ public class FilesActivity extends AppCompatActivity {
 				}
 				
 		});
+		
 	}
 	
 	@Override
@@ -1525,7 +1528,7 @@ public class FilesActivity extends AppCompatActivity {
 	
 	
 	public void _folder() {
-		mdialogFolder.setTitle(Html.fromHtml("<h1 style=\"color:green;\">Type name Folder</h1>"));
+		mdialogFolder.setTitle(Html.fromHtml("<font color=\"green\">Type name Folder</font>"));
 		mdialogFolder.setIcon(R.drawable.vscode);
 		final EditText meditor= new EditText(FilesActivity.this);
 		LinearLayout.LayoutParams lparr = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -1537,7 +1540,7 @@ public class FilesActivity extends AppCompatActivity {
 		meditor.setLayoutParams(lparr);
 		mdialogFolder.setView(meditor);
 		mdialogFolder.setMessage("plz Type name Folder");
-		mdialogFolder.setPositiveButton(Html.fromHtml("<h1 style=\"color:blue\">Yes</h1>"), new DialogInterface.OnClickListener() {
+		mdialogFolder.setPositiveButton(Html.fromHtml("<font color=\"blue\">Yes</font>"), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
 				CreateFolder = meditor.getText().toString();
@@ -1556,7 +1559,7 @@ public class FilesActivity extends AppCompatActivity {
 				}
 			}
 		});
-		mdialogFolder.setNegativeButton(Html.fromHtml("<h1 style=\"color:red;\">No</h1>"), new DialogInterface.OnClickListener() {
+		mdialogFolder.setNegativeButton(Html.fromHtml("<font color=\"red\">No</font>"), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface _dialog, int _which) {
 				
