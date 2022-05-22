@@ -22,13 +22,30 @@
 				android:gravity="center_vertical"
 				android:orientation="horizontal">
 				<ImageView
+					android:id="@+id/more"
+					android:focusable="false"
+					android:layout_width="40dp"
+					android:layout_height="40dp"
+					android:padding="9dp"
+					android:src="@drawable/dots"
+					android:scaleType="centerInside" />
+				<ImageView
 					android:id="@+id/color"
 					android:focusable="false"
 					android:layout_width="40dp"
 					android:layout_height="40dp"
 					android:layout_marginLeft="2dp"
 					android:layout_marginRight="2dp"
+					android:padding="9dp"
 					android:src="@drawable/wheel_color_picker"
+					android:scaleType="centerInside" />
+				<ImageView
+					android:id="@+id/add"
+					android:focusable="false"
+					android:layout_width="40dp"
+					android:layout_height="40dp"
+					android:padding="9dp"
+					android:src="@drawable/add"
 					android:scaleType="centerInside" />
 				<ImageView
 					android:id="@+id/rep"
@@ -37,6 +54,7 @@
 					android:layout_height="40dp"
 					android:layout_marginLeft="2dp"
 					android:layout_marginRight="2dp"
+					android:padding="9dp"
 					android:src="@drawable/replace"
 					android:scaleType="centerInside" />
 				<LinearLayout
@@ -52,6 +70,7 @@
 						android:focusable="false"
 						android:layout_width="40dp"
 						android:layout_height="40dp"
+						android:padding="9dp"
 						android:src="@drawable/save"
 						android:scaleType="centerInside" />
 					<LinearLayout
@@ -70,6 +89,7 @@
 					android:layout_height="40dp"
 					android:layout_marginLeft="2dp"
 					android:layout_marginRight="2dp"
+					android:padding="9dp"
 					android:src="@drawable/undo"
 					android:scaleType="centerInside" />
 				<ImageView
@@ -79,6 +99,7 @@
 					android:layout_height="40dp"
 					android:layout_marginLeft="2dp"
 					android:layout_marginRight="2dp"
+					android:padding="9dp"
 					android:src="@drawable/eye"
 					android:scaleType="centerInside" />
 				<ImageView
@@ -88,6 +109,7 @@
 					android:layout_height="40dp"
 					android:layout_marginLeft="2dp"
 					android:layout_marginRight="2dp"
+					android:padding="9dp"
 					android:src="@drawable/redo"
 					android:scaleType="centerInside" />
 				<ImageView
@@ -97,6 +119,7 @@
 					android:layout_height="40dp"
 					android:layout_marginLeft="2dp"
 					android:layout_marginRight="2dp"
+					android:padding="9dp"
 					android:src="@drawable/delete"
 					android:scaleType="centerInside" />
 				<ImageView
@@ -106,6 +129,7 @@
 					android:layout_height="40dp"
 					android:layout_marginLeft="3dp"
 					android:layout_marginRight="3dp"
+					android:padding="9dp"
 					android:src="@drawable/formatcodeasync"
 					android:scaleType="centerInside" />
 				<ImageView
@@ -115,6 +139,7 @@
 					android:layout_height="40dp"
 					android:layout_marginLeft="3dp"
 					android:layout_marginRight="3dp"
+					android:padding="9dp"
 					android:src="@drawable/links"
 					android:scaleType="centerInside" />
 				<ImageView
@@ -124,6 +149,7 @@
 					android:layout_height="40dp"
 					android:layout_marginLeft="2dp"
 					android:layout_marginRight="2dp"
+					android:padding="9dp"
 					android:src="@drawable/image"
 					android:scaleType="centerInside" />
 				<ImageView
@@ -133,6 +159,7 @@
 					android:layout_height="40dp"
 					android:layout_marginLeft="2dp"
 					android:layout_marginRight="2dp"
+					android:padding="8dp"
 					android:src="@drawable/blur"
 					android:scaleType="centerInside" />
 			</LinearLayout>

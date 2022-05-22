@@ -26,7 +26,7 @@
 			android:id="@+id/linear1"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:background="#000027"
+			android:background="#212121"
 			android:orientation="vertical">
 			<LinearLayout
 				android:id="@+id/linear2"

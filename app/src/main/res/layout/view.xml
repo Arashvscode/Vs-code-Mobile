@@ -41,9 +41,8 @@
 						android:id="@+id/linear10"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:padding="8dp"
 						android:gravity="center_vertical"
-						android:orientation="horizontal">
+						android:orientation="vertical">
 						<TextView
 							android:id="@+id/textview1"
 							android:focusable="false"
@@ -51,7 +50,7 @@
 							android:layout_height="wrap_content"
 							android:padding="8dp"
 							android:text="TextView"
-							android:textSize="14sp"
+							android:textSize="12sp"
 							android:textColor="#FFFFFF"
 							android:singleLine="true" />
 						<TextView
@@ -61,7 +60,7 @@
 							android:layout_height="wrap_content"
 							android:padding="8dp"
 							android:text="reee"
-							android:textSize="12sp"
+							android:textSize="10sp"
 							android:textColor="#2196F3" />
 					</LinearLayout>
 				</LinearLayout>

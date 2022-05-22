@@ -17,7 +17,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:padding="8dp"
-			android:background="#000027"
+			android:background="#212121"
 			android:orientation="vertical"
 			android:layout_gravity="center_horizontal|center_vertical">
 			<LinearLayout

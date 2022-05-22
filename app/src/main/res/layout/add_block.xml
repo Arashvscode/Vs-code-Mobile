@@ -26,7 +26,7 @@
 			android:id="@+id/linear1"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="#000027"
+			android:background="#212121"
 			android:orientation="vertical"
 			android:layout_weight="1">
 			<LinearLayout
@@ -890,7 +890,7 @@
 			android:layout_height="wrap_content"
 			android:paddingLeft="8dp"
 			android:paddingRight="8dp"
-			android:background="#000027"
+			android:background="#212121"
 			android:gravity="center_vertical"
 			android:orientation="vertical"
 			android:visibility="gone">
@@ -1034,7 +1034,7 @@
 			android:paddingTop="2dp"
 			android:paddingRight="8dp"
 			android:paddingBottom="2dp"
-			android:background="#000027"
+			android:background="#212121"
 			android:orientation="horizontal">
 			<ImageView
 				android:id="@+id/imageview1"

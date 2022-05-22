@@ -26,7 +26,7 @@
 			android:id="@+id/linear1"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:background="#000027"
+			android:background="#424242"
 			android:orientation="vertical">
 			<LinearLayout
 				android:id="@+id/linear2"
@@ -89,6 +89,8 @@
 						android:layout_height="wrap_content"
 						android:paddingLeft="5dp"
 						android:paddingRight="5dp"
+						android:dividerHeight="0dp"
+						android:divider="@null"
 						android:choiceMode="none" />
 				</LinearLayout>
 				<LinearLayout
@@ -102,6 +104,8 @@
 						android:layout_height="wrap_content"
 						android:paddingLeft="5dp"
 						android:paddingRight="5dp"
+						android:dividerHeight="0dp"
+						android:divider="@null"
 						android:choiceMode="none" />
 				</LinearLayout>
 			</LinearLayout>
@@ -118,7 +122,7 @@
 					android:layout_height="wrap_content"
 					android:paddingLeft="8dp"
 					android:paddingRight="8dp"
-					android:background="#000027"
+					android:background="#000000"
 					android:gravity="center_horizontal|center_vertical"
 					android:orientation="horizontal">
 					<LinearLayout

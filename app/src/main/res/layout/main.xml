@@ -34,36 +34,19 @@
 						android:id="@+id/ll_tabs"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:padding="2dp"
 						android:orientation="horizontal">
-						<LinearLayout
-							android:id="@+id/mset"
+						<androidx.recyclerview.widget.RecyclerView
+							android:id="@+id/recyclerview1"
 							android:layout_width="wrap_content"
+							android:layout_height="45dp"
+							android:padding="8dp" />
+						<ProgressBar
+							android:id="@+id/progressbar1"
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:padding="8dp"
-							android:gravity="center_vertical"
-							android:orientation="horizontal">
-							<ImageView
-								android:id="@+id/geticon"
-								android:layout_width="30dp"
-								android:layout_height="30dp"
-								android:src="@drawable/java_yellow"
-								android:scaleType="centerInside" />
-							<TextView
-								android:id="@+id/gettt"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:padding="8dp"
-								android:text="TextView"
-								android:textSize="12sp"
-								android:textColor="#FFFFFF" />
-							<ImageView
-								android:id="@+id/imageview9"
-								android:layout_width="30dp"
-								android:layout_height="30dp"
-								android:src="@drawable/close"
-								android:scaleType="centerInside" />
-						</LinearLayout>
+							android:indeterminate="true"
+							style="?android:progressBarStyleHorizontal" />
 					</LinearLayout>
 					<LinearLayout
 						android:id="@+id/linear12"
@@ -98,20 +81,13 @@
 								android:id="@+id/linearbar"
 								android:layout_width="match_parent"
 								android:layout_height="60dp"
+								android:gravity="center_vertical"
 								android:orientation="horizontal">
-								<ir.vscodemobile.ninjacoder.SymbolInputView
-									android:id="@+id/sysbar"
-									android:layout_width="0dp"
-									android:layout_height="match_parent"
-									android:padding="8dp"
-									android:orientation="horizontal"
-									android:layout_weight="1" />
 								<LinearLayout
 									android:id="@+id/linear6"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									android:padding="8dp"
-									android:gravity="center_horizontal|center_vertical"
 									android:orientation="horizontal">
 									<LinearLayout
 										android:id="@+id/mcolor"
@@ -120,6 +96,67 @@
 										android:padding="8dp"
 										android:orientation="horizontal" />
 								</LinearLayout>
+								<LinearLayout
+									android:id="@+id/amro"
+									android:layout_width="wrap_content"
+									android:layout_height="match_parent"
+									android:padding="8dp"
+									android:gravity="center_vertical"
+									android:orientation="horizontal">
+									<ImageView
+										android:id="@+id/up"
+										android:layout_width="30dp"
+										android:layout_height="30dp"
+										android:padding="5dp"
+										android:src="@drawable/arrowi_3"
+										android:scaleType="centerInside" />
+									<LinearLayout
+										android:id="@+id/linear13"
+										android:layout_width="match_parent"
+										android:layout_height="wrap_content"
+										android:padding="8dp"
+										android:orientation="horizontal" />
+									<ImageView
+										android:id="@+id/down"
+										android:layout_width="30dp"
+										android:layout_height="30dp"
+										android:padding="5dp"
+										android:src="@drawable/arrowi_4"
+										android:scaleType="centerInside" />
+									<LinearLayout
+										android:id="@+id/linear14"
+										android:layout_width="match_parent"
+										android:layout_height="wrap_content"
+										android:padding="8dp"
+										android:orientation="horizontal" />
+									<ImageView
+										android:id="@+id/left"
+										android:layout_width="30dp"
+										android:layout_height="30dp"
+										android:padding="5dp"
+										android:src="@drawable/arrowi_1"
+										android:scaleType="centerInside" />
+									<LinearLayout
+										android:id="@+id/linear15"
+										android:layout_width="match_parent"
+										android:layout_height="wrap_content"
+										android:padding="8dp"
+										android:orientation="horizontal" />
+									<ImageView
+										android:id="@+id/re"
+										android:layout_width="30dp"
+										android:layout_height="30dp"
+										android:padding="5dp"
+										android:src="@drawable/arrowi_2"
+										android:scaleType="centerInside" />
+								</LinearLayout>
+								<ir.vscodemobile.ninjacoder.SymbolInputView
+									android:id="@+id/sysbar"
+									android:layout_width="wrap_content"
+									android:layout_height="match_parent"
+									android:padding="8dp"
+									android:orientation="horizontal"
+									android:layout_weight="1" />
 							</LinearLayout>
 						</HorizontalScrollView>
 						<LinearLayout
@@ -199,17 +236,13 @@
 		</RelativeLayout>
 	</LinearLayout>
 	<com.google.android.material.floatingactionbutton.FloatingActionButton
-style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-android:textColor="#FFFFFF"
-android:text="Run in code"
-app:shapeAppearance="@style/cutImage"
 		android:id="@+id/_fab"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="25dp"
 		android:layout_marginTop="20dp"
 		android:layout_marginRight="26dp"
-		android:layout_marginBottom="120dp"
+		android:layout_marginBottom="130dp"
 		android:layout_gravity="right|bottom"
 		app:srcCompat="@drawable/play" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

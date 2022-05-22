@@ -32,7 +32,7 @@
 				android:id="@+id/webview1"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:background="#000027" />
+				android:background="#212121" />
 		</LinearLayout>
 	</LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
