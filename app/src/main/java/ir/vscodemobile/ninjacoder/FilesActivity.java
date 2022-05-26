@@ -1528,22 +1528,23 @@ public class FilesActivity extends AppCompatActivity {
 	
 	
 	public void _folder() {
-		mdialogFolder.setTitle(Html.fromHtml("<font color=\"green\">Type name Folder</font>"));
-		mdialogFolder.setIcon(R.drawable.vscode);
-		final EditText meditor= new EditText(FilesActivity.this);
-		LinearLayout.LayoutParams lparr = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		///custom edit
-		meditor.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/hack_regular.ttf"), 1);
-		meditor.setTextColor(0xFFF44336);
-		meditor.setHintTextColor(0xFFE91E63);
-		///end
-		meditor.setLayoutParams(lparr);
-		mdialogFolder.setView(meditor);
-		mdialogFolder.setMessage("plz Type name Folder");
-		mdialogFolder.setPositiveButton(Html.fromHtml("<font color=\"blue\">Yes</font>"), new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface _dialog, int _which) {
-				CreateFolder = meditor.getText().toString();
+		final AlertDialog dialog1 = new AlertDialog.Builder(FilesActivity.this).create();
+		View inflate = getLayoutInflater().inflate(R.layout.folders,null); 
+		dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+		dialog1.setView(inflate);
+		final Button btnok = (Button) inflate.findViewById(R.id.btnok);
+		final Button btnno = (Button) inflate.findViewById(R.id.btnno);
+		final androidx.cardview.widget.CardView mcard = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.mcard);
+		final EditText edi = (EditText) inflate.findViewById(R.id.edi);
+		final TextView title = (TextView) inflate.findViewById(R.id.title);
+		title.setText("Type name folder");
+		mcard.setCardBackgroundColor(0xFF424242);
+		mcard.setRadius((float)20);
+		mcard.setCardElevation((float)0);
+		btnok.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)66, 0xFFFF9800));
+		btnok.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
+						
+					CreateFolder = edi.getText().toString();
 				try{
 					
 					if (!FileUtil.isFile(Folder.concat("/".concat(CreateFolder.concat("/"))))) {
@@ -1557,35 +1558,39 @@ public class FilesActivity extends AppCompatActivity {
 				}catch(Exception e){
 					 
 				}
-			}
-		});
-		mdialogFolder.setNegativeButton(Html.fromHtml("<font color=\"red\">No</font>"), new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface _dialog, int _which) {
+				dialog1.dismiss();
 				
-			}
+				}
 		});
-		mdialogFolder.create().show();
+		btnno.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
+						
+					dialog1.dismiss();
+				
+				}
+		});
+		dialog1.setCancelable(true);
+		dialog1.show();
 	}
 	
 	
 	public void _file() {
-		mdialogFolder.setTitle("Type name File");
-		mdialogFolder.setIcon(R.drawable.vscode);
-		final EditText meditor= new EditText(FilesActivity.this);
-		LinearLayout.LayoutParams lparr = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		///custom edit
-		meditor.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/hack_regular.ttf"), 1);
-		meditor.setTextColor(0xFFF44336);
-		meditor.setHintTextColor(0xFFE91E63);
-		///end
-		meditor.setLayoutParams(lparr);
-		mdialogFolder.setView(meditor);
-		mdialogFolder.setMessage("plz Type name file");
-		mdialogFolder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface _dialog, int _which) {
-				mainfile = meditor.getText().toString();
+		final AlertDialog dialog1 = new AlertDialog.Builder(FilesActivity.this).create();
+		View inflate = getLayoutInflater().inflate(R.layout.folders,null); 
+		dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+		dialog1.setView(inflate);
+		final Button btnok = (Button) inflate.findViewById(R.id.btnok);
+		final Button btnno = (Button) inflate.findViewById(R.id.btnno);
+		final androidx.cardview.widget.CardView mcard = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.mcard);
+		final EditText edi = (EditText) inflate.findViewById(R.id.edi);
+		final TextView title = (TextView) inflate.findViewById(R.id.title);
+		title.setText("Type name  File");
+		mcard.setCardBackgroundColor(0xFF424242);
+		mcard.setRadius((float)20);
+		mcard.setCardElevation((float)0);
+		btnok.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)66, 0xFFFF9800));
+		btnok.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
+						
+					mainfile = edi.getText().toString();
 				try{
 					if (mainfile.equals("")) {
 						_file();
@@ -1609,15 +1614,18 @@ public class FilesActivity extends AppCompatActivity {
 				}catch(Exception e){
 					 
 				}
-			}
-		});
-		mdialogFolder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface _dialog, int _which) {
+				dialog1.dismiss();
 				
-			}
+				}
 		});
-		mdialogFolder.create().show();
+		btnno.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
+						
+					dialog1.dismiss();
+				
+				}
+		});
+		dialog1.setCancelable(true);
+		dialog1.show();
 	}
 	
 	
