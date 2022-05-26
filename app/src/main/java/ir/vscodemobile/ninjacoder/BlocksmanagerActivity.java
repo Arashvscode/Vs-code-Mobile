@@ -534,7 +534,7 @@ e.printStackTrace();
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF424242".replace("0xFF" , "#")));
 		}
 	}
 	public void _loadSpecificPletteblocks(final double _pos) {
@@ -5144,113 +5144,114 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 									} 
 									
 									
-														     
-													FileUtil.writeFile(blocksPath, new Gson().toJson(blocksListMap));
-													_loadSpecificPletteblocks(Double.parseDouble(sp.getString("posNumber", "")));
-													
-													_dialog.dismiss();
-									         alt.dismiss();
-													tempListMap.clear();
-											}	
+									
+									FileUtil.writeFile(blocksPath, new Gson().toJson(blocksListMap));
+									_loadSpecificPletteblocks(Double.parseDouble(sp.getString("posNumber", "")));
+									
+									_dialog.dismiss();
+									alt.dismiss();
+									tempListMap.clear();
+								}	
 								
 								
-								}
-						});
-							
-							final LinearLayout lin = new LinearLayout(getApplicationContext());
-							
-							lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-							
-							lin.setOrientation(LinearLayout.VERTICAL);
-							
-							lin.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
-							
-							for(int i = 0; i < listMapAddBlocks.size() ; i++) {
-										
-										final CheckBox check = new CheckBox(getApplicationContext());
-										
-										check.setTextSize(16);
-										
-										
-										check.setText(listMapAddBlocks.get(i).get("name").toString());
-										
-										check.setTag(String.valueOf(i));
-										
-										
-										
-										
-										check.setPadding(20,4,5,4);
-										lin.setPadding(20,5,5,5);
-										ObjectAnimator a = ObjectAnimator.ofInt(check, "textColor", 0xFFE53935, 0xFFBF360C, 0xFF303F9F); a.setInterpolator(new LinearInterpolator()); a.setDuration(2000); a.setRepeatCount(ValueAnimator.INFINITE); a.setRepeatMode(ValueAnimator.REVERSE); a.setEvaluator(new ArgbEvaluator()); AnimatorSet t = new AnimatorSet(); t.play(a); t.start();
-										check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-													    
-													       @Override
-													       public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-																
-																HashMap<String, Object> hash = new HashMap<>();  
-																  
-																if (isChecked) {
-																			
-																			hash = listMapAddBlocks.get((int)Double.parseDouble(check.getTag().toString()));
-																			
-																			tempListMap.add(hash);
-																			
-																}  else {
-																			
-																			for(int i = 0; i < tempListMap.size() ; i++) {
-																						
-																						if (tempListMap.get(i).get("name").toString().equals(check.getText().toString())) {
-																									
-																									tempListMap.remove(i);
-																									
-																						}
-																			}
-																			
-																			
-																}
-																
-																
-																
-																            
-																              }
-													          });
-										lin.addView(check);
 							}
-							final ScrollView sc = new ScrollView(getApplicationContext());
-							sc.addView(lin);
-							builder.setView(sc);
+						});
+						
+						final LinearLayout lin = new LinearLayout(getApplicationContext());
+						
+						lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+						
+						lin.setOrientation(LinearLayout.VERTICAL);
+						
+						lin.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+						
+						for(int i = 0; i < listMapAddBlocks.size() ; i++) {
 							
-							final AlertDialog alerto = builder.create();
-							alerto.show();
+							final CheckBox check = new CheckBox(getApplicationContext());
 							
-							alerto.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-							 { 
-											 @Override
-											 public void onClick(View v)
-											 {
-															 Boolean wantToCloseDialog = false;
+							check.setTextSize(16);
+							
+							
+							check.setText(listMapAddBlocks.get(i).get("name").toString());
+							
+							check.setTag(String.valueOf(i));
+							
+							
+							
+							
+							check.setPadding(20,4,5,4);
+							lin.setPadding(20,5,5,5);
+							ObjectAnimator a = ObjectAnimator.ofInt(check, "textColor", 0xFFE53935, 0xFFBF360C, 0xFF303F9F); a.setInterpolator(new LinearInterpolator()); a.setDuration(2000); a.setRepeatCount(ValueAnimator.INFINITE); a.setRepeatMode(ValueAnimator.REVERSE); a.setEvaluator(new ArgbEvaluator()); AnimatorSet t = new AnimatorSet(); t.play(a); t.start();
+							check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+								
+								@Override
+								public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+									
+									HashMap<String, Object> hash = new HashMap<>();  
+									
+									if (isChecked) {
+											
+											hash = listMapAddBlocks.get((int)Double.parseDouble(check.getTag().toString()));
+											
+											tempListMap.add(hash);
+											
+									}  else {
+											
+											for(int i = 0; i < tempListMap.size() ; i++) {
 													
-												 String plt = String.valueOf(currentPos);
+													if (tempListMap.get(i).get("name").toString().equals(check.getText().toString())) {
+															
+															tempListMap.remove(i);
+															
+													}
+											}
+											
+											
+									}
+									
+									
+									
+									
+								}
+							});
+							lin.addView(check);
+						}
+						final ScrollView sc = new ScrollView(getApplicationContext());
+						sc.addView(lin);
+						builder.setView(sc);
+						
+						final AlertDialog alerto = builder.create();
+						alerto.show();
+						
+						alerto.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+						{ 
+							@Override
+							public void onClick(View v)
+							{
+								Boolean wantToCloseDialog = false;
+								
+								String plt = String.valueOf(currentPos);
 								
 								if (plt.contains(".")){
 									
 									plt = String.valueOf((int)currentPos).split("\\.")[0];
 									
 								} 
-													
-													if (tempListMap.size()==0) {
-													
-											} else {
-															 for (int i=0; i < (int)tempListMap.size(); i++)  { 
-															
-															HashMap<String, Object> map = tempListMap.get(i);
-															 
-															                        
-															                        
-															                       
-															
-														
-										    
+								
+								if (tempListMap.size()==0) {
+									
+								} else {
+									for (int i=0; i < (int)tempListMap.size(); i++)  { 
+											
+											HashMap<String, Object> map = tempListMap.get(i);
+											
+											
+											
+											
+											
+											
+											
+											
 										map.remove("paletteColor");
 										map.put("palette", plt);
 										map.put("color", sp.getString("colorPalette", ""));
@@ -5408,29 +5409,7 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 				try { 
 					linearColor.setBackgroundColor(Color.parseColor(_data.get((int)_position).get("color").toString()));
 				} catch (Exception e){
-					linearColor.setBackgroundColor(0xFF8D6E63);
-				}
-			}
-			if (sp.getString("theme", "").equals("night")) {
-				if (_data.get((int)_position).get("name").toString().equals(sp.getString("pos", ""))) {
-					cardview1.setCardBackgroundColor(0xFF757575);
-					name.setTextColor(0xFFECEFF1);
-				}
-				else {
-					cardview1.setCardBackgroundColor(0xFF263238);
-					name.setTextColor(0xFFFFFFFF);
-				}
-			}
-			else {
-				if (sp.getString("theme", "").equals("day")) {
-					if (_data.get((int)_position).get("name").toString().equals(sp.getString("pos", ""))) {
-						cardview1.setCardBackgroundColor(0xFF000062);
-						name.setTextColor(0xFFFFFFFF);
-					}
-					else {
-						cardview1.setCardBackgroundColor(0xFF000062);
-						name.setTextColor(0xFFFFFFFF);
-					}
+					linearColor.setBackgroundColor(0xFF424242);
 				}
 			}
 			linear1.setOnLongClickListener(new View.OnLongClickListener() {
@@ -5545,7 +5524,28 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 			});
 			/*
 
- 
+if (sp.getString("theme", "").equals("night")) {
+if (_data.get((int)_position).get("name").toString().equals(sp.getString("pos", ""))) {
+cardview1.setCardBackgroundColor(0xFF212121);
+name.setTextColor(0xFFFFFFFF);
+}
+else {
+cardview1.setCardBackgroundColor(0xFF212121);
+name.setTextColor(0xFFFFFFFF);
+}
+}
+else {
+if (sp.getString("theme", "").equals("day")) {
+if (_data.get((int)_position).get("name").toString().equals(sp.getString("pos", ""))) {
+cardview1.setCardBackgroundColor(0xFF000062);
+name.setTextColor(0xFFFFFFFF);
+}
+else {
+cardview1.setCardBackgroundColor(0xFF000062);
+name.setTextColor(0xFFFFFFFF);
+}
+}
+}
 
 */
 			
@@ -5591,10 +5591,10 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 			final LinearLayout linearColor2 = _view.findViewById(R.id.linearColor2);
 			
 			name.setText(_data.get((int)_position).get("name").toString());
-			cardview1.setCardBackgroundColor(0xFF000000);
+			cardview1.setCardBackgroundColor(0xFF212121);
 			cardview1.setRadius((float)20);
 			cardview1.setCardElevation((float)2);
-			name.setTextColor(0xFF2196F3);
+			name.setTextColor(0xFFFFFFFF);
 			if (_data.get((int)_position).containsKey("color")) {
 				try { 
 					linearColor.setBackgroundColor(Color.parseColor(_data.get((int)_position).get("color").toString()));
@@ -5763,39 +5763,6 @@ SketchwareUtil.showMessage(getApplicationContext(), String.valueOf((long)(0)));
 					            return true;
 					         }
 				      });
-			if (!sp.getString("theme", "").equals("")) {
-				if (sp.getString("theme", "").equals("night")) {
-					if (_data.get((int)_position).containsKey("type")) {
-						if (_data.get((int)_position).get("type").toString().equals("h")) {
-							linear1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b, int c) { this.setStroke(a, b); this.setColor(c); return this; } }.getIns((int)2, 0xFF212121, 0xFF000000));
-							name.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-						}
-						else {
-							linear1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b, int c) { this.setStroke(a, b); this.setColor(c); return this; } }.getIns((int)2, 0xFF000000, 0xFF000000));
-							name.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-						}
-					}
-					else {
-						
-					}
-					name.setTextColor(0xFFFFFFFF);
-				}
-				else {
-					if (sp.getString("theme", "").equals("day")) {
-						if (_data.get((int)_position).get("type").toString().equals("h")) {
-							linear1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b, int c) { this.setStroke(a, b); this.setColor(c); return this; } }.getIns((int)2, 0xFFE0E0E0, 0xFF80DEEA));
-							name.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-							cardview1.setCardBackgroundColor(0xFF212121);
-						}
-						else {
-							linear1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b, int c) { this.setStroke(a, b); this.setColor(c); return this; } }.getIns((int)2, 0xFFE0E0E0, 0xFFFFFFFF));
-							cardview1.setCardBackgroundColor(0xFF1A237E);
-							name.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-						}
-						name.setTextColor(0xFFFFFFFF);
-					}
-				}
-			}
 			
 			return _view;
 		}
