@@ -100,7 +100,8 @@ import io.github.rosemoe.sora.widget.schemes.SchemeNotepadXX;
 import io.github.rosemoe.sora.widget.schemes.SchemeVS2019;
 
 import ir.vscodemobile.ninjacoder.theme;
-import io.github.rosemoe.sora.langs.java.JavaLanguage;
+import io.github.rosemoe.sora.langs.java.JavaLanguage;
+
 
 public class AddBlockActivity extends AppCompatActivity {
 	
@@ -119,6 +120,7 @@ public class AddBlockActivity extends AppCompatActivity {
 	private double paletteNumber = 0;
 	private String code = "";
 	private boolean isDark = false;
+        public boolean Cdo = false;
 	
 	private ArrayList<HashMap<String, Object>> blocksListMap = new ArrayList<>();
 	private ArrayList<String> listStr = new ArrayList<>();
@@ -262,7 +264,7 @@ public class AddBlockActivity extends AppCompatActivity {
 		|| ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
 			ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
 		} else {
-			initializeLogic();
+			installMain();
 		}
 	}
 	
@@ -270,7 +272,7 @@ public class AddBlockActivity extends AppCompatActivity {
 	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 		if (requestCode == 1000) {
-			initializeLogic();
+			installMain();
 		}
 	}
 	
@@ -842,7 +844,7 @@ public class AddBlockActivity extends AppCompatActivity {
 		});
 	}
 	
-	private void initializeLogic() {
+	private void installMain() {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		editor.setTypefaceText(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
 		editor.setTypefaceLineNumber(Typeface.createFromAsset(getAssets(), "myfont.ttf"));
@@ -1385,7 +1387,8 @@ public class AddBlockActivity extends AppCompatActivity {
 								            }
 						            return true;
 						         }
-				      });
+				      });
+
 		typeNameEdit.setOnDragListener( new OnDragListener(){
 			         @Override
 			         public boolean onDrag(View v,  DragEvent event){
@@ -2106,4 +2109,4 @@ public class AddBlockActivity extends AppCompatActivity {
 	public int getDisplayHeightPixels() {
 		return getResources().getDisplayMetrics().heightPixels;
 	}
-}
+}
