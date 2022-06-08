@@ -37,9 +37,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import androidx.annotation.*;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -55,6 +60,7 @@ import com.caverock.androidsvg.*;
 import com.example.myapp.*;
 import com.github.angads25.filepicker.*;
 import com.github.underscore.lodash.*;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.googlecode.d2j.*;
@@ -129,7 +135,8 @@ import io.github.rosemoe.sora.widget.EditorAutoCompleteWindow;
 import io.github.rosemoe.sora.widget.EditorColorScheme;
 import android.widget.AdapterView.*;
 import android.text.*;
-import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.internal.LinkedTreeMap;
+import ir.vscodemobile.ninjacoder.Formatter;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -137,7 +144,11 @@ public class MainActivity extends AppCompatActivity {
 	
 	private Timer _timer = new Timer();
 	
+	private Toolbar _toolbar;
+	private AppBarLayout _app_bar;
+	private CoordinatorLayout _coordinator;
 	private FloatingActionButton _fab;
+	private DrawerLayout _drawer;
 	private String HEX = "";
 	private String currentWord = "";
 	private String maincss = "";
@@ -192,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
 	private EditText Replace;
 	private LinearLayout linear11;
 	private Button btn;
+	private LinearLayout _drawer_linear1;
+	private RecyclerView _drawer_recyclerview1;
 	
 	private Intent in = new Intent();
 	private Intent js = new Intent();
@@ -227,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
 	private SharedPreferences imgAplhe;
 	private AlertDialog mdialog;
 	private Intent newfile = new Intent();
+	private AlertDialog.Builder mdialogFormater;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -251,7 +265,26 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private void initialize(Bundle _savedInstanceState) {
+		_app_bar = findViewById(R.id._app_bar);
+		_coordinator = findViewById(R.id._coordinator);
+		_toolbar = findViewById(R.id._toolbar);
+		setSupportActionBar(_toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _v) {
+				onBackPressed();
+			}
+		});
 		_fab = findViewById(R.id._fab);
+		
+		_drawer = findViewById(R.id._drawer);
+		ActionBarDrawerToggle _toggle = new ActionBarDrawerToggle(MainActivity.this, _drawer, _toolbar, R.string.app_name, R.string.app_name);
+		_drawer.addDrawerListener(_toggle);
+		_toggle.syncState();
+		
+		LinearLayout _nav_view = findViewById(R.id._nav_view);
 		
 		RelativeLayout = findViewById(R.id.RelativeLayout);
 		bak = findViewById(R.id.bak);
@@ -285,6 +318,8 @@ public class MainActivity extends AppCompatActivity {
 		Replace = findViewById(R.id.Replace);
 		linear11 = findViewById(R.id.linear11);
 		btn = findViewById(R.id.btn);
+		_drawer_linear1 = _nav_view.findViewById(R.id.linear1);
+		_drawer_recyclerview1 = _nav_view.findViewById(R.id.recyclerview1);
 		r1 = getSharedPreferences("r1", Activity.MODE_PRIVATE);
 		r2 = getSharedPreferences("r2", Activity.MODE_PRIVATE);
 		le = new AlertDialog.Builder(this);
@@ -309,6 +344,7 @@ public class MainActivity extends AppCompatActivity {
 		mCh = getSharedPreferences("mCh", Activity.MODE_PRIVATE);
 		AL = getSharedPreferences("AL", Activity.MODE_PRIVATE);
 		imgAplhe = getSharedPreferences("img", Activity.MODE_PRIVATE);
+		mdialogFormater = new AlertDialog.Builder(this);
 		
 		up.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -462,10 +498,17 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
+		LinearLayout _nav_view = (LinearLayout) findViewById(R.id._nav_view);  androidx.drawerlayout.widget.DrawerLayout .LayoutParams Qparams = (androidx.drawerlayout.widget.DrawerLayout .LayoutParams)_nav_view.getLayoutParams(); 
+		Qparams.width = (int)getDip((int)250); 
+		Qparams.height = androidx.drawerlayout.widget.DrawerLayout .LayoutParams.MATCH_PARENT; 
+		_nav_view.setLayoutParams(Qparams);
+		_nav_view.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(Color.TRANSPARENT));
+		
+		mdialogFormater = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF424242".replace("0xFF" , "#")));
 		}
 		mpack = "";
 		up.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
@@ -473,6 +516,7 @@ public class MainActivity extends AppCompatActivity {
 		left.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
 		re.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
 		imgAplhe.edit().putString("mview", "true").commit();
+		_toolbar.setBackgroundColor(0xFF212121);
 		LayoutInflater d = LayoutInflater.from(MainActivity.this);
 		LinearLayout mninjacoder = (LinearLayout) d.inflate(R.layout.editorlayoutmaster, null, false);
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -492,9 +536,13 @@ public class MainActivity extends AppCompatActivity {
 		final ImageView blur = mninjacoder.findViewById(R.id.blur);
 		final ImageView fb = mninjacoder.findViewById(R.id.fb);
 		final ImageView more = mninjacoder.findViewById(R.id.more);
+		final HorizontalScrollView hc = mninjacoder.findViewById(R.id.hc);
 		final ImageView  add = mninjacoder.findViewById(R.id. add);
 		undo.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
 		redo.setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+		hc.setHorizontalScrollBarEnabled(false);
+		hc.setVerticalScrollBarEnabled(false);
+		hc.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
 		mbool = false;
 		savecolor.setVisibility(View.GONE);
 		if (false) {
@@ -638,14 +686,33 @@ public class MainActivity extends AppCompatActivity {
 		});
 		format.setOnClickListener((view) -> {
 			
-			       try {
+			       mdialogFormater.setTitle("Code Formating ");
+			mdialogFormater.setIcon(R.drawable.vs1);
+			mdialogFormater.setMessage("Please select one of the following options may not work well for you");
+			mdialogFormater.setPositiveButton("java ani mor {}", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface _dialog, int _which) {
+					try {
+							
+							
+							editor.setText(format(editor.getText().toString()));
+					} catch (Exception ninjacoder) {
+							SketchwareUtil.CustomToast(getApplicationContext(), "Error no road Code format", 0xFFFFFFFF, 19, 0xFF3F51B5, 25, SketchwareUtil.TOP);
+					}
 					
-					
-					editor.setText(format(editor.getText().toString()));
-			} catch (Exception ninjacoder) {
-					SketchwareUtil.CustomToast(getApplicationContext(), "Error no road Code format", 0xFFFFFFFF, 19, 0xFF3F51B5, 25, SketchwareUtil.TOP);
-			}
-			
+				}
+			});
+			mdialogFormater.setNegativeButton("xml ani mor <>", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface _dialog, int _which) {
+					try{
+						editor.setText(Formatter.xmlFormat(editor.getText().toString()));
+					}catch(Exception e){
+						SketchwareUtil.CustomToast(getApplicationContext(), "Error not format sorry);", 0xFF000000, 19, 0xFFFFFFFF, 15, SketchwareUtil.CENTER);
+					}
+				}
+			});
+			mdialogFormater.create().show();
 			
 			
 		});
@@ -873,8 +940,59 @@ public class MainActivity extends AppCompatActivity {
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =MainActivity.this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF212121);
+			w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setStatusBarColor(0xFF424242);
 		}
+		try{
+					setTitle(getIntent().getStringExtra("title"));
+			getSupportActionBar().setSubtitle(getIntent().getStringExtra("key"));
+			loadFilesTotree("/sdcard/vscodemobile/", _drawer_recyclerview1, "your dir ");
+		}catch(Exception ex){
+					final AlertDialog.Builder malterDialog = new AlertDialog.Builder(MainActivity.this);
+					StringBuffer sb = new StringBuffer(500); 
+					StackTraceElement[] st =ex.getStackTrace(); 
+					sb.append(ex.getClass().getName() + ": " +ex.getMessage() + "\n"); 
+					for (int iii = 0; iii < st.length; iii++) { 
+								sb.append("\t at ⟶" + st[iii].toString() + "\n"); 
+					}
+					
+					final LinearLayout lin = new LinearLayout(getApplicationContext());
+					
+					lin.setPadding(8,8,8,8);
+					
+					final TextView txt = new TextView(getApplicationContext());
+					
+					txt.setPadding(8,8,8,8);
+					
+					txt.setTextIsSelectable(true);
+					
+					lin.addView(txt);
+					
+					txt.setText(sb.toString());
+					
+					
+					{
+								SpannableString spannableString = new SpannableString(txt.getText().toString());
+								Matcher matcher = Pattern.compile("(^(.*)|(?<=:)\\d+)").matcher(txt.getText().toString());
+								
+								
+								
+								
+								while (matcher.find()) {
+											
+											
+											spannableString.setSpan(new ForegroundColorSpan(0xFFB71C1C), matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+											spannableString.setSpan(new StyleSpan(1), matcher.start(), matcher.end(), 33);
+											
+								}
+								
+								
+								
+								txt.setText(spannableString);
+					}
+					malterDialog.setView(lin);
+					malterDialog.show();
+		}
+		
 	}
 	
 	@Override
@@ -1122,6 +1240,15 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	{
+	}
+	
+	@Override
+	public void onBackPressed() {
+		if (_drawer.isDrawerOpen(GravityCompat.START)) {
+			_drawer.closeDrawer(GravityCompat.START);
+		} else {
+			super.onBackPressed();
+		}
 	}
 	public void _ColorPickerDialog(final String _Hex) {
 		final AlertDialog ColorPicker = new AlertDialog.Builder(MainActivity.this).create();
@@ -2088,7 +2215,7 @@ public class MainActivity extends AppCompatActivity {
 	
 	
 	public void _coderuner() {
-		editor.setColorScheme(new theme());
+		editor.setColorScheme(new ir.vscodemobile.ninjacoder.SchemeVS2019());
 		if (getIntent().getStringExtra("title").contains(".scss")) {
 			StringBuilder androidtxt = new StringBuilder();
 			
@@ -2102,7 +2229,6 @@ public class MainActivity extends AppCompatActivity {
 			} catch (Exception rt) {
 				rt.printStackTrace();
 			}
-			editor.setColorScheme(new theme());
 			_fab.hide();
 			editor.setEditorLanguage(new UniversalLanguage(new io.github.rosemoe.sora.langs.desc.SCSSDescription()));
 		}
@@ -2120,7 +2246,6 @@ public class MainActivity extends AppCompatActivity {
 				} catch (Exception rt) {
 					rt.printStackTrace();
 				}
-				editor.setColorScheme(new theme());
 				_fab.hide();
 				////editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
 			}
@@ -2138,7 +2263,6 @@ public class MainActivity extends AppCompatActivity {
 					} catch (Exception rt) {
 						rt.printStackTrace();
 					}
-					editor.setColorScheme(new theme());
 					_fab.hide();
 					editor.setEditorLanguage(new UniversalLanguage(new PasDescription()));
 				}
@@ -2156,7 +2280,6 @@ public class MainActivity extends AppCompatActivity {
 						} catch (Exception rt) {
 							rt.printStackTrace();
 						}
-						editor.setColorScheme(new theme());
 						_fab.show();
 						XMLLanguage xmlLanguage=new XMLLanguage(); xmlLanguage.setSyntaxCheckEnable(true); editor.setEditorLanguage(xmlLanguage);
 					}
@@ -2174,7 +2297,6 @@ public class MainActivity extends AppCompatActivity {
 							} catch (Exception rt) {
 								rt.printStackTrace();
 							}
-							editor.setColorScheme(new theme());
 							_fab.hide();
 							editor.setEditorLanguage(new UniversalLanguage(new KotlinDescription()));
 						}
@@ -2192,7 +2314,6 @@ public class MainActivity extends AppCompatActivity {
 								} catch (Exception rt) {
 									rt.printStackTrace();
 								}
-								editor.setColorScheme(new theme());
 								_fab.hide();
 								editor.setEditorLanguage(new UniversalLanguage(new sharpDescription()));
 							}
@@ -2210,7 +2331,6 @@ public class MainActivity extends AppCompatActivity {
 									} catch (Exception rt) {
 										rt.printStackTrace();
 									}
-									editor.setColorScheme(new theme());
 									_fab.show();
 									editor.setEditorLanguage(new UniversalLanguage(new CDescription()));
 								}
@@ -2228,7 +2348,6 @@ public class MainActivity extends AppCompatActivity {
 										} catch (Exception rt) {
 											rt.printStackTrace();
 										}
-										editor.setColorScheme(new theme());
 										_fab.hide();
 										editor.setEditorLanguage(new UniversalLanguage(new RubyDescription()));
 									}
@@ -2246,7 +2365,6 @@ public class MainActivity extends AppCompatActivity {
 											} catch (Exception rt) {
 												rt.printStackTrace();
 											}
-											editor.setColorScheme(new theme());
 											_fab.hide();
 											editor.setEditorLanguage(new UniversalLanguage(new DartDescription()));
 										}
@@ -2264,7 +2382,6 @@ public class MainActivity extends AppCompatActivity {
 												} catch (Exception rt) {
 													rt.printStackTrace();
 												}
-												editor.setColorScheme(new theme());
 												_fab.show();
 												editor.setEditorLanguage(new UniversalLanguage(new NINJADescription()));
 											}
@@ -2282,13 +2399,11 @@ public class MainActivity extends AppCompatActivity {
 													} catch (Exception rt) {
 														rt.printStackTrace();
 													}
-													editor.setColorScheme(new theme());
 													_fab.hide();
 												}
 												else {
 													if (getIntent().getStringExtra("title").contains(".json")) {
-														editor.setColorScheme(new theme());
-														////editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
+														editor.setEditorLanguage(new UniversalLanguage(new io.github.rosemoe.sora.langs.desc.JSONDescription()));
 														StringBuilder androidpy = new StringBuilder();
 														
 														try {
@@ -2411,7 +2526,7 @@ public class MainActivity extends AppCompatActivity {
 													}
 													else {
 														if (getIntent().getStringExtra("title").contains(".py")) {
-															editor.setColorScheme(new theme());
+															editor.setEditorLanguage(new PythonLanguage()); 
 															////editor.setEditorLanguage(new UniversalLanguage(new CppDescription()));
 															StringBuilder androidpy = new StringBuilder();
 															
@@ -2425,11 +2540,9 @@ public class MainActivity extends AppCompatActivity {
 															} catch (Exception rt) {
 																rt.printStackTrace();
 															}
-															editor.setEditorLanguage(new PythonLanguage()); 
 														}
 														else {
 															if (getIntent().getStringExtra("title").contains(".cpp")) {
-																editor.setColorScheme(new theme());
 																
 																StringBuilder androidjava = new StringBuilder();
 																
@@ -2449,7 +2562,6 @@ public class MainActivity extends AppCompatActivity {
 															else {
 																if (getIntent().getStringExtra("title").contains(".sh")) {
 																	_fab.show();
-																	editor.setColorScheme(new theme());
 																	StringBuilder androidjava = new StringBuilder();
 																	
 																	try {
@@ -2478,7 +2590,6 @@ public class MainActivity extends AppCompatActivity {
 																		} catch (Exception rt) {
 																			rt.printStackTrace();
 																		}
-																		editor.setColorScheme(new theme());
 																		editor.setEditorLanguage(new JavaLanguage()); 
 																		_fab.show();
 																	}
@@ -2496,10 +2607,11 @@ public class MainActivity extends AppCompatActivity {
 																			} catch (Exception rt) {
 																				rt.printStackTrace();
 																			}
-																			editor.setColorScheme(new htmltheme());
 																			_fab.show();
 																			_fab.setImageResource(R.drawable.play);
 																			editor.setEditorLanguage(new HTMLLanguage()); 
+																			editor.setColorScheme(new ir.vscodemobile.ninjacoder.HTMLScheme());
+																			
 																		}
 																		else {
 																			if (getIntent().getStringExtra("title").contains(".js")) {
@@ -2515,14 +2627,11 @@ public class MainActivity extends AppCompatActivity {
 																				} catch (Exception rt) {
 																					rt.printStackTrace();
 																				}
-																				editor.setColorScheme(new theme());
 																				editor.setEditorLanguage(new UniversalLanguage(new JavaScriptDescription()));
 																				_fab.show();
 																			}
 																			else {
 																				if (getIntent().getStringExtra("title").contains(".css")) {
-																					editor.setEditorLanguage(new UniversalLanguage(new CssDescription()));
-																					editor.setColorScheme(new theme());
 																					StringBuilder androidcss = new StringBuilder();
 																					
 																					try {
@@ -2535,6 +2644,7 @@ public class MainActivity extends AppCompatActivity {
 																					} catch (Exception rt) {
 																						rt.printStackTrace();
 																					}
+																					editor.setEditorLanguage(new UniversalLanguage(new CssDescription()));
 																				}
 																				else {
 																					
@@ -2723,6 +2833,765 @@ public class MainActivity extends AppCompatActivity {
 			}
 			
 			
+	}
+	
+	
+	public void _treeviewlocallibrary() {
+	}
+	
+	private TreeViewList.TreeViewAdapter adapter;
+		private List<TreeViewList.TreeNode> nodes2;
+		private TreeViewList.TreeNode<TreeViewList.Dir> node;
+	
+		public void loadFilesTotree(String path, final RecyclerView recycler, String rootFolderName){
+		
+				TreeViewList.isPath = true;
+		TreeViewList.backgroundColor = 0xFF212121;
+		TreeViewList.textColor = 0xFF00FFFF;
+				recycler.setBackgroundColor(TreeViewList.backgroundColor);
+		
+		
+				nodes2 = new ArrayList<>();
+				node = new TreeViewList.TreeNode<>(new TreeViewList.Dir(rootFolderName));
+				nodes2.add(node);
+					
+				 
+				initData2(path, node);
+					
+						
+						recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+		
+				adapter = new TreeViewList.TreeViewAdapter(nodes2, Arrays.asList(new TreeViewList.FileNodeBinder(), new TreeViewList.DirectoryNodeBinder()));
+				// whether collapse child nodes when their parent node was close.
+		//        adapter.ifCollapseChildWhileCollapseParent(true);
+				adapter.setOnTreeNodeListener(new TreeViewList.TreeViewAdapter.OnTreeNodeListener() {
+						@Override
+						public boolean onClick(String clickedPath, TreeViewList.TreeNode node, RecyclerView.ViewHolder holder) {
+								if (!node.isLeaf()) {
+										//Update and toggle the node.
+										onToggle(!node.isExpand(), holder);
+					//                    if (!node.isExpand())
+					//                        adapter.collapseBrotherNode(node);
+								}
+								
+				// simple click
+				if (FileUtil.isFile(clickedPath)) {
+					SketchwareUtil.CustomToast(getApplicationContext(), "File dir = ".concat(clickedPath), 0xFF424242, 0, 0xFF00FFFF, 25, SketchwareUtil.TOP);
+				}
+				else {
+					if (FileUtil.isDirectory(clickedPath)) {
+						SketchwareUtil.CustomToast(getApplicationContext(), "Folder dir = ".concat(clickedPath), 0xFF424242, 0, 0xFF00FFFF, 25, SketchwareUtil.TOP);
+					}
+				}
+				
+				
+								return false;
+						}
+			
+						@Override
+						public void onToggle(boolean isExpand, RecyclerView.ViewHolder holder) {
+								TreeViewList.DirectoryNodeBinder.ViewHolder dirViewHolder = (TreeViewList.DirectoryNodeBinder.ViewHolder) holder;
+								final ImageView ivArrow = dirViewHolder.getIvArrow();
+								int rotateDegree = isExpand ? 90 : -90;
+								ivArrow.animate().rotationBy(rotateDegree)
+										.start();
+						}
+						
+						
+						@Override
+						public void onLongClick(String clickedPath){
+				
+							//	Toast.makeText(getApplicationContext(), "long clicked : "+ clickedPath, Toast.LENGTH_SHORT).show();
+				 
+				
+						}
+						
+				});
+				recycler.setAdapter(adapter);
+						
+						
+		
+		
+				
+		
+				
+		}
+		
+		public void initData2(String path, final TreeViewList.TreeNode<TreeViewList.Dir> dir){
+		
+		final String[] pathStr = {path};
+		
+		new Thread(new Runnable() {
+				@Override
+				public void run() {
+						Looper.prepare();
+								
+				
+						ArrayList<String> rootDir = new ArrayList<>();
+				
+						FileUtil.listDir(pathStr[0], rootDir);
+				
+						for (String one : rootDir){
+								if (FileUtil.isFile(one)){
+										dir.addChild(new TreeViewList.TreeNode<>(new TreeViewList.File(one)));
+								} else if (FileUtil.isDirectory(one)) {
+										TreeViewList.TreeNode<TreeViewList.Dir> dirTree = new TreeViewList.TreeNode<>(new TreeViewList.Dir(one));
+										dir.addChild(dirTree);
+										initData2(one, dirTree);
+								}
+						}
+						
+						
+					}
+		}).start();
+		
+				
+		}
+		
+	
+	
+	
+	public static class TreeViewList {
+		
+		    public static boolean isPath = false;
+		    public static int textColor = 0xFF000000;
+		    public static int backgroundColor = 0xFFFFFFFF;
+		
+		
+		    public static class TreeNode<T extends LayoutItemType> implements Cloneable {
+			        private T content;
+			        private TreeNode parent;
+			        private List<TreeNode> childList;
+			        private boolean isExpand;
+			        private boolean isLocked;
+			        //the tree high
+			        private int height = UNDEFINE;
+			
+			        private static final int UNDEFINE = -1;
+			
+			        public TreeNode(@NonNull T content) {
+				            this.content = content;
+				            this.childList = new ArrayList<>();
+				        }
+			
+			        public int getHeight() {
+				            if (isRoot())
+				                height = 0;
+				            else if (height == UNDEFINE)
+				                height = parent.getHeight() + 1;
+				            return height;
+				        }
+			
+			        public boolean isRoot() {
+				            return parent == null;
+				        }
+			
+			        public boolean isLeaf() {
+				            return childList == null || childList.isEmpty();
+				        }
+			
+			        public void setContent(T content) {
+				            this.content = content;
+				        }
+			
+			        public T getContent() {
+				            return content;
+				        }
+			
+			        public List<TreeNode> getChildList() {
+				            return childList;
+				        }
+			
+			        public void setChildList(List<TreeNode> childList) {
+				            this.childList.clear();
+				            for (TreeNode treeNode : childList) {
+					                addChild(treeNode);
+					            }
+				        }
+			
+			        public TreeNode addChild(TreeNode node) {
+				            if (childList == null)
+				                childList = new ArrayList<>();
+				            childList.add(node);
+				            node.parent = this;
+				            return this;
+				        }
+			
+			        public boolean toggle() {
+				            isExpand = !isExpand;
+				            return isExpand;
+				        }
+			
+			        public void collapse() {
+				            if (isExpand) {
+					                isExpand = false;
+					            }
+				        }
+			
+			        public void collapseAll() {
+				            if (childList == null || childList.isEmpty()) {
+					                return;
+					            }
+				            for (TreeNode child : this.childList) {
+					                child.collapseAll();
+					            }
+				        }
+			
+			        public void expand() {
+				            if (!isExpand) {
+					                isExpand = true;
+					            }
+				        }
+			
+			        public void expandAll() {
+				            expand();
+				            if (childList == null || childList.isEmpty()) {
+					                return;
+					            }
+				            for (TreeNode child : this.childList) {
+					                child.expandAll();
+					            }
+				        }
+			
+			        public boolean isExpand() {
+				            return isExpand;
+				        }
+			
+			        public void setParent(TreeNode parent) {
+				            this.parent = parent;
+				        }
+			
+			        public TreeNode getParent() {
+				            return parent;
+				        }
+			
+			        public TreeNode<T> lock() {
+				            isLocked = true;
+				            return this;
+				        }
+			
+			        public TreeNode<T> unlock() {
+				            isLocked = false;
+				            return this;
+				        }
+			
+			        public boolean isLocked() {
+				            return isLocked;
+				        }
+			
+			        @Override
+			        public String toString() {
+				            return "TreeNode{" +
+				                    "content=" + this.content +
+				                    ", parent=" + (parent == null ? "null" : parent.getContent().toString()) +
+				                    ", childList=" + (childList == null ? "null" : childList.toString()) +
+				                    ", isExpand=" + isExpand +
+				                    '}';
+				        }
+			
+			        @Override
+			        protected TreeNode<T> clone() throws CloneNotSupportedException {
+				            TreeNode<T> clone = new TreeNode<>(this.content);
+				            clone.isExpand = this.isExpand;
+				            return clone;
+				        }
+			    }
+		
+		
+		    //interface
+		    public interface LayoutItemType {
+			        int getLayoutId();
+			    }
+		
+		
+		    // Tree View Adapter
+		
+		
+		    public static class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+			        private static final String KEY_IS_EXPAND = "IS_EXPAND";
+			        private final List<? extends TreeViewBinder> viewBinders;
+			        private List<TreeNode> displayNodes;
+			        private int padding = 30;
+			        private OnTreeNodeListener onTreeNodeListener;
+			        private boolean toCollapseChild;
+			
+			        public TreeViewAdapter(List<? extends TreeViewBinder> viewBinders) {
+				            this(null, viewBinders);
+				        }
+			
+			        public TreeViewAdapter(List<TreeNode> nodes, List<? extends TreeViewBinder> viewBinders) {
+				            displayNodes = new ArrayList<>();
+				            if (nodes != null)
+				                findDisplayNodes(nodes);
+				            this.viewBinders = viewBinders;
+				        }
+			
+			        private void findDisplayNodes(List<TreeNode> nodes) {
+				            for (TreeNode node : nodes) {
+					                displayNodes.add(node);
+					                if (!node.isLeaf() && node.isExpand())
+					                    findDisplayNodes(node.getChildList());
+					            }
+				        }
+			
+			        @Override
+			        public int getItemViewType(int position) {
+				            return displayNodes.get(position).getContent().getLayoutId();
+				        }
+			
+			        @Override
+			        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+				            View v = LayoutInflater.from(parent.getContext())
+				                    .inflate(viewType, parent, false);
+				            if (viewBinders.size() == 1)
+				                return viewBinders.get(0).provideViewHolder(v);
+				            for (TreeViewBinder viewBinder : viewBinders) {
+					                if (viewBinder.getLayoutId() == viewType)
+					                    return viewBinder.provideViewHolder(v);
+					            }
+				            return viewBinders.get(0).provideViewHolder(v);
+				        }
+			
+			        @Override
+			        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List<Object> payloads) {
+				            if (payloads != null && !payloads.isEmpty()) {
+					                Bundle b = (Bundle) payloads.get(0);
+					                for (String key : b.keySet()) {
+						                    switch (key) {
+							                        case KEY_IS_EXPAND:
+							                            if (onTreeNodeListener != null)
+							                                onTreeNodeListener.onToggle(b.getBoolean(key), holder);
+							                            break;
+							                    }
+						                }
+					            }
+				            super.onBindViewHolder(holder, position, payloads);
+				        }
+			
+			        @Override
+			        public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+				            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+					                holder.itemView.setPaddingRelative(displayNodes.get(position).getHeight() * padding, 3, 3, 3);
+					            }else {
+					                holder.itemView.setPadding(displayNodes.get(position).getHeight() * padding, 3, 3, 3);
+					            }
+				
+				            final TextView txt = holder.itemView.findViewById(R.id.tv_name);
+				
+				            txt.setTextColor(textColor);
+				            holder.itemView.setBackgroundColor(backgroundColor);
+				
+				            final String clickedPath[] = {""};
+				
+				            holder.itemView.setOnClickListener(new View.OnClickListener() {
+					                @Override
+					                public void onClick(View v) {
+						                    TreeNode selectedNode = displayNodes.get(holder.getLayoutPosition());
+						                    // Prevent multi-click during the short interval.
+						                    try {
+							                        long lastClickTime = (long) holder.itemView.getTag();
+							                       if (System.currentTimeMillis() - lastClickTime < 500)
+							                            return;
+							                    } catch (Exception e) {
+							                        holder.itemView.setTag(System.currentTimeMillis());
+							                    }
+						                    holder.itemView.setTag(System.currentTimeMillis());
+						
+						                    
+						
+						
+						
+						                    try {
+							                        Dir dirNode = (Dir) selectedNode.getContent();
+							                        clickedPath[0] = dirNode.dirName;
+							                    } catch (Exception e){
+							                        File fileNode = (File) selectedNode.getContent();
+							                        clickedPath[0] = fileNode.fileName;
+							                    }
+						
+						                    if (onTreeNodeListener != null && onTreeNodeListener.onClick(clickedPath[0],
+						                            selectedNode, holder))
+						                        return;
+						                    if (selectedNode.isLeaf())
+						                        return;
+						                    // This TreeNode was locked to click.
+						                    if (selectedNode.isLocked()) return;
+						                    boolean isExpand = selectedNode.isExpand();
+						                    int positionStart = displayNodes.indexOf(selectedNode) + 1;
+						                    if (!isExpand) {
+							                        notifyItemRangeInserted(positionStart, addChildNodes(selectedNode, positionStart));
+							                    } else {
+							                        notifyItemRangeRemoved(positionStart, removeChildNodes(selectedNode, true));
+							                    }
+						                }
+					            });
+							
+							
+							holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+					                @Override
+					                public boolean onLongClick(View v) {
+						                    TreeNode selectedNode = displayNodes.get(holder.getLayoutPosition());
+						
+						                    try {
+							                        Dir dirNode = (Dir) selectedNode.getContent();
+							                        clickedPath[0] = dirNode.dirName;
+							                    } catch (Exception e){
+							                        File fileNode = (File) selectedNode.getContent();
+							                        clickedPath[0] = fileNode.fileName;
+							                    }
+						
+						                    onTreeNodeListener.onLongClick(clickedPath[0]);
+						
+						
+						                    return true;
+						                }
+					            });
+							
+							
+				            for (TreeViewBinder viewBinder : viewBinders) {
+					                if (viewBinder.getLayoutId() == displayNodes.get(position).getContent().getLayoutId())
+					                    viewBinder.bindView(holder, position, displayNodes.get(position));
+					            }
+				        }
+			
+			        private int addChildNodes(TreeNode pNode, int startIndex) {
+				            List<TreeNode> childList = pNode.getChildList();
+				            int addChildCount = 0;
+				            for (TreeNode treeNode : childList) {
+					                displayNodes.add(startIndex + addChildCount++, treeNode);
+					                if (treeNode.isExpand()) {
+						                    addChildCount += addChildNodes(treeNode, startIndex + addChildCount);
+						                }
+					            }
+				            if (!pNode.isExpand())
+				                pNode.toggle();
+				            return addChildCount;
+				        }
+			
+			        private int removeChildNodes(TreeNode pNode) {
+				            return removeChildNodes(pNode, true);
+				        }
+			
+			        private int removeChildNodes(TreeNode pNode, boolean shouldToggle) {
+				            if (pNode.isLeaf())
+				                return 0;
+				            List<TreeNode> childList = pNode.getChildList();
+				            int removeChildCount = childList.size();
+				            displayNodes.removeAll(childList);
+				            for (TreeNode child : childList) {
+					                if (child.isExpand()) {
+						                    if (toCollapseChild)
+						                        child.toggle();
+						                    removeChildCount += removeChildNodes(child, false);
+						                }
+					            }
+				            if (shouldToggle)
+				                pNode.toggle();
+				            return removeChildCount;
+				        }
+			
+			        @Override
+			        public int getItemCount() {
+				            return displayNodes == null ? 0 : displayNodes.size();
+				        }
+			
+			        public void setPadding(int padding) {
+				            this.padding = padding;
+				        }
+			
+			        public void ifCollapseChildWhileCollapseParent(boolean toCollapseChild) {
+				            this.toCollapseChild = toCollapseChild;
+				        }
+			
+			        public void setOnTreeNodeListener(OnTreeNodeListener onTreeNodeListener) {
+				            this.onTreeNodeListener = onTreeNodeListener;
+				        }
+			
+			        public interface OnTreeNodeListener {
+				            /**
+             * called when TreeNodes were clicked.
+             * @return weather consume the click event.
+             */
+				            boolean onClick(String clickedPath, TreeNode node, RecyclerView.ViewHolder holder);
+				
+				            /**
+             * called when TreeNodes were toggle.
+             * @param isExpand the status of TreeNodes after being toggled.
+             */
+				            void onToggle(boolean isExpand, RecyclerView.ViewHolder holder);
+							
+							
+							//long clickedPath
+							void onLongClick(String clickedPath);
+				        }
+			
+			        public void refresh(List<TreeNode> treeNodes) {
+				            displayNodes.clear();
+				            findDisplayNodes(treeNodes);
+				            notifyDataSetChanged();
+				        }
+			
+			        public Iterator<TreeNode> getDisplayNodesIterator() {
+				            return displayNodes.iterator();
+				        }
+			
+			        private void notifyDiff(final List<TreeNode> temp) {
+				            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+					                @Override
+					                public int getOldListSize() {
+						                    return temp.size();
+						                }
+					
+					                @Override
+					                public int getNewListSize() {
+						                    return displayNodes.size();
+						                }
+					
+					                // judge if the same items
+					                @Override
+					                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+						                    return TreeViewAdapter.this.areItemsTheSame(temp.get(oldItemPosition), displayNodes.get(newItemPosition));
+						                }
+					
+					                // if they are the same items, whether the contents has bean changed.
+					                @Override
+					                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+						                    return TreeViewAdapter.this.areContentsTheSame(temp.get(oldItemPosition), displayNodes.get(newItemPosition));
+						                }
+					
+					                @Nullable
+					                @Override
+					                public Object getChangePayload(int oldItemPosition, int newItemPosition) {
+						                    return TreeViewAdapter.this.getChangePayload(temp.get(oldItemPosition), displayNodes.get(newItemPosition));
+						                }
+					            });
+				            diffResult.dispatchUpdatesTo(this);
+				        }
+			
+			        private Object getChangePayload(TreeNode oldNode, TreeNode newNode) {
+				            Bundle diffBundle = new Bundle();
+				            if (newNode.isExpand() != oldNode.isExpand()) {
+					                diffBundle.putBoolean(KEY_IS_EXPAND, newNode.isExpand());
+					            }
+				            if (diffBundle.size() == 0)
+				                return null;
+				            return diffBundle;
+				        }
+			
+			        // For DiffUtil, if they are the same items, whether the contents has bean changed.
+			        private boolean areContentsTheSame(TreeNode oldNode, TreeNode newNode) {
+				            return oldNode.getContent() != null && oldNode.getContent().equals(newNode.getContent())
+				                    && oldNode.isExpand() == newNode.isExpand();
+				        }
+			
+			        // judge if the same item for DiffUtil
+			        private boolean areItemsTheSame(TreeNode oldNode, TreeNode newNode) {
+				            return oldNode.getContent() != null && oldNode.getContent().equals(newNode.getContent());
+				        }
+			
+			        /**
+         * collapse all root nodes.
+         */
+			        public void collapseAll() {
+				            // Back up the nodes are displaying.
+				            List<TreeNode> temp = backupDisplayNodes();
+				            //find all root nodes.
+				            List<TreeNode> roots = new ArrayList<>();
+				            for (TreeNode displayNode : displayNodes) {
+					                if (displayNode.isRoot())
+					                    roots.add(displayNode);
+					            }
+				            //Close all root nodes.
+				            for (TreeNode root : roots) {
+					                if (root.isExpand())
+					                    removeChildNodes(root);
+					            }
+				            notifyDiff(temp);
+				        }
+			
+			        @NonNull
+			        private List<TreeNode> backupDisplayNodes() {
+				            List<TreeNode> temp = new ArrayList<>();
+				            for (TreeNode displayNode : displayNodes) {
+					                try {
+						                    temp.add(displayNode.clone());
+						                } catch (CloneNotSupportedException e) {
+						                    temp.add(displayNode);
+						                }
+					            }
+				            return temp;
+				        }
+			
+			        public void collapseNode(TreeNode pNode) {
+				            List<TreeNode> temp = backupDisplayNodes();
+				            removeChildNodes(pNode);
+				            notifyDiff(temp);
+				        }
+			
+			        public void collapseBrotherNode(TreeNode pNode) {
+				            List<TreeNode> temp = backupDisplayNodes();
+				            if (pNode.isRoot()) {
+					                List<TreeNode> roots = new ArrayList<>();
+					                for (TreeNode displayNode : displayNodes) {
+						                    if (displayNode.isRoot())
+						                        roots.add(displayNode);
+						                }
+					                //Close all root nodes.
+					                for (TreeNode root : roots) {
+						                    if (root.isExpand() && !root.equals(pNode))
+						                        removeChildNodes(root);
+						                }
+					            } else {
+					                TreeNode parent = pNode.getParent();
+					                if (parent == null)
+					                    return;
+					                List<TreeNode> childList = parent.getChildList();
+					                for (TreeNode node : childList) {
+						                    if (node.equals(pNode) || !node.isExpand())
+						                        continue;
+						                    removeChildNodes(node);
+						                }
+					            }
+				            notifyDiff(temp);
+				        }
+			
+			    }
+		
+		
+		    // Tree View Binder
+		
+		    public static abstract class TreeViewBinder<VH extends RecyclerView.ViewHolder> implements LayoutItemType {
+			        public abstract VH provideViewHolder(View itemView);
+			
+			        public abstract void bindView(VH holder, int position, TreeNode node);
+			
+			        public static class ViewHolder extends RecyclerView.ViewHolder {
+				            public ViewHolder(View rootView) {
+					                super(rootView);
+					            }
+				
+				            protected <T extends View> T findViewById(@IdRes int id) {
+					                return (T) itemView.findViewById(id);
+					            }
+				        }
+			
+			    }
+		
+		
+		    public static class FileNodeBinder extends TreeViewBinder<FileNodeBinder.ViewHolder> {
+			        @Override
+			        public ViewHolder provideViewHolder(View itemView) {
+				            return new ViewHolder(itemView);
+				        }
+			
+			        @Override
+			        public void bindView(ViewHolder holder, int position, TreeNode node) {
+				            File fileNode = (File) node.getContent();
+				            if (TreeViewList.isPath) {
+					                holder.tvName.setText(Uri.parse(fileNode.fileName).getLastPathSegment());
+					            } else {
+					                holder.tvName.setText(fileNode.fileName);
+					            }
+				        }
+			
+			        @Override
+			        public int getLayoutId() {
+				            return R.layout.item_file;
+				        }
+			
+			        public class ViewHolder extends TreeViewBinder.ViewHolder {
+				            public TextView tvName;
+				
+				            public ViewHolder(View rootView) {
+					                super(rootView);
+					                this.tvName = (TextView) rootView.findViewById(R.id.tv_name);
+					            }
+				
+				        }
+			    }
+		
+		
+		    public static class DirectoryNodeBinder extends TreeViewBinder<DirectoryNodeBinder.ViewHolder> {
+			        @Override
+			        public ViewHolder provideViewHolder(View itemView) {
+				            return new ViewHolder(itemView);
+				        }
+			
+			        @Override
+			        public void bindView(ViewHolder holder, int position, TreeNode node) {
+				            holder.ivArrow.setRotation(0);
+				            holder.ivArrow.setImageResource(R.drawable.arrow);
+				            int rotateDegree = node.isExpand() ? 90 : 0;
+				            holder.ivArrow.setRotation(rotateDegree);
+				            Dir dirNode = (Dir) node.getContent();
+				
+				            if (TreeViewList.isPath) {
+					                holder.tvName.setText(Uri.parse(dirNode.dirName).getLastPathSegment());
+					            } else {
+					                holder.tvName.setText(dirNode.dirName);
+					            }
+				
+				            if (node.isLeaf())
+				                holder.ivArrow.setVisibility(View.INVISIBLE);
+				            else holder.ivArrow.setVisibility(View.VISIBLE);
+				        }
+			
+			        @Override
+			        public int getLayoutId() {
+				            return R.layout.item_dir;
+				        }
+			
+			        public static class ViewHolder extends TreeViewBinder.ViewHolder {
+				            private ImageView ivArrow;
+				            private TextView tvName;
+				
+				            public ViewHolder(View rootView) {
+					                super(rootView);
+					                this.ivArrow = (ImageView) rootView.findViewById(R.id.iv_arrow);
+					                this.tvName = (TextView) rootView.findViewById(R.id.tv_name);
+					            }
+				
+				            public ImageView getIvArrow() {
+					                return ivArrow;
+					            }
+				
+				            public TextView getTvName() {
+					                return tvName;
+					            }
+				        }
+			    }
+		
+		
+		    public static class Dir implements TreeViewList.LayoutItemType {
+			        public String dirName;
+			
+			        public Dir(String dirName) {
+				            this.dirName = dirName;
+				        }
+			
+			        @Override
+			        public int getLayoutId() {
+				            return R.layout.item_dir;
+				        }
+			    }
+		
+		
+		    public static class File implements TreeViewList.LayoutItemType {
+			        public String fileName;
+			
+			        public File(String fileName) {
+				            this.fileName = fileName;
+				        }
+			
+			        @Override
+			        public int getLayoutId() {
+				            return R.layout.item_file;
+				        }
+			    }
+	}
+	
+	
+	{
 	}
 	
 	

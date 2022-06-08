@@ -41,12 +41,15 @@ public class SketchApplication extends Application {
                     AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                     am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000, pendingIntent);
 
-                    Process.killProcess(Process.myPid());
+                                    SketchLogger.broadcastLog(Log.getStackTraceString(throwable));
+                SketchLogger.stopLogging();
+Process.killProcess(Process.myPid());
                     System.exit(1);
 
                     uncaughtExceptionHandler.uncaughtException(thread, throwable);
                 }
             });
+        SketchLogger.startLogging();
         super.onCreate();
     }
 }

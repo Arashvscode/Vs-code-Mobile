@@ -174,7 +174,7 @@ public class AboutActivity extends AppCompatActivity {
 				w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 				w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); w.setNavigationBarColor(Color.parseColor("0xFF616161".replace("0xFF" , "#")));
 		}
-		for(int _repeat49 = 0; _repeat49 < (int)(5); _repeat49++) {
+		for(int _repeat49 = 0; _repeat49 < (int)(6); _repeat49++) {
 			{
 				HashMap<String, Object> _item = new HashMap<>();
 				_item.put("key", "");
@@ -198,7 +198,7 @@ public class AboutActivity extends AppCompatActivity {
 		pieChartView.setPieCell(0);
 		pieChartView.setCell(0);
 		pieChartView.setInnerRadius(0.0f);
-		pieChartView.setBackGroundColor(0xFF000027);
+		pieChartView.setBackGroundColor(0xFF212121);
 		pieChartView.setTextPadding(5);
 		pieChartView.setItemTextSize(26);
 	}
@@ -239,6 +239,7 @@ public class AboutActivity extends AppCompatActivity {
 			final androidx.cardview.widget.CardView cardview2 = _view.findViewById(R.id.cardview2);
 			final de.hdodenhof.circleimageview.CircleImageView circleimageview1 = _view.findViewById(R.id.circleimageview1);
 			final TextView textview1 = _view.findViewById(R.id.textview1);
+			final ImageView fleg = _view.findViewById(R.id.fleg);
 			final LinearLayout color = _view.findViewById(R.id.color);
 			
 			circleimageview1.setCircleBackgroundColor(Color.TRANSPARENT);
@@ -307,30 +308,36 @@ public class AboutActivity extends AppCompatActivity {
 				textview1.setText("Ninja coder");
 				color.setBackgroundColor(0xFFF44336);
 				circleimageview1.setImageResource(R.drawable.ninja);
+				fleg.setImageResource(R.drawable.iran);
 			}
 			if (_position == 1) {
 				textview1.setText("Mr A");
 				color.setBackgroundColor(0xFFFF5722);
 				circleimageview1.setImageResource(R.drawable.more_1);
+				fleg.setImageResource(R.drawable.iran);
 			}
 			if (_position == 2) {
 				textview1.setText("Rosemoe");
 				color.setBackgroundColor(0xFF9C27B0);
 				circleimageview1.setImageResource(R.drawable.milad);
+				fleg.setImageResource(R.drawable.chain);
 			}
 			if (_position == 3) {
 				circleimageview1.setImageResource(R.drawable.arman);
 				textview1.setText("Arman");
 				color.setBackgroundColor(0xFF9C27B0);
+				fleg.setImageResource(R.drawable.iran);
 			}
 			if (_position == 4) {
 				circleimageview1.setImageResource(R.drawable.amircoder);
 				textview1.setText("Amir");
 				color.setBackgroundColor(0xFFFFFFFF);
+				fleg.setImageResource(R.drawable.iran);
 			}
 			if (_position == 5) {
 				circleimageview1.setImageResource(R.drawable.hiz);
 				textview1.setText("Hisham Dz");
+				fleg.setImageResource(R.drawable.alj);
 				color.setBackgroundColor(0xFF2196F3);
 			}
 			

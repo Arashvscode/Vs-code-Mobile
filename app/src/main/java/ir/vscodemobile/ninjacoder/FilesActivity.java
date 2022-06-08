@@ -21,6 +21,8 @@ import android.net.Uri;
 import android.os.*;
 import android.os.Vibrator;
 import android.text.*;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.style.*;
 import android.util.*;
 import android.view.*;
@@ -32,6 +34,8 @@ import android.widget.*;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -48,6 +52,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 import androidx.webkit.*;
 import com.android.*;
 import com.android.tools.r8.*;
@@ -166,9 +172,14 @@ public class FilesActivity extends AppCompatActivity {
 	private ArrayList<HashMap<String, Object>> files = new ArrayList<>();
 	private ArrayList<String> args = new ArrayList<>();
 	
+	private SwipeRefreshLayout swiperefreshlayout1;
 	private LinearLayout linear4;
 	private LinearLayout linear6;
+	private LinearLayout ma;
 	private ListView listview1;
+	private HorizontalScrollView hscroll1;
+	private LinearLayout linear8;
+	private EditText editext1;
 	private LinearLayout _drawer_mynav;
 	private LinearLayout _drawer_linear5;
 	private LinearLayout _drawer_gitlib;
@@ -180,7 +191,6 @@ public class FilesActivity extends AppCompatActivity {
 	private ImageView _drawer_codeviewweb;
 	private ImageView _drawer_githublibdownloader;
 	private ImageView _drawer_libviewer;
-	private ImageView _drawer_bockview;
 	private ImageView _drawer_decoder;
 	private ImageView _drawer_javacode;
 	private ImageView _drawer_skpro;
@@ -293,9 +303,14 @@ public class FilesActivity extends AppCompatActivity {
 		
 		LinearLayout _nav_view = findViewById(R.id._nav_view);
 		
+		swiperefreshlayout1 = findViewById(R.id.swiperefreshlayout1);
 		linear4 = findViewById(R.id.linear4);
 		linear6 = findViewById(R.id.linear6);
+		ma = findViewById(R.id.ma);
 		listview1 = findViewById(R.id.listview1);
+		hscroll1 = findViewById(R.id.hscroll1);
+		linear8 = findViewById(R.id.linear8);
+		editext1 = findViewById(R.id.editext1);
 		_drawer_mynav = _nav_view.findViewById(R.id.mynav);
 		_drawer_linear5 = _nav_view.findViewById(R.id.linear5);
 		_drawer_gitlib = _nav_view.findViewById(R.id.gitlib);
@@ -307,7 +322,6 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_codeviewweb = _nav_view.findViewById(R.id.codeviewweb);
 		_drawer_githublibdownloader = _nav_view.findViewById(R.id.githublibdownloader);
 		_drawer_libviewer = _nav_view.findViewById(R.id.libviewer);
-		_drawer_bockview = _nav_view.findViewById(R.id.bockview);
 		_drawer_decoder = _nav_view.findViewById(R.id.decoder);
 		_drawer_javacode = _nav_view.findViewById(R.id.javacode);
 		_drawer_skpro = _nav_view.findViewById(R.id.skpro);
@@ -875,6 +889,50 @@ public class FilesActivity extends AppCompatActivity {
 			}
 		});
 		
+		editext1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				SketchwareUtil.hideKeyboard(getApplicationContext());
+			}
+		});
+		
+		editext1.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence _param1, int _param2, int _param3, int _param4) {
+				final String _charSeq = _param1.toString();
+				{
+					final ArrayList<colorsSyntax> listSyntax  = new ArrayList<>();
+					
+					listSyntax.add(new colorsSyntax(Pattern.compile(">"), 0xFF00FFFF));
+					listSyntax.add(new colorsSyntax(Pattern.compile("Android"), 0xFFE91E63));
+					listSyntax.add(new colorsSyntax(Pattern.compile("vscodemobile"), 0xFF3F51B5));
+					
+					Editable _p = editext1.getText();
+					
+					removeSpan(_p, ForegroundColorSpan.class);
+					if (listSyntax != null || listSyntax.size()>0)
+					    for (colorsSyntax syntax : listSyntax) {
+						      for(Matcher m = syntax.pattern.matcher(_p); m.find();) {
+							        _p.setSpan(new ForegroundColorSpan(syntax.color),
+							            m.start(),
+							            m.end(), 
+							            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+							      }
+						    }
+				}
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence _param1, int _param2, int _param3, int _param4) {
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable _param1) {
+				
+			}
+		});
+		
 		_fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
@@ -1078,14 +1136,6 @@ public class FilesActivity extends AppCompatActivity {
 			public void onClick(View _view) {
 				lib.setClass(getApplicationContext(), SkprolibviewerActivity.class);
 				startActivity(lib);
-			}
-		});
-		
-		_drawer_bockview.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				blockview.setClass(getApplicationContext(), BlocksmanagerActivity.class);
-				startActivity(blockview);
 			}
 		});
 		
@@ -1293,6 +1343,15 @@ public class FilesActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
+		swiperefreshlayout1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				Folder = FileUtil.getExternalStorageDir();
+				listview1.setAdapter(new Listview1Adapter(files));
+				((BaseAdapter)listview1.getAdapter()).notifyDataSetChanged();
+				swiperefreshlayout1.setRefreshing(false);
+			}
+		});
 		setTheme(android.R.style.Theme_Material);
 		RLottie.init(this);
 		
@@ -1309,6 +1368,9 @@ public class FilesActivity extends AppCompatActivity {
 		_drawer_vscroll2.setHorizontalScrollBarEnabled(false);
 		_drawer_vscroll2.setVerticalScrollBarEnabled(false);
 		_drawer_vscroll2.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
+		hscroll1.setHorizontalScrollBarEnabled(false);
+		hscroll1.setVerticalScrollBarEnabled(false);
+		hscroll1.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 			Window w =this.getWindow();
 			w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -1317,11 +1379,19 @@ public class FilesActivity extends AppCompatActivity {
 		_fab.setImageResource(R.drawable.plus);
 		
 		{
-			android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
-			SketchUi.setColor(0xFF000000);SketchUi.setCornerRadius(getDip(10));
-			_drawer_mynav.setElevation(getDip(2));
-			_drawer_mynav.setBackground(SketchUi);
+				android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
+				SketchUi.setColor(0xFF000000);SketchUi.setCornerRadius(getDip(10));
+				_drawer_mynav.setElevation(getDip(2));
+				_drawer_mynav.setBackground(SketchUi);
 		}
+		
+		android.graphics.drawable.GradientDrawable SketchUi = new android.graphics.drawable.GradientDrawable();
+		int d = (int) getApplicationContext().getResources().getDisplayMetrics().density;
+		SketchUi.setColor(0xFF111111);
+		SketchUi.setCornerRadius(d*1);
+		ma.setElevation(d*1);
+		ma.setBackground(SketchUi);
+		
 		dialog = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		dialogmain = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		alter = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
@@ -1332,6 +1402,61 @@ public class FilesActivity extends AppCompatActivity {
 		exit = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		smaill = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
 		mkeyboard = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+		final LinearLayout _nav_view = (LinearLayout) findViewById(R.id._nav_view); _nav_view.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(Color.TRANSPARENT));
+		if (a11.getString("kk", "").equals("")) {
+			a11.edit().putString("kk", "1").commit();
+			try{
+				 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+						      
+					// youtube channel Hichem Soft
+					sharedPreferences = getSharedPreferences("fileSp", Context.MODE_PRIVATE);
+					utils = new HichemSoftFileUtil(sharedPreferences, FilesActivity.this).loadData();
+					utils.requestPermissionAllFilesAccess();//if not allowed
+					
+					
+					
+							        
+						    } else {
+						      
+						       
+						    }
+			}catch(Exception e){
+				SketchwareUtil.showMessage(getApplicationContext(), e.toString());
+			}
+		}
+		else {
+			
+		}
+		
+		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFF3F51B5".replace("0xFF" , "#"))));
+		isFab = false;
+		listview1.setOnScrollListener(new ListView.OnScrollListener() {
+				
+				private int mLastFirstVisibleItem;
+				
+				@Override
+				public void onScrollStateChanged(AbsListView view, int scrollState) {
+				}
+				
+				@Override
+				public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+						
+						if(mLastFirstVisibleItem<firstVisibleItem) {
+								_fab.hide();
+								_fab.animate().setDuration(220).rotation(0);
+								_Show(false);
+						}
+						
+						if(mLastFirstVisibleItem>firstVisibleItem) {
+								_fab.show();
+						}
+						
+						mLastFirstVisibleItem = firstVisibleItem;
+						
+				}
+				
+		});
+		
 		fonts(getApplicationContext(),getWindow().getDecorView()); 
 	} 
 	  private void fonts(final android.content.Context context, final View v) {
@@ -1369,93 +1494,52 @@ public class FilesActivity extends AppCompatActivity {
 				{
 						e.printStackTrace();
 				};
-		setTitle("VS Mobile");
-		final LinearLayout _nav_view = (LinearLayout) findViewById(R.id._nav_view); _nav_view.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(Color.TRANSPARENT));
 		if (true) {
 			     getSupportActionBar().hide();
 		}
 		else {
 					getSupportActionBar().show();
 		}
-		if (a11.getString("kk", "").equals("")) {
-			a11.edit().putString("kk", "1").commit();
-			try{
-				 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-						      
-					// youtube channel Hichem Soft
-					sharedPreferences = getSharedPreferences("fileSp", Context.MODE_PRIVATE);
-					utils = new HichemSoftFileUtil(sharedPreferences, FilesActivity.this).loadData();
-					utils.requestPermissionAllFilesAccess();//if not allowed
-					
-					
-					
-							        
-						    } else {
-						      
-						       
-						    }
-			}catch(Exception e){
-				SketchwareUtil.showMessage(getApplicationContext(), e.toString());
-			}
-		}
-		else {
-			
+		{								getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+				
+				if (android.os.Build.VERSION.SDK_INT <= 10) {
+						editext1.setInputType(InputType.TYPE_TEXT_VARIATION_NORMAL);
+				} else {
+						try {
+								Class<EditText> cls = EditText.class;
+								java.lang.reflect.Method setSoftInputShownOnFocus;
+								setSoftInputShownOnFocus = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
+								setSoftInputShownOnFocus.setAccessible(false);
+								setSoftInputShownOnFocus.invoke(editext1, true);
+						} catch (Exception e) {
+								e.printStackTrace();
+						}
+				}
 		}
 		
-		_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("0xFF1976D2".replace("0xFF" , "#"))));
-		isFab = false;
-		if (FileUtil.isExistFile("/sdcard/.vcm/android.jar")) {
-			
-		}
-		else {
-			new AsyncTask<String, String, String>() {
-				@Override
-				protected void onPreExecute() {
-					androidjar = new ProgressDialog(FilesActivity.this);
-					androidjar.setTitle(Html.fromHtml("<font color =\"blue\">install android.jar</font>"));
-					androidjar.getWindow().setBackgroundDrawable(new ColorDrawable(0xFF000239));
-					androidjar.setMessage(Html.fromHtml("<font color =\"green\">road android.jar plz .....</font>"));
-					androidjar.show();
-				}
-				@Override
-				protected String doInBackground(String... params) {
-					String _param = params[0];
-					copyOneFileFromAssets("libs/androjd.jar", "/sdcard/.vcm/");
-					return "";
-				}
-				@Override
-				protected void onPostExecute(String _result) {
-					androidjar.dismiss();
-				}
-			}.execute("");
-		}
-		listview1.setOnScrollListener(new ListView.OnScrollListener() {
-				
-				private int mLastFirstVisibleItem;
+		editext1.setEnabled(false);
+		hscroll1.post(new Runnable(){
 				
 				@Override
-				public void onScrollStateChanged(AbsListView view, int scrollState) {
+				public void run()
+				{
+						hscroll1.fullScroll(ScrollView.FOCUS_RIGHT);
 				}
-				
-				@Override
-				public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-						
-						if(mLastFirstVisibleItem<firstVisibleItem) {
-								_fab.hide();
-								_fab.animate().setDuration(220).rotation(0);
-								_Show(false);
-						}
-						
-						if(mLastFirstVisibleItem>firstVisibleItem) {
-								_fab.show();
-						}
-						
-						mLastFirstVisibleItem = firstVisibleItem;
-						
-				}
-				
 		});
 		
+		TextPaint paint = editext1.getPaint();
+		
+		float width = paint.measureText(editext1.getText().toString()); 
+		
+		Shader textShader = new LinearGradient(0, 0, width,editext1.getTextSize(), new int[]{ 
+				
+				Color.parseColor("#FF0080FF"),  Color.parseColor("#FF00FFD9"),
+				
+				
+		}, null,Shader.TileMode.CLAMP); 
+		
+		
+		editext1.getPaint().setShader(textShader);
 	}
 	
 	@Override
@@ -1492,6 +1576,8 @@ public class FilesActivity extends AppCompatActivity {
 		fileList.clear();
 		FileUtil.listDir(Folder, list);
 		Collections.sort(list, String.CASE_INSENSITIVE_ORDER);
+		subtitle = Folder;
+		editext1.setText(subtitle.replace("/", " > "));
 		index = 0;
 		for(int _repeat13 = 0; _repeat13 < (int)(list.size()); _repeat13++) {
 			if (FileUtil.isDirectory(list.get((int)(index)))) {
@@ -1538,10 +1624,10 @@ public class FilesActivity extends AppCompatActivity {
 		final EditText edi = (EditText) inflate.findViewById(R.id.edi);
 		final TextView title = (TextView) inflate.findViewById(R.id.title);
 		title.setText("Type name folder");
-		mcard.setCardBackgroundColor(0xFF424242);
+		mcard.setCardBackgroundColor(0xF1111111);
 		mcard.setRadius((float)20);
 		mcard.setCardElevation((float)0);
-		btnok.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)66, 0xFFFF9800));
+		btnok.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)66, 0xFF2196F3));
 		btnok.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
 						
 					CreateFolder = edi.getText().toString();
@@ -1584,10 +1670,10 @@ public class FilesActivity extends AppCompatActivity {
 		final EditText edi = (EditText) inflate.findViewById(R.id.edi);
 		final TextView title = (TextView) inflate.findViewById(R.id.title);
 		title.setText("Type name  File");
-		mcard.setCardBackgroundColor(0xFF424242);
+		mcard.setCardBackgroundColor(0xF1111111);
 		mcard.setRadius((float)20);
 		mcard.setCardElevation((float)0);
-		btnok.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)66, 0xFFFF9800));
+		btnok.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)66, 0xFF2196F3));
 		btnok.setOnClickListener(new View.OnClickListener(){ public void onClick(View v){
 						
 					mainfile = edi.getText().toString();
@@ -4246,8 +4332,8 @@ public class FilesActivity extends AppCompatActivity {
 			LinearLayout fab1 = (LinearLayout)bg.findViewById(R.id.mfab1);
 			
 			LinearLayout open = (LinearLayout)bg.findViewById(R.id.open);
-			fab1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFF44336));
-			open.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF2196F3));
+			fab1.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFF3F51B5));
+			open.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF3F51B5));
 			fab1.setElevation((float)8);
 			open.setElevation((float)8);
 			
@@ -4273,8 +4359,8 @@ public class FilesActivity extends AppCompatActivity {
 			LinearLayout fab2 = (LinearLayout)bg.findViewById(R.id.mfab2);
 			
 			LinearLayout folder = (LinearLayout)bg.findViewById(R.id.folder);
-			fab2.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFFF9800));
-			folder.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF2196F3));
+			fab2.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFF3F51B5));
+			folder.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF3F51B5));
 			fab2.setElevation((float)8);
 			folder.setElevation((float)8);
 			
@@ -4300,8 +4386,8 @@ public class FilesActivity extends AppCompatActivity {
 			LinearLayout fab3 = (LinearLayout)bg.findViewById(R.id.mfab3);
 			
 			LinearLayout file = (LinearLayout)bg.findViewById(R.id.file);
-			fab3.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFFFFC107));
-			file.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF2196F3));
+			fab3.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)100, 0xFF3F51B5));
+			file.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)15, 0xFF3F51B5));
 			fab3.setElevation((float)8);
 			file.setElevation((float)8);
 			
@@ -4384,6 +4470,10 @@ public class FilesActivity extends AppCompatActivity {
 			final EditText input = (EditText) inflate.findViewById(R.id.input);
 			final EditText output = (EditText) inflate.findViewById(R.id.output);
 			final ImageView img = (ImageView) inflate.findViewById(R.id.img);
+			final Button jardir = (Button) inflate.findViewById(R.id.jardir);
+			
+			////تکراری
+			////final TextView anjar = (TextView) inflate.findViewById(R.id.anjar);
 			final com.google.android.material.checkbox.MaterialCheckBox c_fileperclass = (com.google.android.material.checkbox.MaterialCheckBox) inflate.findViewById(R.id.c_fileperclass);
 			final androidx.cardview.widget.CardView cardx = (androidx.cardview.widget.CardView) inflate.findViewById(R.id.cardx);
 			final com.google.android.material.checkbox.MaterialCheckBox c_int2 = (com.google.android.material.checkbox.MaterialCheckBox) inflate.findViewById(R.id.c_int2);
@@ -4419,10 +4509,11 @@ public class FilesActivity extends AppCompatActivity {
 			pro.setVisibility(View.GONE);
 			tvrun.setVisibility(View.GONE);
 			output.setText(_map.get((int)_pos).get(_path).toString());
-			mainbtn.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)25, 0xFFE91E63));
-			btndir.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)25, 0xFFE91E63));
+			mainbtn.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)25, 0xFF2196F3));
+			btndir.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)25, 0xFF2196F3));
+			jardir.setBackground(new GradientDrawable() { public GradientDrawable getIns(int a, int b) { this.setCornerRadius(a); this.setColor(b); return this; } }.getIns((int)25, 0xFF2196F3));
 			output.setEnabled(true);
-			cardx.setCardBackgroundColor(0xFF000027);
+			cardx.setCardBackgroundColor(0xFF111111);
 			cardx.setRadius((float)20);
 			cardx.setCardElevation((float)1);
 			if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -4494,6 +4585,7 @@ public class FilesActivity extends AppCompatActivity {
 						c_fileperclass.setEnabled(true);
 						c_int2.setEnabled(true);
 						c_release.setEnabled(true);
+						SketchwareUtil.CustomToast(getApplicationContext(), "File Convert ♻✅", 0xFFFFFFFF, 25, 0xF1111111, 25, SketchwareUtil.TOP);
 						dialog1.dismiss();
 					}
 				}.execute("");
@@ -4520,81 +4612,54 @@ public class FilesActivity extends AppCompatActivity {
 				dialog.show();
 				
 			});
+			jardir.setOnClickListener(v->{
+					
+				
+					 DialogProperties properties = new DialogProperties();
+				
+				properties.selection_mode = DialogConfigs.SINGLE_MODE;
+				properties.selection_type = DialogConfigs.FILE_SELECT;
+				properties.root = new File(DialogConfigs.DEFAULT_DIR);
+				properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
+				properties.offset = new File(DialogConfigs.DEFAULT_DIR);
+				properties.extensions = new String[] {"jar"};
+				
+				FilePickerDialog dialog = new FilePickerDialog(FilesActivity.this, properties);
+				
+				dialog.setTitle("Select a jar file");
+				
+				dialog.setDialogSelectionListener(files -> {
+						anjar.setText(files[0]);
+				});
+				
+				dialog.show();
+				
+			});
 			dialog1.show();
 		}
 	}
 	
 	
-	public void _exstarassterfilelib() {
+	public void _hilitersyntaske() {
 	}
-	private void copyAllFilesAssets(String assetsFolder, String outPath) {
-		    AssetManager assetManager = getAssets();
-		    String[] files = null;
-		    try {
-			        files = assetManager.list(assetsFolder);
-			    } catch (java.io.IOException e) {
-			        
+	void removeSpan(Editable _param4, Class<? extends CharacterStyle> type) {
+		    CharacterStyle[]  spans = _param4.getSpans(0, _param4.length(), type);
+		    for (CharacterStyle span : spans) {
+			      _param4.removeSpan(span);
 			    }
-		    if (files != null) for (String filename : files) {
-			        java.io.InputStream in = null;
-			        java.io.OutputStream out = null;
-			        try {
-				          in = assetManager.open(assetsFolder+"/"+filename);
-				          java.io.File outFile = new java.io.File(outPath, filename);
-				          if (!(outFile.exists())) {// File does not exist...
-					                out = new java.io.FileOutputStream(outFile);
-					                copyFile(in, out);
-					                showMessage("success !");
-					          }
-				        } catch(java.io.IOException e) {
-				            showMessage(e.toString());
-				        }     
-			        finally {
-				            if (in != null) {
-					                try {
-						                    in.close();
-						                } catch (java.io.IOException e) {
-						                    // NOOP
-						                }
-					            }
-				            if (out != null) {
-					                try {
-						                    out.close();
-						                } catch (java.io.IOException e) {
-						                    // NOOP
-						                }
-					            }
-				        }  
-			    }
-	}
-	private void copyFile(java.io.InputStream in, java.io.OutputStream out) throws java.io.IOException {
-		    byte[] buffer = new byte[1024];
-		    int read;
-		    while((read = in.read(buffer)) != -1){
-			      out.write(buffer, 0, read);
-			    }
-	}
+		  } 
 	
-	private void copyOneFileFromAssets(final String assetFilename, final String assetSavePath) {
-		  			try{
-			  				int count;
-			  				java.io.InputStream input = getAssets().open(assetFilename);
-			  				java.io.OutputStream output = new  java.io.FileOutputStream(assetSavePath+"/"+assetFilename);
-			  				byte data[] = new byte[1024];
-			  				while ((count = input.read(data))>0) {
-				  					output.write(data, 0, count);
-				  			}
-			  				output.flush();
-			  				output.close();
-			  				input.close();
-			  				
-			  				SketchwareUtil.showMessage(getApplicationContext(), "success ");
-			  		}catch(Exception e){
-			  				
-			  				SketchwareUtil.showMessage(getApplicationContext(), "failed !");
-			  		}
-	}
+	  class colorsSyntax {
+		    final Pattern pattern;
+		    final int color;
+		
+		     colorsSyntax(Pattern pattern, int color) {
+			      this.pattern = pattern;
+			      this.color = color;
+			    }
+		  }
 	{
+		
 	}
 	
 	public class Listview1Adapter extends BaseAdapter {
@@ -4650,10 +4715,23 @@ public class FilesActivity extends AppCompatActivity {
 			sizeofdef.setSelected(true);
 			
 			
-			cardview1.setCardBackgroundColor(0xFF212121);
+			cardview1.setCardBackgroundColor(0xF1111111);
 			cardview1.setRadius((float)18);
 			cardview1.setCardElevation((float)1);
 			sizeofdef.setVisibility(View.GONE);
+			TextPaint paint = textview1.getPaint();
+			
+			float width = paint.measureText(textview1.getText().toString()); 
+			
+			Shader textShader = new LinearGradient(0, 0, width,textview1.getTextSize(), new int[]{ 
+					
+					Color.parseColor("#FF0080FF"),  Color.parseColor("#FF00FFD9"),
+					
+					
+			}, null,Shader.TileMode.CLAMP); 
+			
+			
+			textview1.getPaint().setShader(textShader);
 			if (FileUtil.isDirectory(files.get((int)_position).get("path").toString())) {
 				imageview1.setImageAsset("folder.svg");
 			}

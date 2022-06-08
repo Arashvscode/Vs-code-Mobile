@@ -282,8 +282,9 @@ public class D8toolsActivity extends AppCompatActivity {
 				dialog.setDialogSelectionListener(files -> {
 						jar.setText(files[0]);
 				});
-				    
+				
 				dialog.show();
+				
 			}
 		});
 		
