@@ -44,12 +44,20 @@
 			<TextView
 				android:id="@+id/textview1"
 				android:focusable="false"
-				android:layout_width="match_parent"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:padding="8dp"
 				android:text="TextView"
 				android:textSize="16sp"
-				android:textColor="#2196F3" />
+				android:textColor="#2196F3"
+				android:layout_weight="1" />
+			<ImageView
+				android:id="@+id/fleg"
+				android:focusable="false"
+				android:layout_width="40dp"
+				android:layout_height="30dp"
+				android:src="@drawable/iran"
+				android:scaleType="centerInside" />
 		</LinearLayout>
 	</LinearLayout>
 </LinearLayout>

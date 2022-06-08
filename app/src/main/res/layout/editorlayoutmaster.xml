@@ -11,7 +11,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal">
 		<HorizontalScrollView
-			android:id="@+id/hscroll1"
+			android:id="@+id/hc"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			<LinearLayout
@@ -24,8 +24,8 @@
 				<ImageView
 					android:id="@+id/more"
 					android:focusable="false"
-					android:layout_width="40dp"
-					android:layout_height="40dp"
+					android:layout_width="0dp"
+					android:layout_height="0dp"
 					android:padding="9dp"
 					android:src="@drawable/dots"
 					android:scaleType="centerInside" />
@@ -155,8 +155,8 @@
 				<ImageView
 					android:id="@+id/blur"
 					android:focusable="false"
-					android:layout_width="40dp"
-					android:layout_height="40dp"
+					android:layout_width="0dp"
+					android:layout_height="0dp"
 					android:layout_marginLeft="2dp"
 					android:layout_marginRight="2dp"
 					android:padding="8dp"

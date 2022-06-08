@@ -40,8 +40,8 @@
 				<ImageView
 					android:id="@+id/img"
 					android:focusable="false"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
+					android:layout_width="0dp"
+					android:layout_height="0dp"
 					android:src="@drawable/close"
 					android:scaleType="centerInside" />
 			</LinearLayout>
@@ -88,7 +88,7 @@
 					android:padding="8dp"
 					android:text="setdir"
 					android:textSize="12sp"
-					android:textColor="#00FFFF" />
+					android:textColor="#FFFFFF" />
 			</LinearLayout>
 			<LinearLayout
 				android:id="@+id/linear5"
@@ -107,14 +107,23 @@
 					<EditText
 						android:id="@+id/anjar"
 						android:focusable="false"
-						android:layout_width="match_parent"
+						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
 						android:background="@android:color/transparent"
 						android:text="/sdcard/.vcm/android.jar"
 						android:textSize="12sp"
 						android:textColor="#00FFFF"
-						android:textColorHint="#00FFFF" />
+						android:textColorHint="#00FFFF"
+						android:layout_weight="1" />
+					<Button
+						android:id="@+id/jardir"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="setandroid.jar"
+						android:textSize="12sp"
+						android:textColor="#FFFFFF" />
 				</LinearLayout>
 				<Button
 					android:id="@+id/mainbtn"
@@ -123,7 +132,7 @@
 					android:padding="8dp"
 					android:text="convert "
 					android:textSize="14sp"
-					android:textColor="#00FFFF" />
+					android:textColor="#FFFFFF" />
 			</LinearLayout>
 			<LinearLayout
 				android:id="@+id/linear6"

@@ -30,7 +30,7 @@
 				android:text="tab"
 				android:textSize="11sp"
 				android:textStyle="bold"
-				android:textColor="#FFFFFF"
+				android:textColor="#00FFFF"
 				android:layout_weight="1" />
 			<ImageView
 				android:id="@+id/img_close"

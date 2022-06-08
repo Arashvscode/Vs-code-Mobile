@@ -37,8 +37,8 @@
 				android:orientation="horizontal">
 				<ImageView
 					android:id="@+id/imageview1"
-					android:layout_width="50dp"
-					android:layout_height="50dp"
+					android:layout_width="0dp"
+					android:layout_height="0dp"
 					android:padding="9dp"
 					android:src="@drawable/information"
 					android:scaleType="centerInside" />

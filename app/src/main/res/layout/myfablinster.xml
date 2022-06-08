@@ -23,7 +23,7 @@
 				android:id="@+id/open"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:background="#424242"
+				android:background="#3F51B5"
 				android:orientation="horizontal"
 				android:translationY="-130.0dp">
 				<TextView
@@ -34,13 +34,14 @@
 					android:padding="8dp"
 					android:text="open Drawer"
 					android:textSize="14sp"
+					android:textStyle="bold"
 					android:textColor="#FFFFFF" />
 			</LinearLayout>
 			<LinearLayout
 				android:id="@+id/folder"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:background="#424242"
+				android:background="#3F51B5"
 				android:orientation="horizontal"
 				android:translationY="-110.0dp">
 				<TextView
@@ -60,7 +61,7 @@
 				android:id="@+id/file"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:background="#424242"
+				android:background="#3F51B5"
 				android:orientation="horizontal"
 				android:translationY="-87.0dp">
 				<TextView
@@ -89,7 +90,7 @@
 				android:layout_width="45dp"
 				android:layout_height="45dp"
 				android:padding="8dp"
-				android:background="#E91E63"
+				android:background="#3F51B5"
 				android:gravity="center_horizontal|center_vertical"
 				android:orientation="horizontal"
 				android:translationY="-110.0dp">
@@ -105,7 +106,7 @@
 				android:id="@+id/mfab2"
 				android:layout_width="45dp"
 				android:layout_height="45dp"
-				android:background="#9C27B0"
+				android:background="#3F51B5"
 				android:gravity="center_horizontal|center_vertical"
 				android:orientation="horizontal"
 				android:translationY="-100.0dp">
@@ -121,7 +122,7 @@
 				android:id="@+id/mfab3"
 				android:layout_width="45dp"
 				android:layout_height="45dp"
-				android:background="#E57373"
+				android:background="#3F51B5"
 				android:gravity="center_horizontal|center_vertical"
 				android:orientation="horizontal"
 				android:translationY="-90.0dp">

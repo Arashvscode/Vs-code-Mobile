@@ -42,23 +42,26 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:gravity="center_vertical"
-						android:orientation="vertical">
+						android:orientation="horizontal">
 						<TextView
 							android:id="@+id/textview1"
 							android:focusable="false"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:padding="8dp"
+							android:gravity="left"
 							android:text="TextView"
 							android:textSize="12sp"
 							android:textColor="#FFFFFF"
-							android:singleLine="true" />
+							android:singleLine="true"
+							android:layout_weight="1" />
 						<TextView
 							android:id="@+id/sizeofdef"
 							android:focusable="false"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:padding="8dp"
+							android:gravity="right"
 							android:text="reee"
 							android:textSize="10sp"
 							android:textColor="#2196F3" />
