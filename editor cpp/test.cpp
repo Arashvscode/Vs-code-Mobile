@@ -13,13 +13,11 @@ int main(){
     
     try{
     
-    for(int c = 10;  c< a; int a =100; c++){
+    for(int c = 10;  c< a ; int a =100; c++){
     #define INTCOER > SIZEAPP = -1 + -2;
     #define SIZEPADE >= SETUP = 0;
          
    }
-    
-    
     }catch(null){
         cout << e << endl;
     }
